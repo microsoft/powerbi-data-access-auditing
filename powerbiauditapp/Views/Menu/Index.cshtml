@@ -1,0 +1,32 @@
+﻿<!-- Copyright (c) Microsoft Corporation.
+Licensed under the MIT license. -->
+    <main role="main">
+
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                @foreach (AppOwnsData.Models.PowerBI.Report r in (List<AppOwnsData.Models.PowerBI.Report>)ViewData["Reports"])
+                {
+                    <div class="col-md-4">
+                        <h2>@r.DisplayName</h2>
+                        <p>@r.Description </p>
+                        <p><a class="btn btn-secondary" href="~/?r=@r.ReportId&WorkspaceId=@r.WorkspaceId" role="button">View Report»</a></p>
+                    </div>
+                }
+            </div>
+
+            <hr>
+
+        </div> <!-- /container -->
+
+    </main>
+
+
+    @section Scripts
+    {  
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
+    }

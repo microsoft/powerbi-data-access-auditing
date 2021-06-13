@@ -1,0 +1,27 @@
+﻿<!-- Copyright (c) Microsoft Corporation.
+Licensed under the MIT license. -->
+<section id="report-container" class="embed-container">
+</section>
+<!-- Used to display report embed error messages -->
+<section class="error-container">
+</section>
+<footer class="embed-container col-lg-12 col-md-12 col-sm-12 mb-0 mt-4">
+    <p class="text-center">
+        UserName:  @ViewData["User"] is viewing data.
+    </p>
+</footer>
+@section Scripts
+{
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/powerbi-client/dist/powerbi.min.js"></script>
+<script src="~/js/index.js"></script>
+<script>
+    let models = window['powerbi-client'].models;
+
+    $(function () {
+        LoadReport("@ViewData["EmbedToken"]", "@ViewData["EmbedURL"]");
+    });
+
+</script>
+}
