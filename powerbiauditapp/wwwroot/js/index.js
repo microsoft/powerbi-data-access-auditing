@@ -80,8 +80,8 @@ function LoadReport(embedToken, embedUrl) {
             data: JSON.stringify(data),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function () {
-                //
+            success: function (returndata) {
+                window.location.assign(returndata.url);
             }
         });
     });

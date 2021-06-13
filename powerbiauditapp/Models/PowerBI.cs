@@ -14,6 +14,10 @@ namespace AppOwnsData.Models
         
 
         public class Report {
+
+            public int UniqueId { get; set; }
+
+            public int DisplayLevel { get; set; }
             
             public string DisplayName { get; set; }
             // Workspace Id for which Embed token needs to be generated
@@ -24,9 +28,9 @@ namespace AppOwnsData.Models
             // Report Id for which Embed token needs to be generated
             public string ReportId { get; set; }
 
-            public List<Report> DrillThroughReports { get; set; }
+            public List<int> DrillThroughReports { get; set; }
 
-
+            public List<string> RequiredParameters { get; set; }
 
         }
     }

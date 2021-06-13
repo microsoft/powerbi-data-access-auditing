@@ -270,4 +270,4 @@ __pycache__/
 *.pyc
 
 # Audit Folder
-powerbiauditapp/audit/
+**/audit/*.*

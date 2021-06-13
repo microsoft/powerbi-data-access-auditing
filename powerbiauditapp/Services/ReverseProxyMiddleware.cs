@@ -259,7 +259,7 @@ namespace AppOwnsData
                 processed = true;
             }
 
-            if (IsContentOfType(responseMessage, "appplication/json") && !processed)
+            if (IsContentOfType(responseMessage, "application/json") && !processed)
             {
                 stringContent = responseMessage.Content.ReadAsStringAsync().Result;
                 if (context.Request.Path.ToString().Contains("querydata"))

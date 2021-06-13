@@ -36,11 +36,19 @@ namespace AppOwnsData.Controllers
                 return RedirectToAction("index", "menu");
             }
 
+            EmbedParams embedParams;
             // Validate whether all the required configurations are provided in appsettings.json
             string configValidationResult = ConfigValidatorService.ValidateConfig(azureAd, powerBI);
-            EmbedParams embedParams = pbiEmbedService.GetEmbedParams(workspaceId: new Guid(WorkspaceId), reportId: new Guid(r));
-            var usr = HttpContext.User.Identity;
+            if (Id == null)
+            {
+                embedParams = pbiEmbedService.GetEmbedParams(workspaceId: new Guid(WorkspaceId), reportId: new Guid(r));
+            }
+            else
+            {
+                embedParams = pbiEmbedService.GetEmbedParams(workspaceId: new Guid(WorkspaceId), reportId: new Guid(r), effectiveUserName: Id);
+            }
 
+            var usr = HttpContext.User.Identity;
             ViewData.Add("User", usr.Name);
             ViewData.Add("EmbedToken", embedParams.EmbedToken.Token);
             ViewData.Add("EmbedURL", embedParams.EmbedReport[0].EmbedUrl);
