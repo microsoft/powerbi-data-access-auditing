@@ -49,6 +49,9 @@ namespace AppOwnsData.Controllers
             }
 
             var usr = HttpContext.User.Identity;
+
+            embedParams.EmbedReport[0].EmbedUrl = embedParams.EmbedReport[0].EmbedUrl.Replace("app.powerbi.com", this.Request.Host.ToString());
+
             ViewData.Add("User", usr.Name);
             ViewData.Add("EmbedToken", embedParams.EmbedToken.Token);
             ViewData.Add("EmbedURL", embedParams.EmbedReport[0].EmbedUrl);

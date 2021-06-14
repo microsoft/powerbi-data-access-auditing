@@ -55,7 +55,7 @@ namespace AppOwnsData.Controllers
 
                     if (id == "")
                     {
-                        retval["url"] = "https://" + this.Request.Host + $"/?&r={r2.ReportId}&WorkspaceId={r2.WorkspaceId}";
+                        retval["url"] = "";
                     }
                     else
                     {

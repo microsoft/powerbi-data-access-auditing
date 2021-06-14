@@ -13,7 +13,7 @@ function LoadReport(embedToken, embedUrl) {
         tokenType: models.TokenType.Embed,
         accessToken: embedToken,
         // You can embed different reports as per your need
-        embedUrl: embedUrl.replace("app.powerbi.com","localhost:44365"),
+        embedUrl: embedUrl,
         // Enable this setting to remove gray shoulders from embedded report
         settings: {
             visualRenderedEvents: true,
@@ -81,7 +81,9 @@ function LoadReport(embedToken, embedUrl) {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (returndata) {
-                window.location.assign(returndata.url);
+                if (returndata.url !== "") {
+                    window.location.assign(returndata.url);
+                }
             }
         });
     });
