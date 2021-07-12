@@ -12,9 +12,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: development
+    environment: main
     steps:
-    - run: echo "💡 The ${{ secrets.AZURE_CREDENTIALS }} repository has been cloned to the runner."
     - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
     - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
     - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
@@ -34,13 +33,16 @@ jobs:
       shell: pwsh
       env:
         ENVIRONMENT_NAME: ${{ secrets.ENVIRONMENT_NAME }}
+        APP_SECRETS: ${{ secrets.AZURE_CREDENTIALS }}
       run: |
         . .\Steps\PushEnvFileIntoVariables.ps1
         ParseEnvFile("$env:ENVIRONMENT_NAME")
+        ParseSecretsFile(APP_SECRETS)
+        Invoke-Expression -Command  ".\Steps\CD_SetResourceGroupHash.ps1"
       working-directory: ./solution/Deployment/workflows
       
     - name: test that the AdsOpts variables have been set
-      run:  echo "${{ env.AdsOpts_CD_ResourceGroup_Location }}" 
+      run:  echo "${{ env.Secrets_clientId }}" 
     
     - name: CI_1a_BuildCode
       shell: pwsh
