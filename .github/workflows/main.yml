@@ -12,7 +12,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: main
+    environment: development
     steps:
     - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
     - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -37,7 +37,7 @@ jobs:
       run: |
         . .\Steps\PushEnvFileIntoVariables.ps1
         ParseEnvFile("$env:ENVIRONMENT_NAME")
-        ParseSecretsFile(APP_SECRETS)
+        ParseSecretsFile("$env:APP_SECRETS")
         Invoke-Expression -Command  ".\Steps\CD_SetResourceGroupHash.ps1"
       working-directory: ./solution/deployment/workflows
       
