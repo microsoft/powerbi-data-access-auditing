@@ -38,7 +38,7 @@ jobs:
         . .\Steps\PushEnvFileIntoVariables.ps1
         ParseEnvFile("$env:ENVIRONMENT_NAME")
         Invoke-Expression -Command  ".\Steps\CD_SetResourceGroupHash.ps1"
-      working-directory: ./solution/deployment/workflows
+      working-directory: ./deployment/workflows
       
     - name: test that the AdsOpts variables have been set
       run:  echo "${{ env.Secrets_clientId }}" 
@@ -46,4 +46,4 @@ jobs:
     - name: CI_1a_BuildCode
       shell: pwsh
       run: ./CI_1a_BuildCode.ps1 
-      working-directory: ./solution/deployment/workflows
+      working-directory: ./deployment/workflows
