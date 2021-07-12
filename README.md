@@ -13,13 +13,14 @@ The POC extends on the default functionality provided by Power BI Embedded by ad
 ## Deployment
 
 ### Pre-Requisites
-1. **Repository Fork (RF)**: Create a fork of this repository. 
+1. **Repository Fork (RF)**: Create a fork of this repository. Clone the fork to your local machine. 
 1. **Resource Group (RG)**: Create a Resource Group within your Azure environment that will host the POC. 
-2. **Deployment Service Principal (DSP)**: Create a service prinicpal that will be used to with Contributor Rights on the RG created in the step above. Store the 
-3. **Authorisation Service Principal (ASP)**:
+2. **Deployment Service Principal (DSP)**: Create a service principal to be used as a deployment credential for the purposes of CICD. Grant it Contributor Rights on the RG created in the step above. Store the Client Credential and Client Secret somewhere as you will need it later.  
+3. **Authorisation Service Principal (ASP)**: Create a Service Principal that will be used by the Web Application to authenticate users against your Azure AD. You only need to remember / store the clientid for later use.
 4. **Power BI Service Principal Security Group (PBISPSG)**: Create an new Azure AD security group. This security group will contain all Service Principal Accounts that will be allowed to use your Power BI service APIs.
-4. **Power BI Access Service Principal (PBIASP)**: Create a service principal that will be used by the POC application to access Power BI content within your Power BI environment. Add this service prinicapl to the PBISPSG that you created in the previous step.
+4. **Power BI Access Service Principal (PBIASP)**: Create a service principal that will be used by the POC application to access Power BI content within your Power BI environment. Add this service prinicapl to the PBISPSG that you created in the previous step. You only need to remember / store the clientid for later use.
 5. **[Power BI Admin Settings](https://docs.microsoft.com/en-us/power-bi/admin/service-admin-portal)**: Access the Power BI Admin Portal and add the PBISPSG to list of groups allowed to use Power BI APIs (see image below for an example)
+6. 
 
 ![the picture](./documentation/PowerBIAdminSettings.png)
 
