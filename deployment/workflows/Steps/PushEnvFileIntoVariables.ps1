@@ -76,18 +76,24 @@ function ParseEnvFile ($EnvFile)
     $Json = Get-Content -Path "..\environments\$($EnvFile).json"  | ConvertFrom-Json
     ParseEnvFragment -Json $Json -NamePrefix ""
 
-    ParseSecretsFile ($SecretFile)
-
 }
 
-function ParseSecretsFile ($SecretFile)
+function ParseSecretsFile ($Contents)
 {
-    $path = "..\bin\Secrets.json"
-    $test = (Test-Path -Path $path)
-    if($test -eq $true)
+    if($null -eq $Contents)
     {
-        $Json = Get-Content -Path $path  | ConvertFrom-Json
+        Write-Host "Default Local Secrets File"
+        $path = "..\bin\Secrets.json"
+        $test = (Test-Path -Path $path)
+        if($test -eq $true)
+        {
+            $Json = Get-Content -Path $path  | ConvertFrom-Json
+            ParseEnvFragment -Json $Json -NamePrefix "secrets"
+        }
+    }
+    else 
+    {
+        $Json = $Contents | ConvertFrom-Json
         ParseEnvFragment -Json $Json -NamePrefix "secrets"
     }
-
 }
