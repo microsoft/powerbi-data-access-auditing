@@ -1,0 +1,48 @@
+name: Build Source Artifacts
+
+on: 
+  push:
+    branches:
+      - main
+
+
+env:
+  DOTNET_VERSION: '3.1.x'           # set this to the dot net version 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+    - run: echo "💡 The ${{ secrets.AZURE_CREDENTIALS }} repository has been cloned to the runner."
+    - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+    - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+    - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+    - name: Check out repository code
+      uses: actions/checkout@v2
+    - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+    - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+    - run: echo "🍏 This job's status is ${{ job.status }}."
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    #Load AdsGoFast Environment Variables
+    - name: Push Environment File Variables into GitHub compliant Env Variables
+      shell: pwsh
+      env:
+        ENVIRONMENT_NAME: ${{ secrets.ENVIRONMENT_NAME }}
+      run: |
+        . .\Steps\PushEnvFileIntoVariables.ps1
+        ParseEnvFile("$env:ENVIRONMENT_NAME")
+      working-directory: ./solution/Deployment/workflows
+      
+    - name: test that the AdsOpts variables have been set
+      run:  echo "${{ env.AdsOpts_CD_ResourceGroup_Location }}" 
+    
+    - name: CI_1a_BuildCode
+      shell: pwsh
+      run: ./CI_1a_BuildCode.ps1 
+      working-directory: ./solution/Deployment/workflows
