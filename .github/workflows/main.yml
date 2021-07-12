@@ -39,7 +39,7 @@ jobs:
         ParseEnvFile("$env:ENVIRONMENT_NAME")
         ParseSecretsFile(APP_SECRETS)
         Invoke-Expression -Command  ".\Steps\CD_SetResourceGroupHash.ps1"
-      working-directory: ./solution/Deployment/workflows
+      working-directory: ./solution/deployment/workflows
       
     - name: test that the AdsOpts variables have been set
       run:  echo "${{ env.Secrets_clientId }}" 
@@ -47,4 +47,4 @@ jobs:
     - name: CI_1a_BuildCode
       shell: pwsh
       run: ./CI_1a_BuildCode.ps1 
-      working-directory: ./solution/Deployment/workflows
+      working-directory: ./solution/deployment/workflows
