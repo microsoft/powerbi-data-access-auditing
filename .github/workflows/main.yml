@@ -37,7 +37,6 @@ jobs:
       run: |
         . .\Steps\PushEnvFileIntoVariables.ps1
         ParseEnvFile("$env:ENVIRONMENT_NAME")
-        ParseSecretsFile("$env:APP_SECRETS")
         Invoke-Expression -Command  ".\Steps\CD_SetResourceGroupHash.ps1"
       working-directory: ./solution/deployment/workflows
       
