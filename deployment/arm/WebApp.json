@@ -1,0 +1,61 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "sites_AdsGoFastWebApp_name": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The name of Web Application."
+            }
+        },
+        "appservice-name": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": ""
+            }
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_AdsGoFastWebApp_name')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[parameters('location')]",
+            "tags": {},
+            "properties": {
+                "name": "[parameters('sites_AdsGoFastWebApp_name')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "XDT_MicrosoftApplicationInsights_Mode",
+                            "value": "default"
+                        },
+                        {
+                            "name": "ANCM_ADDITIONAL_ERROR_PAGE_LINK",
+                            "value": "[concat('https://',parameters('sites_AdsGoFastWebApp_name'),'.scm.azurewebsites.net/detectors?type=tools&name=eventviewer')]"
+                        }
+                    ],
+                    "metadata": [
+                        {
+                            "name": "CURRENT_STACK",
+                            "value": "dotnetcore"
+                        }
+                    ],
+                    "phpVersion": "OFF",
+                    "alwaysOn": true
+                },
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appservice-name'))]",
+                "clientAffinityEnabled": true
+            }
+        }
+    ]
+}

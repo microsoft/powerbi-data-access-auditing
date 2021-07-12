@@ -1,0 +1,114 @@
+{
+    "$schema": "./environment.schema.json",
+    "AdsOpts": {
+        "CI": {
+            "Enable": true,
+            "BuildWebApp": true
+        },
+        "CD": {
+            "Enable": true,
+            "ServicePrincipals": {
+                "DeploymentSP": {
+                    "Enable": false,
+                    "Name": "pbiauditordeploymentsp",
+                    "ApplyNamePostFix": true
+                },
+                "WebAppAuthenticationSP": {
+                    "Enable": true,
+                    "Name": "pbiauditorwebappsp",
+                    "ApplyNamePostFix": true
+                }
+            },
+            "ResourceGroup": {
+                "Id": "/subscriptions/035a1364-f00d-48e2-b582-4fe125905ee3/resourceGroups/pbiauditor",
+                "Enable": true,
+                "Subscription": "Jorampon Internal Consumption",
+                "Domain": "microsoft.com",
+                "TenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+                "Location": "australiaeast",
+                "Name": "pbiauditor",
+                "AADUser": "jorampon@microsoft.com",
+                "Hash": "DummyValueToBeReplacedAtRuntime"
+            },
+            "FolderPaths": {
+                "ArmTemplates": "./arm",
+                "Environments": "./../environments",
+                "PublishZip": "./../bin/publish/zipped",
+                "PublishUnZip": "./../bin/publish/unzipped"
+            },
+            "AzureLoginOptions": {
+                "UseInteractiveAzCliLogin": true
+            },
+            "EnviroInstalls": {
+                "PerformLocalInstalls": true,
+                "PerformLocalInstallsAzCli": false,
+                "PerformLocalInstallsAzCliAddToPath": true
+            },
+            "ArmOptions": {
+                "PerformDeployment": false,
+                "PerformDeploymentStorageLogging": false,
+                "PerformDeploymentAppService": false
+            },
+            "Services": {
+                "UseARMDefaults": false,
+                "AppInsights": {
+                    "Enable": true,
+                    "Name": "pbiaudappin",
+                    "ApplyNamePostFix": true
+                },
+                "AppPlans": {
+                    "WebApp": {
+                        "Enable": true,
+                        "Name": "pbiaudappplanweb",
+                        "ApplyNamePostFix": true,
+                        "ResourceGroup": null
+                    }
+                },
+                "WebSite": {
+                    "Enable": true,
+                    "Name": "pbiaudweb",
+                    "ApplyNamePostFix": true,
+                    "PrincipalId": ""
+                },
+                "LogAnalytics": {
+                    "Enable": true,
+                    "Name": "pbiaudloganalytics",
+                    "ApplyNamePostFix": false
+                },
+                "KeyVault": {
+                    "Enable": true,
+                    "Name": "pbiaudkv",
+                    "ApplyNamePostFix": true
+                },
+                "Vnet": {
+                    "Enable": true,
+                    "Name": "pbiaudVnet"
+                },
+                "Storage": {
+                    "Logging": {
+                        "Name": "logstg",
+                        "ApplyNamePostFix": true,
+                        "Enable": true,
+                        "Dummy": ""
+                    },
+                    "ADLS": {
+                        "Name": "adls",
+                        "ApplyNamePostFix": true,
+                        "Enable": true
+                    },
+                    "Blob": {
+                        "Name": "blob",
+                        "ApplyNamePostFix": true,
+                        "Enable": true,
+                        "ResourceId": ""
+                    }
+                }
+            }
+        },
+        "PBIOpts": {
+            "SampleWorkSpaceId": "eaaf6589-e622-4cdf-9a81-072809c46457",
+            "SampleReportId1": "e0fed39d-fc1a-498b-a988-60d970ba61df",
+            "SampleReportId2": "20ee8b5f-4fb2-495d-94bf-c5330d53136e"
+        }
+    }
+}

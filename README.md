@@ -1,5 +1,27 @@
 # Power BI Data Access Auditing 
-This repository provides a sample, proof of concept, application that is designed to demonstrate how an organisation might implement Auditing of Power BI data viewed by its users 
+## Introduction
+This repository provides a sample, proof of concept (POC), application that is designed to demonstrate how an organisation might implement Auditing of Power BI data viewed by its users. 
+
+The POC extends on the default functionality provided by Power BI Embedded by adding a reverse proxy that effectively allows the server side code of the application to broker all communication between the client side application and the Power BI endpoints. Figure 1 below shows the normal flow of information when using standard Power BI Embedded. Figure 2 illustrates how this POC application extends this flow and implements its auditing functionality.
+
+### Figure 1 
+![the picture](./documentation/PowerBIEmbeddedNormalFlow.png)
+
+### Figure 2
+![the picture](./documentation/PowerBIEmbeddedWithReverseProxy.png)
+
+## Deployment
+
+### Pre-Requisites
+1. **Repository Fork (RF)**: Create a fork of this repository. 
+1. **Resource Group (RG)**: Create a Resource Group within your Azure environment that will host the POC. 
+2. **Deployment Service Principal (DSP)**: Create a service prinicpal that will be used to with Contributor Rights on the RG created in the step above. Store the 
+3. **Authorisation Service Principal (ASP)**:
+4. **Power BI Service Principal Security Group (PBISPSG)**: Create an new Azure AD security group. This security group will contain all Service Principal Accounts that will be allowed to use your Power BI service APIs.
+4. **Power BI Access Service Principal (PBIASP)**: Create a service principal that will be used by the POC application to access Power BI content within your Power BI environment. Add this service prinicapl to the PBISPSG that you created in the previous step.
+5. **[Power BI Admin Settings](https://docs.microsoft.com/en-us/power-bi/admin/service-admin-portal)**: Access the Power BI Admin Portal and add the PBISPSG to list of groups allowed to use Power BI APIs (see image below for an example)
+
+![the picture](./documentation/PowerBIAdminSettings.png)
 
 ## Contributing
 

@@ -1,0 +1,1887 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://adsgofast.com/environment.schema.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "required": [
+        "AdsOpts"
+    ],
+    "properties": {
+        "AdsOpts": {
+            "$id": "#/properties/AdsOpts",
+            "type": "object",
+            "title": "The AdsOpts schema",
+            "description": "AdsOpts is the Primary configuration element for CICD in this project.",
+            "default": {},
+            "required": [
+                "CI",
+                "CD"
+            ],
+            "properties": {
+                "CI": {
+                    "$id": "#/properties/AdsOpts/properties/CI",
+                    "type": "object",
+                    "title": "The CI schema",
+                    "description": "//CI (Continuous Integration - Set this section to true if you want the source binaries to be built out. In ordinary operation these should be true. Switches provided for ease of debugging only)",
+                    "default": {
+                        "Enable": true,
+                        "BuildWebApp": true
+                    },
+                    "required": [
+                        "Enable",
+                        "BuildWebApp"
+                    ],
+                    "properties": {
+                        "Enable": {
+                            "$id": "#/properties/AdsOpts/properties/CI/properties/Enable",
+                            "type": "boolean",
+                            "title": "Enable",
+                            "description": "Set this section to true if you want the source binaries to be built out. In ordinary operation these should be true. ",
+                            "default": false,
+                            "examples": [
+                                true,
+                                false
+                            ]
+                        },
+                        "BuildWebApp": {
+                            "$id": "#/properties/AdsOpts/properties/CI/properties/BuildWebApp",
+                            "type": "boolean",
+                            "title": "The BuildWebApp schema",
+                            "description": "Set this section to true if you want the source binaries to be built out. In ordinary operation these should be true.",
+                            "default": true,
+                            "examples": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "CD": {
+                    "$id": "#/properties/AdsOpts/properties/CD",
+                    "type": "object",
+                    "title": "The CD schema",
+                    "description": "This configuration element controls continous deployment specifics",
+                    "default": {},
+                    "required": [
+                        "Enable",
+                        "ServicePrincipals",
+                        "ResourceGroup",
+                        "FolderPaths",
+                        "AzureLoginOptions",
+                        "EnviroInstalls",
+                        "ArmOptions",
+                        "Services"
+                    ],
+                    "properties": {
+                        "Enable": {
+                            "$id": "#/properties/AdsOpts/properties/CD/properties/Enable",
+                            "type": "boolean",
+                            "title": "The Enable schema",
+                            "description": "Set to false if you want no continous deployment operations to occur.",
+                            "default": true,
+                            "examples": [
+                                true,
+                                false
+                            ]
+                        },
+                        "ServicePrincipals": {
+                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals",
+                            "type": "object",
+                            "title": "The ServicePrincipals schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {
+                                "DeploymentSP": {
+                                    "Enable": true,
+                                    "Name": "AdsGFDeploySP",
+                                    "ApplyNamePostFix": true
+                                },
+                                "WebAppAuthenticationSP": {
+                                    "Enable": true,
+                                    "Name": "AdsGFWebAuthSP",
+                                    "ApplyNamePostFix": true,
+                                    "ClientId": "#######"
+                                }
+                            },
+                            "properties": {
+                                "DeploymentSP": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/DeploymentSP",
+                                    "type": "object",
+                                    "title": "The DeploymentSP schema",
+                                    "description": "Set enable to true if you want the script to create the Deployment SP for you othwerise you need to provide the SP details in Secrets.json or if depoloying via GitHub Actions add in github secrets - https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md#set-secret-with-azure-credentials",
+                                    "default": {
+                                        "Enable": true,
+                                        "Name": "AdsGFDeploySP",
+                                        "ApplyNamePostFix": true
+                                    },
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/DeploymentSP/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "Set enable to true if you want the script to create the Deployment SP for you othwerise you need to provide the SP details in Secrets.json or if depoloying via GitHub Actions add in github secrets - https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md#set-secret-with-azure-credentials",
+                                            "default": true,
+                                            "examples": [
+                                                true,
+                                                false
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/DeploymentSP/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "Name of the Service Principal",
+                                            "default": "",
+                                            "examples": [
+                                                "AdsGFDeploySP"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/DeploymentSP/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "If true then the script will add a hash based on the resource group name as a postfix to the objects name",
+                                            "default": true,
+                                            "examples": [
+                                                true,
+                                                false
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "WebAppAuthenticationSP": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/WebAppAuthenticationSP",
+                                    "type": "object",
+                                    "title": "The WebAppAuthenticationSP schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {
+                                        "Enable": true,
+                                        "Name": "AdsGFWebAuthSP",
+                                        "ApplyNamePostFix": true,
+                                        "ClientId": "###################"
+                                    },
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix",
+                                        "ClientId"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/WebAppAuthenticationSP/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "Set to true if you want the script to create the App Registration Used by the Web App to validate AAD authentication requests.",
+                                            "default": true,
+                                            "examples": [
+                                                true,
+                                                false
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/WebAppAuthenticationSP/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "Name of the App Registration",
+                                            "default": "AdsGFWebAuthSP",
+                                            "examples": [
+                                                "AdsGFWebAuthSP"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/WebAppAuthenticationSP/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "If true then the script will add a hash based on the resource group name as a postfix to the objects name",
+                                            "default": true,
+                                            "examples": [
+                                                true,
+                                                false
+                                            ]
+                                        },
+                                        "ClientId": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/WebAppAuthenticationSP/properties/ClientId",
+                                            "type": "string",
+                                            "title": "The ClientId schema",
+                                            "description": "The client id of the App Registration. If you have enable set to true then ignore this as your script will autopopulate once it creates the App Reg",
+                                            "default": "",
+                                            "examples": [
+                                                "904a7841-c19d-4c38-bb7e-ccd78e49a55b"
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                "FunctionAppAuthenticationSP": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/FunctionAppAuthenticationSP",
+                                    "type": "object",
+                                    "title": "The FunctionAppAuthenticationSP schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "AdsGFFuncAppAuthSP",
+                                        "ApplyNamePostFix": true,
+                                        "ClientId": "835b082c-6a63-4fcc-b5d8-005dba169819"
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix",
+                                        "ClientId"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/FunctionAppAuthenticationSP/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/FunctionAppAuthenticationSP/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "AdsGFFuncAppAuthSP"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/FunctionAppAuthenticationSP/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "ClientId": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/ServicePrincipals/properties/FunctionAppAuthenticationSP/properties/ClientId",
+                                            "type": "string",
+                                            "title": "The ClientId schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "835b082c-6a63-4fcc-b5d8-005dba169819"
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "ResourceGroup": {
+                            "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup",
+                            "type": "object",
+                            "title": "The ResourceGroup schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [{
+                                "Id": "/subscriptions/035a1364-f00d-48e2-b582-4fe125905ee3/resourceGroups/AdsTest",
+                                "Enable": true,
+                                "Subscription": "Jorampon Internal Consumption",
+                                "Domain": "microsoft.com",
+                                "TenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+                                "Location": "australiaeast",
+                                "Name": "AdsTest",
+                                "AADUser": "jorampon@microsoft.com",
+                                "Hash": "DummyValueToBeReplacedAtRuntime"
+                            }],
+                            "required": [
+                                "Id",
+                                "Enable",
+                                "Subscription",
+                                "Domain",
+                                "TenantId",
+                                "Location",
+                                "Name",
+                                "AADUser",
+                                "Hash"
+                            ],
+                            "properties": {
+                                "Id": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/Id",
+                                    "type": "string",
+                                    "title": "The Id schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "/subscriptions/035a1364-f00d-48e2-b582-4fe125905ee3/resourceGroups/AdsTest"
+                                    ]
+                                },
+                                "Enable": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/Enable",
+                                    "type": "boolean",
+                                    "title": "The Enable schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "Subscription": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/Subscription",
+                                    "type": "string",
+                                    "title": "The Subscription schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "Jorampon Internal Consumption"
+                                    ]
+                                },
+                                "Domain": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/Domain",
+                                    "type": "string",
+                                    "title": "The Domain schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "microsoft.com"
+                                    ]
+                                },
+                                "TenantId": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/TenantId",
+                                    "type": "string",
+                                    "title": "The TenantId schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "72f988bf-86f1-41af-91ab-2d7cd011db47"
+                                    ]
+                                },
+                                "Location": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/Location",
+                                    "type": "string",
+                                    "title": "The Location schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "australiaeast"
+                                    ]
+                                },
+                                "Name": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/Name",
+                                    "type": "string",
+                                    "title": "The Name schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "AdsTest"
+                                    ]
+                                },
+                                "AADUser": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/AADUser",
+                                    "type": "string",
+                                    "title": "The AADUser schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "jorampon@microsoft.com"
+                                    ]
+                                },
+                                "ServicePrincipal_Deployment": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/ServicePrincipal_Deployment",
+                                    "type": "string",
+                                    "title": "The ServicePrincipal_Deployment schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "AdsGoFastDeploymentSP"
+                                    ]
+                                },
+                                "ServicePrincipalNameAFDownstream": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/ServicePrincipalNameAFDownstream",
+                                    "type": "string",
+                                    "title": "The ServicePrincipalNameAFDownstream schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "AdsGoFastDeployTestSP"
+                                    ]
+                                },
+                                "ServicePrincipalNameWebAuth": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/ServicePrincipalNameWebAuth",
+                                    "type": "string",
+                                    "title": "The ServicePrincipalNameWebAuth schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "adsgofastwebappauth"
+                                    ]
+                                },
+                                "ServicePrincipalNameAFAuth": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/ServicePrincipalNameAFAuth",
+                                    "type": "string",
+                                    "title": "The ServicePrincipalNameAFAuth schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "adsgofastwebappauth"
+                                    ]
+                                },
+                                "Hash": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ResourceGroup/properties/Hash",
+                                    "type": "string",
+                                    "title": "The Hash schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "DummyValueToBeReplacedAtRuntime"
+                                    ]
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "FolderPaths": {
+                            "$id": "#/properties/AdsOpts/properties/CD/properties/FolderPaths",
+                            "type": "object",
+                            "title": "The FolderPaths schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [{
+                                "ArmTemplates": "./arm",
+                                "Environments": "./../environments",
+                                "PublishZip": "./../bin/publish/zipped",
+                                "PublishUnZip": "./../bin/publish/unzipped"
+                            }],
+                            "required": [
+                                "ArmTemplates",
+                                "Environments",
+                                "PublishZip",
+                                "PublishUnZip"
+                            ],
+                            "properties": {
+                                "ArmTemplates": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/FolderPaths/properties/ArmTemplates",
+                                    "type": "string",
+                                    "title": "The ArmTemplates schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "./arm"
+                                    ]
+                                },
+                                "Environments": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/FolderPaths/properties/Environments",
+                                    "type": "string",
+                                    "title": "The Environments schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "./../environments"
+                                    ]
+                                },
+                                "PublishZip": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/FolderPaths/properties/PublishZip",
+                                    "type": "string",
+                                    "title": "The PublishZip schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "./../bin/publish/zipped"
+                                    ]
+                                },
+                                "PublishUnZip": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/FolderPaths/properties/PublishUnZip",
+                                    "type": "string",
+                                    "title": "The PublishUnZip schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "./../bin/publish/unzipped"
+                                    ]
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "AzureLoginOptions": {
+                            "$id": "#/properties/AdsOpts/properties/CD/properties/AzureLoginOptions",
+                            "type": "object",
+                            "title": "The AzureLoginOptions schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [{
+                                "UseInteractiveAzCliLogin": true
+                            }],
+                            "required": [
+                                "UseInteractiveAzCliLogin"
+                            ],
+                            "properties": {
+                                "UseInteractiveAzCliLogin": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/AzureLoginOptions/properties/UseInteractiveAzCliLogin",
+                                    "type": "boolean",
+                                    "title": "The UseInteractiveAzCliLogin schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        true
+                                    ]
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "EnviroInstalls": {
+                            "$id": "#/properties/AdsOpts/properties/CD/properties/EnviroInstalls",
+                            "type": "object",
+                            "title": "The EnviroInstalls schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [{
+                                "PerformLocalInstalls": true,
+                                "PerformLocalInstallsAzCli": false,
+                                "PerformLocalInstallsAzCliAddToPath": true
+                            }],
+                            "required": [
+                                "PerformLocalInstalls",
+                                "PerformLocalInstallsAzCli",
+                                "PerformLocalInstallsAzCliAddToPath"
+                            ],
+                            "properties": {
+                                "PerformLocalInstalls": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/EnviroInstalls/properties/PerformLocalInstalls",
+                                    "type": "boolean",
+                                    "title": "The PerformLocalInstalls schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        true
+                                    ]
+                                },
+                                "PerformLocalInstallsAzCli": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/EnviroInstalls/properties/PerformLocalInstallsAzCli",
+                                    "type": "boolean",
+                                    "title": "The PerformLocalInstallsAzCli schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "PerformLocalInstallsAzCliAddToPath": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/EnviroInstalls/properties/PerformLocalInstallsAzCliAddToPath",
+                                    "type": "boolean",
+                                    "title": "The PerformLocalInstallsAzCliAddToPath schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        true
+                                    ]
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "ArmOptions": {
+                            "$id": "#/properties/AdsOpts/properties/CD/properties/ArmOptions",
+                            "type": "object",
+                            "title": "The ArmOptions schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [{
+                                "PerformDeployment": false,
+                                "PerformDeploymentStorageLogging": false,
+                                "PerformDeploymentAppService": false
+                            }],
+                            "required": [
+                                "PerformDeployment",
+                                "PerformDeploymentStorageLogging",
+                                "PerformDeploymentAppService"
+                            ],
+                            "properties": {
+                                "PerformDeployment": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ArmOptions/properties/PerformDeployment",
+                                    "type": "boolean",
+                                    "title": "The PerformDeployment schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "PerformDeploymentStorageLogging": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ArmOptions/properties/PerformDeploymentStorageLogging",
+                                    "type": "boolean",
+                                    "title": "The PerformDeploymentStorageLogging schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "PerformDeploymentAppService": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/ArmOptions/properties/PerformDeploymentAppService",
+                                    "type": "boolean",
+                                    "title": "The PerformDeploymentAppService schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        false
+                                    ]
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "Services": {
+                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services",
+                            "type": "object",
+                            "title": "The Services schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [{
+                                "UseARMDefaults": false,
+                                "AppInsights": {
+                                    "Enable": true,
+                                    "Name": "adsgfappin",
+                                    "ApplyNamePostFix": true
+                                },
+                                "AppPlans": {
+                                    "WebApp": {
+                                        "Enable": true,
+                                        "Name": "adsgfappplanweb",
+                                        "ApplyNamePostFix": true,
+                                        "ResourceGroup": null
+                                    },
+                                    "FunctionApp": {
+                                        "Enable": true,
+                                        "Name": "adsgfappplanfnc",
+                                        "ApplyNamePostFix": true,
+                                        "ResourceGroup": null
+                                    }
+                                },
+                                "AzureSQLServer": {
+                                    "Enable": true,
+                                    "Name": "adsgfazsql",
+                                    "ApplyNamePostFix": true,
+                                    "AdminUser": "AdsAdmin",
+                                    "AdminPassword": "EPuiX2K0^T4t",
+                                    "AdsGoFastDB": {
+                                        "Enable": true,
+                                        "Name": "AdsGf",
+                                        "UpdateSourceAndTargetSystems": true,
+                                        "UpdateDataFactory": true,
+                                        "ApplyNamePostFix": false
+                                    },
+                                    "StagingDB": {
+                                        "Enable": true,
+                                        "Name": "AdsGfStaging",
+                                        "ApplyNamePostFix": false
+                                    },
+                                    "SampleDB": {
+                                        "Enable": true,
+                                        "Name": "AdsGfSample",
+                                        "ApplyNamePostFix": false
+                                    }
+                                },
+                                "CoreFunctionApp": {
+                                    "Enable": true,
+                                    "Name": "adsgofastfunc",
+                                    "ApplyNamePostFix": true,
+                                    "PrincipalId": ""
+                                },
+                                "DataFactory": {
+                                    "Enable": true,
+                                    "Name": "adsgfadf",
+                                    "ApplyNamePostFix": true,
+                                    "AzVnetIr": {
+                                        "Enable": true,
+                                        "Name": "SelfHostedIntegrationRuntime-Azure-VNET",
+                                        "Type": "ManagedVnet"
+                                    },
+                                    "OnPremVnetIr": {
+                                        "Enable": false,
+                                        "Name": "SelfHostedIntegrationRuntime-OnPem-Net",
+                                        "Type": "ManagedVnet"
+                                    }
+                                },
+                                "WebSite": {
+                                    "Enable": true,
+                                    "Name": "adsgofastweb",
+                                    "ApplyNamePostFix": true,
+                                    "PrincipalId": ""
+                                },
+                                "LogAnalytics": {
+                                    "Enable": true,
+                                    "Name": "adsgofastloganalytics",
+                                    "ApplyNamePostFix": false
+                                },
+                                "KeyVault": {
+                                    "Enable": true,
+                                    "Name": "adsgfkv",
+                                    "ApplyNamePostFix": true
+                                },
+                                "Vnet": {
+                                    "Enable": true,
+                                    "Name": "AdsGoFastVnet"
+                                },
+                                "Storage": {
+                                    "Logging": {
+                                        "Name": "logstg",
+                                        "ApplyNamePostFix": true,
+                                        "Enable": true,
+                                        "Dummy": ""
+                                    },
+                                    "ADLS": {
+                                        "Name": "adls",
+                                        "ApplyNamePostFix": true,
+                                        "Enable": true
+                                    },
+                                    "Blob": {
+                                        "Name": "blob",
+                                        "ApplyNamePostFix": true,
+                                        "Enable": true,
+                                        "ResourceId": ""
+                                    }
+                                }
+                            }],
+                            "required": [
+                                "UseARMDefaults",
+                                "AppInsights",
+                                "AppPlans",
+                                "AzureSQLServer",
+                                "CoreFunctionApp",
+                                "DataFactory",
+                                "WebSite",
+                                "LogAnalytics",
+                                "KeyVault",
+                                "Vnet",
+                                "Storage"
+                            ],
+                            "properties": {
+                                "UseARMDefaults": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/UseARMDefaults",
+                                    "type": "boolean",
+                                    "title": "The UseARMDefaults schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": false,
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "AppInsights": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppInsights",
+                                    "type": "object",
+                                    "title": "The AppInsights schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "adsgfappin",
+                                        "ApplyNamePostFix": true
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppInsights/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppInsights/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "adsgfappin"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppInsights/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "AppPlans": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans",
+                                    "type": "object",
+                                    "title": "The AppPlans schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "WebApp": {
+                                            "Enable": true,
+                                            "Name": "adsgfappplanweb",
+                                            "ApplyNamePostFix": true,
+                                            "ResourceGroup": null
+                                        },
+                                        "FunctionApp": {
+                                            "Enable": true,
+                                            "Name": "adsgfappplanfnc",
+                                            "ApplyNamePostFix": true,
+                                            "ResourceGroup": null
+                                        }
+                                    }],
+                                    "required": [
+                                        "WebApp",
+                                        "FunctionApp"
+                                    ],
+                                    "properties": {
+                                        "WebApp": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/WebApp",
+                                            "type": "object",
+                                            "title": "The WebApp schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Enable": true,
+                                                "Name": "adsgfappplanweb",
+                                                "ApplyNamePostFix": true,
+                                                "ResourceGroup": null
+                                            }],
+                                            "required": [
+                                                "Enable",
+                                                "Name",
+                                                "ApplyNamePostFix",
+                                                "ResourceGroup"
+                                            ],
+                                            "properties": {
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/WebApp/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/WebApp/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "adsgfappplanweb"
+                                                    ]
+                                                },
+                                                "ApplyNamePostFix": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/WebApp/properties/ApplyNamePostFix",
+                                                    "type": "boolean",
+                                                    "title": "The ApplyNamePostFix schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "ResourceGroup": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/WebApp/properties/ResourceGroup",
+                                                    "type": "null",
+                                                    "title": "The ResourceGroup schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": null,
+                                                    "examples": [
+                                                        null
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        },
+                                        "FunctionApp": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/FunctionApp",
+                                            "type": "object",
+                                            "title": "The FunctionApp schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Enable": true,
+                                                "Name": "adsgfappplanfnc",
+                                                "ApplyNamePostFix": true,
+                                                "ResourceGroup": null
+                                            }],
+                                            "required": [
+                                                "Enable",
+                                                "Name",
+                                                "ApplyNamePostFix",
+                                                "ResourceGroup"
+                                            ],
+                                            "properties": {
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/FunctionApp/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/FunctionApp/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "adsgfappplanfnc"
+                                                    ]
+                                                },
+                                                "ApplyNamePostFix": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/FunctionApp/properties/ApplyNamePostFix",
+                                                    "type": "boolean",
+                                                    "title": "The ApplyNamePostFix schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "ResourceGroup": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AppPlans/properties/FunctionApp/properties/ResourceGroup",
+                                                    "type": "null",
+                                                    "title": "The ResourceGroup schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": null,
+                                                    "examples": [
+                                                        null
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "AzureSQLServer": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer",
+                                    "type": "object",
+                                    "title": "The AzureSQLServer schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "adsgfazsql",
+                                        "ApplyNamePostFix": true,
+                                        "AdminUser": "AdsAdmin",
+                                        "AdminPassword": "EPuiX2K0^T4t",
+                                        "AdsGoFastDB": {
+                                            "Enable": true,
+                                            "Name": "AdsGf",
+                                            "UpdateSourceAndTargetSystems": true,
+                                            "UpdateDataFactory": true,
+                                            "ApplyNamePostFix": false
+                                        },
+                                        "StagingDB": {
+                                            "Enable": true,
+                                            "Name": "AdsGfStaging",
+                                            "ApplyNamePostFix": false
+                                        },
+                                        "SampleDB": {
+                                            "Enable": true,
+                                            "Name": "AdsGfSample",
+                                            "ApplyNamePostFix": false
+                                        }
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix",
+                                        "AdminUser",
+                                        "AdminPassword",
+                                        "AdsGoFastDB",
+                                        "StagingDB",
+                                        "SampleDB"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "adsgfazsql"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "AdminUser": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/AdminUser",
+                                            "type": "string",
+                                            "title": "The AdminUser schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "AdsAdmin"
+                                            ]
+                                        },
+                                        "AdminPassword": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/AdminPassword",
+                                            "type": "string",
+                                            "title": "The AdminPassword schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "EPuiX2K0^T4t"
+                                            ]
+                                        },
+                                        "AdsGoFastDB": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/AdsGoFastDB",
+                                            "type": "object",
+                                            "title": "The AdsGoFastDB schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Enable": true,
+                                                "Name": "AdsGf",
+                                                "UpdateSourceAndTargetSystems": true,
+                                                "UpdateDataFactory": true,
+                                                "ApplyNamePostFix": false
+                                            }],
+                                            "required": [
+                                                "Enable",
+                                                "Name",
+                                                "UpdateSourceAndTargetSystems",
+                                                "UpdateDataFactory",
+                                                "ApplyNamePostFix"
+                                            ],
+                                            "properties": {
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/AdsGoFastDB/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/AdsGoFastDB/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "AdsGf"
+                                                    ]
+                                                },
+                                                "UpdateSourceAndTargetSystems": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/AdsGoFastDB/properties/UpdateSourceAndTargetSystems",
+                                                    "type": "boolean",
+                                                    "title": "The UpdateSourceAndTargetSystems schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "UpdateDataFactory": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/AdsGoFastDB/properties/UpdateDataFactory",
+                                                    "type": "boolean",
+                                                    "title": "The UpdateDataFactory schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "ApplyNamePostFix": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/AdsGoFastDB/properties/ApplyNamePostFix",
+                                                    "type": "boolean",
+                                                    "title": "The ApplyNamePostFix schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        false
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        },
+                                        "StagingDB": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/StagingDB",
+                                            "type": "object",
+                                            "title": "The StagingDB schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Enable": true,
+                                                "Name": "AdsGfStaging",
+                                                "ApplyNamePostFix": false
+                                            }],
+                                            "required": [
+                                                "Enable",
+                                                "Name",
+                                                "ApplyNamePostFix"
+                                            ],
+                                            "properties": {
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/StagingDB/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/StagingDB/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "AdsGfStaging"
+                                                    ]
+                                                },
+                                                "ApplyNamePostFix": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/StagingDB/properties/ApplyNamePostFix",
+                                                    "type": "boolean",
+                                                    "title": "The ApplyNamePostFix schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        false
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        },
+                                        "SampleDB": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/SampleDB",
+                                            "type": "object",
+                                            "title": "The SampleDB schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Enable": true,
+                                                "Name": "AdsGfSample",
+                                                "ApplyNamePostFix": false
+                                            }],
+                                            "required": [
+                                                "Enable",
+                                                "Name",
+                                                "ApplyNamePostFix"
+                                            ],
+                                            "properties": {
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/SampleDB/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/SampleDB/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "AdsGfSample"
+                                                    ]
+                                                },
+                                                "ApplyNamePostFix": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/AzureSQLServer/properties/SampleDB/properties/ApplyNamePostFix",
+                                                    "type": "boolean",
+                                                    "title": "The ApplyNamePostFix schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        false
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "CoreFunctionApp": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/CoreFunctionApp",
+                                    "type": "object",
+                                    "title": "The CoreFunctionApp schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "adsgofastfunc",
+                                        "ApplyNamePostFix": true,
+                                        "PrincipalId": ""
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix",
+                                        "PrincipalId"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/CoreFunctionApp/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/CoreFunctionApp/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "adsgofastfunc"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/CoreFunctionApp/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "PrincipalId": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/CoreFunctionApp/properties/PrincipalId",
+                                            "type": "string",
+                                            "title": "The PrincipalId schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                ""
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "DataFactory": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory",
+                                    "type": "object",
+                                    "title": "The DataFactory schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "adsgfadf",
+                                        "ApplyNamePostFix": true,
+                                        "AzVnetIr": {
+                                            "Enable": true,
+                                            "Name": "SelfHostedIntegrationRuntime-Azure-VNET",
+                                            "Type": "ManagedVnet"
+                                        },
+                                        "OnPremVnetIr": {
+                                            "Enable": false,
+                                            "Name": "SelfHostedIntegrationRuntime-OnPem-Net",
+                                            "Type": "ManagedVnet"
+                                        }
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix",
+                                        "AzVnetIr",
+                                        "OnPremVnetIr"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "adsgfadf"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "AzVnetIr": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/AzVnetIr",
+                                            "type": "object",
+                                            "title": "The AzVnetIr schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Enable": true,
+                                                "Name": "SelfHostedIntegrationRuntime-Azure-VNET",
+                                                "Type": "ManagedVnet"
+                                            }],
+                                            "required": [
+                                                "Enable",
+                                                "Name",
+                                                "Type"
+                                            ],
+                                            "properties": {
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/AzVnetIr/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/AzVnetIr/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "SelfHostedIntegrationRuntime-Azure-VNET"
+                                                    ]
+                                                },
+                                                "Type": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/AzVnetIr/properties/Type",
+                                                    "type": "string",
+                                                    "title": "The Type schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "ManagedVnet"
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        },
+                                        "OnPremVnetIr": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/OnPremVnetIr",
+                                            "type": "object",
+                                            "title": "The OnPremVnetIr schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Enable": false,
+                                                "Name": "SelfHostedIntegrationRuntime-OnPem-Net",
+                                                "Type": "ManagedVnet"
+                                            }],
+                                            "required": [
+                                                "Enable",
+                                                "Name",
+                                                "Type"
+                                            ],
+                                            "properties": {
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/OnPremVnetIr/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        false
+                                                    ]
+                                                },
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/OnPremVnetIr/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "SelfHostedIntegrationRuntime-OnPem-Net"
+                                                    ]
+                                                },
+                                                "Type": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/DataFactory/properties/OnPremVnetIr/properties/Type",
+                                                    "type": "string",
+                                                    "title": "The Type schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "ManagedVnet"
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "WebSite": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/WebSite",
+                                    "type": "object",
+                                    "title": "The WebSite schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "adsgofastweb",
+                                        "ApplyNamePostFix": true,
+                                        "PrincipalId": ""
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix",
+                                        "PrincipalId"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/WebSite/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/WebSite/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "adsgofastweb"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/WebSite/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "PrincipalId": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/WebSite/properties/PrincipalId",
+                                            "type": "string",
+                                            "title": "The PrincipalId schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                ""
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "LogAnalytics": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/LogAnalytics",
+                                    "type": "object",
+                                    "title": "The LogAnalytics schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "adsgofastloganalytics",
+                                        "ApplyNamePostFix": false
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/LogAnalytics/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/LogAnalytics/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "adsgofastloganalytics"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/LogAnalytics/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                false
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "KeyVault": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/KeyVault",
+                                    "type": "object",
+                                    "title": "The KeyVault schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "adsgfkv",
+                                        "ApplyNamePostFix": true
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name",
+                                        "ApplyNamePostFix"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/KeyVault/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/KeyVault/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "adsgfkv"
+                                            ]
+                                        },
+                                        "ApplyNamePostFix": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/KeyVault/properties/ApplyNamePostFix",
+                                            "type": "boolean",
+                                            "title": "The ApplyNamePostFix schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "Vnet": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Vnet",
+                                    "type": "object",
+                                    "title": "The Vnet schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Enable": true,
+                                        "Name": "AdsGoFastVnet"
+                                    }],
+                                    "required": [
+                                        "Enable",
+                                        "Name"
+                                    ],
+                                    "properties": {
+                                        "Enable": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Vnet/properties/Enable",
+                                            "type": "boolean",
+                                            "title": "The Enable schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true
+                                            ]
+                                        },
+                                        "Name": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Vnet/properties/Name",
+                                            "type": "string",
+                                            "title": "The Name schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "AdsGoFastVnet"
+                                            ]
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "Storage": {
+                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage",
+                                    "type": "object",
+                                    "title": "The Storage schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [{
+                                        "Logging": {
+                                            "Name": "logstg",
+                                            "ApplyNamePostFix": true,
+                                            "Enable": true,
+                                            "Dummy": ""
+                                        },
+                                        "ADLS": {
+                                            "Name": "adls",
+                                            "ApplyNamePostFix": true,
+                                            "Enable": true
+                                        },
+                                        "Blob": {
+                                            "Name": "blob",
+                                            "ApplyNamePostFix": true,
+                                            "Enable": true,
+                                            "ResourceId": ""
+                                        }
+                                    }],
+                                    "required": [
+                                        "Logging",
+                                        "ADLS",
+                                        "Blob"
+                                    ],
+                                    "properties": {
+                                        "Logging": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Logging",
+                                            "type": "object",
+                                            "title": "The Logging schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Name": "logstg",
+                                                "ApplyNamePostFix": true,
+                                                "Enable": true,
+                                                "Dummy": ""
+                                            }],
+                                            "required": [
+                                                "Name",
+                                                "ApplyNamePostFix",
+                                                "Enable",
+                                                "Dummy"
+                                            ],
+                                            "properties": {
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Logging/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "logstg"
+                                                    ]
+                                                },
+                                                "ApplyNamePostFix": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Logging/properties/ApplyNamePostFix",
+                                                    "type": "boolean",
+                                                    "title": "The ApplyNamePostFix schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Logging/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Dummy": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Logging/properties/Dummy",
+                                                    "type": "string",
+                                                    "title": "The Dummy schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        },
+                                        "ADLS": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/ADLS",
+                                            "type": "object",
+                                            "title": "The ADLS schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Name": "adls",
+                                                "ApplyNamePostFix": true,
+                                                "Enable": true
+                                            }],
+                                            "required": [
+                                                "Name",
+                                                "ApplyNamePostFix",
+                                                "Enable"
+                                            ],
+                                            "properties": {
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/ADLS/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "adls"
+                                                    ]
+                                                },
+                                                "ApplyNamePostFix": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/ADLS/properties/ApplyNamePostFix",
+                                                    "type": "boolean",
+                                                    "title": "The ApplyNamePostFix schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/ADLS/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        },
+                                        "Blob": {
+                                            "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Blob",
+                                            "type": "object",
+                                            "title": "The Blob schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [{
+                                                "Name": "blob",
+                                                "ApplyNamePostFix": true,
+                                                "Enable": true,
+                                                "ResourceId": ""
+                                            }],
+                                            "required": [
+                                                "Name",
+                                                "ApplyNamePostFix",
+                                                "Enable",
+                                                "ResourceId"
+                                            ],
+                                            "properties": {
+                                                "Name": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Blob/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "blob"
+                                                    ]
+                                                },
+                                                "ApplyNamePostFix": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Blob/properties/ApplyNamePostFix",
+                                                    "type": "boolean",
+                                                    "title": "The ApplyNamePostFix schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "Enable": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Blob/properties/Enable",
+                                                    "type": "boolean",
+                                                    "title": "The Enable schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": false,
+                                                    "examples": [
+                                                        true
+                                                    ]
+                                                },
+                                                "ResourceId": {
+                                                    "$id": "#/properties/AdsOpts/properties/CD/properties/Services/properties/Storage/properties/Blob/properties/ResourceId",
+                                                    "type": "string",
+                                                    "title": "The ResourceId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                }
+                            },
+                            "additionalProperties": true
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}
