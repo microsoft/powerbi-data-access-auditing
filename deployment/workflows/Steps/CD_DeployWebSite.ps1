@@ -1,7 +1,7 @@
 
 if ($env:AdsOpts_CD_Services_WebSite_Enable -eq "True")
 {            
-    if ($null -eq $env:AdsOpts_CD_Services_AppPlans_WebApp_ResourceGroup)
+    if ([string]::IsNullOrEmpty($env:AdsOpts_CD_Services_AppPlans_WebApp_ResourceGroup))
     {
         $rg = $env:AdsOpts_CD_ResourceGroup_Name
     }
