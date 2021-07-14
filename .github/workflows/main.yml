@@ -33,7 +33,10 @@ jobs:
       shell: pwsh
       env:
         ENVIRONMENT_NAME: ${{ secrets.ENVIRONMENT_NAME }}
-        APP_SECRETS: ${{ secrets.AZURE_CREDENTIALS }}
+        Secrets_WebAppAuthenticationSP_ClientId: ${{ secrets.WebAppAuthenticationSP_ClientId }}
+        Secrets_PowerBISP_ClientId: ${{ secrets.PowerBISP_ClientId }}
+        Secrets_PowerBISP_ClientSecret: ${{ secrets.PowerBISP_ClientSecret }}
+        Secrets_PowerBISP_TenantId: ${{ secrets.PowerBISP_TenantId }}
       run: |
         . .\Steps\PushEnvFileIntoVariables.ps1
         ParseEnvFile("$env:ENVIRONMENT_NAME")
@@ -41,9 +44,20 @@ jobs:
       working-directory: ./deployment/workflows
       
     - name: test that the AdsOpts variables have been set
-      run:  echo "${{ env.Secrets_clientId }}" 
+      run:  echo "${{ env.Secrets_PowerBISP_TenantId }}" 
     
     - name: CI_1a_BuildCode
       shell: pwsh
       run: ./CI_1a_BuildCode.ps1 
+      working-directory: ./deployment/workflows
+
+    - name: Login via Az module
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        enable-AzPSSession: true 
+
+    - name: CD_1a_DeployServices
+      shell: pwsh
+      run: ./CD_1a_DeployServices.ps1 
       working-directory: ./deployment/workflows
