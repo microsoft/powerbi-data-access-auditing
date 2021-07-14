@@ -40,7 +40,7 @@ jobs:
       working-directory: ./deployment/workflows
       
     - name: test that the AdsOpts variables have been set
-    - shell: pwsh
+      shell: pwsh
       env:
         ENVIRONMENT_NAME: ${{ secrets.ENVIRONMENT_NAME }}
         Secrets_WebAppAuthenticationSP_ClientId: ${{ secrets.WebAppAuthenticationSP_ClientId }}
