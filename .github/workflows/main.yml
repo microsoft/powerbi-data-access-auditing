@@ -33,10 +33,6 @@ jobs:
       shell: pwsh
       env:
         ENVIRONMENT_NAME: ${{ secrets.ENVIRONMENT_NAME }}
-        Secrets_WebAppAuthenticationSP_ClientId: ${{ secrets.WebAppAuthenticationSP_ClientId }}
-        Secrets_PowerBISP_ClientId: ${{ secrets.PowerBISP_ClientId }}
-        Secrets_PowerBISP_ClientSecret: ${{ secrets.PowerBISP_ClientSecret }}
-        Secrets_PowerBISP_TenantId: ${{ secrets.PowerBISP_TenantId }}
       run: |
         . .\Steps\PushEnvFileIntoVariables.ps1
         ParseEnvFile("$env:ENVIRONMENT_NAME")
@@ -44,6 +40,13 @@ jobs:
       working-directory: ./deployment/workflows
       
     - name: test that the AdsOpts variables have been set
+    - shell: pwsh
+      env:
+        ENVIRONMENT_NAME: ${{ secrets.ENVIRONMENT_NAME }}
+        Secrets_WebAppAuthenticationSP_ClientId: ${{ secrets.WebAppAuthenticationSP_ClientId }}
+        Secrets_PowerBISP_ClientId: ${{ secrets.PowerBISP_ClientId }}
+        Secrets_PowerBISP_ClientSecret: ${{ secrets.PowerBISP_ClientSecret }}
+        Secrets_PowerBISP_TenantId: ${{ secrets.PowerBISP_TenantId }}
       run:  echo "${{ env.Secrets_PowerBISP_TenantId }}" 
     
     - name: CI_1a_BuildCode
