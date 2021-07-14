@@ -65,7 +65,7 @@ jobs:
       run: ./CD_1a_DeployServices.ps1 
       working-directory: ./deployment/workflows
 
-      - name: CD_2b_ConfigureServices
+    - name: CD_2b_ConfigureServices
       shell: pwsh
       run: ./CD_2b_ConfigureServices.ps1 
       working-directory: ./deployment/workflows
