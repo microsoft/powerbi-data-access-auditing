@@ -7,14 +7,14 @@ if($env:AdsOpts_CD_Services_WebSite_Enable -eq "True")
     #Update App Settings
     $appsettingsfile = $env:AdsOpts_CD_FolderPaths_PublishUnZip + "/powerbiauditapp/appsettings.json"
     $appSettings = Get-Content $appsettingsfile | ConvertFrom-Json
-    $appSettings.AzureAd.AuthorityUri = "https://login.microsoftonline.com/{tenant}/".Replace("{tenant}", $env:Secrets_AdsOpts_CD_ServicePrincipals_PowerBISp_TenantId)
-    $appSettings.AzureAd.TenantId =  $env:Secrets_AdsOpts_CD_ServicePrincipals_PowerBISp_TenantId
-    $appSettings.AzureAd.ClientId =  $env:Secrets_AdsOpts_CD_ServicePrincipals_PowerBISp_ClientId
-    $appSettings.AzureAd.ClientSecret = $env:Secrets_AdsOpts_CD_ServicePrincipals_PowerBISp_ClientSecret
+    $appSettings.AzureAd.AuthorityUri = "https://login.microsoftonline.com/{tenant}/".Replace("{tenant}", $env:Secrets_PowerBISP_TenantId)
+    $appSettings.AzureAd.TenantId =  $env:Secrets_PowerBISP_TenantId
+    $appSettings.AzureAd.ClientId =  $env:Secrets_PowerBISP_ClientId
+    $appSettings.AzureAd.ClientSecret = $env:Secrets_PowerBISp_ClientSecret
 
     $appSettings.AzureAd2.Domain = "{domain}/".Replace("{domain}",$env:AdsOpts_CD_ResourceGroup_Domain)
     $appSettings.AzureAd2.TenantId = $env:AdsOpts_CD_ResourceGroup_TenantId
-    $appSettings.AzureAd2.ClientId = $env:Secrets_AdsOpts_CD_ServicePrincipals_WebAppAuthenticationSP_ClientId
+    $appSettings.AzureAd2.ClientId = $env:Secrets_WebAppAuthenticationSP_ClientId
 
     foreach ($item in  $appSettings.PowerBI.Reports) {
         $item.WorkspaceId = $env:AdsOpts_PBIOpts_SampleWorkSpaceId

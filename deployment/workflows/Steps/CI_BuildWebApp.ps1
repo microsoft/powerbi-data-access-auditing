@@ -2,7 +2,7 @@
 $CurrentPath = (Get-Location).Path
 Set-Location "..\..\powerbiauditapp"
 dotnet restore
-dotnet publish --no-restore --configuration Release --output '..\Deployment\bin\publish\unzipped\powerbiauditapp\'
+dotnet publish --no-restore --configuration Release --output '..\deployment\bin\publish\unzipped\powerbiauditapp\'
 #Move back to workflows 
 Set-Location $CurrentPath
 Set-Location "../bin/publish"
