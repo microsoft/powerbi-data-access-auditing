@@ -9,6 +9,8 @@ az config set extension.use_dynamic_install=yes_without_prompt
 ######################################################
 ### Continuous Deployment - Configure             ####
 ######################################################Write-Host ([Environment]::GetEnvironmentVariable("AdsOpts_CI_Enable"))
+. .\Steps\PushEnvFileIntoVariables.ps1
+
 if (([Environment]::GetEnvironmentVariable("AdsOpts_CD_Enable")) -eq "True")
 {
     Write-Host "Starting CD.."
