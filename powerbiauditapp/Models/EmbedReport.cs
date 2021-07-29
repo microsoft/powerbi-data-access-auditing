@@ -17,5 +17,9 @@ namespace AppOwnsData.Models
 
         // Embed URL for the Power BI report
         public string EmbedUrl { get; set; }
+
+        public string PaginationTable { get; set; }
+
+        public string PaginationColumn { get; set; }
     }
 }

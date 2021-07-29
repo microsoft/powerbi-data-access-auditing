@@ -27,9 +27,8 @@ namespace AppOwnsData.Controllers
         }
 
 
-        public IActionResult Index(string r, string? WorkspaceId, string? Id)
+        public IActionResult Index(string r, string? WorkspaceId, string? Id, int PageNumber)
         {
-
 
             if (r == null)
             {
@@ -47,14 +46,28 @@ namespace AppOwnsData.Controllers
             {
                 embedParams = pbiEmbedService.GetEmbedParams(workspaceId: new Guid(WorkspaceId), reportId: new Guid(r), effectiveUserName: Id);
             }
-
+            
             var usr = HttpContext.User.Identity;
+            var report = powerBI.Value.Reports.Find(x => x.ReportId == r);
 
-            embedParams.EmbedReport[0].EmbedUrl = embedParams.EmbedReport[0].EmbedUrl.Replace("app.powerbi.com", this.Request.Host.ToString());
+            if (report.PaginationTable != null)
+            {
+                Uri myUri = new Uri(string.Format("{0}&$filter={1}/{2} eq {3}", embedParams.EmbedReport[0].EmbedUrl.Replace("app.powerbi.com", this.Request.Host.ToString()), report.PaginationTable, report.PaginationColumn, PageNumber), UriKind.Absolute);
+
+                embedParams.EmbedReport[0].EmbedUrl = myUri.AbsoluteUri;
+            }
+            else
+            {
+                embedParams.EmbedReport[0].EmbedUrl = embedParams.EmbedReport[0].EmbedUrl.Replace("app.powerbi.com", this.Request.Host.ToString());
+            }
 
             ViewData.Add("User", usr.Name);
             ViewData.Add("EmbedToken", embedParams.EmbedToken.Token);
             ViewData.Add("EmbedURL", embedParams.EmbedReport[0].EmbedUrl);
+            ViewData.Add("ReportId", report.ReportId);
+            ViewData.Add("WorkspaceId",report.WorkspaceId);
+            ViewData.Add("PageNumber", PageNumber);
+            ViewData.Add("PaginationTable", report.PaginationTable);
 
             return View();
         }
