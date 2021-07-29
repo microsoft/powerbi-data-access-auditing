@@ -5,7 +5,18 @@ Licensed under the MIT license. -->
 <!-- Used to display report embed error messages -->
 <section class="error-container">
 </section>
+
 <footer class="embed-container col-lg-12 col-md-12 col-sm-12 mb-0 mt-4">
+    @if(ViewData["PaginationTable"] != null)
+    {
+        <p class="text-center">
+            <a class="btn btn-secondary" href="~/?r=@ViewData["ReportId"]&WorkspaceId=@ViewData["WorkspaceId"]&PageNumber=@(int.Parse(ViewData["PageNumber"].ToString())-1)" role="button">«</a>
+            <a class="btn btn-secondary" href="~/?r=@ViewData["ReportId"]&WorkspaceId=@ViewData["WorkspaceId"]&PageNumber=@(int.Parse(ViewData["PageNumber"].ToString())+1)" role="button">»</a>
+        </p>
+        <p class="text-center">
+            You are viewing page:  @ViewData["PageNumber"].
+        </p>
+    }
     <p class="text-center">
         UserName:  @ViewData["User"] is viewing data.
     </p>
@@ -20,8 +31,9 @@ Licensed under the MIT license. -->
     let models = window['powerbi-client'].models;
 
     $(function () {
-        LoadReport("@ViewData["EmbedToken"]", "@ViewData["EmbedURL"]");
+        LoadReport("@ViewData["EmbedToken"]", decodeURI("@ViewData["EmbedURL"]"));
     });
-
 </script>
+
+
 }

@@ -4,9 +4,11 @@
 // ----------------------------------------------------------------------------
 
 function LoadReport(embedToken, embedUrl) {
+
+    embedUrl = decodeURIComponent(embedUrl.replace(/&amp;/g, "&"));
+
     var models = window["powerbi-client"].models;
     var reportContainer = $("#report-container").get(0);
-
 
     reportLoadConfig = {
         type: "report",
@@ -54,6 +56,8 @@ function LoadReport(embedToken, embedUrl) {
         console.log("Report load successful");
     });
 
+
+
     // Clear any other rendered handler events
     report.off("rendered");
 
@@ -99,9 +103,6 @@ function LoadReport(embedToken, embedUrl) {
         console.error(errorMsg);
         return;
     });
-
-   
-
 }
 
 async function Audit(report) {
@@ -128,4 +129,6 @@ async function Audit(report) {
         console.log(errors);
     }
 }
+
+
 

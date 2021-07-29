@@ -32,6 +32,9 @@ namespace AppOwnsData.Models
 
             public List<string> RequiredParameters { get; set; }
 
+            public string PaginationTable { get; set; }
+
+            public string PaginationColumn { get; set; }
         }
     }
 }
