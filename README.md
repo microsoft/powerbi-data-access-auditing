@@ -20,9 +20,9 @@ The POC extends on the default functionality provided by Power BI Embedded by ad
 4. **Power BI Service Principal Security Group (PBISPSG)**: Create an new Azure AD security group. This security group will contain all Service Principal Accounts that will be allowed to use your Power BI service APIs.
 4. **Power BI Access Service Principal (PBIASP)**: Create a service principal that will be used by the POC application to access Power BI content within your Power BI environment. Add this service prinicapl to the PBISPSG that you created in the previous step. You only need to remember / store the clientid for later use.
 5. **[Power BI Admin Settings](https://docs.microsoft.com/en-us/power-bi/admin/service-admin-portal)**: Access the Power BI Admin Portal and add the PBISPSG to list of groups allowed to use Power BI APIs (see image below for an example)
-6. 
-
 ![the picture](./documentation/PowerBIAdminSettings.png)
+5. **[Git Environment](https://docs.github.com/en/actions/reference/environments)**: Set up your git environment settings. The list of required environment settings are shown below.
+![the picture](./documentation/GitEnvSettings.png)
 
 ## Contributing
 
