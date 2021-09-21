@@ -12,6 +12,7 @@ The POC extends on the default functionality provided by Power BI Embedded by ad
 
 ## Deployment
 
+
 ### Pre-Requisites
 1. **Repository Fork (RF)**: Create a fork of this repository. Clone the fork to your local machine. 
 1. **Resource Group (RG)**: Create a Resource Group within your Azure environment that will host the POC. 
