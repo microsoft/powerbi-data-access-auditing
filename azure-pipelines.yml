@@ -1,0 +1,78 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  DOTNET_VERSION: '3.1.x'           # set this to the dot net version 
+  ENVIRONMENT_NAME: "development"
+
+stages:
+- stage: build_stage
+  displayName: Build Stage
+  jobs:
+  - job: Build
+    steps:
+    - powershell: |
+        Write-Host "Build Stage"
+        Write-Host $env:DOTNET_VERSION
+        Write-Host $env:ENVIRONMENT_NAME
+        . ./Steps/PushEnvFileIntoVariables.ps1
+        ParseEnvFile("$env:ENVIRONMENT_NAME")
+        Invoke-Expression -Command  ".\Steps\CD_SetResourceGroupHash.ps1"
+        ./CI_1a_BuildCode.ps1 
+      workingDirectory: $(Build.SourcesDirectory)/deployment/workflows
+      displayName: Bulid WebApp
+    - publish: $(Build.SourcesDirectory)/deployment
+      artifact: WebApp
+
+- stage: deploy_stage
+  displayName: Deploy Stage
+  jobs:
+  - deployment: DeployWebApp
+    displayName: Deploy Web App to development
+    environment: development
+    strategy: 
+      # Default deployment strategy, more coming...
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureCLI@2
+            inputs:
+             azureSubscription: powerbiauditing
+             scriptLocation: inlineScript
+             scriptType: pscore
+             inlineScript: |  
+               . ./Steps/PushEnvFileIntoVariables.ps1
+               ParseEnvFile("$env:ENVIRONMENT_NAME")
+               ./CD_1a_DeployServices.ps1 
+
+               
+             workingDirectory: $(Pipeline.Workspace)/WebApp/workflows
+            displayName: Deploy Services
+          - task: AzureCLI@2
+            inputs:
+             azureSubscription: powerbiauditing
+             scriptLocation: inlineScript
+             scriptType: pscore
+             inlineScript: |  
+               . ./Steps/PushEnvFileIntoVariables.ps1
+               ParseEnvFile("$env:ENVIRONMENT_NAME")
+
+               ./CD_2b_ConfigureServices.ps1 
+               
+             workingDirectory: $(Pipeline.Workspace)/WebApp/workflows
+            displayName: Configure Services
+
+   
+
+

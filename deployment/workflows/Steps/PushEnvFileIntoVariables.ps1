@@ -68,7 +68,7 @@ function ParseEnvFile ($EnvFile)
         else 
         {
         
-            New-Item -Path $PathOnly -Name $FileNameOnly -type "file" -value ""
+            New-Item -Path $PathOnly -Name $FileNameOnly -type "file" -Force -value ""
         }
         
     }
