@@ -1,0 +1,27 @@
+digraph {
+  compound=true
+  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+  node [shape=box,fontsize=5]
+  edge []
+
+  subgraph cluster_5 {
+    margin=25
+    6 [width=1.500000,height=1.000000,fixedsize=true,id=6,label="6: Audit Files - Raw"]
+    7 [width=1.500000,height=1.000000,fixedsize=true,id=7,label="7: Web Application"]
+    8 [width=1.500000,height=1.000000,fixedsize=true,id=8,label="8: Web Application - Configuration"]
+  }
+  12 [width=1.500000,height=1.000000,fixedsize=true,id=12,label="12: Power BI Audit Processing Solution"]
+  2 [width=1.333333,height=1.333333,fixedsize=true,id=2,label="2: Information Producer"]
+  3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label="3: Client Web Browsers"]
+  16 [width=1.500000,height=1.000000,fixedsize=true,id=16,label="16: Power Platform"]
+
+  7 -> 6 [id=40]
+  7 -> 3 [id=25]
+  7 -> 8 [id=41]
+  8 -> 7 [id=42]
+  2 -> 7 [id=53]
+  7 -> 16 [id=33]
+  6 -> 12 [id=44]
+  3 -> 7 [id=30]
+  16 -> 7 [id=38]
+}

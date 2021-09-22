@@ -1,0 +1,20 @@
+digraph {
+  compound=true
+  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+  node [shape=box,fontsize=5]
+  edge []
+
+  subgraph cluster_10 {
+    margin=25
+    11 [width=1.500000,height=1.000000,fixedsize=true,id=11,label="11: Power BI Metadata & Usage"]
+    12 [width=1.500000,height=1.000000,fixedsize=true,id=12,label="12: Power BI Metadata Collection Functions"]
+  }
+  5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label="5: Power BI Audit Capture Solution"]
+  17 [width=1.500000,height=1.000000,fixedsize=true,id=17,label="17: Power Platform"]
+
+  12 -> 11 [id=60]
+  5 -> 17 [id=36]
+  17 -> 5 [id=40]
+  11 -> 5 [id=62]
+  17 -> 12 [id=58]
+}

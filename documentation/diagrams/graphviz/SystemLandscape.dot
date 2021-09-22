@@ -1,0 +1,36 @@
+digraph {
+  compound=true
+  graph [splines=polyline,rankdir=LR,ranksep=1.0,nodesep=1.0,fontsize=5]
+  node [shape=box,fontsize=5]
+  edge []
+
+  subgraph cluster_enterprise {
+    margin=25
+    subgraph cluster_group_1 {
+      margin=25
+      13 [width=1.500000,height=1.000000,fixedsize=true,id=13,label="13: Power BI Audit Processing Solution"]
+      5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label="5: Power BI Audit Capture Solution"]
+      17 [width=1.500000,height=1.000000,fixedsize=true,id=17,label="17: Power Platform"]
+      10 [width=1.500000,height=1.000000,fixedsize=true,id=10,label="10: Power BI Metadata & Telemetry Capture Solution"]
+      21 [width=1.500000,height=1.000000,fixedsize=true,id=21,label="21: Enterprise Audit Storage & Analytics"]
+    }
+    subgraph cluster_group_2 {
+      margin=25
+      3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label="3: Client Web Browsers"]
+    }
+    1 [width=1.333333,height=1.333333,fixedsize=true,id=1,label="1: Information Consumer"]
+    2 [width=1.333333,height=1.333333,fixedsize=true,id=2,label="2: Information Producer"]
+  }
+
+
+  5 -> 3 [id=28]
+  17 -> 5 [id=40]
+  5 -> 17 [id=36]
+  3 -> 1 [id=24]
+  13 -> 21 [id=53]
+  10 -> 5 [id=64]
+  3 -> 5 [id=32]
+  2 -> 5 [id=55]
+  5 -> 13 [id=47]
+  17 -> 10 [id=59]
+}

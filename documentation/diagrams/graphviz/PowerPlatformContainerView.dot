@@ -1,0 +1,20 @@
+digraph {
+  compound=true
+  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+  node [shape=box,fontsize=5]
+  edge []
+
+  subgraph cluster_17 {
+    margin=25
+    18 [width=1.500000,height=1.000000,fixedsize=true,id=18,label="18: PowerBi Service - app.powerbi.com"]
+    19 [width=1.500000,height=1.000000,fixedsize=true,id=19,label="19: PowerBi Admin Api"]
+    20 [width=1.500000,height=1.000000,fixedsize=true,id=20,label="20: PowerBi Embedded Api"]
+  }
+  5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label="5: Power BI Audit Capture Solution"]
+  10 [width=1.500000,height=1.000000,fixedsize=true,id=10,label="10: Power BI Metadata & Telemetry Capture Solution"]
+
+  5 -> 18 [id=35]
+  10 -> 5 [id=64]
+  19 -> 10 [id=57]
+  18 -> 5 [id=38]
+}
