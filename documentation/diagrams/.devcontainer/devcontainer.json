@@ -1,0 +1,29 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.158.0/containers/azure-machine-learning-python-3
+{ 
+	"name": "Structurizr", 
+	"dockerFile": "Dockerfile", 
+
+	// This line allows you to use Docker runconfigs if you set "sharedVolumes": false
+	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash",
+	},
+		
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ciarant.vscode-structurizr"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [8080],
+	//"appPort": [ "8080:8080" ],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": ""
+
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
+} 

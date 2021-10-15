@@ -1,0 +1,14 @@
+digraph {
+  compound=true
+  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+  node [shape=box,fontsize=5]
+  edge []
+
+  subgraph cluster_21 {
+    margin=25
+    22 [width=1.500000,height=1.000000,fixedsize=true,id=22,label="22: Enterprise Data Lake for Audit Records"]
+  }
+  13 [width=1.500000,height=1.000000,fixedsize=true,id=13,label="13: Power BI Audit Processing Solution"]
+
+  13 -> 22 [id=52]
+}

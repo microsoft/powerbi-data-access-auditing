@@ -1,0 +1,22 @@
+digraph {
+  compound=true
+  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+  node [shape=box,fontsize=5]
+  edge []
+
+  subgraph cluster_10 {
+    margin=25
+    11 [width=1.500000,height=1.000000,fixedsize=true,id=11,label="11: Databricks Exploration Cluster"]
+    14 [width=1.500000,height=1.000000,fixedsize=true,id=14,label="14: Synapse Provisioned SQL Pool"]
+  }
+  1 [width=1.333333,height=1.333333,fixedsize=true,id=1,label="1: Data Engineer"]
+  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label="2: DataLake"]
+  8 [width=1.500000,height=1.000000,fixedsize=true,id=8,label="8: Monitoring & Auditing"]
+
+  14 -> 1 [id=37]
+  11 -> 1 [id=35]
+  2 -> 8 [id=41]
+  2 -> 11 [id=33]
+  14 -> 8 [id=43]
+  2 -> 1 [id=19]
+}

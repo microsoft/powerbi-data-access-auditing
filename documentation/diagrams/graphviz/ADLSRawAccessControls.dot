@@ -1,0 +1,26 @@
+digraph {
+  compound=true
+  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+  node [shape=box,fontsize=5]
+  edge []
+
+  subgraph cluster_8 {
+    margin=25
+    11 [width=1.500000,height=1.000000,fixedsize=true,id=11,label="11: ADLS - Bronze"]
+    10 [width=1.500000,height=1.000000,fixedsize=true,id=10,label="10: ADLS - Raw"]
+  }
+  1 [width=1.333333,height=1.333333,fixedsize=true,id=1,label="1: Data Engineer"]
+  14 [width=1.500000,height=1.000000,fixedsize=true,id=14,label="14: Monitoring & Auditing"]
+  16 [width=1.500000,height=1.000000,fixedsize=true,id=16,label="16: Exploratory Engines"]
+  21 [width=1.500000,height=1.000000,fixedsize=true,id=21,label="21: Enterprise Transformation Engines"]
+
+  11 -> 1 [id=29]
+  21 -> 1 [id=28]
+  21 -> 11 [id=36]
+  10 -> 1 [id=25]
+  16 -> 14 [id=52]
+  16 -> 1 [id=43]
+  10 -> 21 [id=31]
+  11 -> 14 [id=46]
+  11 -> 16 [id=39]
+}

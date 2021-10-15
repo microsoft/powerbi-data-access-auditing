@@ -1,0 +1,20 @@
+digraph {
+  compound=true
+  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+  node [shape=box,fontsize=5]
+  edge []
+
+  subgraph cluster_13 {
+    margin=25
+    14 [width=1.500000,height=1.000000,fixedsize=true,id=14,label="14: Audit Files - Processed"]
+    15 [width=1.500000,height=1.000000,fixedsize=true,id=15,label="15: Post Processing Function"]
+    16 [width=1.500000,height=1.000000,fixedsize=true,id=16,label="16: Audit File Generation Function"]
+  }
+  5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label="5: Power BI Audit Capture Solution"]
+  21 [width=1.500000,height=1.000000,fixedsize=true,id=21,label="21: Enterprise Audit Storage & Analytics"]
+
+  16 -> 21 [id=51]
+  5 -> 15 [id=46]
+  15 -> 14 [id=48]
+  14 -> 16 [id=49]
+}
