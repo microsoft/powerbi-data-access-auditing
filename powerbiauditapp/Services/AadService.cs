@@ -16,7 +16,7 @@ namespace AppOwnsData.Services
     {
         private readonly IOptions<AzureAd> azureAd;
 
-        public AadService(IOptions<AzureAd> azureAd)  
+        public AadService(IOptions<AzureAd> azureAd)
         {
             this.azureAd = azureAd;
         }

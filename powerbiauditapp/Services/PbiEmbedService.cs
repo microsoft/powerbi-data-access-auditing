@@ -5,6 +5,7 @@
 
 namespace AppOwnsData.Services
 {
+    using AngleSharp;
     using AppOwnsData.Models;
     using Microsoft.PowerBI.Api;
     using Microsoft.PowerBI.Api.Models;
@@ -14,13 +15,11 @@ namespace AppOwnsData.Services
     using System.Linq;
     using System.Net.Http;
     using System.Runtime.InteropServices;
-    using AngleSharp;
-    using AngleSharp.Html.Parser;
 
     public class PbiEmbedService
     {
         private readonly AadService aadService;
-        private readonly string urlPowerBiServiceApiRoot  = "https://api.powerbi.com";
+        private readonly string urlPowerBiServiceApiRoot = "https://api.powerbi.com";
 
         public PbiEmbedService(AadService aadService)
         {
@@ -34,7 +33,7 @@ namespace AppOwnsData.Services
         public PowerBIClient GetPowerBIClient()
         {
             var tokenCredentials = new TokenCredentials(aadService.GetAccessToken(), "Bearer");
-            return new PowerBIClient(new Uri(urlPowerBiServiceApiRoot ), tokenCredentials);
+            return new PowerBIClient(new Uri(urlPowerBiServiceApiRoot), tokenCredentials);
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace AppOwnsData.Services
         /// <returns>Wrapper object containing Embed token, Embed URL, Report Id, and Report name for single report</returns>
         public EmbedParams GetEmbedParams(Guid workspaceId, Guid reportId, [Optional] Guid additionalDatasetId, [Optional] string effectiveUserName, [Optional] string effectiveUserRole)
         {
-            PowerBIClient pbiClient = this.GetPowerBIClient();
+            PowerBIClient pbiClient = GetPowerBIClient();
 
             // Get report info
             var pbiReport = pbiClient.Reports.GetReportInGroup(workspaceId, reportId);
@@ -106,7 +105,7 @@ namespace AppOwnsData.Services
         {
             // Note: This method is an example and is not consumed in this sample app
 
-            PowerBIClient pbiClient = this.GetPowerBIClient();
+            PowerBIClient pbiClient = GetPowerBIClient();
 
             // Create mapping for reports and Embed URLs
             var embedReports = new List<EmbedReport>();
@@ -154,7 +153,7 @@ namespace AppOwnsData.Services
         /// <remarks>This function is not supported for RDL Report</remakrs>
         public EmbedToken GetEmbedToken(Guid reportId, IList<Guid> datasetIds, [Optional] Guid targetWorkspaceId, [Optional] string EffectiveUserName)
         {
-            PowerBIClient pbiClient = this.GetPowerBIClient();
+            PowerBIClient pbiClient = GetPowerBIClient();
 
             List<string> roles = new List<string>();
             roles.Add("testrole");
@@ -169,7 +168,7 @@ namespace AppOwnsData.Services
             {
                 ids.Add(identity);
             }
-            
+
 
 
             // Create a request for getting Embed token 
@@ -182,7 +181,7 @@ namespace AppOwnsData.Services
 
                 targetWorkspaces: targetWorkspaceId != Guid.Empty ? new List<GenerateTokenRequestV2TargetWorkspace>() { new GenerateTokenRequestV2TargetWorkspace(targetWorkspaceId) } : null,
 
-                identities: ids.Count > 0  ? ids : null
+                identities: ids.Count > 0 ? ids : null
             );
 
             // Generate Embed token
@@ -200,7 +199,7 @@ namespace AppOwnsData.Services
         {
             // Note: This method is an example and is not consumed in this sample app
 
-            PowerBIClient pbiClient = this.GetPowerBIClient();
+            PowerBIClient pbiClient = GetPowerBIClient();
 
             // Convert report Ids to required types
             var reports = reportIds.Select(reportId => new GenerateTokenRequestV2Report(reportId)).ToList();
@@ -234,7 +233,7 @@ namespace AppOwnsData.Services
         {
             // Note: This method is an example and is not consumed in this sample app
 
-            PowerBIClient pbiClient = this.GetPowerBIClient();
+            PowerBIClient pbiClient = GetPowerBIClient();
 
             // Convert report Ids to required types
             var reports = reportIds.Select(reportId => new GenerateTokenRequestV2Report(reportId)).ToList();
@@ -272,7 +271,7 @@ namespace AppOwnsData.Services
         /// <returns>Embed token</returns>
         public EmbedToken GetEmbedTokenForRDLReport(Guid targetWorkspaceId, Guid reportId, string accessLevel = "view")
         {
-            PowerBIClient pbiClient = this.GetPowerBIClient();
+            PowerBIClient pbiClient = GetPowerBIClient();
 
             // Generate token request for RDL Report
             var generateTokenRequestParameters = new GenerateTokenRequest(
@@ -312,5 +311,5 @@ namespace AppOwnsData.Services
                 }
             }
         }
-    }  
+    }
 }
