@@ -7,10 +7,10 @@ function LoadReport(embedToken, embedUrl) {
 
     embedUrl = decodeURIComponent(embedUrl.replace(/&amp;/g, "&"));
 
-    var models = window["powerbi-client"].models;
-    var reportContainer = $("#report-container").get(0);
+    const models = window["powerbi-client"].models;
+    const reportContainer = $("#report-container").get(0);
 
-    reportLoadConfig = {
+    const reportLoadConfig = {
         type: "report",
         tokenType: models.TokenType.Embed,
         accessToken: embedToken,
@@ -77,16 +77,16 @@ function LoadReport(embedToken, embedUrl) {
 
 
     report.on("dataSelected", function (event) {
-        let data = event.detail;
+        const data = event.detail;
         jQuery.ajax({
             url: "ContextMenu/Index",
             type: "POST",
             data: JSON.stringify(data),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (returndata) {
-                if (returndata.url !== "") {
-                    window.location.assign(returndata.url);
+            success: function (returnData) {
+                if (returnData.url !== "") {
+                    window.location.assign(returnData.url);
                 }
             }
         });
@@ -97,7 +97,7 @@ function LoadReport(embedToken, embedUrl) {
             
     // Handle embed errors
     report.on("error", function (event) {
-        var errorMsg = event.detail;
+        const errorMsg = event.detail;
             
         // Use errorMsg variable to log error in any destination of choice
         console.error(errorMsg);
@@ -111,8 +111,8 @@ async function Audit(report) {
         const pages = await report.getPages();
 
         // Retrieve the page that contain the visual. For the sample report it will be the active page
-        let page = pages.filter(function (page) {
-            return page.isActive
+        const page = pages.filter(function (page) {
+            return page.isActive;
         })[0];
 
         const visuals = await page.getVisuals();

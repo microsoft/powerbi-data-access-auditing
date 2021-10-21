@@ -30,7 +30,7 @@ public class PowerBiReportService : IPowerBiReportService
     /// Get embed params for a report
     /// </summary>
     /// <returns>Wrapper object containing Embed token, Embed URL, Report Id, and Report name for single report</returns>
-    public ReportParameters GetReportParameters(ReportDetails report, [Optional] Guid additionalDatasetId, [Optional] string effectiveUserName, [Optional] string effectiveUserRole)
+    public ReportParameters GetReportParameters(ReportDetails report, [Optional] Guid additionalDatasetId, [Optional] string? effectiveUserName, [Optional] string? effectiveUserRole)
     {
         var pbiClient = GetPowerBiClient();
 
@@ -130,24 +130,25 @@ public class PowerBiReportService : IPowerBiReportService
     /// </summary>
     /// <returns>Embed token</returns>
     /// <remarks>This function is not supported for RDL Report</remarks>
-    private EmbedToken GetEmbedToken(Guid reportId, IList<Guid> datasetIds, [Optional] Guid targetWorkspaceId, [Optional] string effectiveUserName)
+    private EmbedToken GetEmbedToken(Guid reportId, IList<Guid> datasetIds, [Optional] Guid targetWorkspaceId, [Optional] string? effectiveUserName)
     {
         var pbiClient = GetPowerBiClient();
 
-        var roles = new List<string>();
-        roles.Add("testrole");
+        var roles = new List<string> { "testrole" };
 
-        var identity = new EffectiveIdentity
+        List<EffectiveIdentity>? ids = null;
+        if (!string.IsNullOrEmpty(effectiveUserName))
         {
-            Username = effectiveUserName,
-            Roles = roles,
-            Datasets = datasetIds.Select(d => d.ToString()).ToArray()
-        };
-        var ids = new List<EffectiveIdentity>();
 
-        if (!string.IsNullOrEmpty(identity.Username))
-        {
-            ids.Add(identity);
+            ids = new()
+            {
+                new EffectiveIdentity
+                {
+                    Username = effectiveUserName,
+                    Roles = roles,
+                    Datasets = datasetIds.Select(d => d.ToString()).ToArray()
+                }
+            };
         }
 
 
@@ -162,7 +163,7 @@ public class PowerBiReportService : IPowerBiReportService
 
             targetWorkspaces: targetWorkspaceId != Guid.Empty ? new List<GenerateTokenRequestV2TargetWorkspace> { new(targetWorkspaceId) } : null,
 
-            identities: ids.Count > 0 ? ids : null
+            identities: ids
         );
 
         // Generate Embed token

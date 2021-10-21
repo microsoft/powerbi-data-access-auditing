@@ -3,8 +3,10 @@
 using AngleSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PowerBiAuditApp.Extensions;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PowerBiAuditApp.Middleware;
 
@@ -84,10 +86,6 @@ public class PowerBiReverseProxyMiddleware
             requestMessage.Headers.TryAddWithoutValidation(key, value.ToArray());
 
         }
-        if (httpContext.Request.Path.ToString().Contains("querydata"))
-        {
-            _logger.LogWarning("Received QueryData Request");
-        }
 
     }
 
@@ -119,33 +117,29 @@ public class PowerBiReverseProxyMiddleware
 
     private Uri BuildTargetUri(HttpRequest httpRequest)
     {
-        var targetUri = new Uri("https://app.powerbi.com/" + httpRequest.Path);
+        var match = Regex.Match(httpRequest.Path, @"^/power-bi/(?<prefix>[^/]*)(?<remaining>.*$)");
+        if (match.Success)
+            return new Uri($"https://{match.Groups["prefix"]}.powerbi.com{match.Groups["remaining"]}{httpRequest.QueryString}");
 
+        match = Regex.Match(httpRequest.Path, @"^/analysis/(?<prefix>[^/]*)(?<remaining>.*$)");
+        if (match.Success)
+            return new Uri($"https://{match.Groups["prefix"]}.analysis.windows.net{match.Groups["remaining"]}{httpRequest.QueryString}");
 
-        var handled = httpRequest.Path.StartsWithSegments("/view");
+        match = Regex.Match(httpRequest.Path, @"^/power-apps/(?<prefix>[^/]*)(?<remaining>.*$)");
+        if (match.Success)
+            return new Uri($"https://{match.Groups["prefix"]}.powerapps.com{match.Groups["remaining"]}{httpRequest.QueryString}");
 
-        if (httpRequest.Path.StartsWithSegments("/ssaspbi") && !handled)
-        {
-            httpRequest.Path.StartsWithSegments("/ssaspbi", out var remaining);
-            targetUri = new Uri("https://wabi-australia-east-a-primary-redirect.analysis.windows.net/" + remaining);
-            handled = true;
-        }
+        if (httpRequest.Path.StartsWithSegments("/reportEmbed"))
+            return new Uri("https://app.powerbi.com/" + httpRequest.Path + httpRequest.QueryString);
 
-        if (httpRequest.Path.StartsWithSegments("/papps") && !handled)
-        {
-            httpRequest.Path.StartsWithSegments("/papps", out var remaining);
-            targetUri = new Uri("https://content.powerapps.com/" + remaining);
-        }
-
-
-        return new Uri(targetUri + httpRequest.QueryString.ToString());
+        return new Uri("https://app.powerbi.com/" + httpRequest.Path + httpRequest.QueryString);
     }
 
 
     /// <summary>
     /// Primary logic for intercepting and modifying responses. Can be cleaned up a lot.
     /// </summary>
-    /// <param name="context"></param>
+    /// <param name="httpContext"></param>
     /// <param name="responseMessage"></param>
     /// <returns></returns>
     private async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage)
@@ -153,9 +147,6 @@ public class PowerBiReverseProxyMiddleware
         byte[] contentBytes;
         string stringContent;
 
-        //ContentType HTML
-
-        var processed = false;
 
         //HTML
         if (IsContentOfType(responseMessage, "text/html"))
@@ -163,24 +154,18 @@ public class PowerBiReverseProxyMiddleware
             contentBytes = responseMessage.Content.ReadAsByteArrayAsync().Result;
             stringContent = Encoding.UTF8.GetString(contentBytes);
 
-            var newContent = stringContent.Replace("https://app.powerbi.com", "/apppowerbicom")
-                .Replace("https://wabi-australia-east-a-primary-redirect.analysis.windows.net", "/ssaspbi")
-                .Replace("https://content.powerapps.com", "/papps")
-                .Replace("https://api.powerbi.com", "/ssaspbi");
-
 
             //Use the default configuration for AngleSharp
             var config = Configuration.Default;
             //Create a new context for evaluating webpages with the given config
             var angelSharpContext = BrowsingContext.New(config);
             //Create a virtual request to specify the document to load (here from our fixed string)
-            var document = angelSharpContext.OpenAsync(req => req.Content(newContent)).Result;
+            var document = await angelSharpContext.OpenAsync(req => req.Content(ReplaceUrls(stringContent)));
 
             //Inject xhook at the top of the page
             var script = document.CreateElement("script");
             script.SetAttribute("type", "text/javascript");
             script.SetAttribute("src", "/lib/xhook/xhook.js");
-            //document.Head.Prepend(script);
 
 
             //Inject a custom script... you can make all your DOM changes here
@@ -189,12 +174,12 @@ public class PowerBiReverseProxyMiddleware
                 {
                     XMLHttpRequest.prototype.open = function()
                     {
-                        console.log(arguments);
-                        if(arguments[1].includes('https://WABI-AUSTRALIA-EAST-A-PRIMARY-redirect.analysis.windows.net'))
-                        {
-                            arguments[1] = arguments[1].replace('https://WABI-AUSTRALIA-EAST-A-PRIMARY-redirect.analysis.windows.net','/ssaspbi');
+                        if(new RegExp(/https\:\/\/[^\/]*\.analysis\.windows\.net/).test(arguments[1])) {
+                            arguments[1] = arguments[1].replace(/https\:\/\/([^\/]*)\.analysis\.windows\.net/,'/analysis/$1');
                         }
-                        console.log(arguments);
+                        else if (arguments[1].startsWith('https://') && arguments[1] !== 'https://dc.services.visualstudio.com/v2/track' && !arguments[1].startsWith('https://localhost')) {
+                            console.log('Failure', arguments)
+                        }
                         var result = open.apply(this, arguments);
                         return result;
                     };
@@ -204,9 +189,9 @@ public class PowerBiReverseProxyMiddleware
             var script2 = document.CreateElement("script");
             script2.TextContent = xhrHook;
             script2.SetAttribute("type", "text/javascript");
-            document.Body.AppendChild(script2);
+            document.Body?.AppendChild(script2);
 
-            newContent = document.DocumentElement.OuterHtml;
+            var newContent = document.DocumentElement.OuterHtml;
 
             SetContentLength(httpContext, newContent);
 
@@ -220,18 +205,7 @@ public class PowerBiReverseProxyMiddleware
             contentBytes = responseMessage.Content.ReadAsByteArrayAsync().Result;
             stringContent = Encoding.UTF8.GetString(contentBytes);
 
-            var newContent = stringContent.Replace("https://app.powerbi.com", "/apppowerbicom")
-                .Replace("https://wabi-australia-east-a-primary-redirect.analysis.windows.net", "/ssaspbi")
-                .Replace("https://content.powerapps.com", "/papps")
-                .Replace("https://api.powerbi.com", "/ssaspbi"); ;
-
-
-            //Re-Write XHR requests
-            if (httpContext.Request.Path.StartsWithSegments("/reportEmbed"))
-            {
-                newContent = newContent.Replace("xhr.open(\"GET\", url);", "console.log(url);url=url.replace(\"https://WABI-AUSTRALIA-EAST-A-PRIMARY-redirect.analysis.windows.net\", \"/ssaspbi\");xhr.open(\"GET\", url);");
-                newContent = newContent.Replace("xhr.open(\"POST\", url);", "console.log(url);url=url.replace(\"https://WABI-AUSTRALIA-EAST-A-PRIMARY-redirect.analysis.windows.net\", \"/ssaspbi\");xhr.open(\"POST\", url);");
-            }
+            var newContent = ReplaceUrls(stringContent);
 
             SetContentLength(httpContext, newContent);
 
@@ -239,7 +213,8 @@ public class PowerBiReverseProxyMiddleware
             return;
         }
 
-        if (IsContentOfType(responseMessage, "application/json") && !processed)
+        // DATA
+        if (IsContentOfType(responseMessage, "application/json"))
         {
             stringContent = responseMessage.Content.ReadAsStringAsync().Result;
             if (httpContext.Request.Path.ToString().Contains("querydata"))
@@ -267,6 +242,16 @@ public class PowerBiReverseProxyMiddleware
         //ALL ELSE    
         contentBytes = responseMessage.Content.ReadAsByteArrayAsync().Result;
         await httpContext.Response.Body.WriteAsync(contentBytes);
+    }
+
+    private static string ReplaceUrls(string stringContent)
+    {
+        return stringContent
+            // ReSharper disable StringLiteralTypo
+            .RegexReplace(@"https\:\/\/([^/]*)\.powerbi\.com", "/power-bi/$1", RegexOptions.IgnoreCase)
+            .RegexReplace(@"https\:\/\/([^/]*)\.analysis\.windows\.net", "/analysis/$1", RegexOptions.IgnoreCase)
+            .RegexReplace(@"https\:\/\/([^/]*)\.powerapps\.com", "/power-apps/$1", RegexOptions.IgnoreCase);
+        // ReSharper restore StringLiteralTypo
     }
 
     private static void SetContentLength(HttpContext httpContext, string content)
