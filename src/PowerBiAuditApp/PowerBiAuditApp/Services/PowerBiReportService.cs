@@ -1,19 +1,24 @@
-﻿using Microsoft.PowerBI.Api;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.PowerBI.Api;
 using Microsoft.PowerBI.Api.Models;
 using Microsoft.Rest;
+using PowerBiAuditApp.Extensions;
 using PowerBiAuditApp.Models;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace PowerBiAuditApp.Services;
 
 public class PowerBiReportService : IPowerBiReportService
 {
     private readonly IPowerBiTokenProvider _tokenProvider;
+    private readonly IDataProtector _dataProtector;
     private const string UrlPowerBiServiceApiRoot = "https://api.powerbi.com";
 
-    public PowerBiReportService(IPowerBiTokenProvider tokenProvider)
+    public PowerBiReportService(IPowerBiTokenProvider tokenProvider, IDataProtectionProvider dataProtectionProvider)
     {
         _tokenProvider = tokenProvider;
+        _dataProtector = dataProtectionProvider.CreateProtector(Constants.PowerBiTokenPurpose);
     }
 
     /// <summary>
@@ -41,7 +46,7 @@ public class PowerBiReportService : IPowerBiReportService
         //  If isRDLReport is true then it is a RDL Report 
         var isRdlReport = string.IsNullOrEmpty(pbiReport.DatasetId);
 
-        EmbedToken embedToken;
+        string embedToken;
 
         // Generate embed token for RDL report if dataset is not present
         if (isRdlReport)
@@ -130,7 +135,7 @@ public class PowerBiReportService : IPowerBiReportService
     /// </summary>
     /// <returns>Embed token</returns>
     /// <remarks>This function is not supported for RDL Report</remarks>
-    private EmbedToken GetEmbedToken(Guid reportId, IList<Guid> datasetIds, [Optional] Guid targetWorkspaceId, [Optional] string? effectiveUserName)
+    private string GetEmbedToken(Guid reportId, IList<Guid> datasetIds, [Optional] Guid targetWorkspaceId, [Optional] string? effectiveUserName)
     {
         var pbiClient = GetPowerBiClient();
 
@@ -169,7 +174,7 @@ public class PowerBiReportService : IPowerBiReportService
         // Generate Embed token
         var embedToken = pbiClient.EmbedToken.GenerateToken(tokenRequest);
 
-        return embedToken;
+        return EncryptAndFormatToken(embedToken);
     }
 
     ///// <summary>
@@ -235,7 +240,7 @@ public class PowerBiReportService : IPowerBiReportService
     /// Get Embed token for RDL Report
     /// </summary>
     /// <returns>Embed token</returns>
-    private EmbedToken GetEmbedTokenForRdlReport(Guid targetWorkspaceId, Guid reportId, string accessLevel = "view")
+    private string GetEmbedTokenForRdlReport(Guid targetWorkspaceId, Guid reportId, string accessLevel = "view")
     {
         var pbiClient = GetPowerBiClient();
 
@@ -245,7 +250,33 @@ public class PowerBiReportService : IPowerBiReportService
         // Generate Embed token
         var embedToken = pbiClient.Reports.GenerateTokenInGroup(targetWorkspaceId, reportId, generateTokenRequestParameters);
 
-        return embedToken;
+        return EncryptAndFormatToken(embedToken);
+    }
+
+    /// <summary>
+    /// Encrypt the token so it's not usable by the end user to run a report;
+    /// Update the cluster url so the users browser isn't redirected to the wrong place
+    /// </summary>
+    /// <param name="embedToken"></param>
+    /// <returns></returns>
+    private string EncryptAndFormatToken(EmbedToken embedToken)
+    {
+        //return embedToken.Token;
+        var tokenParts = embedToken.Token.Split(".");
+
+        var unprotectedBytes = Encoding.UTF8.GetBytes(tokenParts[0]);
+        var protectedBytes = _dataProtector.Protect(unprotectedBytes);
+        tokenParts[0] = Convert.ToBase64String(protectedBytes);
+
+        if (tokenParts.Length > 1)
+        {
+
+            var additionalData = Encoding.UTF8.GetString(Convert.FromBase64String(tokenParts[1])).ReplaceUrls();
+            var additionalBytes = Encoding.UTF8.GetBytes(additionalData);
+            tokenParts[1] = Convert.ToBase64String(additionalBytes);
+        }
+
+        return string.Join(".", tokenParts);
     }
 
 

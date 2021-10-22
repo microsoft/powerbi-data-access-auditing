@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PowerBiAuditApp.Models;
 using PowerBiAuditApp.Services;
 
 namespace PowerBiAuditApp.Controllers;
@@ -30,14 +31,16 @@ public class ReportController : Controller
         if (!string.IsNullOrWhiteSpace(report.PaginationTable) && !string.IsNullOrWhiteSpace(report.PaginationColumn))
             localisedUri = new Uri($"{localisedUri}&$filter={report.PaginationTable}/{report.PaginationColumn} eq {pageNumber}", UriKind.Absolute).AbsoluteUri;
 
-        ViewData.Add("User", HttpContext.User.Identity?.Name);
-        ViewData.Add("EmbedToken", reportParameters.EmbedToken.Token);
-        ViewData.Add("EmbedURL", localisedUri);
-        ViewData.Add("ReportId", report.ReportId);
-        ViewData.Add("WorkspaceId", report.WorkspaceId);
-        ViewData.Add("PageNumber", pageNumber);
-        ViewData.Add("PaginationTable", report.PaginationTable);
 
-        return View();
+        return View(new ReportViewModel
+        {
+            User = HttpContext.User.Identity?.Name,
+            EmbedToken = reportParameters.EmbedToken,
+            EmbedUrl = localisedUri,
+            ReportId = report.ReportId,
+            WorkspaceId = report.WorkspaceId,
+            PageNumber = pageNumber,
+            PaginationTable = report.PaginationTable,
+        });
     }
 }

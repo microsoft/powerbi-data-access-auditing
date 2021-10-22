@@ -1,9 +1,10 @@
 ﻿// ReverseProxyApplication/ReverseProxyMiddleware.cs
 
-using AngleSharp;
+using Microsoft.AspNetCore.DataProtection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PowerBiAuditApp.Extensions;
+using PowerBiAuditApp.Models;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,8 +16,9 @@ public class PowerBiReverseProxyMiddleware
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
     private readonly RequestDelegate _nextMiddleware;
+    private readonly IDataProtector _dataProtector;
 
-    public PowerBiReverseProxyMiddleware(RequestDelegate nextMiddleware, ILoggerFactory loggerFactory)
+    public PowerBiReverseProxyMiddleware(RequestDelegate nextMiddleware, IDataProtectionProvider dataProtectionProvider, ILoggerFactory loggerFactory)
     {
         _logger = loggerFactory.CreateLogger<PowerBiReverseProxyMiddleware>();
         _logger.LogInformation("Hello");
@@ -25,6 +27,7 @@ public class PowerBiReverseProxyMiddleware
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli
         };
         _httpClient = new HttpClient(handler);
+        _dataProtector = dataProtectionProvider.CreateProtector(Constants.PowerBiTokenPurpose);
 
         _nextMiddleware = nextMiddleware;
     }
@@ -83,10 +86,40 @@ public class PowerBiReverseProxyMiddleware
 
         foreach (var (key, value) in httpContext.Request.Headers)
         {
-            requestMessage.Headers.TryAddWithoutValidation(key, value.ToArray());
+            IEnumerable<string> values = value.ToArray();
+            if (key.Equals("authorization", StringComparison.CurrentCultureIgnoreCase))
+            {
+                values = values.Select(DecryptToken);
+            }
+
+            requestMessage.Headers.TryAddWithoutValidation(key, values);
 
         }
 
+    }
+
+    private string DecryptToken(string token)
+    {
+        if (!token.StartsWith("EmbedToken "))
+            return token;
+
+        var sanitisedToken = WebUtility.HtmlDecode(token.Replace("EmbedToken ", "", StringComparison.CurrentCultureIgnoreCase));
+
+        var tokenParts = sanitisedToken.Split(".");
+        var protectedBytes = Convert.FromBase64String(tokenParts.First());
+        var unprotectedBytes = _dataProtector.Unprotect(protectedBytes);
+        var unencryptedToken = Encoding.UTF8.GetString(unprotectedBytes);
+        tokenParts[0] = unencryptedToken;
+
+        if (tokenParts.Length > 1)
+        {
+
+            var additionalData = Encoding.UTF8.GetString(Convert.FromBase64String(tokenParts[1])).ReformUrls();
+            var additionalBytes = Encoding.UTF8.GetBytes(additionalData);
+            tokenParts[1] = Convert.ToBase64String(additionalBytes);
+        }
+
+        return $"EmbedToken {WebUtility.HtmlEncode(string.Join(".", tokenParts))}";
     }
 
     private void CopyFromTargetResponseHeaders(HttpContext httpContext, HttpResponseMessage responseMessage)
@@ -121,7 +154,7 @@ public class PowerBiReverseProxyMiddleware
         if (match.Success)
             return new Uri($"https://{match.Groups["prefix"]}.powerbi.com{match.Groups["remaining"]}{httpRequest.QueryString}");
 
-        match = Regex.Match(httpRequest.Path, @"^/analysis/(?<prefix>[^/]*)(?<remaining>.*$)");
+        match = Regex.Match(httpRequest.Path, @"^/analysis-windows/(?<prefix>[^/]*)(?<remaining>.*$)");
         if (match.Success)
             return new Uri($"https://{match.Groups["prefix"]}.analysis.windows.net{match.Groups["remaining"]}{httpRequest.QueryString}");
 
@@ -144,68 +177,14 @@ public class PowerBiReverseProxyMiddleware
     /// <returns></returns>
     private async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage)
     {
-        byte[] contentBytes;
-        string stringContent;
-
-
-        //HTML
-        if (IsContentOfType(responseMessage, "text/html"))
+        //HTML || JAVASCRIPT
+        if (IsContentOfType(responseMessage, "text/html") || IsContentOfType(responseMessage, "text/javascript"))
         {
-            contentBytes = responseMessage.Content.ReadAsByteArrayAsync().Result;
-            stringContent = Encoding.UTF8.GetString(contentBytes);
+            var stringContent = responseMessage.Content.ReadAsStringAsync().Result;
+            //stringContent = Encoding.UTF8.GetString(contentBytes);
 
+            var newContent = stringContent.ReplaceUrls();
 
-            //Use the default configuration for AngleSharp
-            var config = Configuration.Default;
-            //Create a new context for evaluating webpages with the given config
-            var angelSharpContext = BrowsingContext.New(config);
-            //Create a virtual request to specify the document to load (here from our fixed string)
-            var document = await angelSharpContext.OpenAsync(req => req.Content(ReplaceUrls(stringContent)));
-
-            //Inject xhook at the top of the page
-            var script = document.CreateElement("script");
-            script.SetAttribute("type", "text/javascript");
-            script.SetAttribute("src", "/lib/xhook/xhook.js");
-
-
-            //Inject a custom script... you can make all your DOM changes here
-            var xhrHook = @"
-                (function(open)
-                {
-                    XMLHttpRequest.prototype.open = function()
-                    {
-                        if(new RegExp(/https\:\/\/[^\/]*\.analysis\.windows\.net/).test(arguments[1])) {
-                            arguments[1] = arguments[1].replace(/https\:\/\/([^\/]*)\.analysis\.windows\.net/,'/analysis/$1');
-                        }
-                        else if (arguments[1].startsWith('https://') && arguments[1] !== 'https://dc.services.visualstudio.com/v2/track' && !arguments[1].startsWith('https://localhost')) {
-                            console.log('Failure', arguments)
-                        }
-                        var result = open.apply(this, arguments);
-                        return result;
-                    };
-                })(XMLHttpRequest.prototype.open);";
-
-
-            var script2 = document.CreateElement("script");
-            script2.TextContent = xhrHook;
-            script2.SetAttribute("type", "text/javascript");
-            document.Body?.AppendChild(script2);
-
-            var newContent = document.DocumentElement.OuterHtml;
-
-            SetContentLength(httpContext, newContent);
-
-            await httpContext.Response.WriteAsync(newContent, Encoding.UTF8);
-            return;
-        }
-
-        //JAVASCRIPT
-        if (IsContentOfType(responseMessage, "text/javascript"))
-        {
-            contentBytes = responseMessage.Content.ReadAsByteArrayAsync().Result;
-            stringContent = Encoding.UTF8.GetString(contentBytes);
-
-            var newContent = ReplaceUrls(stringContent);
 
             SetContentLength(httpContext, newContent);
 
@@ -216,7 +195,7 @@ public class PowerBiReverseProxyMiddleware
         // DATA
         if (IsContentOfType(responseMessage, "application/json"))
         {
-            stringContent = responseMessage.Content.ReadAsStringAsync().Result;
+            var stringContent = responseMessage.Content.ReadAsStringAsync().Result;
             if (httpContext.Request.Path.ToString().Contains("querydata"))
             {
                 //Audit both user and query data returned.
@@ -240,19 +219,10 @@ public class PowerBiReverseProxyMiddleware
 
 
         //ALL ELSE    
-        contentBytes = responseMessage.Content.ReadAsByteArrayAsync().Result;
+        var contentBytes = responseMessage.Content.ReadAsByteArrayAsync().Result;
         await httpContext.Response.Body.WriteAsync(contentBytes);
     }
 
-    private static string ReplaceUrls(string stringContent)
-    {
-        return stringContent
-            // ReSharper disable StringLiteralTypo
-            .RegexReplace(@"https\:\/\/([^/]*)\.powerbi\.com", "/power-bi/$1", RegexOptions.IgnoreCase)
-            .RegexReplace(@"https\:\/\/([^/]*)\.analysis\.windows\.net", "/analysis/$1", RegexOptions.IgnoreCase)
-            .RegexReplace(@"https\:\/\/([^/]*)\.powerapps\.com", "/power-apps/$1", RegexOptions.IgnoreCase);
-        // ReSharper restore StringLiteralTypo
-    }
 
     private static void SetContentLength(HttpContext httpContext, string content)
     {

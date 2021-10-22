@@ -3,8 +3,6 @@
 // Licensed under the MIT license.
 // ----------------------------------------------------------------------------
 
-using Microsoft.PowerBI.Api.Models;
-
 namespace PowerBiAuditApp.Models;
 
 public class ReportParameters
@@ -20,5 +18,5 @@ public class ReportParameters
     public string EmbedUrl { get; init; } = null!;
 
     // Embed Token for the Power BI report
-    public EmbedToken EmbedToken { get; init; } = null!;
+    public string EmbedToken { get; init; } = null!;
 }

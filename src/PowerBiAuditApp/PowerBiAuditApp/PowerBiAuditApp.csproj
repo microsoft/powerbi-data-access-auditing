@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\js\site.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.16.1" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.18.0" />
     <PackageReference Include="Microsoft.PowerBI.Api" Version="3.30.1" />

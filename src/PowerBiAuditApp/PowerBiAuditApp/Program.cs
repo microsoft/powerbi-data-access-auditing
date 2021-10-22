@@ -13,6 +13,8 @@ builder.Services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
 builder.Services.AddScoped<IReportDetailsService, ReportDetailsService>();
 builder.Services.AddScoped<IPowerBiReportService, PowerBiReportService>();
 
+builder.Services.AddDataProtection();
+
 
 builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration);
 

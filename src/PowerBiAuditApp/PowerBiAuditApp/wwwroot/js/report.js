@@ -100,7 +100,7 @@ function LoadReport(embedToken, embedUrl) {
         const errorMsg = event.detail;
             
         // Use errorMsg variable to log error in any destination of choice
-        console.error(errorMsg);
+        console.error('Error', errorMsg);
         return;
     });
 }
@@ -119,7 +119,7 @@ async function Audit(report) {
 
         visuals.forEach(async function (visual) {
             // Exports visual data
-            //const result = await visual.exportData(models.ExportDataType.Summarized);
+            const result = await visual.exportData(models.ExportDataType.Summarized);
 
             //console.log(result.data);
         });
