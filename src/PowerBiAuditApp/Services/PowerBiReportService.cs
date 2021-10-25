@@ -35,7 +35,7 @@ public class PowerBiReportService : IPowerBiReportService
     /// Get embed params for a report
     /// </summary>
     /// <returns>Wrapper object containing Embed token, Embed URL, Report Id, and Report name for single report</returns>
-    public ReportParameters GetReportParameters(ReportDetails report, [Optional] Guid additionalDatasetId, [Optional] string? effectiveUserName, [Optional] string? effectiveUserRole)
+    public ReportParameters GetReportParameters(ReportDetails report, [Optional] Guid additionalDatasetId, [Optional] string? effectiveUserName)
     {
         var pbiClient = GetPowerBiClient();
 

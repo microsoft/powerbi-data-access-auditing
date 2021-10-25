@@ -177,6 +177,10 @@ public class PowerBiReverseProxyMiddleware
     /// <returns></returns>
     private async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage)
     {
+        // Can't modify body in this case.
+        if (responseMessage.StatusCode == HttpStatusCode.NotModified)
+            return;
+
         //HTML || JAVASCRIPT
         if (IsContentOfType(responseMessage, "text/html") || IsContentOfType(responseMessage, "text/javascript"))
         {

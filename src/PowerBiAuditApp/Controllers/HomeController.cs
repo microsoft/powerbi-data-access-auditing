@@ -7,21 +7,22 @@ namespace PowerBiAuditApp.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
     private readonly IReportDetailsService _reportDetailsService;
 
-    public HomeController(ILogger<HomeController> logger, IReportDetailsService reportDetailsService)
+    public HomeController(IReportDetailsService reportDetailsService)
     {
-        _logger = logger;
         _reportDetailsService = reportDetailsService;
     }
 
     public IActionResult Index()
     {
-        ViewData.Add("User", HttpContext.User.Identity?.Name);
-        ViewData.Add("Reports", _reportDetailsService.GetReportDetails());
+        var model = new HomeViewModel
+        {
+            User = HttpContext.User.Identity?.Name,
+            Reports = _reportDetailsService.GetReportDetails()
+        };
 
-        return View();
+        return View(model);
     }
 
     public IActionResult Privacy()
