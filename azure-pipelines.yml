@@ -71,6 +71,12 @@ stages:
                ./CD_2b_ConfigureServices.ps1 
                
              workingDirectory: $(Pipeline.Workspace)/WebApp/workflows
+            env:
+             Secrets_WebAppAuthenticationSP_ClientId: $(WebAppAuthenticationSP_ClientId)
+             Secrets_PowerBISP_ClientId: $(PowerBISP_ClientId)
+             Secrets_PowerBISP_ClientSecret: $(PowerBISP_ClientSecret)
+             Secrets_PowerBISP_TenantId: $(PowerBISP_TenantId)
+             
             displayName: Configure Services
 
    
