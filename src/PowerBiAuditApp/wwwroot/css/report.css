@@ -1,0 +1,3 @@
+#report-container {
+    height: calc(100vh - 8rem - 2px);
+}

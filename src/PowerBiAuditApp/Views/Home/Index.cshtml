@@ -1,0 +1,34 @@
+﻿<!-- Copyright (c) Microsoft Corporation.
+Licensed under the MIT license. -->
+@model HomeViewModel
+
+<main role="main">
+
+	<div class="container">
+		<!-- Example row of columns -->
+		<div class="row">
+			@foreach (var reportDetail in Model?.Reports.Where(x=>x.DisplayLevel == 1) ?? Array.Empty<ReportDetails>())
+			{
+				<div class="col-md-4">
+					<h2>@reportDetail.DisplayName</h2>
+					<p>@reportDetail.Description </p>
+					<p><a class="btn btn-secondary" href="report/?WorkspaceId=@reportDetail.WorkspaceId&reportId=@reportDetail.ReportId" role="button">View Report»</a></p>
+				</div>
+			}
+		</div>
+
+		<hr>
+
+	</div> <!-- /container -->
+
+</main>
+
+
+@section Scripts
+{  
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+}

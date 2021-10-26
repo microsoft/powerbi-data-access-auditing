@@ -1,0 +1,48 @@
+/* Copyright (c) Microsoft Corporation.
+Licensed under the MIT license. */
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+main.view-main {
+    height: calc(100vh - 5.5rem - 1px);
+    overflow: auto;
+}
+
+main {
+    margin: 0 auto;
+    width: 100%;
+}
+
+#report-container {
+    margin-top: 1rem;
+    height: calc(100vh - 10rem - 6px);
+}
+
+
+footer > p {
+    font: 1em "segoe ui", arial, sans-serif;
+}
+
+iframe {
+    border: none;
+}
+
+@media only screen and (max-width: 574px) {
+    #report-container {
+        height: calc(0.5625 * 100vw); /* 16:9 aspect ratio */
+    }
+}
