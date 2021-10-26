@@ -24,4 +24,17 @@ public static class ProxyHelpers
             .RegexReplace(@"""\/power-apps\/([^/""]*)", @"""https://$1.powerapps.com", RegexOptions.IgnoreCase);
         // ReSharper restore StringLiteralTypo
     }
+
+
+    public static bool IsContentOfType(this HttpResponseMessage responseMessage, string type)
+    {
+        var result = false;
+
+        if (responseMessage.Content.Headers.ContentType != null)
+        {
+            result = responseMessage.Content.Headers.ContentType.MediaType == type;
+        }
+
+        return result;
+    }
 }

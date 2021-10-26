@@ -1,4 +1,6 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Azure;
 using Microsoft.Identity.Web;
 using PowerBiAuditApp.Middleware;
 using PowerBiAuditApp.Models;
@@ -8,12 +10,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Register Services
 builder.Services.Configure<ServicePrincipal>(builder.Configuration.GetSection("ServicePrincipal"));
+builder.Services.Configure<StorageAccountSettings>(builder.Configuration.GetSection("StorageAccountSettings"));
 builder.Services.Configure<List<ReportDetails>>(builder.Configuration.GetSection("ReportDetails"));
+builder.Services.AddScoped<IAuditLogger, AuditLogger>();
 builder.Services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
 builder.Services.AddScoped<IReportDetailsService, ReportDetailsService>();
 builder.Services.AddScoped<IPowerBiReportService, PowerBiReportService>();
 
 builder.Services.AddDataProtection();
+
+builder.Services.AddAzureClients(b =>
+{
+    b.UseCredential(new DefaultAzureCredential());
+    b.AddBlobServiceClient(builder.Configuration.GetSection("StorageAccountSettings").GetSection("StorageConnectionString"));
+    b.AddQueueServiceClient(builder.Configuration.GetSection("StorageAccountSettings").GetSection("StorageConnectionString"))
+        .ConfigureOptions(c => c.MessageEncoding = Azure.Storage.Queues.QueueMessageEncoding.Base64);
+});
 
 
 builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration);

@@ -1,10 +1,9 @@
 ﻿// ReverseProxyApplication/ReverseProxyMiddleware.cs
 
 using Microsoft.AspNetCore.DataProtection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PowerBiAuditApp.Extensions;
 using PowerBiAuditApp.Models;
+using PowerBiAuditApp.Services;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -32,7 +31,7 @@ public class PowerBiReverseProxyMiddleware
         _nextMiddleware = nextMiddleware;
     }
 
-    public async Task Invoke(HttpContext httpContext)
+    public async Task Invoke(HttpContext httpContext, IAuditLogger auditLogger)
     {
         await _nextMiddleware(httpContext);
         if (httpContext.Response.StatusCode != StatusCodes.Status404NotFound)
@@ -53,7 +52,7 @@ public class PowerBiReverseProxyMiddleware
         httpContext.Response.StatusCode = (int)responseMessage.StatusCode;
         CopyFromTargetResponseHeaders(httpContext, responseMessage);
         _logger.LogInformation("Begin Process Response");
-        await ProcessResponseContent(httpContext, responseMessage);
+        await ProcessResponseContent(httpContext, responseMessage, auditLogger);
     }
 
     private HttpRequestMessage CreateTargetMessage(HttpContext httpContext, Uri targetUri)
@@ -78,6 +77,7 @@ public class PowerBiReverseProxyMiddleware
             !HttpMethods.IsDelete(requestMethod) &&
             !HttpMethods.IsTrace(requestMethod))
         {
+            httpContext.Request.EnableBuffering();
             var streamContent = new StreamContent(httpContext.Request.Body);
             var streamString = streamContent.ReadAsStringAsync().Result;
             requestMessage.Content = new StringContent(streamString);
@@ -174,15 +174,18 @@ public class PowerBiReverseProxyMiddleware
     /// </summary>
     /// <param name="httpContext"></param>
     /// <param name="responseMessage"></param>
+    /// <param name="auditLogger"></param>
     /// <returns></returns>
-    private async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage)
+    private async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage, IAuditLogger auditLogger)
     {
         // Can't modify body in this case.
         if (responseMessage.StatusCode == HttpStatusCode.NotModified)
             return;
 
+        await auditLogger.CreateAuditLog(httpContext, responseMessage);
+
         //HTML || JAVASCRIPT
-        if (IsContentOfType(responseMessage, "text/html") || IsContentOfType(responseMessage, "text/javascript"))
+        if (responseMessage.IsContentOfType("text/html") || responseMessage.IsContentOfType("text/javascript"))
         {
             var stringContent = responseMessage.Content.ReadAsStringAsync().Result;
             //stringContent = Encoding.UTF8.GetString(contentBytes);
@@ -196,33 +199,7 @@ public class PowerBiReverseProxyMiddleware
             return;
         }
 
-        // DATA
-        if (IsContentOfType(responseMessage, "application/json"))
-        {
-            var stringContent = responseMessage.Content.ReadAsStringAsync().Result;
-            if (httpContext.Request.Path.ToString().Contains("querydata"))
-            {
-                //Audit both user and query data returned.
-                stringContent = System.Web.HttpUtility.UrlDecode(stringContent);
-                var response = new
-                {
-                    User = httpContext.User.Identity?.Name,
-                    Response = JObject.Parse(stringContent)
-                };
-
-                var dt = "audit/" + DateTime.UtcNow.ToString("yyyyMMddhhmmss") + Guid.NewGuid() + ".json";
-                Directory.CreateDirectory("audit");
-                await using var writer = File.CreateText(dt);
-                await writer.WriteAsync(JsonConvert.SerializeObject(response));
-            }
-            SetContentLength(httpContext, stringContent);
-
-            await httpContext.Response.WriteAsync(stringContent, Encoding.UTF8);
-            return;
-        }
-
-
-        //ALL ELSE    
+        //ALL ELSE
         var contentBytes = responseMessage.Content.ReadAsByteArrayAsync().Result;
         await httpContext.Response.Body.WriteAsync(contentBytes);
     }
@@ -241,16 +218,5 @@ public class PowerBiReverseProxyMiddleware
         {
             httpContext.Response.Headers.Add("Content-Length", contentLength.ToString());
         }
-    }
-    private static bool IsContentOfType(HttpResponseMessage responseMessage, string type)
-    {
-        var result = false;
-
-        if (responseMessage.Content.Headers.ContentType != null)
-        {
-            result = responseMessage.Content.Headers.ContentType.MediaType == type;
-        }
-
-        return result;
     }
 }
