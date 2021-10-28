@@ -52,7 +52,7 @@ public class PowerBiReportService : IPowerBiReportService
         if (isRdlReport)
         {
             // Get Embed token for RDL Report
-            embedToken = GetEmbedTokenForRdlReport(report.WorkspaceId, report.ReportId);
+            embedToken = GetEmbedTokenForRdlReport(report);
         }
         else
         {
@@ -69,7 +69,7 @@ public class PowerBiReportService : IPowerBiReportService
             }
 
             // Get Embed token multiple resources
-            embedToken = GetEmbedToken(report.ReportId, datasetIds, report.WorkspaceId, effectiveUserName);
+            embedToken = GetEmbedToken(report, datasetIds, effectiveUserName);
         }
 
 
@@ -85,64 +85,17 @@ public class PowerBiReportService : IPowerBiReportService
         return reportParameters;
     }
 
-    ///// <summary>
-    ///// Get embed params for multiple reports for a single workspace
-    ///// </summary>
-    ///// <returns>Wrapper object containing Embed token, Embed URL, Report Id, and Report name for multiple reports</returns>
-    ///// <remarks>This function is not supported for RDL Report</remarks>
-    //public List<ReportParameters> GetReportParameters(Guid workspaceId, IList<Guid> reportIds, [Optional] IList<Guid> additionalDatasetIds)
-    //{
-    //    // Note: This method is an example and is not consumed in this sample app
-
-    //    var pbiClient = GetPowerBiClient();
-
-    //    // Create mapping for reports and Embed URLs
-    //    var reportParameters = new List<ReportParameters>();
-
-    //    // Create list of datasets
-    //    var datasetIds = new List<Guid>();
-
-    //    // Get Embed token multiple resources
-    //    var embedToken = GetEmbedToken(reportIds, datasetIds, workspaceId);
-
-    //    // Get datasets and Embed URLs for all the reports
-    //    foreach (var reportId in reportIds)
-    //    {
-    //        // Get report info
-    //        var pbiReport = pbiClient.Reports.GetReportInGroup(workspaceId, reportId);
-
-    //        datasetIds.Add(Guid.Parse(pbiReport.DatasetId));
-
-    //        // Add report data for embedding
-    //        reportParameters.Add(new ReportParameters
-    //        {
-    //            ReportId = pbiReport.Id,
-    //            ReportName = pbiReport.Name,
-    //            EmbedUrl = pbiReport.EmbedUrl,
-    //            EmbedToken = embedToken
-    //        });
-    //    }
-
-    //    // Append to existing list of datasets to achieve dynamic binding later
-    //    datasetIds.AddRange(additionalDatasetIds);
-
-    //    return reportParameters;
-    //}
-
-
     /// <summary>
     /// Get Embed token for single report, multiple datasets, and an optional target workspace
     /// </summary>
     /// <returns>Embed token</returns>
     /// <remarks>This function is not supported for RDL Report</remarks>
-    private string GetEmbedToken(Guid reportId, IList<Guid> datasetIds, [Optional] Guid targetWorkspaceId, [Optional] string? effectiveUserName)
+    private string GetEmbedToken(ReportDetails report, IList<Guid> datasetIds, [Optional] string? effectiveUserName)
     {
         var pbiClient = GetPowerBiClient();
 
-        var roles = new List<string> { "testrole" };
-
         List<EffectiveIdentity>? ids = null;
-        if (!string.IsNullOrEmpty(effectiveUserName))
+        if (!string.IsNullOrEmpty(effectiveUserName) && report.Roles.Any())
         {
 
             ids = new()
@@ -150,7 +103,7 @@ public class PowerBiReportService : IPowerBiReportService
                 new EffectiveIdentity
                 {
                     Username = effectiveUserName,
-                    Roles = roles,
+                    Roles = report.Roles.ToList(),
                     Datasets = datasetIds.Select(d => d.ToString()).ToArray()
                 }
             };
@@ -162,11 +115,11 @@ public class PowerBiReportService : IPowerBiReportService
         // This method works only with new Power BI V2 workspace experience
         var tokenRequest = new GenerateTokenRequestV2(
 
-            reports: new List<GenerateTokenRequestV2Report> { new(reportId) },
+            reports: new List<GenerateTokenRequestV2Report> { new(report.ReportId) },
 
             datasets: datasetIds.Select(datasetId => new GenerateTokenRequestV2Dataset(datasetId.ToString())).ToList(),
 
-            targetWorkspaces: targetWorkspaceId != Guid.Empty ? new List<GenerateTokenRequestV2TargetWorkspace> { new(targetWorkspaceId) } : null,
+            targetWorkspaces: report.WorkspaceId != Guid.Empty ? new List<GenerateTokenRequestV2TargetWorkspace> { new(report.WorkspaceId) } : null,
 
             identities: ids
         );
@@ -177,70 +130,11 @@ public class PowerBiReportService : IPowerBiReportService
         return EncryptAndFormatToken(embedToken);
     }
 
-    ///// <summary>
-    ///// Get Embed token for multiple reports, datasets, and an optional target workspace
-    ///// </summary>
-    ///// <returns>Embed token</returns>
-    ///// <remarks>This function is not supported for RDL Report</remarks>
-    //private EmbedToken GetEmbedToken(IList<Guid> reportIds, IList<Guid> datasetIds, [Optional] Guid targetWorkspaceId)
-    //{
-    //    // Note: This method is an example and is not consumed in this sample app
-
-    //    var pbiClient = GetPowerBiClient();
-
-    //    // Convert report Ids to required types
-    //    var reports = reportIds.Select(reportId => new GenerateTokenRequestV2Report(reportId)).ToList();
-
-    //    // Convert dataset Ids to required types
-    //    var datasets = datasetIds.Select(datasetId => new GenerateTokenRequestV2Dataset(datasetId.ToString())).ToList();
-
-    //    var targetWorkspaces = targetWorkspaceId != Guid.Empty ? new List<GenerateTokenRequestV2TargetWorkspace> { new(targetWorkspaceId) } : null;
-
-    //    // Create a request for getting Embed token 
-    //    // This method works only with new Power BI V2 workspace experience
-    //    var tokenRequest = new GenerateTokenRequestV2(datasets, reports, targetWorkspaces);
-
-    //    // Generate Embed token
-    //    var embedToken = pbiClient.EmbedToken.GenerateToken(tokenRequest);
-
-    //    return embedToken;
-    //}
-
-    ///// <summary>
-    ///// Get Embed token for multiple reports, datasets, and optional target work spaces
-    ///// </summary>
-    ///// <returns>Embed token</returns>
-    ///// <remarks>This function is not supported for RDL Report</remarks>
-    //private EmbedToken GetEmbedToken(IList<Guid> reportIds, IList<Guid> datasetIds, [Optional] IList<Guid> targetWorkspaceIds)
-    //{
-    //    // Note: This method is an example and is not consumed in this sample app
-
-    //    var pbiClient = GetPowerBiClient();
-
-    //    // Convert report Ids to required types
-    //    var reports = reportIds.Select(reportId => new GenerateTokenRequestV2Report(reportId)).ToList();
-
-    //    // Convert dataset Ids to required types
-    //    var datasets = datasetIds.Select(datasetId => new GenerateTokenRequestV2Dataset(datasetId.ToString())).ToList();
-
-    //    // Convert target workspace Ids to required types
-    //    var targetWorkspaces = targetWorkspaceIds.Select(targetWorkspaceId => new GenerateTokenRequestV2TargetWorkspace(targetWorkspaceId)).ToList();
-
-    //    // Create a request for getting Embed token 
-    //    // This method works only with new Power BI V2 workspace experience
-    //    var tokenRequest = new GenerateTokenRequestV2(datasets, reports, targetWorkspaces.Any() ? targetWorkspaces : null);
-
-    //    // Generate Embed token
-    //    var embedToken = pbiClient.EmbedToken.GenerateToken(tokenRequest);
-
-    //    return embedToken;
-    //}
-
     /// <summary>
     /// Get Embed token for RDL Report
     /// </summary>
     /// <returns>Embed token</returns>
-    private string GetEmbedTokenForRdlReport(Guid targetWorkspaceId, Guid reportId, string accessLevel = "view")
+    private string GetEmbedTokenForRdlReport(ReportDetails report, string accessLevel = "view")
     {
         var pbiClient = GetPowerBiClient();
 
@@ -248,7 +142,7 @@ public class PowerBiReportService : IPowerBiReportService
         var generateTokenRequestParameters = new GenerateTokenRequest(accessLevel);
 
         // Generate Embed token
-        var embedToken = pbiClient.Reports.GenerateTokenInGroup(targetWorkspaceId, reportId, generateTokenRequestParameters);
+        var embedToken = pbiClient.Reports.GenerateTokenInGroup(report.WorkspaceId, report.ReportId, generateTokenRequestParameters);
 
         return EncryptAndFormatToken(embedToken);
     }
@@ -278,35 +172,4 @@ public class PowerBiReportService : IPowerBiReportService
 
         return string.Join(".", tokenParts);
     }
-
-
-
-
-    //public void RenderReport()
-    //{
-    //    var client = new HttpClient();
-    //    var msg = new HttpRequestMessage();
-    //    msg.Method = HttpMethod.Get;
-    //    msg.RequestUri = new Uri("https://app.powerbi.com/view?r=eyJrIjoiYjdkZGFjMGEtOGMzZC00ZjAxLTg3ZGItOTVhMzc5NTVmMGQ2IiwidCI6IjdkYzExMmRlLTZhNTItNDA2OS1hN2Q1LWRjNzYzODMzNGMxYyIsImMiOjl9");
-    //    var result = client.GetAsync(new Uri("https://app.powerbi.com/view?r=eyJrIjoiYjdkZGFjMGEtOGMzZC00ZjAxLTg3ZGItOTVhMzc5NTVmMGQ2IiwidCI6IjdkYzExMmRlLTZhNTItNDA2OS1hN2Q1LWRjNzYzODMzNGMxYyIsImMiOjl9")).Result;
-    //    var resultString = result.Content.ReadAsStringAsync().Result;
-
-    //    //Use the default configuration for AngleSharp
-    //    var config = Configuration.Default;
-    //    //Create a new context for evaluating webpages with the given config
-    //    var context = BrowsingContext.New(config);
-    //    //Create a virtual request to specify the document to load (here from our fixed string)
-    //    var document = context.OpenAsync(req => req.Content(resultString)).Result;
-    //    foreach (var s in document.QuerySelectorAll("script"))
-    //    {
-    //        if (s.HasAttribute("src"))
-    //        {
-    //            var src = s.GetAttribute("src");
-    //            if (!src.StartsWith("https://"))
-    //            {
-    //                s.SetAttribute("src", "https://app.powerbi.com/" + src);
-    //            }
-    //        }
-    //    }
-    //}
 }

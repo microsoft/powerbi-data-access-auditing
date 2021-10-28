@@ -1,6 +1,4 @@
-﻿// ReverseProxyApplication/ReverseProxyMiddleware.cs
-
-using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.AspNetCore.DataProtection;
 using PowerBiAuditApp.Extensions;
 using PowerBiAuditApp.Models;
 using PowerBiAuditApp.Services;
@@ -46,7 +44,7 @@ public class PowerBiReverseProxyMiddleware
             _logger.LogWarning("Received QueryData Request");
         }
 
-        _logger.LogInformation("MiddleWare processing: " + httpContext.Request.Path.Value);
+        _logger.LogInformation("MiddleWare processing: {path}", httpContext.Request.Path.Value);
         using var responseMessage = _httpClient.SendAsync(targetRequestMessage).Result;
         _logger.LogInformation("Begin Copy From Target");
         httpContext.Response.StatusCode = (int)responseMessage.StatusCode;
@@ -122,7 +120,7 @@ public class PowerBiReverseProxyMiddleware
         return $"EmbedToken {WebUtility.HtmlEncode(string.Join(".", tokenParts))}";
     }
 
-    private void CopyFromTargetResponseHeaders(HttpContext httpContext, HttpResponseMessage responseMessage)
+    private static void CopyFromTargetResponseHeaders(HttpContext httpContext, HttpResponseMessage responseMessage)
     {
         foreach (var (key, value) in responseMessage.Headers)
         {
@@ -148,7 +146,7 @@ public class PowerBiReverseProxyMiddleware
         return new HttpMethod(method);
     }
 
-    private Uri BuildTargetUri(HttpRequest httpRequest)
+    private static Uri BuildTargetUri(HttpRequest httpRequest)
     {
         var match = Regex.Match(httpRequest.Path, @"^/power-bi/(?<prefix>[^/]*)(?<remaining>.*$)");
         if (match.Success)
@@ -176,7 +174,7 @@ public class PowerBiReverseProxyMiddleware
     /// <param name="responseMessage"></param>
     /// <param name="auditLogger"></param>
     /// <returns></returns>
-    private async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage, IAuditLogger auditLogger)
+    private static async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage, IAuditLogger auditLogger)
     {
         // Can't modify body in this case.
         if (responseMessage.StatusCode == HttpStatusCode.NotModified)

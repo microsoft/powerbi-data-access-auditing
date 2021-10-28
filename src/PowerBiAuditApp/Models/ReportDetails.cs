@@ -14,6 +14,7 @@ public class ReportDetails
 
     // Report Id for which Embed token needs to be generated
     public Guid ReportId { get; set; }
+    public string[] Roles { get; set; } = Array.Empty<string>();
 
     public List<int>? DrillThroughReports { get; set; }
 

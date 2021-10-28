@@ -25,7 +25,7 @@ public class ReportController : Controller
 
         var reportParameters = string.IsNullOrWhiteSpace(HttpContext.User.Identity?.Name)
             ? _powerBiReportService.GetReportParameters(report)
-            : _powerBiReportService.GetReportParameters(report, effectiveUserName: null /*HttpContext.User.Identity?.Name!*/);
+            : _powerBiReportService.GetReportParameters(report, effectiveUserName: HttpContext.User.Identity?.Name!);
 
         var localisedUri = reportParameters.EmbedUrl.Replace("app.powerbi.com", Request.Host.ToString());
         if (!string.IsNullOrWhiteSpace(report.PaginationTable) && !string.IsNullOrWhiteSpace(report.PaginationColumn))

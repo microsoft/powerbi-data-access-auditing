@@ -1,0 +1,3 @@
+﻿Sheet1.Marital Status,CountNonNull(Sheet1.OffenderId)
+Married,4602
+Single,4482
