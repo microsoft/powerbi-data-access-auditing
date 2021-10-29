@@ -24,9 +24,9 @@ public static class PowerBiAuditLogProcessor
 {
     [FunctionName(nameof(PowerBiAuditLogProcessor))]
     public static async Task Run(
-        [QueueTrigger("audit-log-queue", Connection = "AzureWebJobsStorage")] string name,
-        [Blob("audit-pre-processed-log-storage/{queueTrigger}", FileAccess.Read, Connection = "AzureWebJobsStorage")] BlockBlobClient auditBlobClient,
-        [Blob("audit-processed-log-storage", Connection = "AzureWebJobsStorage")] BlobContainerClient processedLogClient,
+        [QueueTrigger("audit-log-queue", Connection = "StorageAccountQueueEndpoint")] string name,
+        [Blob("audit-pre-processed-log-storage/{queueTrigger}", FileAccess.Read, Connection = "StorageAccountBlobEndpoint")] BlockBlobClient auditBlobClient,
+        [Blob("audit-processed-log-storage", Connection = "StorageAccountBlobEndpoint")] BlobContainerClient processedLogClient,
         [SendGrid] IAsyncCollector<SendGridMessage> messageCollector,
         ILogger log
         )
@@ -136,13 +136,13 @@ public static class PowerBiAuditLogProcessor
     {
         // Write CSV headers
         foreach (var headerName in headers.Select(x =>
-                 {
-                     return headerLookup[x.NameIndex].Kind switch {
-                         DescriptorKind.Select => string.Join("---", headerLookup[x.NameIndex].GroupKeys.Select(g => g.Source.Property)),
-                         DescriptorKind.Grouping => Regex.Replace(headerLookup[x.NameIndex].Name, @"^[^()]*\([^()]*\.([^().]*)\)[^()]*", "$1"),
-                         _ => throw new ArgumentOutOfRangeException(nameof(headerLookup))
-                     };
-                 }))
+        {
+            return headerLookup[x.NameIndex].Kind switch {
+                DescriptorKind.Select => string.Join("---", headerLookup[x.NameIndex].GroupKeys.Select(g => g.Source.Property)),
+                DescriptorKind.Grouping => Regex.Replace(headerLookup[x.NameIndex].Name, @"^[^()]*\([^()]*\.([^().]*)\)[^()]*", "$1"),
+                _ => throw new ArgumentOutOfRangeException(nameof(headerLookup))
+            };
+        }))
         {
             csvWriter.WriteField(headerName);
         }
