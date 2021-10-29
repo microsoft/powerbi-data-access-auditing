@@ -1,3 +1,0 @@
-﻿Marital Status,OffenderId
-Married,4602
-Single,4482

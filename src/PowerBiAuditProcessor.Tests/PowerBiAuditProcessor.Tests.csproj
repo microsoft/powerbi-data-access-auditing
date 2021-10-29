@@ -28,10 +28,4 @@
     <ProjectReference Include="..\PowerBiAuditProcessor\PowerBiAuditProcessor.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="OutputTests.Test1.verified.txt">
-      <DependentUpon>OutputTests.cs</DependentUpon>
-    </None>
-  </ItemGroup>
-
 </Project>
