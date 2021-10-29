@@ -12,13 +12,7 @@ public class ReportDetailsService : IReportDetailsService
         _reportDetails = reportDetails;
     }
 
-    public IList<ReportDetails> GetReportDetails()
-    {
-        return _reportDetails.Value;
-    }
+    public IList<ReportDetails> GetReportDetails() => _reportDetails.Value;
 
-    public ReportDetails? GetReportDetails(Guid workspaceId, Guid reportId)
-    {
-        return _reportDetails.Value.FirstOrDefault(x => x.WorkspaceId == workspaceId && x.ReportId == reportId);
-    }
+    public ReportDetails? GetReportDetails(Guid workspaceId, Guid reportId) => _reportDetails.Value.FirstOrDefault(x => x.WorkspaceId == workspaceId && x.ReportId == reportId);
 }
