@@ -1,4 +1,4 @@
-﻿Sheet1.Gender,Sheet1.Name,CountNonNull(Sheet1.OffenderId),Sheet1.Last Name,Sheet1.Education,Sheet1.Email,Sheet1.Marital Status,Sheet1.Number of Children,Sheet1.Occupation,Sheet1.Phone,Sheet1.Salary
+﻿Gender,First Name,OffenderId,Last Name,Education,Email,Marital Status,Number of Children,Occupation,Phone,Salary
  ôÑ°,Å±iô,798,Bennett,Upper secondary,Ķ:ĪĢfĤ}ûnģĂ×Ú¬Ďt,Single,2.977685442,Veterinarian,830-5590-57,98068.19913
 [đ¹N,²ĸéÃăÓ,7437,Richardson,Master,ìXē­ÈĒwĥÅöĂ|ÆācħÌ²äÁì|àŎ,Single,7.429246231,Veterinarian,068-4184-114,-84302.9499
 \Ë®xQ,~ħïÍĭöŝ,2181,Richardson,Master,ĉ:Ĉ÷¶ôĥøöĳ~õīÅĂġČö@}ÜãÁ,Single,3.905010125,Veterinarian,068-4184-90,60077.64346

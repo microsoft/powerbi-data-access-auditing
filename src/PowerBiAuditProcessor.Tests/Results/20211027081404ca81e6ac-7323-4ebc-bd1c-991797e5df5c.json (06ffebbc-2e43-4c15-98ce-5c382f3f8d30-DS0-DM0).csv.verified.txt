@@ -1,4 +1,4 @@
-﻿Sheet1.Occupation,CountNonNull(Sheet1.OffenderId)
+﻿Occupation,OffenderId
 Firefighter,455
 Geologist,371
 Baker,333

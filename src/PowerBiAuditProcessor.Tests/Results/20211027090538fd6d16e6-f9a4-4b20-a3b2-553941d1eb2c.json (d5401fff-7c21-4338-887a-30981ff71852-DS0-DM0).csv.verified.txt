@@ -1,4 +1,4 @@
-﻿Sheet1.Gender,CountNonNull(Sheet1.OffenderId),Sheet1.First Name,Sheet1.Last Name,Sheet1.Marital Status,Sheet1.Occupation,Sheet1.Number of Children,Sheet1.Phone,Sheet1.Salary,Sheet1.Email,Sheet1.Experience (Years),Sheet1.Education,Sheet1.Age
+﻿Gender,OffenderId,First Name,Last Name,Marital Status,Occupation,Number of Children,Phone,Salary,Email,Experience (Years),Education,Age
 Female,1,Catherine,Carter,Single,Firefighter,0,267-5944-46,30100,c.carter@randatmail.com,11,Upper secondary,26
 Female,1001,Anna,Richards,Single,Meteorologist,3.113800345,230-5112-41,92491.85582,a.richards@randatmail.com,7.472438311,Master,25.07627166
 Female,1003,Fiona,Bailey,Single,Medic,3.115141379,176-7540-101,92436.91648,f.bailey@randatmail.com,7.475264382,Lower secondary,25.07740719

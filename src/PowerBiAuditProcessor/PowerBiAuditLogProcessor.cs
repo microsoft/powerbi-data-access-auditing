@@ -1,3 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Specialized;
 using CsvHelper;
@@ -6,13 +14,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PowerBiAuditProcessor.Models;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataRow = PowerBiAuditProcessor.Models.DataRow;
 using DataSet = PowerBiAuditProcessor.Models.DataSet;
 
@@ -57,6 +58,7 @@ public static class PowerBiAuditLogProcessor
                     WriteRows(data, headers, dataSet, csvWriter);
 
                     await csvWriter.FlushAsync();
+                    log.LogInformation("Data written for {name} ({result.JobId}-{dataSet.Name}-{key}).csv", name, result.JobId, dataSet.Name, key);
                 }
             }
         }
@@ -70,15 +72,27 @@ public static class PowerBiAuditLogProcessor
         var stream = await auditBlobClient.OpenReadAsync();
         using var streamReader = new StreamReader(stream, Encoding.UTF8);
         using JsonReader reader = new JsonTextReader(streamReader);
-        var serializer = new JsonSerializer();
+
+        var settings = new JsonSerializerSettings {
+            MissingMemberHandling = MissingMemberHandling.Error
+        };
+
+        var serializer = JsonSerializer.Create(settings);
+
         return serializer.Deserialize<AuditLog>(reader);
     }
-
 
     private static void WriteHeaders(ColumnHeader[] headers, Dictionary<string, DescriptorSelect> headerLookup, CsvWriter csvWriter)
     {
         // Write CSV headers
-        foreach (var headerName in headers.Select(x => headerLookup[x.NameIndex].Name))
+        foreach (var headerName in headers.Select(x =>
+                 {
+                     return headerLookup[x.NameIndex].Kind switch {
+                         DescriptorKind.Select => string.Join("---", headerLookup[x.NameIndex].GroupKeys.Select(g => g.Source.Property)),
+                         DescriptorKind.Grouping => Regex.Replace(headerLookup[x.NameIndex].Name, @"^[^()]*\([^()]*\.([^().]*)\)[^()]*", "$1"),
+                         _ => throw new ArgumentOutOfRangeException(nameof(headerLookup))
+                     };
+                 }))
         {
             csvWriter.WriteField(headerName);
         }
@@ -153,8 +167,5 @@ public static class PowerBiAuditLogProcessor
         return csvRow;
     }
 
-    private static bool IsBitSet(long num, int pos)
-    {
-        return (num & (1 << pos)) != 0;
-    }
+    private static bool IsBitSet(long num, int pos) => (num & (1 << pos)) != 0;
 }

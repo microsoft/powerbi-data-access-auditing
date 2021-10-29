@@ -3,10 +3,10 @@
 namespace PowerBiAuditProcessor.Models;
 
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.Globalization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public class AuditLog
 {
@@ -140,13 +140,16 @@ public class Window
 public class BindingPrimary
 {
     [JsonProperty("Groupings", Required = Required.Always)]
-    public PurpleGrouping[] Groupings { get; set; }
+    public PrimaryGrouping[] Groupings { get; set; }
 }
 
-public class PurpleGrouping
+public class PrimaryGrouping
 {
     [JsonProperty("Projections", Required = Required.Always)]
     public long[] Projections { get; set; }
+
+    [JsonProperty("Subtotal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public int Subtotal { get; set; }
 }
 
 public class SemanticQueryDataShapeCommandQuery
@@ -350,7 +353,7 @@ public class FluffyTop
 public class DescriptorSelect
 {
     [JsonProperty("Kind", Required = Required.Always)]
-    public long Kind { get; set; }
+    public DescriptorKind Kind { get; set; }
 
     [JsonProperty("Depth", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public long? Depth { get; set; }
@@ -363,6 +366,12 @@ public class DescriptorSelect
 
     [JsonProperty("Name", Required = Required.Always)]
     public string Name { get; set; }
+}
+
+public enum DescriptorKind
+{
+    Select = 1,
+    Grouping = 2
 }
 
 public class GroupKey
@@ -402,6 +411,9 @@ public class DataSet
 
     [JsonProperty("HAD")]
     public bool Had { get; set; }
+
+    [JsonProperty("RT")]
+    public string[][] Rt { get; set; }
 
     [JsonProperty("ValueDicts", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Dictionary<string, string[]> ValueDictionary { get; set; }
@@ -488,8 +500,7 @@ public struct RowValue
 
 internal static class Converter
 {
-    public static readonly JsonSerializerSettings Settings = new()
-    {
+    public static readonly JsonSerializerSettings Settings = new() {
         MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
         DateParseHandling = DateParseHandling.None,
         Converters =
