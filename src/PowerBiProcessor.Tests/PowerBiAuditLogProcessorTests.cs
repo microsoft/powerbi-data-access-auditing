@@ -7,16 +7,16 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PowerBiAuditProcessor.Tests.Fakers;
+using PowerBiProcessor.Tests.Fakers;
 using SendGrid.Helpers.Mail;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
 
-namespace PowerBiAuditProcessor.Tests;
+namespace PowerBiProcessor.Tests;
 
 [UsesVerify]
-public class OutputTests
+public class PowerBiAuditLogProcessorTests
 {
     private const string ExamplesFolder = "../../../Examples/";
 

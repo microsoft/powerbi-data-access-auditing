@@ -4,7 +4,7 @@ using System.Linq;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Specialized;
 
-namespace PowerBiAuditProcessor.Tests.Fakers;
+namespace PowerBiProcessor.Tests.Fakers;
 
 internal class FakeContainerClient : BlobContainerClient, IDisposable
 {

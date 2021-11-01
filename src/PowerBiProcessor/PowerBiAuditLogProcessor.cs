@@ -13,12 +13,12 @@ using CsvHelper.Configuration;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using PowerBiAuditProcessor.Models;
+using PowerBiProcessor.Models;
 using SendGrid.Helpers.Mail;
-using DataRow = PowerBiAuditProcessor.Models.DataRow;
-using DataSet = PowerBiAuditProcessor.Models.DataSet;
+using DataRow = PowerBiProcessor.Models.DataRow;
+using DataSet = PowerBiProcessor.Models.DataSet;
 
-namespace PowerBiAuditProcessor;
+namespace PowerBiProcessor;
 
 public static class PowerBiAuditLogProcessor
 {

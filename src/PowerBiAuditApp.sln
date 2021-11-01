@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.31808.319
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBiAuditApp", "PowerBiAuditApp\PowerBiAuditApp.csproj", "{20FCC2E3-E5CB-41B5-B43D-DEAC9C4C0B66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBiAuditProcessor", "PowerBiAuditProcessor\PowerBiAuditProcessor.csproj", "{7D415992-34C5-4341-93D8-B4D3740BD882}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBiProcessor", "PowerBiProcessor\PowerBiProcessor.csproj", "{7D415992-34C5-4341-93D8-B4D3740BD882}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7E4BD5D3-8E1D-4E04-8906-03F0628217CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBiAuditProcessor.Tests", "PowerBiAuditProcessor.Tests\PowerBiAuditProcessor.Tests.csproj", "{0052AFB0-AB5C-4EA4-A606-0E1AEC194EBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerBiProcessor.Tests", "PowerBiProcessor.Tests\PowerBiProcessor.Tests.csproj", "{0052AFB0-AB5C-4EA4-A606-0E1AEC194EBD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5FF5B9F3-DBA5-4167-98DE-480F040ABE5B}"
 	ProjectSection(SolutionItems) = preProject

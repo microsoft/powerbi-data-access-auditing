@@ -1,7 +1,7 @@
 using System.IO;
 using System.Text;
 
-namespace PowerBiAuditProcessor.Tests.Fakers;
+namespace PowerBiProcessor.Tests.Fakers;
 
 internal class FakeStream : MemoryStream
 {

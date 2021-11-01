@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace PowerBiAuditProcessor.Models;
-
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+namespace PowerBiProcessor.Models;
 
 public class AuditLog
 {

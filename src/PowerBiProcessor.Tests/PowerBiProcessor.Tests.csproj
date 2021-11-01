@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerBiAuditProcessor\PowerBiAuditProcessor.csproj" />
+    <ProjectReference Include="..\PowerBiProcessor\PowerBiProcessor.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ using Azure;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs.Specialized;
 
-namespace PowerBiAuditProcessor.Tests.Fakers;
+namespace PowerBiProcessor.Tests.Fakers;
 
 internal class FakeBlockBlobClient : BlockBlobClient
 {
