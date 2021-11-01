@@ -1,0 +1,38 @@
+﻿<!-- Copyright (c) Microsoft Corporation.
+Licensed under the MIT license. -->
+@model PowerBiAuditApp.Client.Models.ReportViewModel
+
+
+@if (Model is not null)
+{
+	<section id="report-container">
+	</section>
+
+	<footer class="col-lg-12 col-md-12 col-sm-12 mb-0 mt-4">
+		@if (Model.PaginationTable is not null)
+		{
+			<p class="text-center">
+				<a class="btn btn-secondary" href="~/?reportId=@Model.ReportId&WorkspaceId=@Model.WorkspaceId&PageNumber=@(Model.PageNumber - 1)" role="button">«</a>
+				<a class="btn btn-secondary" href="~/?reportId=@Model.ReportId&WorkspaceId=@Model.WorkspaceId&PageNumber=@(Model.PageNumber + 1)" role="button">»</a>
+			</p>
+			<p class="text-center">
+				You are viewing page: @Model.PageNumber.
+			</p>
+		}
+		<p class="text-center">
+			UserName: @Model.User is viewing data.
+		</p>
+	</footer>
+	@section Scripts
+	{
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="~/lib/powerbi-client/dist/powerbi.min.js"></script>
+		<script src="~/js/report.js"></script>
+		<script>
+			$(function() {
+				LoadReport("@Model.EmbedToken", decodeURI("@Model.EmbedUrl"));
+			});
+		</script>
+	}
+}
