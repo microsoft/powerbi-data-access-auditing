@@ -1,0 +1,501 @@
+﻿Gender,First Name,OffenderId,Last Name,Education,Email,Marital Status,Number of Children,Occupation,Phone,Salary
+ ôÑ°,Å±iô,798,Bennett,Upper secondary,Ķ:ĪĢfĤ}ûnģĂ×Ú¬Ďt,Single,2.977685442,Veterinarian,830-5590-57,98068.19913
+[đ¹N,²ĸéÃăÓ,7437,Richardson,Master,ìXē­ÈĒwĥÅöĂ|ÆācħÌ²äÁì|àŎ,Single,7.429246231,Veterinarian,068-4184-114,-84302.9499
+\Ë®xQ,~ħïÍĭöŝ,2181,Richardson,Master,ĉ:Ĉ÷¶ôĥøöĳ~õīÅĂġČö@}ÜãÁ,Single,3.905010125,Veterinarian,068-4184-90,60077.64346
+]¦ăĊŝ,eÅēíĆÙ,667,Richardson,Master,Ĕñ ēěĞØĝõĄØ³EĸÿÄÂùďįêģĄÒÉ,Single,2.889847746,Veterinarian,068-4184-83,101666.7261
+]ùĀĊt,ü¯ã²qĦą,4996,Mitchell,Upper secondary,Ññ İÆĤîĤãĊÁĝËÓĉÇĂoÍ,Married,5.792514813,Veterinarian,651-3889-82,-17249.48179
+^b¦½,[kÜ¹|¦Ð,1492,Mitchell,Upper secondary,ď@Ôĕgâ¤Ą²êÍĝÁĔÞĤÕå¡× Êyá,Married,3.443024076,Veterinarian,651-3889-66,79004.24712
+^ñģħáÔ,é½ĂėāąŚ,7637,Ellis,Master,âħÙiãĢ£ďqðÄÄĤf°c¹Î-,Single,7.563349584,Veterinarian,380-2731-55,-89796.8842
+`ÐéĎ,`ĊĸĻÂõõ,1086,Richardson,Master,ÛëÇċĆÚéÕùÔÞ­¯²iİ|ÖÖĎĝĈsÃqœ,Single,3.17079427,Veterinarian,068-4184-85,90156.93374
+`đÍÒV,dÆķµĔĒ,8313,Richardson,Master,öÎĜ¤¹ÿďËÁ]Ìċÿm¥ÕäÔúóªÜy¥Č,Single,8.016618915,Veterinarian,068-4184-118,-108366.3821
+{ÄÝÈ,xÇ³ıÖ,5872,Mitchell,Upper secondary,î­ÓõĊīėČið¾±´qĢsËÙôğÌ,Married,6.379887497,Veterinarian,651-3889-86,-41312.91401
+|ģùð¢ãè,®ĆÅ·ÍÐÝ,3530,Hunt,Upper secondary,ıÚûÙăµ²Ħēċ½å|áċĠª{,Married,4.809537238,Veterinarian,572-8993-104,23021.05662
+}}à·à,Âħč±|,7894,Richardson,Master,è®Ì{Ĕr¢¡ċĭW±ÆÈćÌĳnpÆěÈlm·,Single,7.735672392,Veterinarian,068-4184-116,-96856.58977
+}đ~Ä,Ď¨ÿĝæĜ,4390,Richardson,Master,ÔÒà°ô¬½ç³ô²iµđ»ÑâÍģ{þ~ób,Single,5.386181655,Veterinarian,068-4184-100,-602.860864
+~ġŘ,ĎÊě±,2331,Bennett,Upper secondary,ºgªÕ×Õf÷ÀĨģøĆĐöĖêªĲĞ,Single,4.00558764,Veterinarian,830-5590-64,55957.19274
+¡ ±ĕ,DjğčÞ,5835,Bennett,Upper secondary,?¨×çĲĄ¯¶¸{ÊºğðĪÔĜDÉÎĀ,Single,6.355078377,Veterinarian,830-5590-80,-40296.53617
+¡Ü§Í,èÂ×Ċò½,2806,Mitchell,Upper secondary,ĎåÞÍĨ¦ÏÚÅUõÇĒj¬ralëNĆ¡ÿÝ,Married,4.324083102,Veterinarian,651-3889-72,42909.09878
+¦Ü²Ĥ6,Ĉ×ĄĨéÿ,5923,Richardson,Master,ù¿ăĥĔéÍĪ±fãÐÙ¦ħÚÏôwµ:,Single,6.414083852,Veterinarian,068-4184-107,-42713.86726
+¨©±đ,ăďģÀzı,6999,Richardson,Master,ĞÍñĤÄ¤ªïąěĕz®ĝq4ÿÌŷ,Single,7.135559889,Veterinarian,068-4184-112,-72271.23379
+¯ĎÂì,£ö¸Ä¶ăďê,6323,Ellis,Master,ąÇÃčĄwsã¾ģÍĮĬçl¦ãúÆ©Č,Single,6.682290557,Veterinarian,380-2731-49,-53701.73586
+´ÚĐ|ŀ,¼ĢîČàĻ,4371,Richardson,Master,Öį¥Ý¤Ĉċ÷Áµf¯ºä¨bg×uí§ÀÐáü~Â,Single,5.373441836,Veterinarian,068-4184-100,-80.93710568
+¸pĕ k,ÊãġĠĈ¬,4558,Mitchell,Upper secondary,ďmįÄĩrÔÜ¼Ę×ÈîĨĊÚ;rÌ¿,Married,5.498828471,Veterinarian,651-3889-80,-5217.765675
+¿Ć±L,ÚÇèÒÙÏœ,429,Richardson,Master,ûðçĉç}­½¹Į~ÉĕÜČĂĊĉÜò/ďĨă,Single,2.730264757,Veterinarian,068-4184-82,108204.5079
+¿ď¬ÉĒĥ,ZçþďiÌķ,191,Ellis,Master,õÅ{ĕËakjz§ÜÇÕÁċĐġ¿Ë,Single,1,Veterinarian,380-2731-21,116940
+¢zÐħ~,âûĜ³§,8075,Ellis,Master,½¸{ãÏÎÏĎėĂĐwăğ£ÚU¥ÓÑ§,Single,7.857035926,Veterinarian,380-2731-57,-101828.6003
+¢oµ,óī­ėâ÷Ï,1324,Richardson,Master,uO£èĨĂ÷ĂÏ¬óÉ¡ĤsãyaHÅ¬ÀR,Single,3.330377259,Veterinarian,068-4184-86,83619.15193
+¤ĉē¼j,¬ÝÍĚ{ðo,8970,Richardson,Master,Èáûjď·ĊĀďø|L§Ãè»ÝįÇ×óĤ|Í¿,Single,8.457148429,Veterinarian,068-4184-121,-126413.9563
+»oħqĬ,ÛÑìđ¡÷{,2419,Richardson,Master,9ĳĒÆðĞbĸ°ªĔċÛĞĦÅâĞĩý´Û,Single,4.064593115,Veterinarian,068-4184-91,53539.86165
+×h¯ŉ,ªÄ~¢,5397,Bennett,Upper secondary,ĉ`êêé­úĥ£ù}|ÏèØnÏs/¨èÍ,Single,6.061392035,Veterinarian,830-5590-78,-28264.82006
+×çă½ìĎà,þ÷éÏĹ,9005,Hunt,Upper secondary,čm§ÁĀÈ]ĨïÁµÊÚ½ºÆãĥ,Married,8.480616515,Veterinarian,572-8993-129,-127375.3948
+÷Āýı, ĔÎÚ»,3495,Richardson,Master,ê£ñsÝ¶nġ£Å¯]Ĉ¿gè¦²ùēdbÝć,Single,4.786069152,Veterinarian,068-4184-96,23982.49512
+©č§°ĜÎ¼,¥eåùÔàÔ,3695,Ellis,Master,ÌĬ½ñĪÇBİĔÕĚÒĲ£ìã®¦Æ|,Single,4.920172504,Veterinarian,380-2731-37,18488.56082
+©îđbħ¾,ïþ¤s»¼Ó,3968,Hunt,Upper secondary,¤c¹ØnÛÓ¨ĮĢĀ½ñø¡C¢Ĝ(,Married,5.103223581,Veterinarian,572-8993-106,10989.34051
+¬áùÊ,±Ò¶w,7806,Bennett,Upper secondary,¼ÓâĂĘãËÔĄlÎÎÃăìČØÁćĢğ³,Single,7.676666917,Veterinarian,830-5590-89,-94439.25868
+®È~ÁĆ,ēěq¨Ĺ,1455,Bennett,Upper secondary,Ě|î¹ăÏěÓČ§ñÄøġĉü|ÈĔĵ,Single,3.418214955,Veterinarian,830-5590-60,80020.62496
+°¦y ĔĆ,¾ßãĘåÜb,3749,Hunt,Upper secondary,nQÍĴßm¼ñæÃ¹ĝďē¥±ÇĪ,Married,4.95638041,Veterinarian,572-8993-105,17005.19856
+°Ğµ¦·,ā¢ÑÔ,7656,Richardson,Master,Ö×ÏĆÌ²Å¦ďīĢOČėĢ×Ìėħµ÷Ğĥ»,Single,7.576089402,Veterinarian,068-4184-115,-90318.80796
+µ¦÷pırş,cĊ×ßČnġ,2819,Ellis,Master,ö8|¨§ÞÇ¶Ġģ{düÖÇÛĄÚéŜ,Single,4.33279982,Veterinarian,380-2731-33,42551.99305
+µĔÝÞĺ,ªĹ¥Ĳ¨,7875,Richardson,Master,keëġdâčĎ ë¾çĬ°¶ÐĂæ9uèÔĵ,Single,7.722932573,Veterinarian,068-4184-116,-96334.66601
+¶uìţ,čăÈ<,6711,Bennett,Upper secondary,Ë«ĕċĞäîûµ©ĠÔuì°±§hĖŉ,Single,6.942451061,Veterinarian,830-5590-84,-64359.9684
+¶æĦ©Ū,×Ôå½fóþ,5704,Richardson,Master,ĭÁþa|}¢Ö{øğ´ĀĜĈko×¬Ûuú¶r¨Ē,Single,6.267240681,Veterinarian,068-4184-106,-36698.0092
+¶ÀĕmĘ,¬ÇôÙ¶,8751,Richardson,Master,ØmåïĄlòÐ·mÈ¡ġĉµĠµð¶©,Single,8.310305258,Veterinarian,068-4184-120,-120398.0982
+¶qñkq,LfsĚå ġ,1711,Mitchell,Upper secondary,oªs~¬¦þùûąþÌ~åÆďğì×ċ,Married,3.589867247,Veterinarian,651-3889-67,72988.38906
+·Ûúí,eûqĠ§,10,Richardson,Master,ĝĔåĚĒ¹ËåÞ¼îe´Â½ćÙĒÎÀı,Single,5,Veterinarian,068-4184-80,139523
+{Čďl½Š,ćĄãßu¶,8348,Hunt,Upper secondary,Ā?ģÃà¿ÅĤĥnĤÛm¿ðÁú«ėĲ,Married,8.040087002,Veterinarian,572-8993-126,-109327.8206
+´¾,´¡}Đ¶D,229,Richardson,Master,zÍğĒ»kĔü²|ß°ÕĜĉý­ºıkú|Ěŝ,Single,2.596161404,Veterinarian,068-4184-81,113698.4422
+¥ħf@, Ò,5047,Richardson,Master,īêāáÖĖ¿·Ĳ¬­kmÖí¤Åiē³a|·ê,Single,5.826711168,Veterinarian,068-4184-103,-18650.43503
+÷·Ę¿,ĀÀÌĠ¾,1724,Ellis,Master,Ö·¬ĩÆàĔĈħ}ßĂüĎěóýº,Single,3.598583965,Veterinarian,380-2731-28,72631.28333
+¬´a{Òº,f¶ÆğÿćĞª,7856,Ellis,Master,ÿ®âÎ|ď¸Ó§ÛâØËåÃÌÅĉ,Single,7.710192755,Veterinarian,380-2731-56,-95812.74225
+®ĔąŔ,Î§{·fÊ,1981,Richardson,Master,ØöÒÝbhĕěñå¹ÙĢĄËúæĎåĆI¥¥Ę,Single,3.770906773,Veterinarian,068-4184-89,65571.57776
+¶ªē,ê³Ôĳ,4959,Bennett,Upper secondary,ęhüËyh´úÉ¡|Ý´ģsÇßzĤÔ,Single,5.767705693,Veterinarian,830-5590-76,-16233.10394
+Ëb£,ûdòģ¤ð,6158,Hunt,Upper secondary,ĩGrõĢ¿Öô¥ğ¡ÍĥÑÄġ®°÷,Married,6.571655291,Veterinarian,572-8993-116,-49169.24006
+ËēĲ,ÁêlėzŌ,5904,Richardson,Master,ð°òđÊ¡ĘÆĨi¨Ī·Ą¹öĆ¥´ĎýÈëÂ¿],Single,6.401344034,Veterinarian,068-4184-107,-42191.9435
+p¸,¬Ġá»øĞĺ,8951,Ellis,Master,q}Ãü±ďÍĞ ĚïåĖæċýRČµå,Single,8.44440861,Veterinarian,380-2731-61,-125892.0325
+¹¦¢ä,ė°Ļw,8682,Bennett,Upper secondary,ßÝtėÆ¹éçcċĂÂõÜÈ¬kòÅC,Single,8.264039601,Veterinarian,830-5590-93,-118502.6909
+àñ²,sÇpÀĢ¨,245,Hunt,Upper secondary,ÁwôħĻÕqüĥÀ{ÓµİÈ²ÅĢÅĬ,Married,2.606889672,Veterinarian,572-8993-89,113258.9275
+Äår,iģ´qÞĦĨ,6142,Richardson,Master,ÜáêÊĥą©Í¥ăiâÑ­¸Ėĕ°đ¯Âz¤Ô,Single,6.560927023,Veterinarian,068-4184-108,-48729.72532
+ÆÅ,ăó´óÁy,178,Mitchell,Upper secondary,Ģ7síėkùėĄ¿ĆüăĠîÕ}ÉÓC¨ÅŦ,Married,2,Veterinarian,651-3889-60,41565
+ÂĤÿuü,cô¤ĝc,7910,Hunt,Upper secondary,´2l¨ĳĕ´ĐÐéèëÞ½Č§ħ3¯Ĩ¤Ŭ,Married,7.74640066,Veterinarian,572-8993-124,-97296.10452
+ČÂĐŧ,p¹ĆæĞ,8719,Mitchell,Upper secondary,ĖWĔÔ£Ģ¬Ģ§ñmfímcĝĭ¾Ô,Married,8.288848721,Veterinarian,651-3889-99,-119519.0688
+Čēgó,sġ~kí,4521,Bennett,Upper secondary,¦4ėéñqsã£_¹zāyĬıa¥°­čč%,Single,5.47401935,Veterinarian,830-5590-74,-4201.387829
+Ð÷g,§Ëõ¶,1236,Bennett,Upper secondary,üWõÝâēlÞÇÂÓ³tâĕðĎµ,Single,3.271371784,Veterinarian,830-5590-59,86036.48302
+ĒÞěÁ,È¤đ¼tĦĚĿ,5228,Ellis,Master,ĦÉðÆı÷ØĎÓÞçÂā´ÙįªīęÆ,Single,5.948074702,Veterinarian,380-2731-44,-23622.44557
+ēĆĔp,ÜºĊČ,4083,Bennett,Upper secondary,¶Üµuè¶sĔÆ½ĩÂĩäĘĜ7Ñä·Ċ,Single,5.180333008,Veterinarian,830-5590-72,7830.328284
+Í¸áº,´þÊzıÏ,2619,Richardson,Master,¸CČďuº®×Èā¼lú~āĤæØôÃ¼Øýø,Single,4.198696467,Veterinarian,068-4184-92,48045.92735
+Ī¢çõØ,ð¶mÈĈ£,4844,Hunt,Upper secondary,{ÒÅþæĴ¡ēöµħęäÑçĔ,Married,5.690596265,Veterinarian,572-8993-110,-13074.09172
+îĪº,ùĳĳ±ģĳ,4339,Mitchell,Upper secondary,¯Pÿ­Í¬Ýõô¥ÏùûĥòÂbî²>Ďª©,Married,5.3519853,Veterinarian,651-3889-79,798.0923821
+ièì´,ÀüæĂÇĚ,7675,Richardson,Master,ćČÉª´b´aÑòāĄgĖ½ĞĊqiìė«,Single,7.588829221,Veterinarian,068-4184-115,-90840.73171
+ÏÈoģÌÝ,èkêÓÄ,3092,Hunt,Upper secondary,ª½aâąĭÖ»×¨Õ¦ÿÏĂåNs¸ýŨ,Married,4.515850896,Veterinarian,572-8993-102,35052.77273
+ìnÞÒĂÍ,Ć±¢ÖÕcQ,2654,Hunt,Upper secondary,ÔÈčÝĎÍ¿đĩ¹×rĄõji³,Married,4.222164554,Veterinarian,572-8993-100,47084.48885
+Ñ­®Į,¡ķÅİÜ®ě,5485,Richardson,Master,Ė²tċĬÇķãÂĴp}ÚþÂ¸Íā×ġðĤ,Single,6.12039751,Veterinarian,068-4184-105,-30682.15115
+ñÀdzðÏ,ĄäĪqñ,5063,Hunt,Upper secondary,Ć¡ùÍóÆ©âæâqmÔùĉý,Married,5.837439436,Veterinarian,572-8993-111,-19089.94978
+ÔkN,üÈĬĚŸ,4302,Bennett,Upper secondary,ĕÿ¤°ÐÖĴċlĨbĻÏðă_àčďá,Single,5.327176179,Veterinarian,830-5590-73,1814.470227
+ò³l¯Ü¨,·a|n¡å,4133,Ellis,Master,¯ĐĆÎ£Èåº¬jħêýòÒģÛåÎÀ²,Single,5.213858846,Veterinarian,380-2731-39,6456.844709
+Ù¨úū,ËĜįüð,1105,Richardson,Master,ĭ ½àlãĖïıĕęđ¬ĎĚàĜg×ôĴī,Single,3.183534088,Veterinarian,068-4184-85,89635.00999
+Û°ÇÀ,ĪĄ|¨,4828,Richardson,Master,ĝ²ĚóºÌ|¤ñ¶üČèĖàÎ±ûÒîsçõ,Single,5.679867997,Veterinarian,068-4184-102,-12634.57698
+û½ąÿ,Õf´÷è,8463,Bennett,Upper secondary,«þ|ĩĖ°Ā»¶áÌčăêÄ·úĢæĄÅŒ,Single,8.11719643,Veterinarian,830-5590-92,-112486.8329
+üĎēàÚB,ăçì~ĔüW,5447,Ellis,Master,ÿáğu¯ďoĳÿùüħ¬ÓÀiĊ»,Single,6.094917873,Veterinarian,380-2731-45,-29638.30363
+Úõ¼Ïlņ,ĈkêýrÅĥ,6980,Ellis,Master,¦ĲhĖW{¡l¼ĀÁěs¼µða,Single,7.122820071,Veterinarian,380-2731-52,-71749.31003
+úÓćÝĥň,Úu÷Ñġh},6377,Hunt,Upper secondary,ąí®ÁčfāĂ­ĳÒÁæÜē@ĄmiĲ,Married,6.718498462,Veterinarian,572-8993-117,-55185.09812
+Ý¡Ē,ËğØË,8532,Richardson,Master,õ¦óĖĥãĮĢÍČzæõbęyëÿÜėé§Ĉ,Single,8.163462087,Veterinarian,068-4184-119,-114382.2402
+½ñħ¾,ç¢ÕqØĲÂ,3057,Richardson,Master,ĀÔqhĦòåúāÖĄ¦÷¸ĞĐ{ğãaĩÔ¶ÃĒ,Single,4.49238281,Veterinarian,068-4184-94,36014.21123
+½¹}¾Ľ,^ ĕØĥ~ā,6091,Mitchell,Upper secondary,eiÎğ¬Ænºk¯¸æ}ėÈąĂ6~ĦÌ_,Married,6.526730668,Veterinarian,651-3889-87,-47328.77207
+²ĎuÈÊ,zĞ¬¥,3645,Bennett,Upper secondary,¹Ð©ßčĂ|FÙñêâġĮĔÐıÆĆÓĄ,Single,4.886646666,Veterinarian,830-5590-70,19862.0444
+³ ÛāïĄĆ,ë§Ø­§ÒbŤ,7199,Ellis,Master,ùËÃyÑ¸iàđĞ¯òëØ¬Ç¼,Single,7.269663242,Veterinarian,380-2731-53,-77765.16808
+³ąćÎe,ĮÖĔ,867,Richardson,Master,õÔĚ¯ÇÀÒfĘÁnĆâýĀèÿ¯ÁÜ¢ÎáĬ¹,Single,3.023951099,Veterinarian,068-4184-84,96172.7918
+³álĈ,Ĥ­}Ú§o,886,Richardson,Master,åt¤ËāĖµ¤¨Ï­ĤđÔĀ©ĝøění±µī,Single,3.036690917,Veterinarian,068-4184-84,95650.86804
+á¡ÂĜß,vâĝČ,3207,Bennett,Upper secondary,´¨ãĂ{ĥóè|sàÊ§òĵfxÅ®µĖæñŕ,Single,4.592960324,Veterinarian,830-5590-68,31893.76051
+á¶Ñă,ĸ¶ÎÁŢ,8113,Richardson,Master,k»kĭºÁcćtmăY¶äÙĒĨĦĘ×dkðìŹ,Single,7.882515563,Veterinarian,068-4184-117,-102872.4478
+Ã·Ħęs,­¤ÌÔ,2769,Bennett,Upper secondary,H­ĩęfÐĬÅ²fþ Ĕcþāã®Âæá©±,Single,4.299273982,Veterinarian,830-5590-66,43925.47662
+āĂñ®,þÈčÉ¨»=,5466,Richardson,Master,ÅûcğÁąü÷ģ¹¹Ø¿Ñ¹ð¢Ā§²ï·,Single,6.107657691,Veterinarian,068-4184-105,-30160.22739
+ÃĪÛÊ,æĚģğģãŻ,7624,Mitchell,Upper secondary,éyĴóÝrĕěb¢ézÌm~ğÜ­hĶē:,Married,7.554632866,Veterinarian,651-3889-94,-89439.77847
+a¼êČÑv,Êfz÷ó,1340,Hunt,Upper secondary,éĈçÐêæîĝĐqĒÔ¥èĊīĞÀ,Married,3.341105528,Veterinarian,572-8993-94,83179.63719
+ÄÁ¥Ì¾,àČěēČ,360,Bennett,Upper secondary,Ï­¥æČ¦u¼ĎZÛßnĆzyf¸¯Å²,Single,2.6839991,Veterinarian,830-5590-55,110099.9152
+ÀÅ×¬Þ,×ûÚmqF,648,Richardson,Master,·¡ájÄa¢ī±ïiÅ¸÷ĈiĀ¸ÝĨ ¾ČĘčk,Single,2.877107928,Veterinarian,068-4184-83,102188.6499
+ÄáĘ{c,¾âÞĎĝ®,616,Mitchell,Upper secondary,õmÄÜçäýúëNćąĮlÎÓĉuÖÏßü,Married,2.855651391,Veterinarian,651-3889-62,103067.6793
+àaĜèj,¨ĕĒ,1017,Bennett,Upper secondary,òċğÞ©æ×ĉ§Æğ³Ô¹Ó¾lĆĭĴ,Single,3.124528613,Veterinarian,830-5590-58,92052.34108
+ªĄĢÖláË,ûcĥĚþÕÊ,8129,Hunt,Upper secondary,ćiûĪàm®ĕéÙn¨Iâğ°,Married,7.893243831,Veterinarian,572-8993-125,-103311.9626
+aāïĎÙ,§Ð×²ģč,6342,Richardson,Master,²ËĞnöËsjĞÛ¢ī{Ļĉ{ĩÃÓòóq,Single,6.695030376,Veterinarian,068-4184-109,-54223.65962
+ĂČ¢,øÃĮįĀäā,2149,Mitchell,Upper secondary,j]èä¡ÃmĳÅ{ģĕĦÔ¦õ}ē»ô¦āºÔ,Married,3.883553589,Veterinarian,651-3889-69,60956.67295
+ªĊ¾ëĖ[,lĉĳìħ½J,5501,Hunt,Upper secondary,¬1eīÉĎ¢ÏnĆĆ¾|à¯p¥ĭªŭ,Married,6.131125778,Veterinarian,572-8993-113,-31121.66589
+Ąċ³myÉ,ÅĈ°x}¡ÇÚ,2381,Ellis,Master,đ4iİĒÐýòæĂī¾ĥä<d½Á§,Single,4.039113478,Veterinarian,380-2731-31,54583.70916
+Ãe«ĄÔ,Ü¬čÔ¥,3714,Richardson,Master,á1ª¥ôĲ¯anSÑ®Ĥ¡ºþĳĂ|ĉÅ®¼ð·,Single,4.932912323,Veterinarian,068-4184-97,17966.63706
+ąęÂ¹ÐL,ây«¾Ò,1997,Hunt,Upper secondary,§õ¡ĵİÜħ¬ģnÁ¬bm`©āÓ,Married,3.781635041,Veterinarian,572-8993-97,65132.06302
+Æę×¡ĠÊ,ÞĄď¬ā~Ā,3257,Ellis,Master,ĩÛÔĕĒÐsç¤îā°éĎwīkü,Single,4.626486162,Veterinarian,380-2731-35,30520.27694
+æĠ|īr,äĪÄ±,7368,Bennett,Upper secondary,Ý§ÂĖs§¯ĨãĕÍÿüÒĬ×ğęėįęâ,Single,7.382980575,Veterinarian,830-5590-87,-82407.54257
+áėÏġą,÷uķĹj,5434,Mitchell,Upper secondary,čïĄÞěøĚÅýÛĀ»ÀÑÝÑĮĎsÒĳ¶œ,Married,6.086201155,Veterinarian,651-3889-84,-29281.1979
+âĒØ±h,NãÉĘÓÕ¥,8551,Richardson,Master,N®·ÿĦÊ¯÷ñrĆµÕÁįĐñµä£ÐîýT,Single,8.176201905,Veterinarian,068-4184-119,-114904.1639
+ÆÛËÞÛē,åÑģa©·,2873,Hunt,Upper secondary,Ġ/ĖÍûåÖăÔċ½íăïă¤¯~{Ð,Married,4.369007725,Veterinarian,572-8993-101,41068.63079
+ÄùùÛåÜ,iĔĦĦÂâ,2162,Ellis,Master,Ç7åîÍ µûĢ¯ăÜk¢ÐăëĖ,Single,3.892270307,Veterinarian,380-2731-30,60599.56722
+äýġ,ôčĠÙ,2838,Richardson,Master,ē§ÞlçëČĴÖ įÅÙébÔ´ìīÙÞÔ¸~Á,Single,4.345539638,Veterinarian,068-4184-93,42030.06929
+ÂzĪ¤ŗ,Ä¬ÌÃĹ,1674,Bennett,Upper secondary,Ĩ£ÅöĳěË¨ðýuĔÙéĐ¬ēĞþĉĢ,Single,3.565058126,Veterinarian,830-5590-61,74004.76691
+B¿Î¢yÌª,ÿÒĠÚĕ¤Ĕç,5885,Ellis,Master,2ĀÑµáěã¾ěċÃö¨İÄ¨äqmă,Single,6.388604215,Veterinarian,380-2731-47,-41670.01974
+b¢ÂĥÃ,òl¤ĺ,7149,Bennett,Upper secondary,ē¯ĉc²čÞą£ĐÉ®ÐĞĄÜÂ¸aÒÔĠ\,Single,7.236137403,Veterinarian,830-5590-86,-76391.68451
+BĈ¤ã,êÕĀĵÇ­ê,3733,Richardson,Master,Ú®dtėċħ¤uıĨûð|ĚÜûĎĞÂ­,Single,4.945652141,Veterinarian,068-4184-97,17444.71331
+B¹Çğ,ĎÝsÂÖŁ,3933,Richardson,Master,ģwĵ¹õĚüČºĲõĆċĐġĪò²ìJêÜÇD,Single,5.079755494,Veterinarian,068-4184-98,11950.77901
+BÚÉh¼,¿āĔïĩŉ,2857,Richardson,Master,Êá°lzbęăâðªĄĚ²x¶ękĥ´âŏ,Single,4.358279457,Veterinarian,068-4184-93,41508.14553
+Ċ´úĐÔÄq,ªøe¼ól,683,Hunt,Upper secondary,ķÓĭ«±ĤñĂûĀĜ{nAÁĳć,Married,2.900576014,Veterinarian,572-8993-91,101227.2114
+ċ¶ěÒĞě¡,"©¨l©ĩ,",464,Hunt,Upper secondary,´ÂÒÊÄĥJĄüÔîøühðhÞ}Ī¯Ý,Married,2.753732843,Veterinarian,572-8993-90,107243.0694
+ċâÙ,iñ¤Ã,7843,Mitchell,Upper secondary,Òoru©ćÇùãñ¡ć¯Éú¥ÂċĢÅz,Married,7.701476037,Veterinarian,651-3889-95,-95455.63653
+ĆĎĩ¸ã¨,ÒĂª®ĒøÐ,410,Ellis,Master,ÇÇÊ½ĮcĲRË©ĝġĊu¾ Ąfó·z³,Single,2.717524938,Veterinarian,380-2731-22,108726.4317
+ĉfÏ,Ā®ÐĸĤÔ,2200,Richardson,Master,Ġyç~tĞąĄ±ċB¿¿ĮģìlþfqHÅI,Single,3.917749944,Veterinarian,068-4184-90,59555.7197
+ćģãĜb,Ċ¡þĴ¶},1273,Mitchell,Upper secondary,ëâ¹ĝĨ¨§ĝ·Ķ­®ìxºØĞĔaÒ¿áÏ,Married,3.296180905,Veterinarian,651-3889-65,85020.10518
+ċïÍïëÜÅ,Î¢ÅÉòÝ¸,6596,Hunt,Upper secondary,´óĦĬĥlQnÞğÝħkĂåĬ2¸mû,Married,6.865341634,Veterinarian,572-8993-118,-61200.95617
+ċmàm,}ĐĔØİ³º,1743,Richardson,Master,Ö¢¦ÅùjûÈ¸Þ·Ìĉ«mĝĥ¯­{ñĠě,Single,3.611323783,Veterinarian,068-4184-88,72109.35957
+CôaĈ*,£Åĳze,7587,Bennett,Upper secondary,pğû¦»ąÀæo¹¨Ćì/{Úĉ,Single,7.529823746,Veterinarian,830-5590-88,-88423.40062
+ď î_,~¢ñö,8244,Bennett,Upper secondary,Ĥ²ðöùmYĖ¿¢ëÏæ­»´ĕ¢¡,Single,7.970353259,Veterinarian,830-5590-91,-106470.9748
+ð¦¹Ï,®ØĒŦ,2112,Bennett,Upper secondary,û¦³æ¼Ėġ£Kî³Òġ²×ÆCģ{ĬK,Single,3.858744469,Veterinarian,830-5590-63,61973.05079
+D®ÕŬ,¯ßòá,8989,Richardson,Master,¹ÌćĜðěģĚÍĕuÓ³ûā§ĜãyüÇC,Single,8.469888247,Veterinarian,068-4184-121,-126935.8801
+ďħĸ,UĸĆąäĝĵ,4120,Mitchell,Upper secondary,âïÁåĜÞħñðÁéÓěÜ¯°¯ìÙ,Married,5.205142129,Veterinarian,651-3889-78,6813.950439
+dÖ,Ü¡êc¦_,8094,Richardson,Master,Å¾¶ÒđÐ§ď{ÉT­ĘñģĔĀÎĐÎç0ò«¸â,Single,7.869775744,Veterinarian,068-4184-117,-102350.5241
+DċâÖŷ,čèĩ,141,Bennett,Upper secondary,ÅàĨôÜ¨÷ìöÁuþõĊ¾{üÈĒþ,Single,2,Veterinarian,830-5590-54,128571
+ÐÐ¦¤­,ï£ºàûĉĴ,1943,Ellis,Master,ġ?ýĬÀõìĔÊ¯ķÏÄüĊY{­ęć,Single,3.745427136,Veterinarian,380-2731-29,66615.42528
+ĎđęÐÛ,È·òï×,2550,Bennett,Upper secondary,¿·ûµ{Ûò¢óÉ«ĔÅĈēÁĕ¤÷¦,Single,4.152430811,Veterinarian,830-5590-65,49941.33468
+ÐħùĩÄî,uºéÂĐÈ\,5009,Ellis,Master,·knPÛÀÉnÀí¹yÛØÎìé,Single,5.801231531,Veterinarian,380-2731-43,-17606.58752
+dÑĪč*,Ħă¤ĂÊ,6561,Richardson,Master,ė³tÅæĜ£qÖìĄe|°±ÓĥĠĄ¦ù±Ï,Single,6.841873547,Veterinarian,068-4184-110,-60239.51767
+É«Ģu,xë©m½,6492,Bennett,Upper secondary,ă@ğxĦzðĳđvô°ĖéªĈÞAÁþÑň,Single,6.79560789,Veterinarian,830-5590-83,-58344.11034
+E©{ĔqP,lé¿ÉþÍų,4625,Hunt,Upper secondary,ÏeÀuİöČÉÄ¥k÷¿ØÒh¿č,Married,5.543753094,Veterinarian,572-8993-109,-7058.233665
+ê®¥yŝ,ÊėçĒïĎ&,3682,Mitchell,Upper secondary,³ĘÊĆĜ{µÞ`ÝÆôÙ¤üéãëÈė¬2,Married,4.911455786,Veterinarian,651-3889-76,18845.66655
+Ê¶fûç,q¹įċ×,6361,Richardson,Master,ïôĭĖ¡÷Č»Ú¾Ĭ¿Ěbĉmøė¨©í,Single,6.707770194,Veterinarian,068-4184-109,-54745.58337
+ēĒď¬,\ĬôÏøĕü,3463,Mitchell,Upper secondary,zÜÉĎ|ĥåĢkÔĕĚ¶ÑĖĜØā¼Ĉäòçr,Married,4.764612615,Veterinarian,651-3889-75,24861.52461
+ÈÌ¶İ,h·¥kÁ,1930,Mitchell,Upper secondary,ĢÎĭæyĠīµ¸ô§åÞà®ùë¤¦á©ĬĤ,Married,3.736710418,Veterinarian,651-3889-68,66972.53101
+­Ë¼ÏĎ,ÿĔ¶ÓčĐ,1286,Ellis,Master,Ĝ©©ÄďĔáíĚĜĜĔ{¼Ć´xÖá¤Ù,Single,3.304897622,Veterinarian,380-2731-26,84662.99945
+ËâðÕĉ³,ÈËĝó­ġŏ,5666,Ellis,Master,ĔKÞĥ²¶­Ċ¼Ïß²ä~²lĀĴ`,Single,6.241761044,Veterinarian,380-2731-46,-35654.16169
+Éđď,"âĥ¯Ĥ,",5616,Bennett,Upper secondary,ÿā½£øĲHôáæĢę×ĢĚ`ĞïĢ,Single,6.208235206,Veterinarian,830-5590-79,-34280.67811
+ÉĒ³rØħ,«þôýmčó,5282,Hunt,Upper secondary,£±¹ ØÊí{¥å¾Ħĳÿ©~K¾ĘĄĿ,Married,5.984282607,Veterinarian,572-8993-112,-25105.80783
+EĒåÀ©,á»Ĩ©Ä,6123,Richardson,Master,âù±ħäÔz¿ÒÀÈÊÇðąaĂÔ`â¿,Single,6.548187205,Veterinarian,068-4184-108,-48207.80156
+émÜĤ,Ć¿üĢÓÇ,1054,Mitchell,Upper secondary,ąÇòë¯é³ýÑČæÝ®àĎĚìcyuÇä,Married,3.149337733,Veterinarian,651-3889-64,91035.96323
+éºªi,þĈØÝÁÂă,8513,Ellis,Master,ª|ï¤á·nāfÌ²á°¿ÄÏĵ¸æ,Single,8.150722268,Veterinarian,380-2731-59,-113860.3164
+EüěÂ,rýġĘÚ¬,4171,Richardson,Master,F¹±î¥Ì¬Ù×Ûĸ¬înËªÎúòö¸ñÀåÏ,Single,5.239338483,Veterinarian,068-4184-99,5412.997193
+ÉúÓÀM,´uö°¾ä,5215,Mitchell,Upper secondary,rĖîìÂĔãïüiªcôĚì­Ýqçám|,Married,5.939357984,Veterinarian,651-3889-83,-23265.33984
+fqáüĶ,ÍĪs¤ü÷×£,2600,Ellis,Master,ÄiíĎĳċ¾Ă¥ÿĨăÅĒĊHĘåÙā,Single,4.185956649,Veterinarian,380-2731-32,48567.85111
+fĀħĉďÓ¤,ąĚiÌñ£¤¥,848,Ellis,Master,Æ¸ĉåģËē÷ĚÖÉēÔþ£ºlìï¹¡ũ,Single,3.01121128,Veterinarian,380-2731-24,96694.71556
+fÚåċÍ,Níġ¡ÅÚâ,5028,Richardson,Master,ÁyÞhÎ°Ēcq¢ñÔíİÀÊ¥êÊ{çmģĞďĭ,Single,5.813971349,Veterinarian,068-4184-103,-18128.51128
+g¬đġd,j°,6273,Bennett,Upper secondary,pĀá¡ğÛ²ôĝ}¯À²ě¯Ê§¯®´,Single,6.648764719,Veterinarian,830-5590-82,-52328.25228
+gæ¾rĤĖÕ,ª|ĞčýĎc,8567,Hunt,Upper secondary,{äĭ¹yĎBĠĐĢ²ĘfÄÍmñÝ,Married,8.186930173,Veterinarian,572-8993-127,-115343.6787
+gĆĩ¢g,û¯ÈĜ ÿá,7237,Richardson,Master,lXäĐôÛêªaÿđįâùÔÎÞôm·¬ï,Single,7.295142879,Veterinarian,068-4184-113,-78809.0156
+hÐ°Ĕì,ÖĳÏġÊ¤,6967,Mitchell,Upper secondary,ÜúĄ¹ĀðÎn²þ£Ë©Æďį¯ö¸Ö,Married,7.114103353,Veterinarian,651-3889-91,-71392.2043
+HüsŇ,©Ëē¼,4590,Richardson,Master,c·ùn®¸Ë|áĔ´Ĩ«ĎĞwİě©tÃCàĞ,Single,5.520285007,Veterinarian,068-4184-101,-6096.795162
+hÛĒb/,ĄÞâĄ,4809,Richardson,Master,t@ĳāþĐĖßÖÎ¦knāĩâoÿtąñ½ě,Single,5.667128178,Veterinarian,068-4184-102,-12112.65322
+Î´®«ĔĊ³,÷ï¡ēç°Ĵ,629,Ellis,Master,÷ÊùĞĆ»ÖäfĉªÁç4£ãŕ,Single,2.864368109,Veterinarian,380-2731-23,102710.5736
+Í£íĘà,¶āï,6748,Mitchell,Upper secondary,Ą>ĖðÞÉµ±²ģ°ėĞ»Įï®ÂĜêèá,Married,6.967260182,Veterinarian,651-3889-90,-65376.34624
+Í×¸i£kÂ,¨±ģþ±§,8294,Ellis,Master,1Èi¥Ûµkèā Á¥Ĩ:ºĉ¶,Single,8.003879097,Veterinarian,380-2731-58,-107844.4584
+­ÎZ,P¾|ãè,397,Mitchell,Upper secondary,xÆµĊ©óÿ×Ñëfd×£xÀÔûŭ,Married,2.70880822,Veterinarian,651-3889-61,109083.5374
+ÍĔĈñ,éËğĂÌ­·,3514,Richardson,Master,¹9ĞñÚûÃĞĄõ¬l­ģyd§æc÷E¡éÁ,Single,4.79880897,Veterinarian,068-4184-96,23460.57136
+iĄü÷Ŧ,İĳÏ¥Éc,6580,Richardson,Master,ĖËßòčkĖsµõ½j{ÁmÞăĪÝaćņ,Single,6.854613365,Veterinarian,068-4184-110,-60761.44143
+ÌĊęĘÃ,akÁćŎ,8332,Richardson,Master,¸¡ÒėÖàĄă¯ßĎþĈ§ÜćĒöĮÄč¡Q,Single,8.029358734,Veterinarian,068-4184-118,-108888.3059
+ÎĔÚ,ßÉ¼ăĴ°,8770,Richardson,Master,ĆĒqéćíïĕÒĘĂõùûčøÜħ,Single,8.323045076,Veterinarian,068-4184-120,-120920.022
+íËĥĘÇ,Hq¹³Ý,7186,Mitchell,Upper secondary,³~ĎÓÖÉÚ÷ħďz®ič¹¨ăó±ô¡ĬĄ,Married,7.260946524,Veterinarian,651-3889-92,-77408.06236
+ìÊÕv,¯èĺù¤Â,3276,Richardson,Master,ěÜÓ¯èīÍĪìTf§}ûÚë{ăÄÌkÜà,Single,4.639225981,Veterinarian,068-4184-95,29998.35318
+Ìğ¾Ą,ĉuïäÀ»,7691,Hunt,Upper secondary,çëĈ»ĘòüñÏ£Â±ġ¿íïk,Married,7.599557489,Veterinarian,572-8993-123,-91280.24646
+îïÝāÜ,ēéê@,1893,Bennett,Upper secondary,Ó]úĕh­B·¯¿®ĊďÅĩëăĭs,Single,3.711901298,Veterinarian,830-5590-62,67988.90885
+ìÔĘÖă½,Ýģ¯ØÒ,8732,Ellis,Master,ýnÃÙĭøØ¡êzÌąİ®äÚ³ġ´,Single,8.297565439,Veterinarian,380-2731-60,-119876.1745
+ïØÉą,[¼ùăýĈ,835,Mitchell,Upper secondary,ôt¥³ķáÈuz¤ëýêªòÖĳĚ¥¨Ė|ÜĖ®¬,Married,3.002494562,Veterinarian,651-3889-63,97051.82129
+JĀÊ´ğ,êĠĆÈÑ,1305,Richardson,Master,ß¡¤¸¯¥ÉuĂTÆĎïĚÑ°ÜÓyÂÕÄ,Single,3.317637441,Veterinarian,068-4184-86,84141.07569
+jĖªµz*,áyħÍ³æù,26,Hunt,Upper secondary,´sĦĊÔ²ģñîĒÜ°àuóą÷õ,Married,4,Veterinarian,572-8993-88,159370
+KĔkm,_ºnäêú,1962,Richardson,Master,ìÑõàaò¥ºÀÏÅÄAäę½ßf¾ĦÝĤ¾,Single,3.758166954,Veterinarian,068-4184-89,66093.50152
+KĨæĢě,Wć}kė,2368,Mitchell,Upper secondary,©/ĉēĢÊÎ¡ºkHßuýôĢ¬ÿ¯PsäJ,Married,4.03039676,Veterinarian,651-3889-70,54940.81489
+lĭğµ,dèØėÙëµ,1778,Hunt,Upper secondary,ÝÍÝ§¢SÑcÖÿĀÄêÛ_éö,Married,3.63479187,Veterinarian,572-8993-96,71147.92107
+lĒĩ§,°kþî,3076,Richardson,Master,®|ă¬ćĎ¾ĀÎĬĶøĝ»ı¶ý£±zÂS,Single,4.505122628,Veterinarian,068-4184-94,35492.28748
+miĐ¸,Ĭöö°ķ,6310,Mitchell,Upper secondary,ð@ÆħÖĠµ©Ùģ¦éååīÀÈĉï,Married,6.673573839,Veterinarian,651-3889-88,-53344.63013
+mďĩÎ,aºďÜµĘŊ,5653,Mitchell,Upper secondary,×Àuéÿfÿ ç´°fĐĜýÎĨé¯{Ĩ·Q,Married,6.233044326,Veterinarian,651-3889-85,-35297.05596
+N¿Ĭµd,ÿÖ§ÿ,2988,Bennett,Upper secondary,ĚÍÚºúěĘ½ïĥÆđĈ·Ï¡¦Ã,Single,4.446117153,Veterinarian,830-5590-67,37909.61857
+nĥ¾f,¶ęÂÁĢ,7253,Hunt,Upper secondary,4¹¤â¤čÖ÷£Ğ©×ÍuLiÀ,Married,7.305871147,Veterinarian,572-8993-121,-79248.53035
+ñª­¥,èÙĎtıű,1762,Richardson,Master,ÎÎėh÷×óķĕù¢ðĉÂÕfýßÊoçøŌ,Single,3.624063602,Veterinarian,068-4184-88,71587.43582
+Ñĥ¤ÂaĒ§,Ìö¸čĉŹ,7034,Hunt,Upper secondary,ěÌāæÁĕ¼üíğüĶďĄ×´ÉaÌÉ,Married,7.159027976,Veterinarian,572-8993-120,-73232.67229
+NmĖŏ,Ďĉ¨ĩô¾,2400,Richardson,Master,ĘçĪÏýģĵą¤ÅêĄóď¨{Ě½mä²Ča¸ĳ,Single,4.051853296,Veterinarian,068-4184-91,54061.7854
+Nq|ăŗ,p¾ÞŖ,8062,Mitchell,Upper secondary,§ËäĭċÇ«Č}P¸ÓČĐÈÌĜªģï,Married,7.848319208,Veterinarian,651-3889-96,-101471.4946
+ø ýªl,ÃÂċ»ĭĖ,210,Richardson,Master,Øĕ~ÂÃ}ČÅ÷ĥÂęĳĒØûÁÀ,Single,2.583421586,Veterinarian,068-4184-81,114220.366
+o{ÇcÛ,ćĂĪÆÉ,4777,Mitchell,Upper secondary,é>đúùÿ|ulĶaê¨ĉċ±è¨yþĢ,Married,5.645671642,Veterinarian,651-3889-81,-11233.62373
+Ó¨ıøX,h¥ěé¢¡,2587,Mitchell,Upper secondary,đ¿ĀĥèâĎ°¿ħÎÓhĔ¨Ēk}Nąá®Ú,Married,4.177239931,Veterinarian,651-3889-71,48924.95684
+õ¤µôµ,­qcħÒw¾,3476,Ellis,Master,ÉíĐČèÜĶ¸Ĝģùçßē;d¸Ĝñ,Single,4.773329333,Veterinarian,380-2731-36,24504.41888
+òk,úāúÆđ½,448,Richardson,Master,ĆAkÂéĮ×ī¿êÚHlàĈg»ĢÞÑå¶õĨÅÇ,Single,2.743004575,Veterinarian,068-4184-82,107682.5842
+øqĚt[,Üĵûĕĭ,5939,Hunt,Upper secondary,²ÔĐîòßĒ¸ĀÎĥ~ÂĥÏĹ,Married,6.42481212,Veterinarian,572-8993-115,-43153.382
+ºã°âĵ,ì¤iĀü¶,8938,Mitchell,Upper secondary,¿îĚûúÉ¾Ģç£ĐßÚąÉĒÿ8ĝĠĬĎ,Married,8.435691892,Veterinarian,651-3889-100,-125534.9268
+öĉã¼,RÇÐö ,8500,Mitchell,Upper secondary,§ÖÞíÁªûùīÎă®íħ{àĢüĞħÁëÚ,Married,8.14200555,Veterinarian,651-3889-98,-113503.2107
+õċghç,d~÷Æ»û4,2435,Hunt,Upper secondary,kÊĠóíÕÖĥq´ćğģğf¨íµØh,Married,4.075321383,Veterinarian,572-8993-99,53100.3469
+óçĐĞÜà,tĕÒÛm»ęĹ,6761,Ellis,Master,­èµ­ĝĬ¥ħa¼ąé¾´¼¨ą,Single,6.975976899,Veterinarian,380-2731-51,-65733.45197
+OÉ±éöÿć,OĊÉsÁ ,7418,Ellis,Master,{u|İÝĊĶ«ıČ ~Ē³ģd¿ĬÐ,Single,7.416506413,Veterinarian,380-2731-54,-83781.02614
+ò­ė×¤,Ìîě½Ă,3426,Bennett,Upper secondary,Ğµþ±¶¬ĶÏBèõôĞĮ¨ĨĚßaÙÕ¯Ö,Single,4.739803495,Veterinarian,830-5590-69,25877.90245
+òêēÍÏÀ,ĥĝåġò,902,Hunt,Upper secondary,ú©ÓħÓ¶Õ²ömÕfY¾Âą,Married,3.047419185,Veterinarian,572-8993-92,95211.3533
+OiāÖĀà½,ĖĔĜÚä,1121,Hunt,Upper secondary,İxæÆïIk¤Ę®ÖÉÝemÔÖÁÿÓ,Married,3.194262357,Veterinarian,572-8993-93,89195.49524
+OlÆÑ,āÃæòĨ,1543,Richardson,Master,ì{ĘtĝĐ§Áªíµ£ÅĢ}ďĞ¿ºÿÅìĔ¯,Single,3.477220431,Veterinarian,068-4184-87,77603.29387
+óm«Ėä,ćýĜ©Ä,5266,Richardson,Master,÷ÂĲ īõĵrĄÛČ¢®ęþĕºäîc²í@Îĝâ,Single,5.973554339,Veterinarian,068-4184-104,-24666.29309
+ôzÕ,d³ĨÞ¢,3901,Mitchell,Upper secondary,î6ý î­¾¡¥õăĪ¿ãáěĔfSñĚį¢,Married,5.058298957,Veterinarian,651-3889-77,12829.8085
+pè¯éÝä,đĒaô,3311,Hunt,Upper secondary,ÛğĂÏ³óĆ¨ÁÂ´Ą¡µĆĎď,Married,4.662694067,Veterinarian,572-8993-103,29036.91468
+pġĐºËë¯,đãxÎ@,6542,Ellis,Master,ĬPmĭĆ±ªhzg¼¸ý§i}lđÃ,Single,6.829133728,Veterinarian,380-2731-50,-59717.59391
+q±ĤĎ~ĘĖ,Ćqø½»C,3914,Ellis,Master,·_ÊĉÀâ}Â¼×ýæÝh×¥ÅæĆē,Single,5.067015675,Veterinarian,380-2731-38,12472.70277
+qï¾mĜ,m¼Áäq±,2216,Hunt,Upper secondary,kËčĔĐù¸¦ªĥëĻÝęÝ:}ªþd,Married,3.928478212,Veterinarian,572-8993-98,59116.20496
+qąÂÿ,ĸÚÅĈm,1524,Richardson,Master,ÕzÌÝöġĒÅÿÎÚ²¹eĔÐþĐyc×BåØi,Single,3.464480612,Veterinarian,068-4184-87,78125.21763
+Qėùªæ|R,ēĎ¯h­áV,1505,Ellis,Master,Ķ|ĥąiĨ¹éÕĳÅÑ¾Ġaç`ĖĎĞÁ,Single,3.451740794,Veterinarian,380-2731-27,78647.14139
+sîĨºv,·f½ÑČeČ¼,4790,Ellis,Master,éyĔæÕÔēáÙ³´pěLÿÝv,Single,5.65438836,Veterinarian,380-2731-42,-11590.72946
+sąäsÍ,GåĈĕ,5247,Richardson,Master,½¨y¨{ºİĴ¢ólÂ½ĚąďmĝēĘòG,Single,5.96081452,Veterinarian,068-4184-104,-24144.36933
+ßĈÞÐ,¸¥ì÷ÕÖĹ,3244,Mitchell,Upper secondary,s»Ĝè÷£§ÒëĠ·½qİ¨Ĝk÷ėqÁ,Married,4.617769444,Veterinarian,651-3889-74,30877.38267
+tĀà|Ít,Ė¤|ÎÚŰ,1559,Hunt,Upper secondary,ååóĉé|¿Ď³ċĉčïÈēÕçè©s,Married,3.487948699,Veterinarian,572-8993-95,77163.77913
+täÍÙĳºÚ,ĊÀĘĩÏø,4571,Ellis,Master,Å£ģĢà ¯Ģ£¢sö{ĘpÓÍ,Single,5.507545189,Veterinarian,380-2731-41,-5574.871404
+þèyŦ,¸ĀĴ¦À,8901,Bennett,Upper secondary,ďÐ´ģ®ÂfÑÝĆïĕÊÖêÔræĔĊÞ,Single,8.410882772,Veterinarian,830-5590-94,-124518.549
+Þìówú,çēÔù²,3038,Ellis,Master,ºi¥Ę©LăİdğðĠ³¸øÒĉæ»,Single,4.479642991,Veterinarian,380-2731-34,36536.13499
+TóìçĎÚ,ĝĆĎ¥čİ,4187,Hunt,Upper secondary,ê¾í«±ĸãįč¯lÅÒěnÁāþĬÝ,Married,5.250066752,Veterinarian,572-8993-107,4973.482449
+ü»öû,®ģ³|¾,5178,Bennett,Upper secondary,¬é¿¸âÜÞäĐÀÆĎĖx¥Å÷ĉÈÍÑýŲ,Single,5.914548864,Veterinarian,830-5590-77,-22248.962
+ù®ĥÕN,ö´·ĩyĈò1,6104,Ellis,Master,¬ÊĖÑ»ÔĚúû­{èfû°þĪÎ¼ùöÜß,Single,6.535447386,Veterinarian,380-2731-48,-47685.8778
+ÙæÝØ,čÚÄ¸ò÷×,7218,Richardson,Master,"}ÔÖj³êĭĦ»đ­µµéĚğeĚvÄâÙ,",Single,7.28240306,Veterinarian,068-4184-113,-78287.09184
+Ünúąĩ,®ÿĩÌ üã,1067,Ellis,Master,Čzûn»Ă÷ÅęÑ¶|×ĉåµåĦüàĞ,Single,3.158054451,Veterinarian,380-2731-25,90678.8575
+û½þ,¹mÏ£Ć,6054,Bennett,Upper secondary,ÆÒĂĢªîįīÙ»ÕªÕ{õ¹º,Single,6.501921548,Veterinarian,830-5590-81,-46312.39423
+úã¦ī½,Éü÷âø,3864,Bennett,Upper secondary,«=¡÷ÌĖý·láÕàÞÎąiÄėÔÅ³,Single,5.033489837,Veterinarian,830-5590-71,13846.18634
+ûÅ®Ú,®Ė·Û,4740,Bennett,Upper secondary,ħĔëÞččĲ[ÂÆĀÓ§òªq¨õÌÕĨª,Single,5.620862522,Veterinarian,830-5590-75,-10217.24589
+ÙapĞĝó,ðýĥđ¯ħÖ,8786,Hunt,Upper secondary,ëm°ċíĆ_ýġĖãøĠ¥{2~féŔ,Married,8.333773344,Veterinarian,572-8993-128,-121359.5367
+ÚãÚjø,£ÚÞįăî,7018,Richardson,Master,ĒnĢxælăû¿Ä·é¿ºã½đ£ĈĄLÙĵĝō,Single,7.148299707,Veterinarian,068-4184-112,-72793.15754
+ÚČĘĠô,N»¾¶®Ěè,8281,Mitchell,Upper secondary, òČ¾ěÿà±ØÕĕĈÌ¥q­ćĠ¼,Married,7.995162379,Veterinarian,651-3889-97,-107487.3526
+ÚČîĖ½,¬©Ó¾z,6930,Bennett,Upper secondary,ìÆþĲÿ~¡¬¡ģďĦnÄ¢ăr®ÙqŤ,Single,7.089294232,Veterinarian,830-5590-85,-70375.82645
+ÙèĔ,Nü¡­ĲÆ,3025,Mitchell,Upper secondary,ëñ~ÍÀ§üóĳÂħb¢üĝğĜĔÒåz,Married,4.470926273,Veterinarian,651-3889-73,36893.24072
+üíèºâ,ÛuÙ«y,579,Bennett,Upper secondary,§QĞóÕÅ«Vą|éÝÝĒûçe­,Single,2.830842271,Veterinarian,830-5590-56,104084.0572
+üÕğl,èÅÒĤøê,5685,Richardson,Master,ýonİµÓ³īĒķnĨrĔ®®¬ôÛď¾g»×ÕĖ,Single,6.254500863,Veterinarian,068-4184-106,-36176.08545
+üºêyK,ÿÛµÉk,4609,Richardson,Master,8Ĉħ«gÅ~čĆ¦òèĈĠį¶ïgËú,Single,5.533024826,Veterinarian,068-4184-101,-6618.718921
+üøĩĨW,Õµ}īĐÊ,3295,Richardson,Master,ÖtēĠĜĚÍ×ąüē±qğámĦåÇċOþýñ¬,Single,4.651965799,Veterinarian,068-4184-95,29476.42942
+ÚÖjĨ,Àġ±Ç}Ģ,6799,Richardson,Master,XnĈïÃsËûĖyÚóÎÒĘlÎĨ|¥măÍÏ,Single,7.001456536,Veterinarian,068-4184-111,-66777.29949
+Üs¯ãl,®¢ħåĖĎā,6780,Richardson,Master,rìúĦâ©s·xĆïÙ¥fĮėªĐªĊĠ¥f,Single,6.988716718,Veterinarian,068-4184-111,-66255.37573
+ÛÜ§ĉ,fėÎÀ,3952,Richardson,Master,¢àÍpÉĔ}×ĭC´éÏğĲy£Ę^|ÀĘñ,Single,5.092495312,Veterinarian,068-4184-98,11428.85525
+vª¿ħ,¾êįĘĹ,8025,Bennett,Upper secondary,Ķ±±ĝĪğñÒÈØlôĒðf¥·Ękļ,Single,7.823510088,Veterinarian,830-5590-90,-100455.1167
+wÓıò¤,ĵ}´ĉĐ{,7456,Richardson,Master,¯¨Å¥tğċħÆĬåÉr¼É©éÙÉþı¤,Single,7.44198605,Veterinarian,068-4184-114,-84824.87366
+xĐĀwuį,Á¿»đ+,4352,Ellis,Master,ıRĥ¼ėâÆæ§ĤûfĊį øÔhĤĎĔà,Single,5.360702018,Veterinarian,380-2731-40,440.9866527
+ý¢nbä,GéĮíÖ-,2638,Richardson,Master,¤ÐíÌÚnĄģk¨ēêä¢ēěåÍĩ×Þ,Single,4.211436286,Veterinarian,068-4184-92,47524.00359
+y¶Å¹Ě,åĺ³¨ŀ,7405,Mitchell,Upper secondary,ïÍ©®ĔÞąð¤É§ė¤|¥Ö¿ææĨuû,Married,7.407789695,Veterinarian,651-3889-93,-83423.92041
+Z|ß{ÅĈÌ,½ğÃßċÆÕ,6815,Hunt,Upper secondary,ô±ûĳĚ~íÔ´ÂöÝĤÏéïî¯Ĳ,Married,7.012184805,Veterinarian,572-8993-119,-67216.81423
+ZÐÔ,ñþěç,4152,Richardson,Master,ċ¾Ì¼ëfùäùĤķĊýĺ½u¶{ôÿ­Âū,Single,5.226598665,Veterinarian,068-4184-99,5934.920951
+ZÈĔßz,Ėµfy,4406,Hunt,Upper secondary, ĒĳÂÇF°ċĬÃöĠÃo¢üOã¯lÜ,Married,5.396909923,Veterinarian,572-8993-108,-1042.375608
+zćÊĮ,ßâă}ĥ,6529,Mitchell,Upper secondary,Ąê{ĚúÅĤzwčíË¾Ĥ|ýuÃĲõ,Married,6.82041701,Veterinarian,651-3889-89,-59360.48818
+zĞaæĞģ¨,®ÃÉČ¦Ř,5720,Hunt,Upper secondary,ø¼î¨ě»Åç¦¥ÉâÜ©,Married,6.277968949,Veterinarian,572-8993-114,-37137.52395
+zy§i¢ų,úğc¦ĆĹ,7472,Hunt,Upper secondary,èi¢Ķċ`¥ħĳ¶ĕ£ùĥ±ù]èďěl,Married,7.452714318,Veterinarian,572-8993-122,-85264.3884
+^¦þûĈù,¶ÐºıtĮ,8519,Casey,Master,÷¾¯ģĖÐĂûãÙbĞģQÂûÆ,Married,8.154745369,Teacher,722-7314-96,-114025.1345
+^ĊÀd¹å,¸êÔàÚĳ,5801,Russell,Doctoral,ªwÉþÓďöëďğĈºé§ĭãá÷ÿÛ,Single,6.332280807,Teacher,582-0454-36,-39362.56734
+{Äâ½}ŕ,ĭýĚ¡,7862,Casey,Master,ÀâđÓĉ¡OÃËtûēčĆĘ¾öÕþy,Married,7.714215855,Teacher,722-7314-93,-95977.56028
+{Î¥Ěďā,µĠÙÑċĲ,1859,Russell,Doctoral,ďß°~sĪò²Ò¨}±ÔĒ¦ôæ6òj,Single,3.689103728,Teacher,582-0454-18,68922.87768
+}ry¨bČ,£yzªģaĎg,3242,Harris,Master,hr£Ĥ¨þÞ×Għ¤ ę§®\ëĤ¦,Single,4.616428411,Teacher,825-1170-68,30932.32201
+¡ÿµĨØ,otĨċĢØđ,6308,Harris,Master,Ú¸îÖeąĝÄÛĂĂ­Ã«ĢĚðě©s,Single,6.672232806,Teacher,825-1170-82,-53289.69079
+¡Øä,´»Ĳ¹ĝúŠ,8450,Wright,Primary,ÎuÔÙ»āăĦÙ©·ČÅĎöŹ,Single,8.108479712,Teacher,000-3802-44,-112129.7271
+¡úå¿ÿ,ZÁġÍuĝó,6479,Wright,Primary,ìdÈ¹÷~aĒ_¼É­º«Ě²ĈÑ´Í¨,Single,6.786891172,Teacher,000-3802-35,-57987.00461
+´»ž,rêöĳċćĥå,5384,Wright,Primary,¡[Ê®ÔÖĒ]mÊàĒħĊwãÉçÐæ°,Single,6.052675317,Teacher,000-3802-30,-27907.71433
+´æ­Ýçd,¡öÀĴĖx,8957,Casey,Master,ĉL~Üãóìo¹Îc}ĉĕģyä`êćï,Married,8.448431711,Teacher,722-7314-98,-126056.8506
+´íĝÇ«g,uÀãk»đû,2585,Harris,Master,ĤS£ćÝı¹Ĝ·÷ãĦÉþsh¤úÐÁĚ,Single,4.175898897,Teacher,825-1170-65,48979.89618
+¿{ć,ĞĆ¼Èïû,5822,Wright,Primary,àÚ±ÕĖleÍl­ĩÖÔÃyÓĚW~©ãÒ,Single,6.346361659,Teacher,000-3802-32,-39939.43044
+¢ÁĒÜ,~Ýì¼äçËy,128,Wright,Primary,Āî·|dþhuÀğįý×b½¾µ,Single,0,Teacher,000-3802-06,101579
+¥aÏğ,ÍĖÛ¶Ċ,5015,Casey,Master,ÃęÔ³Ëçā¸³n¹ca¬Ézµ,Married,5.805254631,Teacher,722-7314-80,-17771.40555
+¥ÓïÐĦº,çąÜóoĈ,3461,Harris,Master,dpíáúù¦ßa|ĄğĒĊzª~Ĉ¤,Single,4.763271582,Teacher,825-1170-69,24916.46395
+«àÜkŠ,Ĕf¿fï,2078,Russell,Doctoral,Ħ¼éúÝnhä¡yČl¯öĘbģÇn^,Single,3.835946899,Teacher,582-0454-19,62907.01962
+÷ođĤ¡,ã²ēĭĜĈ¸,1661,Wright,Primary,«OèâāĮ¬Ö¶·ģÓÛąp¸Ó;¼ĈĆT,Single,3.556341409,Teacher,000-3802-13,74361.87264
+§è¥Ąñb²,gºĥĬň,7115,Russell,Doctoral,ĹlønĐíÀË­ĆĄĨĪãĘÖ,Single,7.213339833,Teacher,582-0454-42,-75457.71568
+©²¶rÐR,ďÅĔÛîą,3830,Russell,Doctoral,¾OğĪö£Æ¸ČĀĔÅÃÁq¹ÍóÌOÑĚã,Single,5.010692267,Teacher,582-0454-27,14780.15517
+¬»Ģ­~Ç,|Ďı¥Ė,8300,Casey,Master,oïĦ½sÚąLõüĤpĈĖ¿Î3ýÌúī,Married,8.007902198,Teacher,722-7314-95,-108009.2764
+¬µ­ěĦà,|×y¤Ƅ,1202,Russell,Doctoral,û·ëıĀĮ}iďĨĞ®Íě8ēĄÇa,Single,3.248574214,Teacher,582-0454-15,86970.45185
+¬æÃô,iÔúāĒ,8012,Wright,Primary,ĦÕ ąð±ĖÙĈÏkĞ|nå¬¶,Single,7.81479337,Teacher,000-3802-42,-100098.011
+®õĔĒÔ,·āØĈČz²!,1709,Harris,Master,²¤tĖsĜ¬¸lÌnčĐºÊñäîuÓ,Single,3.588526213,Teacher,825-1170-61,73043.32841
+µnČã÷ã,āîħĭÍæsS,7841,Harris,Master,ùđ·ēlÄ»Æ¸ïÈĥáāđ©öĥûĊ,Single,7.700135003,Teacher,825-1170-89,-95400.69718
+~»Ċ÷Þë,ÿĂÖù«W,5234,Casey,Master,ęû½ĴÁ»ć§uħ¤µöäkČ=ûäaĀ,Married,5.952097802,Teacher,722-7314-81,-23787.2636
+¦·Ć§ąÕ,gâÍÊ{,7553,Russell,Doctoral,àÕĭăĊýġºñęāğelĖnàåĂăH,Single,7.507026176,Teacher,582-0454-44,-87489.43179
+¸wë´;,·í´ėĬ,1511,Casey,Master,ċ×ø¥ěĢÇ¾ïĦà¾±uzøfØ´,Married,3.455763894,Teacher,722-7314-64,78482.32336
+äŒ,¡ð®±¼aĎ,8231,Wright,Primary,0µĔÔåsĥæ§Ġ©ę¦ġą¾ü¾ñČ®,Single,7.961636541,Teacher,000-3802-43,-106113.8691
+ĂjÜïh,¨¶ÿ¬ø,3701,Casey,Master,­ã¾¡øóO}ćČĐ¿ ßđËpó¹Ç,Married,4.924195605,Teacher,722-7314-74,18323.74279
+Ĝõ,«ċ¤Ïļ,8669,Wright,Primary,Àa¯øÒJĜöħÉóĐÐħê¬ĞĀ#,Single,8.255322883,Teacher,000-3802-45,-118145.5852
+Īyqì,ñßÝÃÿ,4139,Casey,Master,ÍM|Ãæêî²»uÁcoúĂmmġĲzÊ,Married,5.217881947,Teacher,722-7314-76,6292.02668
+³ăöĞ²,Él¦Î¥¦Ģ,8060,Harris,Master,ĔÝ´ªąRÚgĞû|¼Êfäî¤}Ôd,Single,7.846978174,Teacher,825-1170-90,-101416.5552
+àáćhĬà,¤Ę}lÕ´Ď,4556,Harris,Master,¸kē÷ėÂ~ÄāćĨĲĀÖ§ºË³@¶¼«ì,Single,5.497487437,Teacher,825-1170-74,-5162.826332
+âċě²eÆ,Óéù¿Ř,197,Casey,Master,î/«ÄÅã¤ċďµĂä£Ã¿°«x ę,Married,5,Teacher,722-7314-58,35384
+ÅÊêċÞ¼,GàĔ£hðÛ,3899,Harris,Master,sX§½·¥»Ā ¢ðxðă§ĩěä¥ÆĆ},Single,5.056957924,Teacher,825-1170-71,12884.74784
+Âı¸áîÙ,tÀ÷Ò«³,8279,Harris,Master,öÙě¨Ĺ¶ÐYÄÈòĚÕåõăå±²Ġþ,Single,7.993821346,Teacher,825-1170-91,-107432.4133
+çġ­ĉĈÈ,]¨üÐĀ,764,Russell,Doctoral,Úćºå·úÂ¶ĦĜcf¤ĤÂěu«Ýß£,Single,2.954887872,Teacher,582-0454-13,99002.16797
+É«ďÇ,bÐģĉ¨ų,7355,Wright,Primary,û<ĕîÿÔ­§ÑģsëćÛĔÍĖĞ,Single,7.374263857,Teacher,000-3802-39,-82050.43684
+ėĥĄÄfĆ,õþòð¦¨,4487,Russell,Doctoral,Ğ¸n£üÍćëİîĖÌ¥{«ē¥³xlėÝ,Single,5.451221781,Teacher,582-0454-30,-3267.418999
+ħāÞÎ,ncÌ½Ę}×,1442,Wright,Primary,tıěª½~LĜġ£¸²ÆÙ¬Ĳ¹áý,Single,3.409498237,Teacher,000-3802-12,80377.73069
+īî÷ĭ,ØĘĒÙú,6548,Casey,Master,ĤëÁôIćĆáeĘíĢÖĕ§É«,Married,6.833156829,Teacher,722-7314-87,-59882.41194
+iĭb³ÚĂ,ã|ÍÉG,6110,Casey,Master,jäfÐþàÊµĖþć°ÀĘĘÇ¡ä£,Married,6.539470487,Teacher,722-7314-85,-47850.69583
+ĩò¯Ñq,_ħĒ§°¼,614,Harris,Master,âěøÕå²¿Ì¯ĥĕëĆµ,Single,2.854310358,Teacher,825-1170-56,103122.6187
+íójĂĖô,Éq¬āxĄ,833,Harris,Master,õ ôtę|ēĔâñĚ¨Óü®ê²Ü·¨­,Single,3.001153529,Teacher,825-1170-57,97106.76063
+Ò²÷Àø¶,°ºïĸēá,5891,Casey,Master,āIĀ»É°dĀÎáêmÚÙXĝãĊ,Married,6.392627316,Teacher,722-7314-84,-41834.83777
+sÉøĈ,¢Ďñ¯,6329,Casey,Master,§¥ÇÉČĒĒĦ§ĪìīĠĎÆ?Ć÷Ì,Married,6.686313658,Teacher,722-7314-86,-53866.55389
+t|t,m´ynÔ,8888,Wright,Primary,«ÀÚīÒĞÈíĤnÖ¥£öóàq®ā¦,Single,8.402166054,Teacher,000-3802-46,-124161.4432
+ÞÆĖ,WĕģµöÇz,4775,Harris,Master,ė´üÂôĞífġ¶ö¶Á£ēøç¨ÈĘ,Single,5.644330608,Teacher,825-1170-75,-11178.68439
+ûð~g,ĎĝnĘč,4925,Russell,Doctoral,í¬àÆČĜ©¬ýÜm¾¥|ÁÏ¾ĎĠĘĥÜ,Single,5.744908123,Teacher,582-0454-32,-15299.13511
+ÛëĜ¨Û,ÙÄģÆ,6767,Casey,Master,öèãaÝĂÎaĀ¨đdÎĹÅÑFÛġħM,Married,6.98,Teacher,722-7314-88,-65898.27
+uĝËĈe<,_ċÊÏlý,8429,Russell,Doctoral,Ğ/á»Ē§ċä ¥ĖÃÉæùÍiĩħä,Single,8.09439886,Teacher,582-0454-48,-111552.864
+¼·¤®ćõó,ýðs¨ñĐðÎ,1928,Harris,Master,ĥĠÖñóč£ĹĖæák¾þ|Ī>Êè%,Single,3.735369384,Teacher,825-1170-62,67027.47035
+¼±ğç,ÆÐĥčëôêı,6260,Wright,Primary,6ĐĨĒĥò¦İČlĂÛìąýĆ5ëĖ¿Õ,Single,6.640048001,Teacher,000-3802-34,-51971.14655
+¼ıoðþ,čģě½,1730,Casey,Master,ĒF¡þĉØÁÆĔjİ¾ÒÂÓî§į×©,Married,3.602607065,Teacher,722-7314-65,72466.4653
+½ªĝÌÕĠ,Ë¤í¼ēááö,1052,Harris,Master,´zċ|ÛÒäýñ³ïÛ{»ìÄ Î¢~Ð½,Single,3.1479967,Teacher,825-1170-58,91090.90258
+½eòè³,čËĳĂÇÜ,3173,Russell,Doctoral,ÁÝlÙÑóćHqfÒąàÐyĐaÐº,Single,4.570162754,Teacher,582-0454-24,32827.72934
+¼ºĝčĒ,¸ÊġýĢ°¶,4508,Wright,Primary,sÄÉĞĜ³nÛtĒĢ|~ÄĘ¢òjīČ,Single,5.465302633,Teacher,000-3802-26,-3844.2821
+Â |ĖĂÄÎ,`ycąęĤ,854,Casey,Master,¸6ėėĄdÎĔĲĜfäú®ĎnÍĆ²,Married,3.015234381,Teacher,722-7314-61,96529.89753
+ă{¯ĉúf,¯ðçĠd,416,Casey,Master,~Î»Ăm·ðĊ«ïĤfė°ãĘćģ,Married,2.721548039,Teacher,722-7314-59,108561.6136
+ä¤öö÷,Â}Æá±,2537,Wright,Primary,ÁXÖ×Å«êīęĦĥĞy«Ã~Ģi,Single,4.143714093,Teacher,000-3802-17,50298.44041
+ą©ĪÚ,cěª¼Ù«,3632,Wright,Primary,ďÛé¹´×ãģďnd©ģúí¸ă¾þ,Single,4.877929948,Teacher,000-3802-22,20219.15013
+A¬ÝlæË,´¿Å°Ľ,8738,Casey,Master,dë¨ĝnÚâ±çĘyÈ½ĀÉĤk¥ ,Married,8.30158854,Teacher,722-7314-97,-120040.9925
+Ã¢ĎīàÖ,D²ñîÅ¡Üc,2804,Harris,Master,±Ü lċöĉàĬ«ċĚ÷ÍĴ~¥ĘÛ,Single,4.322742069,Teacher,825-1170-66,42964.03812
+åÏĐsÆ,¼ÅÈ¬­ÊĂŝ,176,Harris,Master,"Ĥ±Ê²À¨÷ÂěfĔìĒ©ºhñ,",Single,2,Teacher,825-1170-54,155925
+ĂammÑ,XĘćÊĮ,7772,Russell,Doctoral,âl±ĉġ¡½¤RĔõãn£ĤģºâĂĕŃ,Single,7.653869347,Teacher,582-0454-45,-93505.28985
+âÁ­ċ·ç,±ÒĂ8,2387,Casey,Master,àÙtāÀ£Úĩæa÷õ¤»ß1¥ ů,Married,4.043136578,Teacher,722-7314-68,54418.89113
+ÅĂêpÃĒ,pĞgl´ĉ®þ,7184,Harris,Master,Åq|wïĆ¸ĬÀjĘÀÒÍįėcÈîb,Single,7.25960549,Teacher,825-1170-86,-77353.12301
+Âč´oċĬ,ë´ìÆ±Ô,545,Russell,Doctoral,}ÏėÿnĪ¡øãĆª¨{ôá¢čÌXhÂßp,Single,2.808044701,Teacher,582-0454-12,105018.026
+ãĎėµî¡O,Vı²Ãō,2147,Harris,Master,ąuęãÍħĄØ£đúāćÛİåĢ¬ïÛĞyÚ,Single,3.882212555,Teacher,825-1170-63,61011.61229
+ÅÉĕĎĻ,Çÿ¨ĭjÊ,4337,Harris,Master,ÇÑcÓİĝčX£}Â·§ĉėĆÖn`kóÄ¬,Single,5.350644266,Teacher,825-1170-73,853.031725
+áèÞ¿òĕ,¶ģÑĚćâÉ,6746,Harris,Master,â4áéôĒİðą|ĬúÉøħ§ĢæĳÁ,Single,6.965919148,Teacher,825-1170-84,-65321.4069
+æÅÞčāĄ,¢ĄÑ÷øé×U,1271,Harris,Master,èÄºÀ DàÇîċ»ħÌþ²r,Single,3.294839871,Teacher,825-1170-59,85075.04452
+ÆěÚcôĎ,rğķęÊ,8867,Russell,Doctoral,ČÃĩ»sÅËì¬ÙğěËÔá»ÝÀHÆĢ,Single,8.388085202,Teacher,582-0454-50,-123584.5801
+ÆÑ»¿ğý,el²¯ôó,3392,Russell,Doctoral,âñğĂí{ýĀĝ£ąČÓĐº¸Ąsseĉă¼,Single,4.717005925,Teacher,582-0454-25,26811.87128
+Ahíµīá,úÍêê,7334,Russell,Doctoral,¿£nmùĢxĚÐ Ģđ¼x²°½ûČÿ,Single,7.360183005,Teacher,582-0454-43,-81473.57374
+ÀĨ©Å¶,þËċįÓ¨,8498,Harris,Master,7ĕ½·ÐøĬą¼pď³Æç²Rõ{Ď,Single,8.140664517,Teacher,825-1170-92,-113448.2714
+áì²čđ®,Ñ¬ùªä,2516,Russell,Doctoral,Ē×ÔùıĆÊùçĮ¡öē¾ĲmĖî¼¸Ìđ,Single,4.129633241,Teacher,582-0454-21,50875.30351
+Àø½øāy,\ĩ¬ÐĀ,635,Casey,Master,½²ÁĥÓđĲÐàĂċĈĀę«å¼nÈ,Married,2.86839121,Teacher,722-7314-60,102545.7556
+áÜqĄí,ÑfĲÂû|,7793,Wright,Primary,æmęnf¨ãAăĀ½sÅĜ¦ºÖOas¯ã,Single,7.667950199,Teacher,000-3802-41,-94082.15295
+BÂĊđĩÛ,·ĨĀªÄs,5651,Harris,Master,dï¶ÕÇqÓæ©àÙ¤ãģÜuáléÝsĚÚ,Single,6.231703293,Teacher,825-1170-79,-35242.11662
+Brfõ¯ĩñ,ĘäĝÔĚ,2297,Russell,Doctoral,è^ÒäÖĂâòªĆizğãÒĊÃĄØĂ»ĩÊ,Single,3.98279007,Teacher,582-0454-20,56891.16157
+Ĉĳą,ÍâĊěÅ,3920,Casey,Master,ÓHăĄÐ¨¡ĀĩËĄåĐÍßĞhòÍÇM,Married,5.071038776,Teacher,722-7314-75,12307.88474
+cĀÍ®üB,raêùË,2825,Casey,Master,Ă¶Ĝ»ĞĶ§Áďė Ðsēĭ9Ó¡ÛĹ,Married,4.336822921,Teacher,722-7314-70,42387.17502
+ĉ½ j,Ê¡«îĬ,5213,Harris,Master,¬GçðÇ¾ºì´zâĠtñÌºnĎĮĂ,Single,5.93801695,Teacher,825-1170-77,-23210.4005
+čÍÈ£,ĨÒrêÇî,3413,Wright,Primary,®ýÁĥĞµÙ¼ČsįČz¤íàÃÚĉs,Single,4.731086777,Teacher,000-3802-21,26235.00818
+ĊĨģ´İ,zù¦Ùnëģ,7574,Wright,Primary,Â×Ħ¹çġsġn¦Ĭiġé|××±iħû,Single,7.521107028,Teacher,000-3802-40,-88066.29489
+çî­º¸ô\,Ü·ÈæÂğì,5432,Harris,Master,¼ÊÚĕĪĎĕãčĢe¨þÐ¢²ÞSĀÜÛ,Single,6.084860122,Teacher,825-1170-78,-29226.25856
+ĉy·½Þ,DÎĆõČq­º,347,Wright,Primary,°í}àëÞ»ÑbħÒøÐÏæCì|ģą,Single,2.675282382,Teacher,000-3802-07,110457.021
+ðĞĉÀð,MĊþÃ,1292,Casey,Master,áÎÚäNÝĒÃf|ÂÃĜàï,Married,3.308920723,Teacher,722-7314-63,84498.18142
+ð¹¦¶|Êè,ªÜÍĔ,6527,Harris,Master,{åuĎf¸¯Kª}­ÁĕÑaĚÜĘyĕ¶êĬ,Single,6.819075977,Teacher,825-1170-83,-59305.54884
+DĈĩûē{,mĝfàĨū,5144,Russell,Doctoral,Ûº´Øñċī¯ęČ·»ýDìĕÚ¡,Single,5.891751294,Teacher,582-0454-33,-21314.99317
+DĒč¢,]Ĥ§ĀÂÚ©ĝ,2099,Wright,Primary,ĈâÁÌÅĐ ċE|ĀèàfĤć|×Ãñkø ´,Single,3.850027751,Teacher,000-3802-15,62330.15652
+é¶Ôô®Û,²ÅĀÑ,2606,Casey,Master,e¦åĉêÉİÜĵÁÌħěòĖñĝİě×,Married,4.189979749,Teacher,722-7314-69,48403.03308
+ebès~Ã,º§æäº,1421,Russell,Doctoral,ğ×Ĝ­³Ĉ¯ßĳ¹¥¨½½ÉdfĠĐû,Single,3.395417385,Teacher,582-0454-16,80954.5938
+eÐĠĖü,yċĆ±ªÖ,6917,Wright,Primary,n4ĬįċĖêĆčĎĐąÐİĲĀÎkę,Single,7.080577514,Teacher,000-3802-37,-70018.72072
+Êií°äZ,ÅąĂ¢ûÕ,4118,Harris,Master,¶ÝćĲėÍÄĀ§²ıÚçån,Single,5.203801095,Teacher,825-1170-72,6868.889782
+èÎjñï,½ÚĀú²,2735,Russell,Doctoral,Äª¿ªôěćíğĭ²iĒ§õØĜÐģ®,Single,4.276476412,Teacher,582-0454-22,44859.44545
+eõµÛÝ,ÖÊôĪªÿ,1223,Wright,Primary,Ëõì¿ĩègđìf±ÄĎęôĚÎĀČŌ,Single,3.262655066,Teacher,000-3802-11,86393.58875
+eùÞµ®ôE,å¶§ĢÙĠó8,7622,Harris,Master,Â­sìāù¦ĩ±«Ûl¯Ã£ÒõfÉNcĈ©Ý,Single,7.553291832,Teacher,825-1170-88,-89384.83913
+fºā¥ç,¨§¹ãÓ,1490,Harris,Master,Đ@Òî¯ĖyĉOĦĩ­ėùùğËõĨùĀ,Single,3.441683042,Teacher,825-1170-60,79059.18646
+fsĳĔÛèÜ,ÚìeĐü¶äĳ,8936,Harris,Master,¦0ąÏą¹ĈÎāėm~©¼ÏėĂhÈ¹»Âđ,Single,8.434350859,Teacher,825-1170-94,-125479.9875
+gÓÞ¡¨,õÃøĝ,4706,Russell,Doctoral,°q¬²ķħıÃÿĄĆ´´āêâ¬įąũ,Single,5.598064952,Teacher,582-0454-31,-9283.277055
+HĠ©°ļ,Õp÷,2168,Casey,Master,åïmĘü¡¾õÍÈÏ¤ö2ĪĨÀ,Married,3.896293407,Teacher,722-7314-67,60434.74919
+Î¯àīûÀ,¼ªĈÞ,6458,Russell,Doctoral,bþ³Ď¸ºĬë»Ďi¦§uĐåþĄ\Þ}đ,Single,6.77281032,Teacher,582-0454-39,-57410.14151
+íóêaê,Úÿû,4796,Casey,Master,ìÒ{»ăêæ°tĂ¶ĉ]¦s~,Married,5.65841146,Teacher,722-7314-79,-11755.54749
+ÎÀ±Ħ,Û©«mòÊ,1949,Casey,Master,³VĝĵÖÓĮñäĪĄåÓÏ§ĲÚ>,Married,3.749450236,Teacher,722-7314-66,66450.60725
+Îbl÷Ğ,bÞ´Ď,6677,Russell,Doctoral,¤VĆfëãĊô£ÃÔÀēÖ§Ĕ¼¿đèÈÉ,Single,6.919653491,Teacher,582-0454-40,-63425.99957
+ÎċÂìęb,üĞĔĆ£,6896,Russell,Doctoral,Kķ³Ë¢Ē­ćĵòĦÙÞ¼Ė¡|h§ĎyĚ,Single,7.066496662,Teacher,582-0454-41,-69441.85762
+Ìe¤ÏÏŕ,TêäÃÎ,2366,Harris,Master,¡IÇÕÉéĆõÇðāóÇĤqìH¤µE,Single,4.029055726,Teacher,825-1170-64,54995.75424
+ÍÊĔċďĭ,üĲġØ£§,7205,Casey,Master,Ó¤Úì× Ø©×ąÃēyÊü¶ç}Àf,Married,7.273686342,Teacher,722-7314-90,-77929.98611
+îêį½ģŽ,àïĘðÅł,2954,Russell,Doctoral,įõĦĞôđ¬þlďÇċČmÝÉlªÞw,Single,4.423319583,Teacher,582-0454-23,38843.5874
+ÏÉĲÑfĒj,ÇĩđĂhĔ,8081,Casey,Master,Ď²ëbk·æÈùą©wį¾cÏaìÿ­ĠÌ,Married,7.861059026,Teacher,722-7314-94,-101993.4183
+ïhÜČĂ,Ä´ęþďåĐ,5165,Wright,Primary,uą²ûĥßĥ¬çĄā©¡Ù¬aÕ,Single,5.905832146,Teacher,000-3802-29,-21891.85627
+íÕüÓÝ­,ÿzuĐß,8210,Russell,Doctoral,¬tnª¸ĬuÚıĔĉçË½×Á½àâÈ,Single,7.947555689,Teacher,582-0454-47,-105537.006
+Íxī½lď,Ćġù¥ćŔ,395,Harris,Master,» ü¡ÁĔÌ°ĂÅ¸f±êéåġæ§D,Single,2.707467187,Teacher,825-1170-55,109138.4767
+jă¾«ė,ê¢Éġ|,5363,Russell,Doctoral,ēLē¾¾öĖÓč¬ò³òè°ôß¸ī,Single,6.038594465,Teacher,582-0454-34,-27330.85123
+kwuÞ,rÛīé²§,1004,Wright,Primary,çðÙØģäzðĢ}kĢĞÙąÖÀĮ,Single,3.115811895,Teacher,000-3802-10,92409.44681
+l±ĔÌ¾y,²¦Ĝå¯ï,6986,Casey,Master,æºàÙ©Åý°ĘèĆ¸¿®lùÃÔ¡Ò,Married,7.126843171,Teacher,722-7314-89,-71914.12806
+Ñ«ģĜčßĒ,¥ºéðĚÀğ,3680,Harris,Master,ħ~¤ðĮĤġþ\gĨÞhßÃÚöÂĦ~,Single,4.910114753,Teacher,825-1170-70,18900.6059
+n×ĥÃ¸è,āÎĆýr,1073,Casey,Master,ĕ}hĚę¶âóúÒ¦¥¡Çîīİþ,Married,3.162077552,Teacher,722-7314-62,90514.03947
+NåĚğÆ,iādD,3044,Casey,Master,è¸ĊČćMĊÝÞ¢±ĎòÁß¿¸Ď Ñ,Married,4.483666092,Teacher,722-7314-71,36371.31696
+nÄÿ,Õ{¡ÂĨš,7136,Wright,Primary,<ĆÝº·iïmĨÒıDÍïÃķ,Single,7.227420686,Teacher,000-3802-38,-76034.57878
+NĊÇy«,Âç Ď[,3611,Russell,Doctoral,ĔÁ¢¿®Ē÷ýÇĄģÂtÆ¸¯¤,Single,4.863849096,Teacher,582-0454-26,20796.01323
+ñġçâ×,ÉğîÜĀ½d,6698,Wright,Primary,dñĢ~ÙĀtêyØlĈĠÆÍî¯bå¯,Single,6.933734343,Teacher,000-3802-36,-64002.86267
+Ö¢ûĜĩġ),pûåÚ¡¥,107,Russell,Doctoral,ēdÆęÊöøÑ·Ähá´āÉéÐá,Single,4,Teacher,582-0454-10,146431
+ô©ÈÜâÃĆ,cûkæá,5672,Casey,Master,x±¢Ïď¸ĎįÓĤýøĆáóÏ¥± ķ,Married,6.245784145,Teacher,722-7314-83,-35818.97972
+Ø©ïĈ¥íÛ,"Áeį´tý,",5870,Harris,Master,qiôóqďÒÞÛĠìĩy¥ĭÖrãę,Single,6.378546464,Teacher,825-1170-80,-41257.97467
+õë±ÇġĻ,ªéĨħĂ,7991,Russell,Doctoral,ĩnđë»ò³nĆsĩcêÔ¶øĨuÔģĂ,Single,7.800712518,Teacher,582-0454-46,-99521.14791
+ºğïøÿÌ,LċĞ,3263,Casey,Master,Ćµ»×ÕäÜÎ¾çä{ğě§~|đĄE,Married,4.630509263,Teacher,722-7314-72,30355.45891
+öā}rôý,sÇÅęĆÆ×,6089,Harris,Master,t¯ĀÆē¿¦ćĪ·Ċ­ßãÓªĊèü,Single,6.525389635,Teacher,825-1170-81,-47273.83273
+òáàÅóÄŞ,G¼ĘĜóÄ,7424,Casey,Master,¬4Ĝ°Ĕ§õ£c¸®lĲČÍ¼îòĠ½©ý,Married,7.420529513,Teacher,722-7314-91,-83945.84417
+öáÜċºì,ààÌ+,6239,Russell,Doctoral,Č0ı©ùĚÚ¿ÄĦÎËĎįĦ}Ý;©·,Single,6.625967149,Teacher,582-0454-38,-51394.28345
+ÔĎħûŊ,qīÁ¥¬ĕßò,5603,Wright,Primary,ħ½ö§Óīk»ĆÇ«óĈî Ġä,Single,6.199518488,Teacher,000-3802-31,-33923.57238
+ÕĖĄy, ñÔ°Øġ,2756,Wright,Primary,6ÂĎħæ­{Õ©ģÞĐĥ³¸ąÛČ±,Single,4.290557264,Teacher,000-3802-18,44282.58235
+øĘqÎÛ,ÏÿêÀ,983,Russell,Doctoral,¹ºĤÎn©±ÎêÜ~ĝĕĨ~RÎ¨,Single,3.101731043,Teacher,582-0454-14,92986.30991
+öìĔč5,·Ĉě©ü,5453,Casey,Master,ÓqÀûÔÄÏĴµåĝÄâÐĢĭÆ,Married,6.098940974,Teacher,722-7314-82,-29803.12166
+OìÂ¶ĉ,eÈúč§áā,2975,Wright,Primary,ĢtĪ«lĂĭ¡òãĎuÀÈÐèé·ÏįÆ,Single,4.437400435,Teacher,000-3802-19,38266.7243
+oÔ©k¾ě,øhòĝá©ėė,4994,Harris,Master,ēě{ĨaæìĮĦrĕ¢rĪĉ{éã5,Single,5.791173779,Teacher,825-1170-76,-17194.54245
+ôöġÈ,ÙíìąÙÔàG,4946,Wright,Primary,ĂÌÚċ¯Êĩ{ÐfÄèê¬u¹Ĳ©Ñ,Single,5.758988975,Teacher,000-3802-28,-15875.99821
+ºúç¹Ĭă,·čñêěĞÅ,8717,Harris,Master,²aćĵ·ĆġĞßíÃ¸ °ó\ģÛÛ,Single,8.287507688,Teacher,825-1170-93,-119464.1294
+ÓúĥăĳÈ¤,zåõõÈ°,3482,Casey,Master,¼LĦiıÒ³½{įgrmn·ĥ·wÓāīğ,Married,4.777352434,Teacher,722-7314-73,24339.60085
+q¥«Í,±pÚhĪh,3194,Wright,Primary,ª¥±ĈÄeéxÙ|ïfÞ°ĞÅ3ėĦO,Single,4.584243606,Teacher,000-3802-20,32250.86624
+QďÊĻ,Ò}ĊÏÁs,6041,Wright,Primary,§ÕuÞlĨæ¬ûªaĈÑ±gýØċĕñ·,Single,6.49320483,Teacher,000-3802-33,-45955.2885
+qÇĕßóĦ,keòĆüĜ,1640,Russell,Doctoral,dÔ¶´nğēĥ×¥ęÛě¡ĚÕïĬĐ,Single,3.542260557,Teacher,582-0454-17,74938.73574
+rÍĬ¥Ïÿµ,ìèÆĤØõ,4268,Russell,Doctoral,ÁéĖµsa°ÀÔñīÿÞĜėäĈ§¦k,Single,5.304378609,Teacher,582-0454-29,2748.439058
+slüæ,´þ°ā¼¶|,4289,Wright,Primary,Y{ÝĪª ñĪm°fÞlîlÀ·5X,Single,5.318459461,Teacher,000-3802-25,2171.575957
+ßģăÉăī,fÇęħÉ,326,Russell,Doctoral,Ĉ\ĭ¡ĲlHĖâØ~ÒĞČóùyĄ,Single,2.66120153,Teacher,582-0454-11,111033.8841
+TÞÂ½kè×,´Ğ±¨þxé,3023,Harris,Master,©ÔÚüĶÐ§yó¹Á×snÃ¶Ā,Single,4.46958524,Teacher,825-1170-67,36948.18007
+ÛćČŇ,éĨÓÅğģĺ,785,Wright,Primary,sėĀfÕĒéizûēđĄċãýÉ¸Þö±,Single,2.968968724,Teacher,000-3802-09,98425.30486
+úĘ«öÖf<,ĦĂfĞš,4358,Casey,Master,?Âĵéÿďð°ßÜÖ¾¹äòmàğ,Married,5.364725118,Teacher,722-7314-77,276.1686237
+ÛêuÑ,dĨ¥oĊ,5582,Russell,Doctoral,ėÅ¢äÛĪä¹Č©ïěďĄírĞÇu,Single,6.185437636,Teacher,582-0454-35,-33346.70928
+úģïiæÌĈ,ÍâĐ¡m,6020,Russell,Doctoral,§Ë}£âċĂÕùaÑçī¤ďĬyđz§,Single,6.479123978,Teacher,582-0454-37,-45378.4254
+uñzg8,¨ýý»Î,4577,Casey,Master,ç4sÛ±¤¼OÚfòÿÜÜÌĉ·X´äĄö,Married,5.511568289,Teacher,722-7314-78,-5739.689433
+v¶ċÝ,ºćðÙĬ×,3851,Wright,Primary,ÿ¾ľ¯}þ¨ā¥ćĥăĦÜÁÓ­ßcÅð,Single,5.024773119,Teacher,000-3802-23,14203.29207
+vēĄù,Ðė÷²đ¿ÜĬ,566,Wright,Primary,XÞħrĉãÅıþ¶|îĲeĠ>ökõã,Single,2.822125553,Teacher,000-3802-08,104441.1629
+vÌÛ©ó,³òÄùÍ©Ā/,2318,Wright,Primary,ôĉĠõ¾ĢĩĈårČĒÍþÒáÂħ½,Single,3.996870922,Teacher,000-3802-16,56314.29847
+XÏÊíĔ¿ć,FĭàÔþī,7643,Casey,Master,uCØÀ¬ð{ßÆcÈÿÁìĄd­ăRÝĘ»,Married,7.567372684,Teacher,722-7314-92,-89961.70223
+ý ¿î,ÇĀ¶¯,4070,Wright,Primary,Êâ§çÖ³ĆÎm®ĐbÍ¡mĂġ¹ü,Single,5.17161629,Teacher,000-3802-24,8187.434013
+­ÿ­,²zĄfĐĈa,1880,Wright,Primary,ăãÄêëÑ¸y~ÒĢqÁËl¥ÆĄ³,Single,3.70318458,Teacher,000-3802-14,68346.01458
+ÝÝĖ,èbcčÐĠ,4727,Wright,Primary,nĤ÷½i¨áÅ·zÃĎĨ¾ÏdćÂ¡,Single,5.612145804,Teacher,000-3802-27,-9860.140157
+ÝČÒ¦v,rĔÏäëğ,8648,Russell,Doctoral,òªäûÛÕĭĂĞöóÝĈÍësÀ{þd,Single,8.241242031,Teacher,582-0454-49,-117568.7221
+yĤéċĔ©Ċ,þyĖëæU,7403,Harris,Master,Ĝ£j¼hiąĉáą¡mĈÕĉāįĸ,Single,7.406448661,Teacher,825-1170-87,-83368.98107
+ZĂ­Å(,ñ®ÓáÂ¥°,6965,Harris,Master,³ÜĦwü¶¾¦ÌñÑĄìõá Ñûħă,Single,7.112762319,Teacher,825-1170-85,-71337.26496
+ZÒÛęĊ,Čúïk,4049,Russell,Doctoral,·ñïĕĸÓÏĒFÞĂqĀĴõÒ{n}áľ,Single,5.157535438,Teacher,582-0454-28,8764.297115
+ ¦eo,·ĈĞÒ­ì©,7796,Thompson,Lower secondary,¬ïĨĕyü¯®ýÕuď~Ą¦ÞÁ>Ēė¢,Married,7.669961749,Social Worker,182-9964-86,-94164.56197
+ ¦ØÁÄ,Øÿ|ĦĖĸN,7358,Thompson,Lower secondary,Ð²hġĬĮě°¸E|Ým¸ùò¡ôÀ·ćk,Married,7.376275407,Social Worker,182-9964-84,-82132.84585
+ ®ÝĀüć,¤­ĭçË,267,Anderson,Lower secondary,¹Èó«Ęqą¥Ô¶ÍĻĘgû³k¼Ĥ,Single,2.621641041,Social Worker,503-2483-34,112654.5947
+ bÔ Ğ,~ĈÔî¶ğ,3552,Anderson,Lower secondary,«/Ăl×èė«tęìċrĒÝ¿ĨĐ¬sðÞž,Single,4.824288607,Social Worker,503-2483-49,22416.72385
+[®°÷ùæ,Tĩ¹ĕ÷ě,7056,Anderson,Lower secondary,Ýá§~ĦðĕĀÝØóďĄĐĔ¤Ċ¦1¹ĴĪą,Single,7.173779344,Social Worker,503-2483-65,-73837.00506
+\ĂĊþaÏ,eÒÅs¿,145,Davis,Lower secondary,Øj¯tĢ¾ÎúĘĨÃïĬöÍSÞĈ¹Ř,Single,0,Social Worker,238-0922-47,140726
+\m|À,Þ³ďä,2759,Thompson,Lower secondary,Ú\õrÿfÕ³£Öóêóď¶ëÛ,Married,4.292568814,Social Worker,182-9964-63,44200.17334
+]ÄØ_,ĭĄòĆÖ°,5606,Thompson,Lower secondary,āÔĚÃÃĀúãêâãíúÕáÔĘÄÏ¢wê,Married,6.201530038,Social Worker,182-9964-76,-34005.9814
+`´Ãá´,¡Ęĥě§D,8119,Anderson,Doctoral,Į:sČÄÎáė­īìĔbÀēÄý×Ý¦ēŭ,Married,7.886538663,Social Worker,481-7122-84,-103037.2659
+`Ĕ»¯,ćùĕïĜ,8757,Anderson,Doctoral,¬ËðzĔĪ³±éĊĦĭēČÓBÀĵĴé,Married,8.314328358,Social Worker,481-7122-87,-120562.9163
+`ç·ÓñŦ,á¾Ë«Ú,6370,Richardson,Primary,¶®Ħö¹èsüü§¹Ĉâ©ĝª¨ÐæÞzXċĴĥ[,Single,6.713804845,Social Worker,800-3855-58,-54992.81042
+`Ĝmú,Dk¸âğ~,350,Thompson,Lower secondary,íĴ¸¡ö°îÃÚč¢ÓÝęÔúªÞÉxęêĢ,Married,2.677293932,Social Worker,182-9964-52,110374.612
+{¤ĠËÚô®,²°ÂĔA,6789,Richardson,Primary,¬íózøl¹ċĴ¸·kÔ¶ćfÍàóÌ¢ũ,Single,6.994751369,Social Worker,800-3855-60,-66502.60277
+{ÝīÝÁæ!,÷eÆ¢ĩ,3523,Richardson,Primary,íe¿÷Ę¦Ĝ²gsÂLÆĖ{ÀmĤY»ĒÅ,Single,4.804843621,Social Worker,800-3855-45,23213.34432
+|¢äkµ,ÑÇĒÁ,19,Richardson,Primary,Å¶½fpãğĔª~ûĮööû¢f{Ğçk,Single,1,Social Worker,800-3855-29,51013
+}ĤĔĈ,āpðÖÅ,2844,Anderson,Doctoral,ĕËĳõĄěþkëċċ·ĢĨĉĤ«Ĕ¤,Married,4.349562739,Social Worker,481-7122-60,41865.25126
+¡ġÇü,÷ĎĞø×É,2187,Anderson,Doctoral,ìãùēÃĒýĩæĚìµmÂñµĩĭÿê,Married,3.909033226,Social Worker,481-7122-57,59912.82543
+¦ªÞĘęS,fÖÝ,1459,Davis,Lower secondary,½àÜØ¾Ć¶ÜïÝ®āíĒ¶ÇÚúÛÓ,Single,3.420897022,Social Worker,238-0922-53,79910.74628
+´©iŢ,ÅöÊ«ąĔĒ,2206,Anderson,Doctoral,ĥ¶ĉĦĒĆĔ·½ÍĨùçĺČ¬õáČÿ,Married,3.921773044,Social Worker,481-7122-57,59390.90167
+¸çÞ ,£ü×ïō,1111,Anderson,Doctoral,ÝĆæÌąÀú¸ĞkªÏ¹ēĢ{Li¹©,Married,3.187557189,Social Worker,481-7122-52,89470.19196
+¸ěµÍ,®ąåāýĔ,673,Anderson,Doctoral,ocõ|y©âÔđüÀħĚÅÑéăĴ},Married,2.893870847,Social Worker,481-7122-50,101501.9081
+¿ÈĈĎ³,bĜñěã,1095,Richardson,Primary,ĝD|çléb¸¤İĊÄfĔÃĦémđĆĊĖ<ÓĦĶ,Single,3.176828921,Social Worker,800-3855-34,89909.7067
+£ĬéÊD,å×úÈ,876,Richardson,Primary,báęĕĎ²ĵàÍĔ¬ÜĦđøÂ¾qçÅËÄYğô,Single,3.02998575,Social Worker,800-3855-33,95925.56476
+¤Çì¼,Āĉ®sÂº,6586,Anderson,Doctoral,s[ûÓß¢nĘô«§äĎĬćrñ Ìæď¨¾Þ,Married,6.858636466,Social Worker,481-7122-77,-60926.25946
+¤ĖĘāę,©Ĭĩ¦ýĵ,3990,Anderson,Lower secondary,ØmzèÝsÏÏ ÕñtpċUgÀ¶,Single,5.117974949,Social Worker,503-2483-51,10385.00773
+¤Ò°Ĵ,{ħÛÕ×,1330,Anderson,Doctoral,PpİĚĀ¥öÑ·ēÌĵģÞćġ¼ĎnªûÄç,Married,3.33440036,Social Worker,481-7122-53,83454.3339
+¥Ï¢ğÂÖ,ĲÒõ,1021,Davis,Lower secondary,iîÈ­ÓuºÀ¾éÐ¡Ďl÷ÃøĦ¯§ùs,Single,3.12721068,Social Worker,238-0922-51,91942.46239
+±}ĩÁď,÷ô®Öçċ,7900,Anderson,Doctoral,ýUĞĥÒĜıİJÆĠ±xäàÂč|îãĒĞ,Married,7.739695492,Social Worker,481-7122-83,-97021.4078
+±ðËÄ,ü·èăn,8319,Anderson,Doctoral,öÛâÐmÃfËÃüğûóęºģěÍ÷Èuı|,Married,8.020642016,Social Worker,481-7122-85,-108531.2002
+«~ĢØ{,¡döû¤Ğ,435,Anderson,Doctoral,ÑÔõķÐÝJ´i  aìñ»î¤b¢¤Ûč,Married,2.734287857,Social Worker,481-7122-49,108039.6899
+× nÆtő,BęĬ¸,4963,Davis,Lower secondary,ð9ûĨ²Ĳºė¡ÂęÇ£ÄkÒ¸Ą¾,Single,5.77038776,Social Worker,238-0922-69,-16342.98263
+×}ć¡,Ā£ôÀ,6786,Anderson,Doctoral,¡ßÍÐđÑ´±ÌĈÐîuì}ĐÑąºV,Married,6.992739818,Social Worker,481-7122-78,-66420.19376
+×çC,vàĈ°fƂ,2628,Richardson,Primary,ĢFÇĚíôĎģ£Ăé¼ĂïæĘµøçċwëęÚä,Single,4.204731118,Social Worker,800-3855-41,47798.7003
+×Òu¼,hÖ³Ćĩ,235,Anderson,Doctoral,È¶ĦµlĨsĴđñÊÏä¾Ġ~ħz?ĕĈR,Married,2.600184505,Social Worker,481-7122-48,113533.6242
+÷¤yx,k­mÂ,3958,Anderson,Doctoral,øßíØs·ĘďĄ_¥äĜÛĤĮĒďĩÄīÑ,Married,5.096518413,Social Worker,481-7122-65,11264.03722
+÷ðòQ,~éĖ°,3063,Anderson,Doctoral,Õ¸ĜÜčÆÌÖ¦ġÑ±ÊNĈ ·,Married,4.49640591,Social Worker,481-7122-61,35849.39321
+÷Ģå¸ĉ¥¥,WÂČğ,4599,Richardson,Primary,áÚÐwÈÝèĴę¬īÅlÐĐ}ĎĭË¶ïû|Í,Single,5.526319658,Social Worker,800-3855-50,-6344.022206
+÷kıúe,É~¢ğñá,5387,Thompson,Lower secondary,5øyÕ±þĉnlbăáĖ óĀĉlÃøŀ,Married,6.054686867,Social Worker,182-9964-75,-27990.12334
+§Ēn¥Æy,Ñýîýæ,3649,Davis,Lower secondary,ö×ÛÙö¯ÞäÖã¥ĂåÂčòÍĪÌ,Single,4.889328733,Social Worker,238-0922-63,19752.16571
+§É½uÜª,ÿĖØ¢À,924,Anderson,Lower secondary,w×cĂÈĲÒýIĘÿÎp©®đølăõ,Single,3.062170554,Social Worker,503-2483-37,94607.02053
+©ĂĲĽ,đěĉĎ×C,1530,Anderson,Doctoral,²Z³ýĆËîèÜäkđhþĨçÖ¯ęaÿ½,Married,3.468503713,Social Worker,481-7122-54,77960.3996
+©ù¾Ĥĵ,hč~Ç¿û,6263,Thompson,Lower secondary,¾ ĘäéÊ¯íĔÒĪ²İ¸©ěÁiÜÊëËyà,Married,6.642059551,Social Worker,182-9964-79,-52053.55557
+¬īďÂ,ðÊñĪ¶,4834,Anderson,Doctoral,ē8d§¹ËÓĤq¶xÓĜÇ¬y³ćĦàÈčĄĝî,Married,5.683891097,Social Worker,481-7122-69,-12799.39501
+¬rĨÈÙ,ïìą°û´,4949,Thompson,Lower secondary,ÉÓĪğĊßfĲå{āîËÉÃæÞ}ÕċÉ;,Married,5.761000525,Social Worker,182-9964-73,-15958.40723
+°´þ¸Óìá,ÛÛġÿ,4087,Davis,Lower secondary,ÀÈeúĹýçÈÕsÚ£ėhćfn¼zzī,Single,5.183015075,Social Worker,238-0922-65,7720.449598
+°Ĥá·ê,­çÍÎ,1883,Thompson,Lower secondary,eeß©âęµ{ēaĦú²¾ëmÁò{Đü],Married,3.70519613,Social Worker,182-9964-59,68263.60557
+µr²õËÔ,eðĉĚl´,5056,Richardson,Primary,¡¿¤¢ÁíĜī×Öõ`ĵÐß¤½ĳí¡ĥÊďùĥ,Single,5.832745819,Social Worker,800-3855-52,-18897.66208
+¶þyÖĐĘn,¯ĀĉÜå¾,5932,Richardson,Primary,zàÆ·êĎ|ëĥĬdÎĥðª×Č¼ÐĩÔ§ĜÈÿ,Single,6.420118503,Social Worker,800-3855-56,-42961.0943
+·ĚÙÇ,¸¨ħÌ,4399,Richardson,Primary,¡ÀĀ¿āª¡¤ÂĒĦýāä³oó©ª¯êď,Single,5.392216305,Social Worker,800-3855-49,-850.0879074
+·eq¢¤²,ĈĨĘđ,6618,Anderson,Lower secondary,yÍĉ­÷÷õßïÐĆāù¢¹Ĵ¾wßÍË³ģ,Single,6.880093002,Social Worker,503-2483-63,-61805.28895
+·û±¸§,â¢Ïıďi,654,Anderson,Doctoral,ĬõąēĜĪòî©ß÷åÿĕqÒ¬ðãGăãĪŅ,Married,2.881131028,Social Worker,481-7122-50,102023.8318
+{ăÙãĢ,ô¡ÚkĤÆ,7494,Anderson,Lower secondary,]nuĈāĄİ|Fî~Ĉç³­ÀĐÚīĝ¨,Single,7.467465687,Social Worker,503-2483-67,-85868.72117
+{ø÷}ę,ðâõú,1581,Anderson,Lower secondary,¼NûĭÙĎĄÀĀĀ¶ö¶äĔěÃ¡~Ø,Single,3.502700068,Social Worker,503-2483-40,76559.44636
+¡uēÂğÂ,íĪéě¨¬Ġ,2457,Anderson,Lower secondary,ĝHĊ¼ÆÙïıĢĤH¾æÁÝÆáİ¬y²{ā,Single,4.090072752,Social Worker,503-2483-44,52496.01413
+´ëĽ,MêxĶĒìĞ,3635,Thompson,Lower secondary,¸¦Č úëčøġ¾ÙČ¡©Í¶ď5Ďĳ¶Ú,Married,4.879941499,Social Worker,182-9964-67,20136.74111
+¿½ėö°Ò,ãøÕú,4525,Davis,Lower secondary,Ģ©ÕĒ¶ôæĤÄĐÅ§jĜî¥ĢâģĎ,Single,5.476701418,Social Worker,238-0922-67,-4311.266515
+÷´¼áĊ,PëÐóĪE,6808,Richardson,Primary,Â¦äďë®ęùĤRÏm¿ĞÓĀÈüÙqqăÞŀ,Single,7.007491187,Social Worker,800-3855-60,-67024.52653
+©čf×Ā_,ûß»uĜĹ,3771,Anderson,Lower secondary,²=ðĒġ³ĬÔnąĉÊ¯Ļsàģvē¡Å,Single,4.971131778,Social Worker,503-2483-50,16400.86579
+¬²êàë,¸ď÷t,583,Davis,Lower secondary,ëEr}Ăá|»Õíìù¾øÇ¡ì¾â¾ÛĔ,Single,2.833524338,Social Worker,238-0922-49,103974.1785
+¶ėÙ,¨ĈàÿÑĭĩ,8557,Anderson,Doctoral,¾TªÜĜó­ñ¨|ióºÖ¿ý ÛËûĕ,Married,8.180225006,Social Worker,481-7122-86,-115068.982
+ ÿ¶i³,èĜĆiÎ,676,Richardson,Primary,Ã±ğáāaóęáÙk}åÎqýÈAĘ¡}ĺ,Single,2.895882397,Social Worker,800-3855-32,101419.4991
+¨ēH,Op­dķĴ,5691,Anderson,Doctoral,xiēĥĬßĖVøÄâÒ¹ÎÒþĜědsãÔ,Married,6.258523963,Social Worker,481-7122-73,-36340.90347
+Ĺ,ZÆāO,5256,Richardson,Primary,ÚÇĮęË¹ªÞ¥f¬nĳąÉf¿ďāìĒğî¡Î,Single,5.966849171,Social Worker,800-3855-53,-24391.59638
+ĜĒðĎ,ÜľØ,802,Davis,Lower secondary,­ÈnªĝùĒ¦¡æ¥uÐBėă,Single,2.980367509,Social Worker,238-0922-50,97958.32045
+ģ½ĢĎ,¿ćý§²Å,7275,Anderson,Lower secondary,éëä Îċĸ±i¨ÃĊ{Ă¾Ô¥§É¶,Single,7.320622516,Social Worker,503-2483-66,-79852.86312
+Ì²ÉĬ¦,DĢÓŔ,438,Richardson,Primary,pÑfuÙµpĖČÏlÂĆænÝěÖôòİĐĄ,Single,2.736299407,Social Worker,800-3855-31,107957.2809
+ºĂâ,Ü¦ĵĨ¤,8453,Thompson,Lower secondary,Æ¨»éü¨½üČâĐĞ¦ġ÷ÍÐÞmüĎ­,Married,8.110491262,Social Worker,182-9964-89,-112212.1361
+uµªÔa,÷Ħöäć,8541,Richardson,Primary,®Ôûħßóyòą×ĜéĠªàaf±ĀÂlñð®¥,Single,8.169496737,Social Worker,800-3855-68,-114629.4672
+¼ĝ³ď§,¨åąãr¹,6589,Richardson,Primary,Ëfºąãď«ĺĲûxÅåiĀÒÀ÷¤ÀįŔ,Single,6.860648016,Social Worker,800-3855-59,-61008.66847
+À£Čn,ċôąĳô,7662,Anderson,Doctoral,ª´ā¸ðďëú¡ûöä·ĤıěrĤć Ě«Ċ,Married,7.580112503,Social Worker,481-7122-82,-90483.62599
+Ā¥¸¥ĪŐ,pĩaæ,6132,Richardson,Primary,n¼ā{é¹bÕôĒþØ½ěĉ¨î¹÷İ,Single,6.554221856,Social Worker,800-3855-57,-48455.0286
+Ăàė,øİó»²ùÏ,1800,Anderson,Lower secondary,ā@ËĊkĝĐċ£»ùĖ¸ÊóĳisĝqÁm|Ŏ,Single,3.649543239,Social Worker,503-2483-41,70543.5883
+æĦ¥ŀ,½ăÎ£,4815,Anderson,Doctoral,ĴWÌòùĄ®«IâĩěĦløÿpčÐíû,Married,5.671151279,Social Worker,481-7122-69,-12277.47125
+äĒíï,LÒĩÈû»ă,2978,Thompson,Lower secondary,ìĘºÿîĞİÉñĈ®ß¾ô»ÍĘ£Ã£}ė,Married,4.439411985,Social Worker,182-9964-64,38184.31528
+āÕ¤äċÂ,}¹¢¶,5182,Davis,Lower secondary,´¢þęþĒ}KģħkÔ¢ÌªĞÙÍþ,Single,5.917230931,Social Worker,238-0922-70,-22358.84069
+ÁyÛ§ĉ,Æ¶ÿīàº,5913,Richardson,Primary,ćª¦füaÛĂÑ×ÎÂÝëËÄÚóÿÂtézČĄ,Single,6.407378684,Social Worker,800-3855-56,-42439.17055
+bÐm[,ďæĲjĢĨŊ,3282,Anderson,Doctoral,ĦgĖÅĉĎ|çî}Ģēì0ïkúÈ,Married,4.643249081,Social Worker,481-7122-62,29833.53515
+ćfæĨďð,ÉÝÿĨt,657,Richardson,Primary,Ĥ¬¦òÑ½ó®ªābĕæá°³þ»y¦Ĩgĥħx,Single,2.883142579,Social Worker,800-3855-32,101941.4228
+cøĄÝ,²ÁúĹ,8891,Thompson,Lower secondary,~´ġÃĮïāĘĪeéÏďöķĢ¯«ėeÍā«Ń,Married,8.404177604,Social Worker,182-9964-91,-124243.8522
+ďçÎõÒ,¯A,8341,Richardson,Primary,îçĄĚt·đmù¢»Ñõ¤ÒitĔÂ³ïâ;ćĲģn,Single,8.035393385,Social Worker,800-3855-67,-109135.5329
+Ė¥ÀÌċő,|āÁÊģ,7903,Richardson,Primary,øoéąæïmđĎāĔïĩ«ÝĠ¯ÀĬçćØēġ,Single,7.741707043,Social Worker,800-3855-65,-97103.81681
+­Ëìĕû,ÄÈÔi,2895,Anderson,Lower secondary,ē¥qÆë»ðÜ§ĬĎuēêéÐÈñÇá¨,Single,4.383759094,Social Worker,503-2483-46,40464.29802
+éĊ¨üÿĥ,ááØÜå,4161,Richardson,Primary,eË¡îØ½¤Îı¡ÙÖĝĘaďĕ¼ĝĕēáĊČþ,Single,5.232633316,Social Worker,800-3855-48,5687.693908
+ĕē¸õ¥Ĺ,E¤ĨÐ,4306,Davis,Lower secondary,m¢ÆĨ{ćØìèÃ¢Ē¹iĨâÁïĤĂßú,Single,5.329858246,Social Worker,238-0922-66,1704.591541
+éĕèĊ,¯§è£,1749,Anderson,Doctoral,Âî´Ä~ÚīB§Çīý±ı³¡²\ÏĀî,Married,3.615346884,Social Worker,481-7122-55,71944.54155
+ėģÂ½ň,ô«Ĥv,8248,Davis,Lower secondary,ĭúnĻĔØ þäÁÏæÆ¤Ü,Single,7.973035326,Social Worker,238-0922-84,-106580.8535
+ēº¡ĲÂĂ,ēıċÁĲ,8467,Davis,Lower secondary,¾siđĥĦįÀµè¶ĵ¸c¸ÖÆÐÊ^,Single,8.119878497,Social Worker,238-0922-85,-112596.7115
+ĢÇÖ,¤Ùs¥ØĠe,8995,Anderson,Doctoral,¢TµùċÿâÄªĝ®ÖÚ¯ùæ¡ªvĢª,Married,8.473911348,Social Worker,481-7122-88,-127100.6981
