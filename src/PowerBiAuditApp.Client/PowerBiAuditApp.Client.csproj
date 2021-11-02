@@ -23,4 +23,8 @@
     <Folder Include="Extensions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PowerBiAuditApp.Services\PowerBiAuditApp.Services.csproj" />
+  </ItemGroup>
+
 </Project>

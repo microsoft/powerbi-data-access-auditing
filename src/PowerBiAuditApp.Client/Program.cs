@@ -5,6 +5,8 @@ using Microsoft.Identity.Web;
 using PowerBiAuditApp.Client.Middleware;
 using PowerBiAuditApp.Client.Models;
 using PowerBiAuditApp.Client.Services;
+using PowerBiAuditApp.Services;
+using PowerBiAuditApp.Services.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,7 @@ builder.Services.Configure<List<ReportDetails>>(builder.Configuration.GetSection
 builder.Services.AddScoped<IAuditLogger, AuditLogger>();
 builder.Services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
 builder.Services.AddScoped<IReportDetailsService, ReportDetailsService>();
-builder.Services.AddScoped<IPowerBiReportService, PowerBiReportService>();
+builder.Services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
 
 builder.Services.AddDataProtection();
 

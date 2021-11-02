@@ -6,10 +6,10 @@ namespace PowerBiAuditApp.Client.Controllers;
 
 public class ReportController : Controller
 {
-    private readonly IPowerBiReportService _powerBiReportService;
+    private readonly IPowerBiEmbeddedReportService _powerBiReportService;
     private readonly IReportDetailsService _reportDetailsService;
 
-    public ReportController(IPowerBiReportService powerBiReportService, IReportDetailsService reportDetailsService)
+    public ReportController(IPowerBiEmbeddedReportService powerBiReportService, IReportDetailsService reportDetailsService)
     {
         _powerBiReportService = powerBiReportService;
         _reportDetailsService = reportDetailsService;

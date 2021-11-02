@@ -3,7 +3,7 @@ using PowerBiAuditApp.Client.Models;
 
 namespace PowerBiAuditApp.Client.Services;
 
-public interface IPowerBiReportService
+public interface IPowerBiEmbeddedReportService
 {
     /// <summary>
     /// Get embed params for a report

@@ -6,16 +6,17 @@ using Microsoft.PowerBI.Api.Models;
 using Microsoft.Rest;
 using PowerBiAuditApp.Client.Extensions;
 using PowerBiAuditApp.Client.Models;
+using PowerBiAuditApp.Services;
 
 namespace PowerBiAuditApp.Client.Services;
 
-public class PowerBiReportService : IPowerBiReportService
+public class PowerBiEmbeddedReportService : IPowerBiEmbeddedReportService
 {
     private readonly IPowerBiTokenProvider _tokenProvider;
     private readonly IDataProtector _dataProtector;
     private const string UrlPowerBiServiceApiRoot = "https://api.powerbi.com";
 
-    public PowerBiReportService(IPowerBiTokenProvider tokenProvider, IDataProtectionProvider dataProtectionProvider)
+    public PowerBiEmbeddedReportService(IPowerBiTokenProvider tokenProvider, IDataProtectionProvider dataProtectionProvider)
     {
         _tokenProvider = tokenProvider;
         _dataProtector = dataProtectionProvider.CreateProtector(Constants.PowerBiTokenPurpose);

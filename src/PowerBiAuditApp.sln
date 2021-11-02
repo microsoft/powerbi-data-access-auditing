@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBiAuditApp.Services", "PowerBiAuditApp.Services\PowerBiAuditApp.Services.csproj", "{057C56B5-62FA-481F-A662-56EFBCE4CEA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerBiAuditApp.Models", "PowerBiAuditApp.Models\PowerBiAuditApp.Models.csproj", "{454CC8B9-6359-47F3-B070-74C4A1F56C49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +38,14 @@ Global
 		{0052AFB0-AB5C-4EA4-A606-0E1AEC194EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0052AFB0-AB5C-4EA4-A606-0E1AEC194EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0052AFB0-AB5C-4EA4-A606-0E1AEC194EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{057C56B5-62FA-481F-A662-56EFBCE4CEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{057C56B5-62FA-481F-A662-56EFBCE4CEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{057C56B5-62FA-481F-A662-56EFBCE4CEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{057C56B5-62FA-481F-A662-56EFBCE4CEA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{454CC8B9-6359-47F3-B070-74C4A1F56C49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454CC8B9-6359-47F3-B070-74C4A1F56C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454CC8B9-6359-47F3-B070-74C4A1F56C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454CC8B9-6359-47F3-B070-74C4A1F56C49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
