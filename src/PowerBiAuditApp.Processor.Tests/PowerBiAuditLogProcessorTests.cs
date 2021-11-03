@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PowerBiAuditApp.Processor.Models;
 using PowerBiAuditApp.Processor.Tests.Fakers;
 using SendGrid.Helpers.Mail;
 using VerifyTests;
@@ -40,11 +42,16 @@ public class PowerBiAuditLogProcessorTests
         var stream = File.OpenRead(filePath);
         var blob = new FakeBlockBlobClient(stream);
         var container = new FakeContainerClient();
+        var collectorMock = new Mock<IAsyncCollector<SendGridMessage>>();
 
 
-        await PowerBiAuditLogProcessor.Run(filePath.Replace(ExamplesFolder, ""), blob, container, new Mock<IAsyncCollector<SendGridMessage>>().Object, new Mock<ILogger>().Object);
+        await PowerBiAuditLogProcessor.Run(filePath.Replace(ExamplesFolder, ""), blob, container, collectorMock.Object, new Mock<ILogger>().Object);
 
-        foreach (var (resultFileName, file) in container.GetFiles())
+        var files = container.GetFiles();
+        collectorMock.Verify(x => x.AddAsync(It.IsAny<SendGridMessage>(), It.IsAny<CancellationToken>()), Times.Never);
+        Assert.NotEmpty(files);
+
+        foreach (var (resultFileName, file) in files)
         {
             var settings = new VerifySettings();
             settings.UseDirectory("Results");
@@ -87,6 +94,54 @@ public class PowerBiAuditLogProcessorTests
         jObject!["Response"]!["results"]!.Parent!.Remove();
 
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(jObject.ToString()));
+        var blob = new FakeBlockBlobClient(stream);
+        var container = new FakeContainerClient();
+        var collectorMock = new Mock<IAsyncCollector<SendGridMessage>>();
+
+        // Act
+        await PowerBiAuditLogProcessor.Run(filePath.Replace(ExamplesFolder, ""), blob, container, collectorMock.Object, new Mock<ILogger>().Object);
+
+
+        //Assert
+        collectorMock.Verify(x => x.AddAsync(It.IsAny<SendGridMessage>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+
+    [Theory]
+    [MemberData(nameof(ExampleFiles))]
+    public async Task InputHeadersHaveLessRowsThanData_WhenTheProcessIsRun_AndErrorEmailIsSent(string filePath)
+    {
+        //Arrange
+        var jsonString = await File.ReadAllTextAsync(filePath);
+        var model = JsonConvert.DeserializeObject<AuditLog>(jsonString);
+        var headerData = model!.Response.Results.Single().Result.Data.Dsr.DataSets.Single().Ph.Single().Values.Single().Single(x => x.ColumnHeaders is not null);
+        headerData.ColumnHeaders = headerData.ColumnHeaders.Take(headerData.ColumnHeaders.Length - 1).ToArray();
+
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model)));
+        var blob = new FakeBlockBlobClient(stream);
+        var container = new FakeContainerClient();
+        var collectorMock = new Mock<IAsyncCollector<SendGridMessage>>();
+
+        // Act
+        await PowerBiAuditLogProcessor.Run(filePath.Replace(ExamplesFolder, ""), blob, container, collectorMock.Object, new Mock<ILogger>().Object);
+
+
+        //Assert
+        collectorMock.Verify(x => x.AddAsync(It.IsAny<SendGridMessage>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+
+    [Theory]
+    [MemberData(nameof(ExampleFiles))]
+    public async Task InputHeadersHaveMoreRowsThanData_WhenTheProcessIsRun_AndErrorEmailIsSent(string filePath)
+    {
+        //Arrange
+        var jsonString = await File.ReadAllTextAsync(filePath);
+        var model = JsonConvert.DeserializeObject<AuditLog>(jsonString);
+        var headerData = model!.Response.Results.Single().Result.Data.Dsr.DataSets.Single().Ph.Single().Values.Single().Single(x => x.ColumnHeaders is not null);
+        headerData.ColumnHeaders = headerData.ColumnHeaders.Concat(headerData.ColumnHeaders.Take(1)).ToArray();
+
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model)));
         var blob = new FakeBlockBlobClient(stream);
         var container = new FakeContainerClient();
         var collectorMock = new Mock<IAsyncCollector<SendGridMessage>>();
