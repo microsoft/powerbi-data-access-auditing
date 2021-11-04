@@ -16,10 +16,10 @@ public class ReportController : Controller
     }
 
     // GET: ReportController
-    public IActionResult Index(Guid workspaceId, Guid reportId, int pageNumber)
+    public async Task<IActionResult> Index(Guid workspaceId, Guid reportId, int pageNumber)
     {
 
-        var report = _reportDetailsService.GetReportDetails(workspaceId, reportId);
+        var report = await _reportDetailsService.GetReportDetail(workspaceId, reportId);
         if (report is null)
             return RedirectToAction("Index", "Home");
 
@@ -37,7 +37,7 @@ public class ReportController : Controller
             EmbedToken = reportParameters.EmbedToken,
             EmbedUrl = localisedUri,
             ReportId = report.ReportId,
-            WorkspaceId = report.WorkspaceId,
+            WorkspaceId = report.GroupId,
             PageNumber = pageNumber,
             PaginationTable = report.PaginationTable,
         });

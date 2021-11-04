@@ -53,4 +53,16 @@ public class PowerBiReportService : IPowerBiReportService
         var pbiClient = GetPowerBiClient();
         return (await pbiClient.Dataflows.GetDataflowsAsync(groupId)).Value;
     }
+
+    public async Task<ActivityEventResponse> ActivityEvents(DateTimeOffset? start)
+    {
+        var pbiClient = GetPowerBiClient();
+        return await pbiClient.Admin.GetActivityEventsAsync(start?.ToString("o"));
+    }
+
+    public async Task<ActivityEventResponse> ActivityEvents(string continuationToken)
+    {
+        var pbiClient = GetPowerBiClient();
+        return await pbiClient.Admin.GetActivityEventsAsync(continuationToken: continuationToken);
+    }
 }

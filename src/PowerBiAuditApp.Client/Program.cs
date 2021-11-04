@@ -13,19 +13,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Register Services
 builder.Services.Configure<ServicePrincipal>(builder.Configuration.GetSection("ServicePrincipal"));
 builder.Services.Configure<StorageAccountSettings>(builder.Configuration.GetSection("StorageAccountSettings"));
-builder.Services.Configure<List<ReportDetails>>(builder.Configuration.GetSection("ReportDetails"));
+//builder.Services.Configure<List<ReportDetails>>(builder.Configuration.GetSection("ReportDetails"));
 builder.Services.AddScoped<IAuditLogger, AuditLogger>();
 builder.Services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
 builder.Services.AddScoped<IReportDetailsService, ReportDetailsService>();
 builder.Services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddDataProtection();
 
 builder.Services.AddAzureClients(b =>
 {
     b.UseCredential(new DefaultAzureCredential());
-    b.AddBlobServiceClient(builder.Configuration.GetSection("StorageAccountSettings").GetSection("StorageConnectionString"));
-    b.AddQueueServiceClient(builder.Configuration.GetSection("StorageAccountSettings").GetSection("StorageConnectionString"))
+    b.AddTableServiceClient(builder.Configuration.GetSection("StorageAccountSettings").GetSection("TableEndpoint"));
+    b.AddBlobServiceClient(builder.Configuration.GetSection("StorageAccountSettings").GetSection("BlobEndpoint"));
+    b.AddQueueServiceClient(builder.Configuration.GetSection("StorageAccountSettings").GetSection("QueueEndpoint"))
         .ConfigureOptions(c => c.MessageEncoding = Azure.Storage.Queues.QueueMessageEncoding.Base64);
 });
 

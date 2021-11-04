@@ -1,18 +1,38 @@
-﻿using Microsoft.Extensions.Options;
-using PowerBiAuditApp.Client.Models;
+﻿using Azure.Data.Tables;
+using Microsoft.Extensions.Caching.Memory;
+using PowerBiAuditApp.Models;
 
 namespace PowerBiAuditApp.Client.Services;
 
 public class ReportDetailsService : IReportDetailsService
 {
-    private readonly IOptions<List<ReportDetails>> _reportDetails;
+    private readonly TableServiceClient _tableServiceClient;
+    private readonly IMemoryCache _memoryCache;
+    private const string CacheKey = nameof(ReportDetail);
+    private const int CacheTime = 30;
 
-    public ReportDetailsService(IOptions<List<ReportDetails>> reportDetails)
+    public ReportDetailsService(TableServiceClient tableServiceClient, IMemoryCache memoryCache)
     {
-        _reportDetails = reportDetails;
+        _tableServiceClient = tableServiceClient;
+        _memoryCache = memoryCache;
     }
 
-    public IList<ReportDetails> GetReportDetails() => _reportDetails.Value;
+    public Task<IList<ReportDetail>> GetReportDetails() => RetrieveReportDetails();
 
-    public ReportDetails? GetReportDetails(Guid workspaceId, Guid reportId) => _reportDetails.Value.FirstOrDefault(x => x.WorkspaceId == workspaceId && x.ReportId == reportId);
+    public async Task<ReportDetail?> GetReportDetail(Guid workspaceId, Guid reportId) => (await RetrieveReportDetails()).FirstOrDefault(x => x.GroupId == workspaceId && x.ReportId == reportId);
+
+    private async Task<IList<ReportDetail>> RetrieveReportDetails() =>
+        await
+            _memoryCache.GetOrCreateAsync(CacheKey, async entry =>
+            {
+                entry.SlidingExpiration = TimeSpan.FromMinutes(CacheTime);
+
+                var reportDetails = new List<ReportDetail>();
+                var tableClient = _tableServiceClient.GetTableClient(nameof(ReportDetail));
+                await foreach (var reportDetail in tableClient.QueryAsync<ReportDetail>())
+                {
+                    reportDetails.Add(reportDetail);
+                }
+                return reportDetails;
+            });
 }

@@ -14,11 +14,11 @@ public class HomeController : Controller
         _reportDetailsService = reportDetailsService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         var model = new HomeViewModel {
             User = HttpContext.User.Identity?.Name,
-            Reports = _reportDetailsService.GetReportDetails()
+            Reports = await _reportDetailsService.GetReportDetails()
         };
 
         return View(model);

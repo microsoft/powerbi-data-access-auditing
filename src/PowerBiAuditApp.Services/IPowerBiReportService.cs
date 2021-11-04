@@ -11,4 +11,6 @@ public interface IPowerBiReportService
     Task<IList<Dataset>> GetDataSets(Guid groupId);
     Task<IList<Dashboard>> GetDashboards(Guid groupId);
     Task<IList<Dataflow>> GetDataFlows(Guid groupId);
+    Task<ActivityEventResponse> ActivityEvents(DateTimeOffset? start);
+    Task<ActivityEventResponse> ActivityEvents(string continuationToken);
 }

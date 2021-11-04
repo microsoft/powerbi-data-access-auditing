@@ -1,7 +1,9 @@
-﻿namespace PowerBiAuditApp.Client.Models;
+﻿using PowerBiAuditApp.Models;
+
+namespace PowerBiAuditApp.Client.Models;
 
 public class HomeViewModel
 {
     public string? User { get; init; }
-    public IList<ReportDetails> Reports { get; init; } = null!;
+    public IList<ReportDetail> Reports { get; init; } = null!;
 }
