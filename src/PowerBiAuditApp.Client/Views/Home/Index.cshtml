@@ -1,6 +1,6 @@
 ﻿<!-- Copyright (c) Microsoft Corporation.
 Licensed under the MIT license. -->
-@using PowerBiAuditApp.Client.Models
+@using PowerBiAuditApp.Models
 @model PowerBiAuditApp.Client.Models.HomeViewModel
 
 <main role="main">
@@ -8,12 +8,12 @@ Licensed under the MIT license. -->
 	<div class="container">
 		<!-- Example row of columns -->
 		<div class="row">
-			@foreach (var reportDetail in Model?.Reports.Where(x=>x.DisplayLevel == 1) ?? Array.Empty<ReportDetails>())
+			@foreach (var reportDetail in Model?.Reports ?? Array.Empty<ReportDetail>())
 			{
 				<div class="col-md-4">
-					<h2>@reportDetail.DisplayName</h2>
+					<h2>@reportDetail.Name</h2>
 					<p>@reportDetail.Description </p>
-					<p><a class="btn btn-secondary" href="report/?WorkspaceId=@reportDetail.WorkspaceId&reportId=@reportDetail.ReportId" role="button">View Report»</a></p>
+					<p><a class="btn btn-secondary" href="report/?WorkspaceId=@reportDetail.GroupId&reportId=@reportDetail.ReportId" role="button">View Report»</a></p>
 				</div>
 			}
 		</div>

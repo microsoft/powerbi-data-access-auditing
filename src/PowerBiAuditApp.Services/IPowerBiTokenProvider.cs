@@ -1,4 +1,4 @@
-﻿namespace PowerBiAuditApp.Client.Services;
+﻿namespace PowerBiAuditApp.Services;
 
 public interface IPowerBiTokenProvider
 {

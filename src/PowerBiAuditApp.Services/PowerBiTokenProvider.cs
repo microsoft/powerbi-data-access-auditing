@@ -6,9 +6,9 @@
 using System.Security;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
-using PowerBiAuditApp.Client.Models;
+using PowerBiAuditApp.Services.Models;
 
-namespace PowerBiAuditApp.Client.Services;
+namespace PowerBiAuditApp.Services;
 
 public class PowerBiTokenProvider : IPowerBiTokenProvider
 {

@@ -1,0 +1,565 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-03T04:51:06.9580326+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "j",
+                      "Entity": "Example 1",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "j"
+                          }
+                        },
+                        "Property": "Assignee"
+                      },
+                      "Name": "Example 1.Assignee"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "j"
+                          }
+                        },
+                        "Property": "Attachment1"
+                      },
+                      "Name": "Example 1.Attachment1"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "j"
+                          }
+                        },
+                        "Property": "Comment2"
+                      },
+                      "Name": "Example 1.Comment2"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "j"
+                          }
+                        },
+                        "Property": "Components"
+                      },
+                      "Name": "Example 1.Components"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "j"
+                          }
+                        },
+                        "Property": "Custom field"
+                      },
+                      "Name": "Example 1.Custom field"
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2,
+                          3,
+                          4
+                        ],
+                        "Subtotal": 1
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Window": {
+                        "Count": 500
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"j\",\"Entity\":\"Example 1\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"j\"}},\"Property\":\"Assignee\"},\"Name\":\"Example 1.Assignee\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"j\"}},\"Property\":\"Attachment1\"},\"Name\":\"Example 1.Attachment1\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"j\"}},\"Property\":\"Comment2\"},\"Name\":\"Example 1.Comment2\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"j\"}},\"Property\":\"Components\"},\"Name\":\"Example 1.Components\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"j\"}},\"Property\":\"Custom field (Change completion Month)\"},\"Name\":\"Example 1.Custom field (Change completion Month)\"}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2,3,4],\"Subtotal\":1}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Window\":{\"Count\":500}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "ed3d67d1-13bc-48e9-94fb-cec6512ac6d0",
+          "Sources": [
+            {
+              "ReportId": "f82c9236-022d-401a-9d0b-acda64759f1c",
+              "VisualId": "ba426c63d9a57b03ea65"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 542411,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "8a17d5a3-75b6-4ebd-8a71-95e18e5a2c41"
+    ],
+    "results": [
+      {
+        "jobId": "8a17d5a3-75b6-4ebd-8a71-95e18e5a2c41",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Example 1",
+                        "Property": "Assignee"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Example 1.Assignee"
+                },
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G1",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Example 1",
+                        "Property": "Attachment1"
+                      },
+                      "Calc": "G1",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Example 1.Attachment1"
+                },
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G2",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Example 1",
+                        "Property": "Comment2"
+                      },
+                      "Calc": "G2",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Example 1.Comment2"
+                },
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G3",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Example 1",
+                        "Property": "Components"
+                      },
+                      "Calc": "G3",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Example 1.Components"
+                },
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G4",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Example 1",
+                        "Property": "Custom field (Change completion Month)"
+                      },
+                      "Calc": "G4",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Example 1.Custom field (Change completion Month)"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Example 1",
+                            "Property": "Assignee"
+                          },
+                          "Select": 0
+                        },
+                        {
+                          "Source": {
+                            "Entity": "Example 1",
+                            "Property": "Attachment1"
+                          },
+                          "Select": 1
+                        },
+                        {
+                          "Source": {
+                            "Entity": "Example 1",
+                            "Property": "Comment2"
+                          },
+                          "Select": 2
+                        },
+                        {
+                          "Source": {
+                            "Entity": "Example 1",
+                            "Property": "Components"
+                          },
+                          "Select": 3
+                        },
+                        {
+                          "Source": {
+                            "Entity": "Example 1",
+                            "Property": "Custom field"
+                          },
+                          "Select": 4
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            },
+                            {
+                              "N": "G1",
+                              "T": 1,
+                              "DN": "D1"
+                            },
+                            {
+                              "N": "G2",
+                              "T": 1,
+                              "DN": "D2"
+                            },
+                            {
+                              "N": "G3",
+                              "T": 1,
+                              "DN": "D3"
+                            },
+                            {
+                              "N": "G4",
+                              "T": 1,
+                              "DN": "D4"
+                            }
+                          ],
+                          "C": [
+                          ],
+                          "Ø": 31
+                        },
+                        {
+                          "C": [
+                            0
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            1
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            2
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            3
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            0
+                          ],
+                          "R": 22,
+                          "Ø": 8
+                        },
+                        {
+                          "C": [
+                            1
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            2
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            3
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            1
+                          ],
+                          "R": 22,
+                          "Ø": 8
+                        },
+                        {
+                          "C": [
+                            2
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            0
+                          ],
+                          "R": 19,
+                          "Ø": 8
+                        },
+                        {
+                          "C": [
+                            0
+                          ],
+                          "R": 25,
+                          "Ø": 4
+                        },
+                        {
+                          "C": [
+                            1,
+                            2
+                          ],
+                          "R": 21
+                        },
+                        {
+                          "C": [
+                            2
+                          ],
+                          "R": 21,
+                          "Ø": 8
+                        },
+                        {
+                          "C": [
+                            2
+                          ],
+                          "R": 28,
+                          "Ø": 2
+                        },
+                        {
+                          "C": [
+                            4
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            5
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            3
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            6
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            3
+                          ],
+                          "R": 22,
+                          "Ø": 8
+                        },
+                        {
+                          "C": [
+                            0
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            2
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            4
+                          ],
+                          "R": 22,
+                          "Ø": 8
+                        },
+                        {
+                          "C": [
+                            7
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            8
+                          ],
+                          "R": 23
+                        },
+                        {
+                          "C": [
+                            3
+                          ],
+                          "R": 21,
+                          "Ø": 8
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": {
+                    "D0": [
+                      "Christiana Delarosa",
+                      "Ayisha Leon",
+                      "Samiya Clarke",
+                      "Kaira Milner",
+                      "Arnav Rios"
+                    ],
+                    "D1": [
+                      "05/Jul/21 8:57 AM;ug:13ee1c0e-fcb5-4d52-8154-372a843e92d5;image-20210705-005709.png;https://example.com/attachment/10056/image-20210705-005709.png",
+                      "19/Jun/21 10:02 AM;ug:13ee1c0e-fcb5-4d52-8154-372a843e92d5;image-2021-06-19-10-02-41-460.png;https://example.com/attachment/10043/image-2021-06-19-10-02-41-460.png",
+                      "19/Jun/21 11:27 AM;ug:51117d08-9921-499b-b2af-abc9899753ab;required.PNG;https://example.com/attachment/10047/required.PNG",
+                      "14/Jul/21 9:29 AM;ug:13ee1c0e-fcb5-4d52-8154-372a843e92d5;example.json;https://example.com/attachment/10057/example.json"
+                    ],
+                    "D2": [
+                      "17/Sep/21 10:20 AM;60add38e4dac15006920944d;[~accountid:6090a413d353800068648534] I’ll leave as is then and we can look at better options if this goes forward."
+                    ],
+                    "D3": [
+                      "Documentation",
+                      "Application",
+                      "Components",
+                      "Search",
+                      "Delivery",
+                      "Integration",
+                      "Infrastructure",
+                      "APIs",
+                      "Data Model"
+                    ],
+                    "D4": [
+                    ]
+                  }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "7df95b54-18e1-4be9-aa46-1f8980f70b29",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-03T04:51:07.2583119Z",
+                  "End": "2021-11-03T04:51:07.3051885Z"
+                },
+                {
+                  "Id": "4573b1dd-1dbc-4a79-a565-5a273a49afb2",
+                  "ParentId": "7df95b54-18e1-4be9-aa46-1f8980f70b29",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-03T04:51:07.2583119Z",
+                  "End": "2021-11-03T04:51:07.289565Z"
+                },
+                {
+                  "Id": "98621749-9ce1-4ca9-9a5c-01304e299b7f",
+                  "ParentId": "7df95b54-18e1-4be9-aa46-1f8980f70b29",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-03T04:51:07.289565Z",
+                  "End": "2021-11-03T04:51:07.3051885Z",
+                  "Metrics": {
+                    "RowCount": 27
+                  }
+                },
+                {
+                  "Id": "D8DED0C9-F1BE-472F-B23F-3DF0FBDB8746",
+                  "ParentId": "98621749-9ce1-4ca9-9a5c-01304e299b7f",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-03T04:51:07.303Z",
+                  "End": "2021-11-03T04:51:07.307Z"
+                },
+                {
+                  "Id": "AA48C304-C873-4A93-B878-62EB74A463CF",
+                  "ParentId": "D8DED0C9-F1BE-472F-B23F-3DF0FBDB8746",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-03T04:51:07.303Z",
+                  "End": "2021-11-03T04:51:07.307Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

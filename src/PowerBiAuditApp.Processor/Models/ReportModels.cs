@@ -426,7 +426,10 @@ public class DataRow
     public RowValue[] RowValues { get; set; }
 
     [JsonProperty("R", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-    public long? Bitmask { get; set; }
+    public long? CopyBitmask { get; set; }
+
+    [JsonProperty("Ø", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public long? NullBitmask { get; set; }
 }
 
 public class ColumnHeader

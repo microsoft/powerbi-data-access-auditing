@@ -6,16 +6,18 @@ using Microsoft.PowerBI.Api.Models;
 using Microsoft.Rest;
 using PowerBiAuditApp.Client.Extensions;
 using PowerBiAuditApp.Client.Models;
+using PowerBiAuditApp.Models;
+using PowerBiAuditApp.Services;
 
 namespace PowerBiAuditApp.Client.Services;
 
-public class PowerBiReportService : IPowerBiReportService
+public class PowerBiEmbeddedReportService : IPowerBiEmbeddedReportService
 {
     private readonly IPowerBiTokenProvider _tokenProvider;
     private readonly IDataProtector _dataProtector;
     private const string UrlPowerBiServiceApiRoot = "https://api.powerbi.com";
 
-    public PowerBiReportService(IPowerBiTokenProvider tokenProvider, IDataProtectionProvider dataProtectionProvider)
+    public PowerBiEmbeddedReportService(IPowerBiTokenProvider tokenProvider, IDataProtectionProvider dataProtectionProvider)
     {
         _tokenProvider = tokenProvider;
         _dataProtector = dataProtectionProvider.CreateProtector(Constants.PowerBiTokenPurpose);
@@ -35,12 +37,12 @@ public class PowerBiReportService : IPowerBiReportService
     /// Get embed params for a report
     /// </summary>
     /// <returns>Wrapper object containing Embed token, Embed URL, Report Id, and Report name for single report</returns>
-    public ReportParameters GetReportParameters(ReportDetails report, [Optional] Guid additionalDatasetId, [Optional] string? effectiveUserName)
+    public ReportParameters GetReportParameters(ReportDetail report, [Optional] Guid additionalDatasetId, [Optional] string? effectiveUserName)
     {
         var pbiClient = GetPowerBiClient();
 
         // Get report info
-        var pbiReport = pbiClient.Reports.GetReportInGroup(report.WorkspaceId, report.ReportId);
+        var pbiReport = pbiClient.Reports.GetReportInGroup(report.GroupId, report.ReportId);
 
         //  Check if dataset is present for the corresponding report
         //  If isRDLReport is true then it is a RDL Report 
@@ -89,7 +91,7 @@ public class PowerBiReportService : IPowerBiReportService
     /// </summary>
     /// <returns>Embed token</returns>
     /// <remarks>This function is not supported for RDL Report</remarks>
-    private string GetEmbedToken(ReportDetails report, IList<Guid> datasetIds, [Optional] string? effectiveUserName)
+    private string GetEmbedToken(ReportDetail report, IList<Guid> datasetIds, [Optional] string? effectiveUserName)
     {
         var pbiClient = GetPowerBiClient();
 
@@ -97,9 +99,8 @@ public class PowerBiReportService : IPowerBiReportService
         if (!string.IsNullOrEmpty(effectiveUserName) && report.Roles.Any())
         {
 
-            ids = new()
-            {
-                new EffectiveIdentity {
+            ids = new List<EffectiveIdentity> {
+                new() {
                     Username = effectiveUserName,
                     Roles = report.Roles.ToList(),
                     Datasets = datasetIds.Select(d => d.ToString()).ToArray()
@@ -117,7 +118,7 @@ public class PowerBiReportService : IPowerBiReportService
 
             datasets: datasetIds.Select(datasetId => new GenerateTokenRequestV2Dataset(datasetId.ToString())).ToList(),
 
-            targetWorkspaces: report.WorkspaceId != Guid.Empty ? new List<GenerateTokenRequestV2TargetWorkspace> { new(report.WorkspaceId) } : null,
+            targetWorkspaces: report.GroupId != Guid.Empty ? new List<GenerateTokenRequestV2TargetWorkspace> { new(report.GroupId) } : null,
 
             identities: ids
         );
@@ -132,7 +133,7 @@ public class PowerBiReportService : IPowerBiReportService
     /// Get Embed token for RDL Report
     /// </summary>
     /// <returns>Embed token</returns>
-    private string GetEmbedTokenForRdlReport(ReportDetails report, string accessLevel = "view")
+    private string GetEmbedTokenForRdlReport(ReportDetail report, string accessLevel = "view")
     {
         var pbiClient = GetPowerBiClient();
 
@@ -140,7 +141,7 @@ public class PowerBiReportService : IPowerBiReportService
         var generateTokenRequestParameters = new GenerateTokenRequest(accessLevel);
 
         // Generate Embed token
-        var embedToken = pbiClient.Reports.GenerateTokenInGroup(report.WorkspaceId, report.ReportId, generateTokenRequestParameters);
+        var embedToken = pbiClient.Reports.GenerateTokenInGroup(report.GroupId, report.ReportId, generateTokenRequestParameters);
 
         return EncryptAndFormatToken(embedToken);
     }

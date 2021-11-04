@@ -155,8 +155,7 @@ public static class PowerBiAuditLogProcessor
         object[] previousCsvRow = null;
         foreach (var row in data)
         {
-            var bitmask = row.Bitmask ?? 0;
-            previousCsvRow = GetRow(row, headers, dataSet.ValueDictionary, bitmask, previousCsvRow);
+            previousCsvRow = GetRow(row, headers, dataSet.ValueDictionary, previousCsvRow);
             foreach (var rowData in previousCsvRow)
             {
                 csvWriter.WriteField(rowData);
@@ -166,51 +165,62 @@ public static class PowerBiAuditLogProcessor
         }
     }
 
-    private static object[] GetRow(DataRow row, ColumnHeader[] headers, Dictionary<string, string[]> valueDictionary, long bitmask, object[] previousCsvRow)
+    private static object[] GetRow(DataRow row, ColumnHeader[] headers, Dictionary<string, string[]> valueDictionary, object[] previousCsvRow)
     {
         var rowDataIndex = 0;
         var csvRow = new object[headers.Length];
-        bitmask = long.MaxValue ^ bitmask;
+
+        var copyBitmask = row.CopyBitmask ?? 0;
+        var nullBitmask = row.NullBitmask ?? 0;
+
+        if (CountSetBits(copyBitmask) + CountSetBits(nullBitmask) + row.RowValues.Length != headers.Length)
+            throw new ArgumentException($"Number of rows doesn't match the headers (rows: {CountSetBits(copyBitmask) + CountSetBits(nullBitmask) + row.RowValues.Length} headers:{headers.Length}");
+
         for (var index = 0; index < headers.Length; index++)
         {
-            if (!IsBitSet(bitmask, index))
+            if (IsBitSet(copyBitmask, index))
             {
                 // this is a duplicate
                 csvRow[index] = previousCsvRow[index];
+                continue;
             }
-            else
+
+            if (IsBitSet(nullBitmask, index))
             {
-                var data = row.RowValues[rowDataIndex++];
-                switch (headers[index].ColumnType)
-                {
-                    case ColumnType.String:
+                // this is a null
+                csvRow[index] = null;
+                continue;
+            }
+
+            var data = row.RowValues[rowDataIndex++];
+            switch (headers[index].ColumnType)
+            {
+                case ColumnType.String:
+                    {
+                        if (data.Integer is not null)
                         {
-                            if (data.Integer is not null)
-                            {
-                                // need to lookup
-                                var lookup = headers[index].DataIndex;
-                                var value = valueDictionary[lookup][data.Integer.Value];
-                                csvRow[index] = value;
-                            }
-                            else
-                            {
-                                csvRow[index] = data.String;
-                            }
-                            break;
+                            // need to lookup
+                            var lookup = headers[index].DataIndex;
+                            var value = valueDictionary[lookup][data.Integer.Value];
+                            csvRow[index] = value;
                         }
-                    case ColumnType.Int:
+                        else
                         {
-
-                            if (data.Integer is null)
-                                throw new NullReferenceException();
-
-                            csvRow[index] = data.Integer;
-                            break;
+                            csvRow[index] = data.String;
                         }
-                    default:
-                        throw new NotSupportedException();
-                }
+                        break;
+                    }
+                case ColumnType.Int:
+                    {
 
+                        if (data.Integer is null)
+                            throw new NullReferenceException();
+
+                        csvRow[index] = data.Integer;
+                        break;
+                    }
+                default:
+                    throw new NotSupportedException();
             }
         }
 
@@ -218,4 +228,19 @@ public static class PowerBiAuditLogProcessor
     }
 
     private static bool IsBitSet(long num, int pos) => (num & (1 << pos)) != 0;
+    private static int CountSetBits(long bitmask)
+    {
+
+        var count = 0;
+        var mask = 1;
+        for (var i = 0; i < 32; i++)
+        {
+            if ((mask & bitmask) == mask)
+                count++;
+            mask <<= 1;
+        }
+        return count;
+    }
+
+
 }

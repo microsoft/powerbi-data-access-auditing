@@ -3,7 +3,7 @@
 // Licensed under the MIT license.
 // ----------------------------------------------------------------------------
 
-namespace PowerBiAuditApp.Client.Models;
+namespace PowerBiAuditApp.Services.Models;
 
 public class ServicePrincipal
 {
@@ -11,7 +11,7 @@ public class ServicePrincipal
     public ServicePrincipalAuthenticationMode AuthenticationMode { get; set; }
 
     // URL used for initiating authorization request
-    public string? AuthorityUri { get; set; }
+    public string? AuthorityUri => $"https://login.microsoftonline.com/{TenantId}/";
 
     // Client Id (Application Id) of the AAD app
     public string? ClientId { get; set; }
