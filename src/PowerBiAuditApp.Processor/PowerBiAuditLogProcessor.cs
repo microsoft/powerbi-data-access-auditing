@@ -194,7 +194,7 @@ public static class PowerBiAuditLogProcessor
 
             for (var i = 1; i <= header.ColumnCount; i++)
             {
-                csvWriter.WriteField($"{headerName} ({i})");
+                csvWriter.WriteField($"{headerName}[{i}]");
             }
         }
 
@@ -295,12 +295,8 @@ public static class PowerBiAuditLogProcessor
 
             if (row.ValueLookup.TryGetValue(headers[index].NameIndex, out var cellData))
             {
-                csvRow[index] = headers[index].ColumnType switch {
-                    ColumnType.String => cellData,
-                    ColumnType.Int => int.Parse(cellData),
-                    ColumnType.Double => double.Parse(cellData),
-                    _ => throw new ArgumentOutOfRangeException(nameof(headers), $"Unknown type {headers[index].ColumnType}")
-                };
+
+                csvRow[index] = ParseRowValue(headers, valueDictionary, index, cellData);
                 continue;
             }
 
@@ -323,54 +319,50 @@ public static class PowerBiAuditLogProcessor
 
 
             var data = row.RowValues[rowDataIndex++];
-
-            switch (headers[index].ColumnType)
-            {
-                case ColumnType.String:
-                    {
-                        if (data.Integer is not null)
-                        {
-                            // need to lookup
-                            var lookup = headers[index].DataIndex;
-                            var value = valueDictionary[lookup][data.Integer.Value];
-                            csvRow[index] = value;
-                        }
-                        else
-                        {
-                            csvRow[index] = data.String;
-                        }
-                        break;
-                    }
-                case ColumnType.Int:
-                    {
-
-                        if (data.Integer is null)
-                            throw new NullReferenceException();
-
-                        csvRow[index] = data.Integer;
-                        break;
-                    }
-
-                case ColumnType.Double:
-                    {
-                        if (data.Double is not null)
-                        {
-                            csvRow[index] = data.Double;
-                            break;
-                        }
-
-                        if (data.String is null)
-                            throw new NullReferenceException();
-
-                        csvRow[index] = double.Parse(data.String);
-                        break;
-                    }
-                default:
-                    throw new NotSupportedException();
-            }
+            csvRow[index] = ParseRowValue(headers, valueDictionary, index, data);
         }
 
         return csvRow;
+    }
+
+    private static object ParseRowValue(ColumnHeader[] headers, Dictionary<string, string[]> valueDictionary, int index, RowValue data)
+    {
+        switch (headers[index].ColumnType)
+        {
+            case ColumnType.String:
+                {
+                    if (data.Integer is not null)
+                    {
+                        // need to lookup
+                        var lookup = headers[index].DataIndex;
+                        return valueDictionary[lookup][data.Integer.Value];
+                    }
+
+                    return data.String;
+                }
+            case ColumnType.Int:
+                {
+                    if (data.Integer is null)
+                        throw new NullReferenceException();
+
+                    return data.Integer;
+                }
+
+            case ColumnType.Double:
+                {
+                    if (data.Double is not null)
+                    {
+                        return data.Double;
+                    }
+
+                    if (data.String is null)
+                        throw new NullReferenceException();
+
+                    return double.Parse(data.String);
+                }
+            default:
+                throw new NotSupportedException();
+        }
     }
 
     private static bool IsBitSet(long num, int pos) => (num & (1 << pos)) != 0;

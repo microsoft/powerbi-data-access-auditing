@@ -584,15 +584,21 @@ public class DataRow
     public SubDataRow[] SubDataRows { get; set; }
 
     [JsonIgnore]
-    public Dictionary<string, string> ValueLookup { get; set; } = new();
+    public Dictionary<string, RowValue> ValueLookup { get; set; } = new();
 
     [OnDeserialized]
     // ReSharper disable once UnusedMember.Local // JSON special prop
+    // ReSharper disable once UnusedParameter.Local // JSON special prop
     private void OnDeserialized(StreamingContext context)
     {
         foreach (var (key, value) in _additionalData)
         {
-            ValueLookup[key] = value.ToObject<string>();
+            ValueLookup[key] = value.Type switch {
+                JTokenType.Integer => new RowValue { Integer = value.ToObject<int>() },
+                JTokenType.Float => new RowValue { Double = value.ToObject<double>() },
+                JTokenType.String => new RowValue { String = value.ToObject<string>() },
+                _ => throw new Exception("Cannot un-marshal type RowValue")
+            };
         }
     }
 
@@ -613,6 +619,7 @@ public class SubDataRow
 
     [OnDeserialized]
     // ReSharper disable once UnusedMember.Local // JSON special prop
+    // ReSharper disable once UnusedParameter.Local // JSON special prop
     private void OnDeserialized(StreamingContext context)
     {
         foreach (var (key, value) in _additionalData)
