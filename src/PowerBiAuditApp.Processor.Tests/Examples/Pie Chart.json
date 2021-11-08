@@ -1,0 +1,239 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-05T04:14:01.4735568+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "s",
+                      "Entity": "Store",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s1",
+                      "Entity": "Sales",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "Chain"
+                      },
+                      "Name": "select"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s1"
+                          }
+                        },
+                        "Property": "This Year Sales"
+                      },
+                      "Name": "select1"
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Top": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Store\",\"Type\":0},{\"Name\":\"s1\",\"Entity\":\"Sales\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Chain\"},\"Name\":\"select\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s1\"}},\"Property\":\"This Year Sales\"},\"Name\":\"select1\"}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Top\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "ae368690-089d-46df-9d9f-7c5926e2dc4a",
+          "Sources": [
+            {
+              "ReportId": "171c27ee-9946-4c17-adcc-27b2225d299c",
+              "VisualId": "VisualContainer5"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 566825,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "cdc563f9-08b1-4cea-aebd-fcc7d3e7d58b"
+    ],
+    "results": [
+      {
+        "jobId": "cdc563f9-08b1-4cea-aebd-fcc7d3e7d58b",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Store",
+                        "Property": "Chain"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "\\$#,0;(\\$#,0);\\$#,0",
+                  "Name": "select1"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Store",
+                            "Property": "Chain"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Top": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            "Fashions Direct",
+                            "15658108.360001879"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Lindseys",
+                            "6393843.9900004985"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "8b732189-41e0-4838-b882-a42433921882",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-05T04:14:00.9657305Z",
+                  "End": "2021-11-05T04:14:00.9657305Z"
+                },
+                {
+                  "Id": "41f94bb6-69f1-4360-9650-6855cd99ab2b",
+                  "ParentId": "8b732189-41e0-4838-b882-a42433921882",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-05T04:14:00.9657305Z",
+                  "End": "2021-11-05T04:14:00.9657305Z",
+                  "Metrics": {
+                    "RowCount": 2
+                  }
+                },
+                {
+                  "Id": "92679A07-28E6-4D21-A139-06F5DCE0D5C4",
+                  "ParentId": "41f94bb6-69f1-4360-9650-6855cd99ab2b",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-05T04:14:00.973Z",
+                  "End": "2021-11-05T04:14:00.973Z"
+                },
+                {
+                  "Id": "8CDF0107-8BE4-44BA-9E26-324AD54A061F",
+                  "ParentId": "92679A07-28E6-4D21-A139-06F5DCE0D5C4",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-05T04:14:00.973Z",
+                  "End": "2021-11-05T04:14:00.973Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

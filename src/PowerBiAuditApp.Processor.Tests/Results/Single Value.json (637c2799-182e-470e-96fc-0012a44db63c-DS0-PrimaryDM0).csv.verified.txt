@@ -1,0 +1,2 @@
+﻿Store.Total Stores
+104

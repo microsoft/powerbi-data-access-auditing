@@ -29,6 +29,7 @@ public class ReportDetailsService : IReportDetailsService
 
                 var reportDetails = new List<ReportDetail>();
                 var tableClient = _tableServiceClient.GetTableClient(nameof(ReportDetail));
+                await tableClient.CreateIfNotExistsAsync();
                 await foreach (var reportDetail in tableClient.QueryAsync<ReportDetail>())
                 {
                     reportDetails.Add(reportDetail);
