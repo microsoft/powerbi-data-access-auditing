@@ -28,4 +28,8 @@
     <ProjectReference Include="..\PowerBiAuditApp.Processor\PowerBiAuditApp.Processor.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Results\" />
+  </ItemGroup>
+
 </Project>

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace PowerBiAuditApp.Processor.Models;
 
@@ -99,7 +100,10 @@ public class SemanticQueryDataShapeCommand
 public class Binding
 {
     [JsonProperty("Primary", Required = Required.Always)]
-    public BindingPrimary Primary { get; set; }
+    public PowerBiBinding Primary { get; set; }
+
+    [JsonProperty("Secondary", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public PowerBiBinding Secondary { get; set; }
 
     [JsonProperty("DataReduction", Required = Required.Always)]
     public DataReduction DataReduction { get; set; }
@@ -114,34 +118,53 @@ public class DataReduction
     public long DataVolume { get; set; }
 
     [JsonProperty("Primary", Required = Required.Always)]
-    public DataReductionPrimary Primary { get; set; }
+    public DataReductionGrouping Primary { get; set; }
+
+    [JsonProperty("Secondary", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public DataReductionGrouping Secondary { get; set; }
 }
 
-public class DataReductionPrimary
+public class DataReductionGrouping
 {
     [JsonProperty("Top", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Top Top { get; set; }
 
     [JsonProperty("Window", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Window Window { get; set; }
+
+
+    [JsonProperty("OverlappingPointsSample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public OverlappingPointsSample OverlappingPointsSample { get; set; }
 }
 
-public class Top
+public class OverlappingPointsSample
 {
+    [JsonProperty("X", Required = Required.Always)]
+    public PointsSampleValue X { get; set; }
+
+    [JsonProperty("Y", Required = Required.Always)]
+    public PointsSampleValue Y { get; set; }
 }
+
+public class PointsSampleValue
+{
+    [JsonProperty("Index", Required = Required.Always)]
+    public long Index { get; set; }
+}
+
 
 public class Window
 {
     [JsonProperty("Count", Required = Required.Always)]
     public long Count { get; set; }
 }
-public class BindingPrimary
+public class PowerBiBinding
 {
     [JsonProperty("Groupings", Required = Required.Always)]
-    public PrimaryGrouping[] Groupings { get; set; }
+    public PowerBiBindingGrouping[] Groupings { get; set; }
 }
 
-public class PrimaryGrouping
+public class PowerBiBindingGrouping
 {
     [JsonProperty("Projections", Required = Required.Always)]
     public long[] Projections { get; set; }
@@ -160,6 +183,9 @@ public class SemanticQueryDataShapeCommandQuery
 
     [JsonProperty("Select", Required = Required.Always)]
     public QuerySelect[] Select { get; set; }
+
+    [JsonProperty("Where", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public Where[] Where { get; set; }
 
     [JsonProperty("OrderBy", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public OrderBy[] OrderBy { get; set; }
@@ -185,14 +211,66 @@ public class OrderBy
     [JsonProperty("Expression", Required = Required.Always)]
     public OrderByExpression Expression { get; set; }
 }
+public class Where
+{
+    [JsonProperty("Condition", Required = Required.Always)]
+    public Condition Condition { get; set; }
+}
+public class Condition
+{
+    [JsonProperty("Comparison", Required = Required.Always)]
+    public Comparison Comparison { get; set; }
+}
+public class Comparison
+{
+    [JsonProperty("ComparisonKind", Required = Required.Always)]
+    public long ComparisonKind { get; set; }
+
+    [JsonProperty("Left", Required = Required.Always)]
+    public ComparisonLeft Left { get; set; }
+
+    [JsonProperty("Right", Required = Required.Always)]
+    public ComparisonRight Right { get; set; }
+}
+public class ComparisonLeft
+{
+    [JsonProperty("Column", Required = Required.Always)]
+    public Column Column { get; set; }
+}
+
+public class ComparisonRight
+{
+    [JsonProperty("Literal", Required = Required.Always)]
+    public ComparisonLiteral Literal { get; set; }
+}
+
+public class ComparisonLiteral
+{
+    [JsonProperty("Value", Required = Required.Always)]
+    public string Value { get; set; }
+}
+
 
 public class OrderByExpression
 {
+
+    [JsonProperty("Measure", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public OrderByMeasure Measure { get; set; }
+
     [JsonProperty("Column", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Column Column { get; set; }
 
     [JsonProperty("Aggregation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Aggregation Aggregation { get; set; }
+}
+
+public class OrderByMeasure
+{
+    [JsonProperty("Expression", Required = Required.Always)]
+    public ColumnExpression Expression { get; set; }
+
+    [JsonProperty("Property", Required = Required.Always)]
+    public string Property { get; set; }
 }
 
 public class Column
@@ -224,8 +302,17 @@ public class QuerySelect
     [JsonProperty("Name", Required = Required.Always)]
     public string Name { get; set; }
 
+    [JsonProperty("Measure", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public QueryMeasure Measure { get; set; }
+
     [JsonProperty("Aggregation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Aggregation Aggregation { get; set; }
+}
+
+public class QueryMeasure
+{
+    public ColumnExpression Expression { get; set; }
+    public string Property { get; set; }
 }
 
 public class Aggregation
@@ -278,11 +365,11 @@ public class Descriptor
     [JsonProperty("Select", Required = Required.Always)]
     public DescriptorSelect[] Select { get; set; }
 
-    [JsonProperty("Expressions", Required = Required.Always)]
+    [JsonProperty("Expressions", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Expressions Expressions { get; set; }
 
     [JsonProperty("Limits", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-    public Limits Limits { get; set; }
+    public LimitsGroup Limits { get; set; }
 
     [JsonProperty("Version", Required = Required.Always)]
     public long Version { get; set; }
@@ -291,16 +378,19 @@ public class Descriptor
 public class Expressions
 {
     [JsonProperty("Primary", Required = Required.Always)]
-    public ExpressionsPrimary Primary { get; set; }
+    public ExpressionGrouping Primary { get; set; }
+
+    [JsonProperty("Secondary", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public ExpressionGrouping Secondary { get; set; }
 }
 
-public class ExpressionsPrimary
+public class ExpressionGrouping
 {
     [JsonProperty("Groupings", Required = Required.Always)]
-    public FluffyGrouping[] Groupings { get; set; }
+    public ExpressionGroupingDetail[] Groupings { get; set; }
 }
 
-public class FluffyGrouping
+public class ExpressionGroupingDetail
 {
     [JsonProperty("Keys", Required = Required.Always)]
     public Key[] Keys { get; set; }
@@ -326,26 +416,52 @@ public class KeySource
     [JsonProperty("Property", Required = Required.Always)]
     public string Property { get; set; }
 }
-
-public class Limits
-{
-    [JsonProperty("Primary", Required = Required.Always)]
-    public LimitsPrimary Primary { get; set; }
-}
-
-public class LimitsPrimary
+public class Intersection
 {
     [JsonProperty("Id", Required = Required.Always)]
     public string Id { get; set; }
 
     [JsonProperty("Top", Required = Required.Always)]
-    public FluffyTop Top { get; set; }
+    public Top Top { get; set; }
 }
 
-public class FluffyTop
+public class LimitsGroup
+{
+    [JsonProperty("Primary", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public Limits Primary { get; set; }
+
+    [JsonProperty("Secondary", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public Limits Secondary { get; set; }
+
+
+    [JsonProperty("Intersection", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public Intersection Intersection { get; set; }
+}
+
+public class Limits
+{
+    [JsonProperty("Id", Required = Required.Always)]
+    public string Id { get; set; }
+
+    [JsonProperty("Top", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public Top Top { get; set; }
+
+    [JsonProperty("OverlappingPointsSample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public OverlappingPointsSampleLimits OverlappingPointsSample { get; set; }
+}
+public class OverlappingPointsSampleLimits
 {
     [JsonProperty("Count", Required = Required.Always)]
     public long Count { get; set; }
+}
+
+public class Top
+{
+    [JsonProperty("Count", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public long Count { get; set; }
+
+    [JsonProperty("Calc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public string Calc { get; set; }
 }
 
 public class DescriptorSelect
@@ -356,6 +472,9 @@ public class DescriptorSelect
     [JsonProperty("Depth", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public long? Depth { get; set; }
 
+    [JsonProperty("SecondaryDepth", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public long? SecondaryDepth { get; set; }
+
     [JsonProperty("Value", Required = Required.Always)]
     public string Value { get; set; }
 
@@ -364,6 +483,10 @@ public class DescriptorSelect
 
     [JsonProperty("Name", Required = Required.Always)]
     public string Name { get; set; }
+
+
+    [JsonProperty("Format", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public string Format { get; set; }
 }
 
 public enum DescriptorKind
@@ -393,7 +516,7 @@ public class Dsr
     public long MinorVersion { get; set; }
 
     [JsonProperty("DS", Required = Required.Always)]
-    public DataSet[] DataSets { get; set; }
+    public DataSet[] DataOrRow { get; set; }
 }
 
 public class DataSet
@@ -401,20 +524,46 @@ public class DataSet
     [JsonProperty("N", Required = Required.Always)]
     public string Name { get; set; }
 
+
+    [JsonProperty("S", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public List<ColumnHeader> S { get; set; }
+
+
+    [JsonProperty("C", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public List<int> C { get; set; }
+
     [JsonProperty("PH", Required = Required.Always)]
-    public Dictionary<string, DataRow[]>[] Ph { get; set; }
+    public Dictionary<string, DataRow[]>[] PrimaryRows { get; set; }
+
+    [JsonProperty("SH", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public Dictionary<string, DataRow[]>[] SecondaryRows { get; set; } = Array.Empty<Dictionary<string, DataRow[]>>();
 
     [JsonProperty("IC", Required = Required.Always)]
     public bool Ic { get; set; }
 
-    [JsonProperty("HAD")]
+    [JsonProperty("HAD", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public bool Had { get; set; }
 
-    [JsonProperty("RT")]
+    [JsonProperty("Msg", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public List<PowerBiMessage> Msg { get; set; }
+
+    [JsonProperty("RT", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public string[][] Rt { get; set; }
 
     [JsonProperty("ValueDicts", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Dictionary<string, string[]> ValueDictionary { get; set; }
+}
+
+public class PowerBiMessage
+{
+    [JsonProperty("Code", Required = Required.Always)]
+    public string Code { get; set; }
+
+    [JsonProperty("Severity", Required = Required.Always)]
+    public string Severity { get; set; }
+
+    [JsonProperty("Message", Required = Required.Always)]
+    public string Message { get; set; }
 }
 
 public class DataRow
@@ -422,14 +571,66 @@ public class DataRow
     [JsonProperty("S", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public ColumnHeader[] ColumnHeaders { get; set; }
 
-    [JsonProperty("C", Required = Required.Always)]
-    public RowValue[] RowValues { get; set; }
+    [JsonProperty("C", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public RowValue[] RowValues { get; set; } = Array.Empty<RowValue>();
 
     [JsonProperty("R", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public long? CopyBitmask { get; set; }
 
     [JsonProperty("Ø", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public long? NullBitmask { get; set; }
+
+    [JsonProperty("X", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public SubDataRow[] SubDataRows { get; set; }
+
+    [JsonIgnore]
+    public Dictionary<string, RowValue> ValueLookup { get; set; } = new();
+
+    [OnDeserialized]
+    // ReSharper disable once UnusedMember.Local // JSON special prop
+    // ReSharper disable once UnusedParameter.Local // JSON special prop
+    private void OnDeserialized(StreamingContext context)
+    {
+        foreach (var (key, value) in _additionalData)
+        {
+            ValueLookup[key] = value.Type switch {
+                JTokenType.Integer => new RowValue { Integer = value.ToObject<int>() },
+                JTokenType.Float => new RowValue { Double = value.ToObject<double>() },
+                JTokenType.String => new RowValue { String = value.ToObject<string>() },
+                _ => throw new Exception("Cannot un-marshal type RowValue")
+            };
+        }
+    }
+
+    [JsonExtensionData]
+    // ReSharper disable once CollectionNeverUpdated.Local // JSON special prop
+    private readonly IDictionary<string, JToken> _additionalData = new Dictionary<string, JToken>();
+}
+
+public class SubDataRow
+{
+    [JsonProperty("S", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public ColumnHeader[] S { get; set; }
+
+    [JsonProperty("I", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public long? I { get; set; }
+
+    public Dictionary<string, string> ValueLookup { get; set; } = new();
+
+    [OnDeserialized]
+    // ReSharper disable once UnusedMember.Local // JSON special prop
+    // ReSharper disable once UnusedParameter.Local // JSON special prop
+    private void OnDeserialized(StreamingContext context)
+    {
+        foreach (var (key, value) in _additionalData)
+        {
+            ValueLookup[key] = value.ToObject<string>();
+        }
+    }
+
+    [JsonExtensionData]
+    // ReSharper disable once CollectionNeverUpdated.Local // JSON special prop
+    private readonly IDictionary<string, JToken> _additionalData = new Dictionary<string, JToken>();
 }
 
 public class ColumnHeader
@@ -442,11 +643,16 @@ public class ColumnHeader
 
     [JsonProperty("DN", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public string DataIndex { get; set; }
+
+    [JsonIgnore]
+    public int ColumnCount { get; set; } = 1;
 }
 
 public enum ColumnType
 {
+    Invalid = 0,
     String = 1,
+    Double = 3,
     Int = 4
 }
 
@@ -492,23 +698,9 @@ public class MetricsClass
 [JsonConverter(typeof(RowValueConverter))]
 public struct RowValue
 {
+    public double? Double { get; set; }
     public int? Integer;
     public string String;
-
-    public static implicit operator RowValue(int integer) => new() { Integer = integer };
-    public static implicit operator RowValue(string @string) => new() { String = @string };
-}
-
-internal static class Converter
-{
-    public static readonly JsonSerializerSettings Settings = new() {
-        MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-        DateParseHandling = DateParseHandling.None,
-        Converters =
-            {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            }
-    };
 }
 
 internal class RowValueConverter : JsonConverter
@@ -522,28 +714,34 @@ internal class RowValueConverter : JsonConverter
             case JsonToken.Integer:
                 var integerValue = serializer.Deserialize<int>(reader);
                 return new RowValue { Integer = integerValue };
+            case JsonToken.Float:
+                var doubleValue = serializer.Deserialize<double>(reader);
+                return new RowValue { Double = doubleValue };
             case JsonToken.String:
-            case JsonToken.Date:
                 var stringValue = serializer.Deserialize<string>(reader);
                 return new RowValue { String = stringValue };
         }
-        throw new Exception("Cannot un-marshal type C");
+        throw new Exception("Cannot un-marshal type RowValue");
     }
 
     public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
     {
         var value = (RowValue)untypedValue;
-        if (value.Integer != null)
+        if (value.Integer is not null)
         {
             serializer.Serialize(writer, value.Integer.Value);
             return;
         }
-        if (value.String != null)
+        if (value.String is not null)
         {
             serializer.Serialize(writer, value.String);
             return;
         }
-        throw new Exception("Cannot marshal type C");
+        if (value.Double is not null)
+        {
+            serializer.Serialize(writer, value.Double);
+            return;
+        }
+        throw new Exception("Cannot marshal type RowValue");
     }
 }
-

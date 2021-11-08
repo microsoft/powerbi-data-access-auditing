@@ -1,4 +1,5 @@
 using Azure.Identity;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Azure;
 using Microsoft.Identity.Web;
@@ -11,6 +12,9 @@ using PowerBiAuditApp.Services.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Register Services
+var applicationInsightsOptions = new ApplicationInsightsServiceOptions { ConnectionString = builder.Configuration["APPINSIGHTS_CONNECTIONSTRING"] };
+builder.Services.AddApplicationInsightsTelemetry(applicationInsightsOptions);
+
 builder.Services.Configure<ServicePrincipal>(builder.Configuration.GetSection("ServicePrincipal"));
 builder.Services.Configure<StorageAccountSettings>(builder.Configuration.GetSection("StorageAccountSettings"));
 //builder.Services.Configure<List<ReportDetails>>(builder.Configuration.GetSection("ReportDetails"));
@@ -45,6 +49,11 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
+});
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.Secure = CookieSecurePolicy.Always;
 });
 
 var app = builder.Build();

@@ -13,6 +13,7 @@ using CsvHelper.Configuration;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using PowerBiAuditApp.Processor.Extensions;
 using PowerBiAuditApp.Processor.Models;
 using SendGrid.Helpers.Mail;
 using DataRow = PowerBiAuditApp.Processor.Models.DataRow;
@@ -46,12 +47,17 @@ public static class PowerBiAuditLogProcessor
         {
             foreach (var result in model.Response.Results)
             {
-                var headerLookup = result.Result.Data.Descriptor.Select.ToDictionary(x => x.Value);
-                foreach (var dataSet in result.Result.Data.Dsr.DataSets)
+                var headerLookup = result.Result.Data.Descriptor.Select.Where(x => x is not null).ToDictionary(x => x.Value);
+                foreach (var dataSet in result.Result.Data.Dsr.DataOrRow)
                 {
-                    foreach (var (key, data) in dataSet.Ph.SelectMany(x => x))
+                    foreach (var (key, data) in dataSet.PrimaryRows.SelectMany(x => x))
                     {
-                        await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, key, result, dataSet, headerLookup);
+                        await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, model.Request.Queries, $"Primary{key}", result, dataSet, headerLookup);
+                    }
+
+                    foreach (var (key, data) in dataSet.SecondaryRows.SelectMany(x => x))
+                    {
+                        await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, model.Request.Queries, $"Secondary{key}", result, dataSet, headerLookup);
                     }
                 }
             }
@@ -65,8 +71,34 @@ public static class PowerBiAuditLogProcessor
         await auditBlobClient.DeleteAsync();
     }
 
+
+
+
+    /// <summary>
+    /// Deserialize the json file
+    /// </summary>
+    private static async Task<AuditLog> ReadJson(string name, BlockBlobClient auditBlobClient, ILogger log)
+    {
+        log.LogInformation("Processing {file}", name);
+        var stream = await auditBlobClient.OpenReadAsync();
+        using var streamReader = new StreamReader(stream, Encoding.UTF8);
+        using JsonReader reader = new JsonTextReader(streamReader);
+
+        var settings = new JsonSerializerSettings {
+            MissingMemberHandling = MissingMemberHandling.Error,
+            ContractResolver = new MissingMemberContractResolver()
+        };
+
+        var serializer = JsonSerializer.Create(settings);
+
+        return serializer.Deserialize<AuditLog>(reader);
+    }
+
+    /// <summary>
+    /// Process the returned json and write it to a csv file
+    /// </summary>
     private static async Task WriteCsv(string name, BlockBlobClient auditBlobClient, BlobContainerClient processedLogClient,
-        IAsyncCollector<SendGridMessage> messageCollector, ILogger log, DataRow[] data, string key, ResultElement result, DataSet dataSet,
+        IAsyncCollector<SendGridMessage> messageCollector, ILogger log, DataRow[] data, Query[] queries, string key, ResultElement result, DataSet dataSet,
         Dictionary<string, DescriptorSelect> headerLookup)
     {
         try
@@ -86,9 +118,9 @@ public static class PowerBiAuditLogProcessor
             await using var csvWriter = new CsvWriter(writer,
                 new CsvConfiguration(CultureInfo.InvariantCulture) { LeaveOpen = false, HasHeaderRecord = false });
 
-            var headers = data.Single(x => x.ColumnHeaders is not null).ColumnHeaders;
+            var headers = GetHeaders(data);
 
-            WriteHeaders(headers, headerLookup, csvWriter);
+            WriteHeaders(headers, headerLookup, queries, csvWriter);
             WriteRows(data, headers, dataSet, csvWriter);
 
             await csvWriter.FlushAsync();
@@ -99,6 +131,35 @@ public static class PowerBiAuditLogProcessor
         {
             await FailWithError(messageCollector, $"Writing CSC data failed for: {name} ({result.JobId}-{dataSet.Name}-{key})", auditBlobClient, exception, log);
         }
+    }
+
+    /// <summary>
+    /// Gets header records
+    /// </summary>
+    private static ColumnHeader[] GetHeaders(DataRow[] data)
+    {
+        var headers = data.Single(x => x.ColumnHeaders is not null).ColumnHeaders;
+
+
+        var subDataHeaderRow =
+            data.SingleOrDefault(d => d.SubDataRows is not null && d.SubDataRows.Any(s => s.S is not null));
+        var subHeaders = subDataHeaderRow?
+            .SubDataRows
+            .Where(x => x.S is not null)
+            .SelectMany(x => x.S)
+            .Where(c => c is not null).ToArray();
+
+        if (subHeaders?.Any() == true)
+        {
+            foreach (var subHeader in subHeaders)
+            {
+                subHeader.ColumnCount = subDataHeaderRow.SubDataRows.Count(x => x.ValueLookup.Any());
+            }
+
+            headers = headers.Concat(subHeaders).ToArray();
+        }
+
+        return headers;
     }
 
     private static async Task FailWithError(IAsyncCollector<SendGridMessage> messageCollector, string message, BlockBlobClient auditBlobClient, Exception exception, ILogger log)
@@ -116,46 +177,81 @@ public static class PowerBiAuditLogProcessor
         log.LogError(exception, message);
     }
 
-    private static async Task<AuditLog> ReadJson(string name, BlockBlobClient auditBlobClient, ILogger log)
-    {
-        log.LogInformation("Processing {file}", name);
-        var stream = await auditBlobClient.OpenReadAsync();
-        using var streamReader = new StreamReader(stream, Encoding.UTF8);
-        using JsonReader reader = new JsonTextReader(streamReader);
-
-        var settings = new JsonSerializerSettings {
-            MissingMemberHandling = MissingMemberHandling.Error
-        };
-
-        var serializer = JsonSerializer.Create(settings);
-
-        return serializer.Deserialize<AuditLog>(reader);
-    }
-
-    private static void WriteHeaders(ColumnHeader[] headers, Dictionary<string, DescriptorSelect> headerLookup, CsvWriter csvWriter)
+    /// <summary>
+    /// Write Headers to csv
+    /// </summary>
+    private static void WriteHeaders(ColumnHeader[] headers, Dictionary<string, DescriptorSelect> headerLookup, Query[] queries, CsvWriter csvWriter)
     {
         // Write CSV headers
-        foreach (var headerName in headers.Select(x =>
+        foreach (var header in headers)
         {
-            return headerLookup[x.NameIndex].Kind switch {
-                DescriptorKind.Select => string.Join("---", headerLookup[x.NameIndex].GroupKeys.Select(g => g.Source.Property)),
-                DescriptorKind.Grouping => Regex.Replace(headerLookup[x.NameIndex].Name, @"^[^()]*\([^()]*\.([^().]*)\)[^()]*", "$1"),
-                _ => throw new ArgumentOutOfRangeException(nameof(headerLookup))
-            };
-        }))
-        {
-            csvWriter.WriteField(headerName);
+            var headerName = GetHeaderName(headerLookup, queries, header);
+            if (header.ColumnCount == 1)
+            {
+                csvWriter.WriteField(headerName);
+                continue;
+            }
+
+            for (var i = 1; i <= header.ColumnCount; i++)
+            {
+                csvWriter.WriteField($"{headerName}[{i}]");
+            }
         }
 
         csvWriter.NextRecord();
     }
 
+    /// <summary>
+    /// Lookup the header name
+    /// </summary>
+    private static string GetHeaderName(Dictionary<string, DescriptorSelect> headerLookup, Query[] queries, ColumnHeader header)
+    {
+        switch (headerLookup[header.NameIndex].Kind)
+        {
+            case DescriptorKind.Select:
+                return string.Join("---", headerLookup[header.NameIndex].GroupKeys.Select(g => g.Source.Property));
+            case DescriptorKind.Grouping:
+                if (headerLookup[header.NameIndex].Name.StartsWith("select"))
+                {
+                    var select = queries
+                        .SelectMany(q => q.QueryQuery.Commands.Select(c =>
+                            c.SemanticQueryDataShapeCommand.Query.Select.SingleOrDefault(s =>
+                                s.Name == headerLookup[header.NameIndex].Name)))
+                        .SingleOrDefault(q => q is not null);
+                    if (select is not null)
+                    {
+                        return select.Measure.Property;
+                    }
+                }
+
+                return Regex.Replace(headerLookup[header.NameIndex].Name, @"^[^()]*\([^()]*\.([^().]*)\)[^()]*", "$1");
+            default:
+                throw new ArgumentOutOfRangeException(nameof(headerLookup));
+        }
+    }
+
+
+    /// <summary>
+    /// Write rows to csv
+    /// </summary>
     private static void WriteRows(DataRow[] data, ColumnHeader[] headers, DataSet dataSet, CsvWriter csvWriter)
     {
+        var headerCount = headers.Sum(x => x.ColumnCount);
+        var headerLookup = new ColumnHeader[headerCount];
+        var index = 0;
+        foreach (var header in headers)
+        {
+            for (var i = 1; i <= header.ColumnCount; i++)
+            {
+                headerLookup[index] = header;
+                index++;
+            }
+        }
+
         object[] previousCsvRow = null;
         foreach (var row in data)
         {
-            previousCsvRow = GetRow(row, headers, dataSet.ValueDictionary, previousCsvRow);
+            previousCsvRow = GetRow(row, headerLookup, dataSet.ValueDictionary, previousCsvRow);
             foreach (var rowData in previousCsvRow)
             {
                 csvWriter.WriteField(rowData);
@@ -165,6 +261,9 @@ public static class PowerBiAuditLogProcessor
         }
     }
 
+    /// <summary>
+    /// Read and process row json to row data
+    /// </summary>
     private static object[] GetRow(DataRow row, ColumnHeader[] headers, Dictionary<string, string[]> valueDictionary, object[] previousCsvRow)
     {
         var rowDataIndex = 0;
@@ -173,8 +272,10 @@ public static class PowerBiAuditLogProcessor
         var copyBitmask = row.CopyBitmask ?? 0;
         var nullBitmask = row.NullBitmask ?? 0;
 
-        if (CountSetBits(copyBitmask) + CountSetBits(nullBitmask) + row.RowValues.Length != headers.Length)
-            throw new ArgumentException($"Number of rows doesn't match the headers (rows: {CountSetBits(copyBitmask) + CountSetBits(nullBitmask) + row.RowValues.Length} headers:{headers.Length}");
+        var totalRows = CountSetBits(copyBitmask) + CountSetBits(nullBitmask) + row.RowValues.Length + row.ValueLookup.Count + (row.SubDataRows?.Count(x => x.ValueLookup.Any()) ?? 0);
+
+        if (totalRows != headers.Length)
+            throw new ArgumentException($"Number of rows doesn't match the headers (rows: {totalRows} headers:{headers.Length}");
 
         for (var index = 0; index < headers.Length; index++)
         {
@@ -192,39 +293,76 @@ public static class PowerBiAuditLogProcessor
                 continue;
             }
 
-            var data = row.RowValues[rowDataIndex++];
-            switch (headers[index].ColumnType)
+            if (row.ValueLookup.TryGetValue(headers[index].NameIndex, out var cellData))
             {
-                case ColumnType.String:
-                    {
-                        if (data.Integer is not null)
-                        {
-                            // need to lookup
-                            var lookup = headers[index].DataIndex;
-                            var value = valueDictionary[lookup][data.Integer.Value];
-                            csvRow[index] = value;
-                        }
-                        else
-                        {
-                            csvRow[index] = data.String;
-                        }
-                        break;
-                    }
-                case ColumnType.Int:
-                    {
 
-                        if (data.Integer is null)
-                            throw new NullReferenceException();
-
-                        csvRow[index] = data.Integer;
-                        break;
-                    }
-                default:
-                    throw new NotSupportedException();
+                csvRow[index] = ParseRowValue(headers, valueDictionary, index, cellData);
+                continue;
             }
+
+            if (row.RowValues.Length < rowDataIndex + 1 && row.SubDataRows != null)
+            {
+                var subIndex = rowDataIndex++ - row.RowValues.Length;
+                var subData = row.SubDataRows.Where(x => x.ValueLookup.Any()).Where((_, i) => i == subIndex).Single();
+
+                if (subData.ValueLookup.TryGetValue(headers[index].NameIndex, out var subCellData))
+                {
+                    csvRow[index] = headers[index].ColumnType switch {
+                        ColumnType.String => subCellData,
+                        ColumnType.Int => int.Parse(subCellData),
+                        ColumnType.Double => double.Parse(subCellData),
+                        _ => throw new ArgumentOutOfRangeException(nameof(headers), $"Unknown type {headers[index].ColumnType}")
+                    };
+                    continue;
+                }
+            }
+
+
+            var data = row.RowValues[rowDataIndex++];
+            csvRow[index] = ParseRowValue(headers, valueDictionary, index, data);
         }
 
         return csvRow;
+    }
+
+    private static object ParseRowValue(ColumnHeader[] headers, Dictionary<string, string[]> valueDictionary, int index, RowValue data)
+    {
+        switch (headers[index].ColumnType)
+        {
+            case ColumnType.String:
+                {
+                    if (data.Integer is not null)
+                    {
+                        // need to lookup
+                        var lookup = headers[index].DataIndex;
+                        return valueDictionary[lookup][data.Integer.Value];
+                    }
+
+                    return data.String;
+                }
+            case ColumnType.Int:
+                {
+                    if (data.Integer is null)
+                        throw new NullReferenceException();
+
+                    return data.Integer;
+                }
+
+            case ColumnType.Double:
+                {
+                    if (data.Double is not null)
+                    {
+                        return data.Double;
+                    }
+
+                    if (data.String is null)
+                        throw new NullReferenceException();
+
+                    return double.Parse(data.String);
+                }
+            default:
+                throw new NotSupportedException();
+        }
     }
 
     private static bool IsBitSet(long num, int pos) => (num & (1 << pos)) != 0;

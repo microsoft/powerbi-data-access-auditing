@@ -34,7 +34,11 @@ public class ReportDetail : ITableEntity
 
     [IgnoreDataMember]
     public string[] Roles {
-        get => JsonConvert.DeserializeObject<string[]>(StringRoles);
+        get {
+            return StringRoles is not null
+                ? JsonConvert.DeserializeObject<string[]>(StringRoles) ?? Array.Empty<string>()
+                : Array.Empty<string>();
+        }
         set => StringRoles = JsonConvert.SerializeObject(value);
     }
 

@@ -1,0 +1,398 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-05T04:14:02.748358+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "t",
+                      "Entity": "Time",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d",
+                      "Entity": "District",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s",
+                      "Entity": "Sales",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "t" } },
+                        "Property": "FiscalMonth"
+                      },
+                      "Name": "Time.FiscalMonth"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "DM"
+                      },
+                      "Name": "District.DM"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": { "SourceRef": { "Source": "s" } },
+                        "Property": "Total Sales Variance"
+                      },
+                      "Name": "Sales.Total Sales Variance"
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": { "SourceRef": { "Source": "t" } },
+                          "Property": "FiscalMonth"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": { "Groupings": [ { "Projections": [ 0, 2 ] } ] },
+                  "Secondary": { "Groupings": [ { "Projections": [ 1 ] } ] },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": { "Window": { "Count": 200 } },
+                    "Secondary": { "Top": { "Count": 60 } }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"t\",\"Entity\":\"Time\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"District\",\"Type\":0},{\"Name\":\"s\",\"Entity\":\"Sales\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"FiscalMonth\"},\"Name\":\"Time.FiscalMonth\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DM\"},\"Name\":\"District.DM\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Total Sales Variance\"},\"Name\":\"Sales.Total Sales Variance\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"FiscalMonth\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,2]}]},\"Secondary\":{\"Groupings\":[{\"Projections\":[1]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":200}},\"Secondary\":{\"Top\":{\"Count\":60}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "ae368690-089d-46df-9d9f-7c5926e2dc4a",
+          "Sources": [
+            {
+              "ReportId": "171c27ee-9946-4c17-adcc-27b2225d299c",
+              "VisualId": "VisualContainer4"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [],
+    "modelId": 566825,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [ "5a091f11-f163-4ee3-b0ee-6e74c73433e7" ],
+    "results": [
+      {
+        "jobId": "5a091f11-f163-4ee3-b0ee-6e74c73433e7",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Time",
+                        "Property": "FiscalMonth"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Time.FiscalMonth"
+                },
+                {
+                  "Kind": 1,
+                  "SecondaryDepth": 0,
+                  "Value": "G1",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "District",
+                        "Property": "DM"
+                      },
+                      "Calc": "G1",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "District.DM"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "\\$#,0;(\\$#,0);\\$#,0",
+                  "Name": "Sales.Total Sales Variance"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Time",
+                            "Property": "FiscalMonth"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                },
+                "Secondary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "District",
+                            "Property": "DM"
+                          },
+                          "Select": 1
+                        }
+                      ],
+                      "Member": "DM1"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Secondary": {
+                  "Id": "L0",
+                  "Top": { "Count": 60 }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "SH": [
+                    {
+                      "DM1": [
+                        {
+                          "S": [
+                            {
+                              "N": "G1",
+                              "T": 1
+                            }
+                          ],
+                          "G1": "Allan Guinot"
+                        },
+                        { "G1": "Andrew Ma" },
+                        { "G1": "Annelie Zubar" },
+                        { "G1": "Brad Sutton" },
+                        { "G1": "Carlos Grilo" },
+                        { "G1": "Chris Gray" },
+                        { "G1": "Chris McGurk" },
+                        { "G1": "Tina Lassila" },
+                        { "G1": "Valery Ushakov" }
+                      ]
+                    }
+                  ],
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            }
+                          ],
+                          "G0": 0,
+                          "X": [
+                            {
+                              "S": [
+                                {
+                                  "N": "M0",
+                                  "T": 3
+                                }
+                              ],
+                              "M0": "-30686.510000000228"
+                            },
+                            { "M0": "-74135.519999992044" },
+                            { "M0": "-40833.030000000421" },
+                            { "M0": "-37726.300000000774" },
+                            { "M0": "-116279.05999998946" },
+                            { "M0": "-45782.890000000538" },
+                            { "M0": "-26430.940000000352" },
+                            { "M0": "-41023.160000001721" },
+                            { "M0": "-44918.88000000178" }
+                          ]
+                        },
+                        {
+                          "G0": 1,
+                          "X": [
+                            { "M0": "-9062.35000000021" },
+                            { "M0": "-29685.990000000631" },
+                            { "M0": "3365.7100000002247" },
+                            { "M0": "-8170.6500000000815" },
+                            { "M0": "19476.050000000396" },
+                            { "M0": "13965.649999999965" },
+                            { "M0": "-1094.1499999999214" },
+                            { "M0": "28494.069999999716" },
+                            { "M0": "-13617.910000000033" }
+                          ]
+                        },
+                        {
+                          "G0": 2,
+                          "X": [
+                            { "M0": "28915.710000000225" },
+                            { "M0": "199400.08999999659" },
+                            { "M0": "62557.319999999687" },
+                            { "M0": "47043.379999999685" },
+                            { "M0": "151716.88000000489" },
+                            { "M0": "58247.39000000013" },
+                            { "M0": "36409.990000000515" },
+                            { "M0": "211366.19000000437" },
+                            { "M0": "161016.48000000225" }
+                          ]
+                        },
+                        {
+                          "G0": 3,
+                          "X": [
+                            { "M0": "-44807.980000000272" },
+                            { "M0": "-187345.95999999566" },
+                            { "M0": "-28090.380000000179" },
+                            { "M0": "-49184.230000000709" },
+                            { "M0": "-120994.17999999027" },
+                            { "M0": "-28116.700000000244" },
+                            { "M0": "-36632.629999999263" },
+                            { "M0": "-76677.159999996249" },
+                            { "M0": "-139810.37999999506" }
+                          ]
+                        },
+                        {
+                          "G0": 4,
+                          "X": [
+                            { "M0": "686.94999999992433" },
+                            { "M0": "24592.060000001919" },
+                            { "M0": "15723.709999999992" },
+                            { "M0": "4144.4199999993725" },
+                            { "M0": "23114.830000002345" },
+                            { "M0": "3362.5200000007462" },
+                            { "M0": 7581.2699999998 },
+                            { "M0": "42096.040000000095" },
+                            { "M0": "26006.470000000263" }
+                          ]
+                        },
+                        {
+                          "G0": 5,
+                          "X": [
+                            { "M0": "11990.830000000162" },
+                            { "M0": "65271.84000000509" },
+                            { "M0": "3783.5000000001164" },
+                            { "M0": "14925.259999999165" },
+                            { "M0": "-5943.35999999952" },
+                            { "M0": "14202.870000000577" },
+                            { "M0": "19770.370000000112" },
+                            { "M0": "19459.370000003662" },
+                            { "M0": "41149.510000002978" }
+                          ]
+                        },
+                        {
+                          "G0": 6,
+                          "X": [
+                            { "M0": "-50728.449999999357" },
+                            { "M0": "-187432.00999999524" },
+                            { "M0": "-74154.9999999991" },
+                            { "M0": "-66125.45999999973" },
+                            { "M0": "-123593.43999999709" },
+                            { "M0": "-67540.109999999913" },
+                            { "M0": "-54457.849999999627" },
+                            { "M0": "-148405.50999999576" },
+                            { "M0": "-132798.6199999993" }
+                          ]
+                        },
+                        {
+                          "G0": 7,
+                          "X": [
+                            { "M0": "-19338.37000000017" },
+                            { "M0": "-60482.739999997895" },
+                            { "M0": "4949.2199999997683" },
+                            { "M0": "-18052.610000000393" },
+                            { "M0": "-36433.659999998752" },
+                            { "M0": "2162.6800000001385" },
+                            { "M0": "-3097.0699999993085" },
+                            { "M0": "-72001.600000000326" },
+                            { "M0": "-95904.819999997853" }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": { "D0": [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug" ] }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "514a27f8-dd8d-4554-a445-3007019b5bc6",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-05T04:14:02.1845099Z",
+                  "End": "2021-11-05T04:14:02.2001355Z"
+                },
+                {
+                  "Id": "67077d00-5a7c-4f17-9f4c-15d7697d1255",
+                  "ParentId": "514a27f8-dd8d-4554-a445-3007019b5bc6",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-05T04:14:02.1845099Z",
+                  "End": "2021-11-05T04:14:02.2001355Z",
+                  "Metrics": { "RowCount": 81 }
+                },
+                {
+                  "Id": "B6D91B42-8D66-4393-90AF-03493918BBEB",
+                  "ParentId": "67077d00-5a7c-4f17-9f4c-15d7697d1255",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-05T04:14:02.207Z",
+                  "End": "2021-11-05T04:14:02.21Z"
+                },
+                {
+                  "Id": "0BEEA605-06EA-47C2-8B77-408313BB0A4C",
+                  "ParentId": "B6D91B42-8D66-4393-90AF-03493918BBEB",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-05T04:14:02.21Z",
+                  "End": "2021-11-05T04:14:02.21Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
