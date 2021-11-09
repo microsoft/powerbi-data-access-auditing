@@ -1,4 +1,7 @@
-﻿using Microsoft.PowerBI.Api.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.PowerBI.Api.Models;
 
 namespace PowerBiAuditApp.Services;
 

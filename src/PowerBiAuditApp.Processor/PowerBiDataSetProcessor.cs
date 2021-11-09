@@ -252,6 +252,7 @@ namespace PowerBiAuditApp.Processor
                         Enabled = false,
                         DisplayLevel = 1,
                         Roles = Array.Empty<string>(),
+                        AadGroups = Array.Empty<Guid>(),
                         Deleted = false
                     };
                 }

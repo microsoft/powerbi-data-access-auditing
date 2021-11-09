@@ -45,7 +45,7 @@ public class Query
     [JsonProperty("Query", Required = Required.Always)]
     public QueryQuery QueryQuery { get; set; }
 
-    [JsonProperty("CacheKey", Required = Required.Always)]
+    [JsonProperty("CacheKey", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public string CacheKey { get; set; }
 
     [JsonProperty("QueryId", Required = Required.Always)]
@@ -110,7 +110,24 @@ public class Binding
 
     [JsonProperty("Version", Required = Required.Always)]
     public long Version { get; set; }
+
+
+    [JsonProperty("Highlights", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public Highlight[] Highlight { get; set; }
 }
+
+public class Highlight
+{
+    [JsonProperty("Version", Required = Required.Always)]
+    public long Version { get; set; }
+
+    [JsonProperty("From", Required = Required.Always)]
+    public From[] From { get; set; }
+
+    [JsonProperty("Where", Required = Required.Always)]
+    public Where[] Where { get; set; }
+}
+
 
 public class DataReduction
 {
@@ -218,27 +235,40 @@ public class Where
 }
 public class Condition
 {
-    [JsonProperty("Comparison", Required = Required.Always)]
+    [JsonProperty("Comparison", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Comparison Comparison { get; set; }
+
+    [JsonProperty("In", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public In In { get; set; }
 }
+
+public class In
+{
+    [JsonProperty("Expressions", Required = Required.Always)]
+    public ColumnExpression[] Expressions { get; set; }
+
+    [JsonProperty("Values", Required = Required.Always)]
+    public LiteralExpression[][] Values { get; set; }
+}
+
 public class Comparison
 {
     [JsonProperty("ComparisonKind", Required = Required.Always)]
     public long ComparisonKind { get; set; }
 
     [JsonProperty("Left", Required = Required.Always)]
-    public ComparisonLeft Left { get; set; }
+    public ColumnExpression Left { get; set; }
 
     [JsonProperty("Right", Required = Required.Always)]
-    public ComparisonRight Right { get; set; }
+    public LiteralExpression Right { get; set; }
 }
-public class ComparisonLeft
+public class ColumnExpression
 {
     [JsonProperty("Column", Required = Required.Always)]
     public Column Column { get; set; }
 }
 
-public class ComparisonRight
+public class LiteralExpression
 {
     [JsonProperty("Literal", Required = Required.Always)]
     public ComparisonLiteral Literal { get; set; }
@@ -267,7 +297,7 @@ public class OrderByExpression
 public class OrderByMeasure
 {
     [JsonProperty("Expression", Required = Required.Always)]
-    public ColumnExpression Expression { get; set; }
+    public SourceRefExpression Expression { get; set; }
 
     [JsonProperty("Property", Required = Required.Always)]
     public string Property { get; set; }
@@ -276,13 +306,13 @@ public class OrderByMeasure
 public class Column
 {
     [JsonProperty("Expression", Required = Required.Always)]
-    public ColumnExpression Expression { get; set; }
+    public SourceRefExpression Expression { get; set; }
 
     [JsonProperty("Property", Required = Required.Always)]
     public string Property { get; set; }
 }
 
-public class ColumnExpression
+public class SourceRefExpression
 {
     [JsonProperty("SourceRef", Required = Required.Always)]
     public SourceRef SourceRef { get; set; }
@@ -311,7 +341,7 @@ public class QuerySelect
 
 public class QueryMeasure
 {
-    public ColumnExpression Expression { get; set; }
+    public SourceRefExpression Expression { get; set; }
     public string Property { get; set; }
 }
 
@@ -487,6 +517,9 @@ public class DescriptorSelect
 
     [JsonProperty("Format", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public string Format { get; set; }
+
+    [JsonProperty("Highlight", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public ComparisonLiteral Highlight { get; set; }
 }
 
 public enum DescriptorKind
@@ -610,10 +643,19 @@ public class DataRow
 public class SubDataRow
 {
     [JsonProperty("S", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-    public ColumnHeader[] S { get; set; }
+    public ColumnHeader[] ColumnHeaders { get; set; }
 
     [JsonProperty("I", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public long? I { get; set; }
+
+    [JsonProperty("C", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public RowValue[] RowValues { get; set; } = Array.Empty<RowValue>();
+
+    [JsonProperty("R", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public long? CopyBitmask { get; set; }
+
+    [JsonProperty("Ø", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public long? NullBitmask { get; set; }
 
     public Dictionary<string, string> ValueLookup { get; set; } = new();
 
@@ -645,7 +687,13 @@ public class ColumnHeader
     public string DataIndex { get; set; }
 
     [JsonIgnore]
-    public int ColumnCount { get; set; } = 1;
+    public int? SubDataRowIndex { get; set; }
+
+    [JsonIgnore]
+    public int? SubDataColumnIndex { get; set; }
+
+
+    public ColumnHeader Clone() => (ColumnHeader)MemberwiseClone();
 }
 
 public enum ColumnType
