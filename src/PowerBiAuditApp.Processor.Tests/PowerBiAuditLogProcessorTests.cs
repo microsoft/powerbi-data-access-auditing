@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,20 +43,26 @@ public class PowerBiAuditLogProcessorTests
         var stream = File.OpenRead(filePath);
         var blob = new FakeBlockBlobClient(stream);
         var container = new FakeContainerClient();
+
         var collectorMock = new Mock<IAsyncCollector<SendGridMessage>>();
+        var messages = new List<string>();
+        collectorMock.Setup(x => x.AddAsync(It.IsAny<SendGridMessage>(), It.IsAny<CancellationToken>()))
+            .Callback<SendGridMessage, CancellationToken>((message, _) => messages.Add(message.PlainTextContent));
 
 
         await PowerBiAuditLogProcessor.Run(filePath.Replace(ExamplesFolder, ""), blob, container, collectorMock.Object, new Mock<ILogger>().Object);
 
         var files = container.GetFiles();
-        collectorMock.Verify(x => x.AddAsync(It.IsAny<SendGridMessage>(), It.IsAny<CancellationToken>()), Times.Never);
+        collectorMock.Verify(x => x.AddAsync(It.IsAny<SendGridMessage>(), It.IsAny<CancellationToken>()), Times.Never, $"Messages sent: {JsonConvert.SerializeObject(messages)}");
         Assert.NotEmpty(files);
 
         foreach (var (resultFileName, file) in files)
         {
             var settings = new VerifySettings();
             settings.UseDirectory("Results");
-            settings.UseFileName(resultFileName);
+            settings.UseFileName(resultFileName.Replace(".csv", ""));
+            settings.UseExtension("csv");
+            //settings.AutoVerify();
             await Verifier.Verify(file, settings);
         }
 

@@ -1,0 +1,220 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-09T02:56:48.0120202+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "d",
+                      "Entity": "District",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "DM"
+                      },
+                      "Name": "District.DM"
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Window": {
+                      }
+                    }
+                  },
+                  "IncludeEmptyGroups": true,
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"District\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DM\"},\"Name\":\"District.DM\"}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Window\":{}}},\"IncludeEmptyGroups\":true,\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "ae368690-089d-46df-9d9f-7c5926e2dc4a",
+          "Sources": [
+            {
+              "ReportId": "171c27ee-9946-4c17-adcc-27b2225d299c",
+              "VisualId": "VisualContainer6"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 566825,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "4e9ff6fc-a068-4fdd-a654-d2758e9cc3c6"
+    ],
+    "results": [
+      {
+        "jobId": "4e9ff6fc-a068-4fdd-a654-d2758e9cc3c6",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "District",
+                        "Property": "DM"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "District.DM"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "District",
+                            "Property": "DM"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1
+                            }
+                          ],
+                          "G0": "Allan Guinot"
+                        },
+                        {
+                          "G0": "Andrew Ma"
+                        },
+                        {
+                          "G0": "Annelie Zubar"
+                        },
+                        {
+                          "G0": "Brad Sutton"
+                        },
+                        {
+                          "G0": "Carlos Grilo"
+                        },
+                        {
+                          "G0": "Chris Gray"
+                        },
+                        {
+                          "G0": "Chris McGurk"
+                        },
+                        {
+                          "G0": "Tina Lassila"
+                        },
+                        {
+                          "G0": "Valery Ushakov"
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "dbf7727f-6e34-44a4-b73f-501cdba7bb18",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T02:56:46.9149534Z",
+                  "End": "2021-11-09T02:56:46.9149534Z"
+                },
+                {
+                  "Id": "89208865-e166-472c-aa9c-210683e4ed6c",
+                  "ParentId": "dbf7727f-6e34-44a4-b73f-501cdba7bb18",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T02:56:46.9149534Z",
+                  "End": "2021-11-09T02:56:46.9149534Z",
+                  "Metrics": {
+                    "RowCount": 9
+                  }
+                },
+                {
+                  "Id": "6D6DF691-759F-49AD-B42C-37F3A57DA0FE",
+                  "ParentId": "89208865-e166-472c-aa9c-210683e4ed6c",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-09T02:56:46.927Z",
+                  "End": "2021-11-09T02:56:46.927Z"
+                },
+                {
+                  "Id": "4EDE5369-DF67-4833-A70E-27268AB02BF1",
+                  "ParentId": "6D6DF691-759F-49AD-B42C-37F3A57DA0FE",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-09T02:56:46.927Z",
+                  "End": "2021-11-09T02:56:46.927Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

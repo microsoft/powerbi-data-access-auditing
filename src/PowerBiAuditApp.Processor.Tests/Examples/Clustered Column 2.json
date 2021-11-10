@@ -1,0 +1,946 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-09T02:56:47.8738989+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "s1",
+                      "Entity": "Sales",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s",
+                      "Entity": "Store",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s1"
+                          }
+                        },
+                        "Property": "This Year Sales"
+                      },
+                      "Name": "Sales.This Year Sales"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "StoreNumberName"
+                      },
+                      "Name": "Store.StoreNumberName"
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "s"
+                            }
+                          },
+                          "Property": "StoreNumberName"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 1000
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"s1\",\"Entity\":\"Sales\",\"Type\":0},{\"Name\":\"s\",\"Entity\":\"Store\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s1\"}},\"Property\":\"This Year Sales\"},\"Name\":\"Sales.This Year Sales\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"StoreNumberName\"},\"Name\":\"Store.StoreNumberName\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"StoreNumberName\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":1000}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "ae368690-089d-46df-9d9f-7c5926e2dc4a",
+          "Sources": [
+            {
+              "ReportId": "171c27ee-9946-4c17-adcc-27b2225d299c",
+              "VisualId": "VisualContainer5"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 566825,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "c0d7a5fa-4e16-402a-aa65-6698626559bf"
+    ],
+    "results": [
+      {
+        "jobId": "c0d7a5fa-4e16-402a-aa65-6698626559bf",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "\\$#,0;(\\$#,0);\\$#,0",
+                  "Name": "Sales.This Year Sales"
+                },
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Store",
+                        "Property": "LocationID"
+                      },
+                      "Calc": "K0"
+                    }
+                  ],
+                  "Name": "Store.StoreNumberName"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Store",
+                            "Property": "LocationID"
+                          },
+                          "Calc": "K0"
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "K0",
+                              "T": 4
+                            },
+                            {
+                              "N": "G0",
+                              "T": 1
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            10,
+                            "10 - St. Clairsville Fashions Direct",
+                            "410206.31999999791"
+                          ]
+                        },
+                        {
+                          "C": [
+                            11,
+                            "11 - Century III Fashions Direct",
+                            "486689.14999999973"
+                          ]
+                        },
+                        {
+                          "C": [
+                            12,
+                            "12 - Kent Fashions Direct",
+                            "409387.55999999616"
+                          ]
+                        },
+                        {
+                          "C": [
+                            13,
+                            "13 - Charleston Fashions Direct",
+                            "644792.94000000053"
+                          ]
+                        },
+                        {
+                          "C": [
+                            14,
+                            "14 - Harrisburg Fashions Direct",
+                            "569720.37999999709"
+                          ]
+                        },
+                        {
+                          "C": [
+                            15,
+                            "15 - York Fashions Direct",
+                            "315504.36999999633"
+                          ]
+                        },
+                        {
+                          "C": [
+                            16,
+                            "16 - Winchester Fashions Direct",
+                            "495164.66999999684"
+                          ]
+                        },
+                        {
+                          "C": [
+                            18,
+                            "18 - Washington Fashions Direct",
+                            "457286.05999999744"
+                          ]
+                        },
+                        {
+                          "C": [
+                            19,
+                            "19 - Bel Air Fashions Direct",
+                            "515557.43999999616"
+                          ]
+                        },
+                        {
+                          "C": [
+                            2,
+                            "2 - Weirton Fashions Direct",
+                            "372538.38999999792"
+                          ]
+                        },
+                        {
+                          "C": [
+                            20,
+                            "20 - Greensburg Fashions Direct",
+                            "450821.659999998"
+                          ]
+                        },
+                        {
+                          "C": [
+                            21,
+                            "21 - Zanesville Fashions Direct",
+                            "475636.12999999744"
+                          ]
+                        },
+                        {
+                          "C": [
+                            22,
+                            "22 - Wickliffe Fashions Direct",
+                            "317632.55999999651"
+                          ]
+                        },
+                        {
+                          "C": [
+                            23,
+                            "23 - Erie Fashions Direct",
+                            "485215.03999999794"
+                          ]
+                        },
+                        {
+                          "C": [
+                            24,
+                            "24 - North Canton Fashions Direct",
+                            "519030.74999999919"
+                          ]
+                        },
+                        {
+                          "C": [
+                            25,
+                            "25 - Mansfield Fashions Direct",
+                            "392382.7699999974"
+                          ]
+                        },
+                        {
+                          "C": [
+                            26,
+                            "26 - Akron Fashions Direct",
+                            "453622.93999999744"
+                          ]
+                        },
+                        {
+                          "C": [
+                            27,
+                            "27 - Boardman Fashions Direct",
+                            "502965.91999999835"
+                          ]
+                        },
+                        {
+                          "C": [
+                            28,
+                            "28 - Huntington Fashions Direct",
+                            "573705.37999999546"
+                          ]
+                        },
+                        {
+                          "C": [
+                            3,
+                            "3 - Beckley Fashions Direct",
+                            "403603.48999999638"
+                          ]
+                        },
+                        {
+                          "C": [
+                            31,
+                            "31 - Mentor Fashions Direct",
+                            "370379.21999999706"
+                          ]
+                        },
+                        {
+                          "C": [
+                            32,
+                            "32 - Middleburg Heights  Fashions Direct",
+                            "353695.97999999771"
+                          ]
+                        },
+                        {
+                          "C": [
+                            33,
+                            "33 - Altoona Fashions Direct",
+                            "410078.8899999967"
+                          ]
+                        },
+                        {
+                          "C": [
+                            34,
+                            "34 - Monroeville Fashions Direct",
+                            "398258.04999999783"
+                          ]
+                        },
+                        {
+                          "C": [
+                            35,
+                            "35 - Sharonville Fashions Direct",
+                            "403197.37999999744"
+                          ]
+                        },
+                        {
+                          "C": [
+                            36,
+                            "36 - Beechmont Fashions Direct",
+                            "144705.28000000003"
+                          ]
+                        },
+                        {
+                          "C": [
+                            37,
+                            "37 - North Hills Fashions Direct",
+                            "424400.66999999818"
+                          ]
+                        },
+                        {
+                          "C": [
+                            38,
+                            "38 - Lexington Fashions Direct",
+                            "390119.07999999507"
+                          ]
+                        },
+                        {
+                          "C": [
+                            39,
+                            "39 - Morgantown Fashions Direct",
+                            "511141.17000000126"
+                          ]
+                        },
+                        {
+                          "C": [
+                            4,
+                            "4 - Fairmont Fashions Direct",
+                            "164942.98999999941"
+                          ]
+                        },
+                        {
+                          "C": [
+                            40,
+                            "40 - Beavercreek Fashions Direct",
+                            "377800.22999999725"
+                          ]
+                        },
+                        {
+                          "C": [
+                            41,
+                            "41 - Cincinnati Fashions Direct",
+                            "320402.23999999603"
+                          ]
+                        },
+                        {
+                          "C": [
+                            5,
+                            "5 - Uniontown Fashions Direct",
+                            "451830.16999999981"
+                          ]
+                        },
+                        {
+                          "C": [
+                            501,
+                            "501 - Frederick Lindseys",
+                            "125943.58000000009"
+                          ]
+                        },
+                        {
+                          "C": [
+                            503,
+                            "503 - Fredericksburg Lindseys",
+                            "108468.37999999982"
+                          ]
+                        },
+                        {
+                          "C": [
+                            504,
+                            "504 - Gaithersburg Lindseys",
+                            "182912.03999999998"
+                          ]
+                        },
+                        {
+                          "C": [
+                            506,
+                            "506 - Manassas Lindseys",
+                            "121501.48000000011"
+                          ]
+                        },
+                        {
+                          "C": [
+                            507,
+                            "507 - College Park Lindseys",
+                            "158483.89999999997"
+                          ]
+                        },
+                        {
+                          "C": [
+                            510,
+                            "510 - North Baltimore Lindseys",
+                            "108086.47999999997"
+                          ]
+                        },
+                        {
+                          "C": [
+                            511,
+                            "511 - Bowie Lindseys",
+                            "88251.070000000036"
+                          ]
+                        },
+                        {
+                          "C": [
+                            512,
+                            "512 - Roanoke Lindseys",
+                            "108257.63000000003"
+                          ]
+                        },
+                        {
+                          "C": [
+                            514,
+                            "514 - Richmond Lindseys",
+                            "102757.70000000011"
+                          ]
+                        },
+                        {
+                          "C": [
+                            515,
+                            "515 - Chesterfield Lindseys",
+                            "89185.249999999971"
+                          ]
+                        },
+                        {
+                          "C": [
+                            517,
+                            "517 - Lynchburg Lindseys",
+                            "85962.650000000038"
+                          ]
+                        },
+                        {
+                          "C": [
+                            518,
+                            "518 - Alexandria Lindseys",
+                            "141971.17000000007"
+                          ]
+                        },
+                        {
+                          "C": [
+                            519,
+                            "519 - Colonial Heights Lindseys",
+                            "103430.12000000002"
+                          ]
+                        },
+                        {
+                          "C": [
+                            520,
+                            "520 - Greensboro Lindseys",
+                            "138004.4800000001"
+                          ]
+                        },
+                        {
+                          "C": [
+                            522,
+                            "522 - Cary Lindseys",
+                            "70595.399999999936"
+                          ]
+                        },
+                        {
+                          "C": [
+                            523,
+                            "523 - Harrisonburg Lindseys",
+                            "109314.52999999982"
+                          ]
+                        },
+                        {
+                          "C": [
+                            524,
+                            "524 - Christiansburg Lindseys",
+                            "83642.589999999851"
+                          ]
+                        },
+                        {
+                          "C": [
+                            525,
+                            "525 - Raleigh Lindseys",
+                            "119166.22999999988"
+                          ]
+                        },
+                        {
+                          "C": [
+                            526,
+                            "526 - Glasgow Lindseys",
+                            "139498.53999999998"
+                          ]
+                        },
+                        {
+                          "C": [
+                            528,
+                            "528 - Durham  Lindseys",
+                            "114368.79999999999"
+                          ]
+                        },
+                        {
+                          "C": [
+                            530,
+                            "530 - Asheville Lindseys",
+                            "112270.24999999997"
+                          ]
+                        },
+                        {
+                          "C": [
+                            531,
+                            "531 - Winston-Salem Lindseys",
+                            "82091.98000000001"
+                          ]
+                        },
+                        {
+                          "C": [
+                            533,
+                            "533 - Pineville Lindseys",
+                            "110216.39999999989"
+                          ]
+                        },
+                        {
+                          "C": [
+                            534,
+                            "534 - Mooresville Lindseys",
+                            "100553.45000000001"
+                          ]
+                        },
+                        {
+                          "C": [
+                            535,
+                            "535 - Clemmons Lindseys",
+                            "105824.42999999985"
+                          ]
+                        },
+                        {
+                          "C": [
+                            536,
+                            "536 - Statesville Lindseys",
+                            "90899.929999999935"
+                          ]
+                        },
+                        {
+                          "C": [
+                            537,
+                            "537 - Fayetteville Lindseys",
+                            "125730.37999999983"
+                          ]
+                        },
+                        {
+                          "C": [
+                            538,
+                            "538 - Hickory Lindseys",
+                            "105617.35999999996"
+                          ]
+                        },
+                        {
+                          "C": [
+                            540,
+                            "540 - Wilmington Lindseys",
+                            "103838.91000000002"
+                          ]
+                        },
+                        {
+                          "C": [
+                            541,
+                            "541 - Florence Lindseys",
+                            "115336.75999999988"
+                          ]
+                        },
+                        {
+                          "C": [
+                            542,
+                            "542 - Greenville Lindseys",
+                            86541.75
+                          ]
+                        },
+                        {
+                          "C": [
+                            543,
+                            "543 - Sumter Lindseys",
+                            "80826.409999999814"
+                          ]
+                        },
+                        {
+                          "C": [
+                            544,
+                            "544 - North Charleston Lindseys",
+                            "93734.4200000001"
+                          ]
+                        },
+                        {
+                          "C": [
+                            545,
+                            "545 - Greenville Lindseys",
+                            "87855.249999999825"
+                          ]
+                        },
+                        {
+                          "C": [
+                            546,
+                            "546 - Wilmington Lindseys",
+                            "113549.19999999987"
+                          ]
+                        },
+                        {
+                          "C": [
+                            547,
+                            "547 - Laurel Lindseys",
+                            "113069.79000000008"
+                          ]
+                        },
+                        {
+                          "C": [
+                            548,
+                            "548 - Athens Lindseys",
+                            "90302.839999999822"
+                          ]
+                        },
+                        {
+                          "C": [
+                            549,
+                            "549 - Charlotte Lindseys",
+                            "105279.37999999989"
+                          ]
+                        },
+                        {
+                          "C": [
+                            550,
+                            "550 - Kannapolis Lindseys",
+                            "115417.68999999999"
+                          ]
+                        },
+                        {
+                          "C": [
+                            551,
+                            "551 - Anderson Lindseys",
+                            111358.82
+                          ]
+                        },
+                        {
+                          "C": [
+                            554,
+                            "554 - Augusta Lindseys",
+                            "88350.650000000023"
+                          ]
+                        },
+                        {
+                          "C": [
+                            555,
+                            "555 - Cartersville Lindseys",
+                            "102446.58999999987"
+                          ]
+                        },
+                        {
+                          "C": [
+                            556,
+                            "556 - Johnson City Lindseys",
+                            "99376.0599999999"
+                          ]
+                        },
+                        {
+                          "C": [
+                            557,
+                            "557 - Savannah Lindseys",
+                            "86346.859999999811"
+                          ]
+                        },
+                        {
+                          "C": [
+                            558,
+                            "558 - Newnan Lindseys",
+                            "81101.209999999875"
+                          ]
+                        },
+                        {
+                          "C": [
+                            560,
+                            "560 - Buford Lindseys",
+                            "83489.210000000065"
+                          ]
+                        },
+                        {
+                          "C": [
+                            563,
+                            "563 - Duluth Lindseys",
+                            118947.36
+                          ]
+                        },
+                        {
+                          "C": [
+                            565,
+                            "565 - Pasadena Lindseys",
+                            "18197.559999999998"
+                          ]
+                        },
+                        {
+                          "C": [
+                            566,
+                            "566 - Ft. Oglethorpe Lindseys",
+                            "61277.540000000088"
+                          ]
+                        },
+                        {
+                          "C": [
+                            568,
+                            "568 - Knoxville Lindseys",
+                            "49160.530000000064"
+                          ]
+                        },
+                        {
+                          "C": [
+                            570,
+                            "570 - Wilson Lindseys",
+                            "87220.400000000009"
+                          ]
+                        },
+                        {
+                          "C": [
+                            571,
+                            "571 - Cookeville Lindseys",
+                            "110805.96999999996"
+                          ]
+                        },
+                        {
+                          "C": [
+                            572,
+                            "572 - Jacksonville Lindseys",
+                            "94671.479999999792"
+                          ]
+                        },
+                        {
+                          "C": [
+                            573,
+                            "573 - Columbia Lindseys",
+                            "94566.330000000075"
+                          ]
+                        },
+                        {
+                          "C": [
+                            574,
+                            "574 - Bowling Green Lindseys",
+                            "84893.040000000023"
+                          ]
+                        },
+                        {
+                          "C": [
+                            575,
+                            "575 - Goldsboro Lindseys",
+                            "73547.6699999999"
+                          ]
+                        },
+                        {
+                          "C": [
+                            576,
+                            "576 - Gallatin Lindseys",
+                            "139575.88999999984"
+                          ]
+                        },
+                        {
+                          "C": [
+                            577,
+                            "577 - Elizabethtown Lindseys",
+                            "101119.22999999992"
+                          ]
+                        },
+                        {
+                          "C": [
+                            579,
+                            "579 - Gastonia Lindseys",
+                            "108447.17999999993"
+                          ]
+                        },
+                        {
+                          "C": [
+                            580,
+                            "580 - Chattanooga Lindseys",
+                            "123246.94999999985"
+                          ]
+                        },
+                        {
+                          "C": [
+                            581,
+                            "581 - Kernersville Lindseys",
+                            "98311.0200000001"
+                          ]
+                        },
+                        {
+                          "C": [
+                            582,
+                            "582 - Chambersburg Lindseys",
+                            "74007.72999999985"
+                          ]
+                        },
+                        {
+                          "C": [
+                            583,
+                            "583 - Raleigh PV Lindseys",
+                            "64620.109999999913"
+                          ]
+                        },
+                        {
+                          "C": [
+                            6,
+                            "6 - Parkersburg Fashions Direct",
+                            "459087.9299999965"
+                          ]
+                        },
+                        {
+                          "C": [
+                            7,
+                            "7 - Belle Vernon Fashions Direct",
+                            "367433.6199999972"
+                          ]
+                        },
+                        {
+                          "C": [
+                            8,
+                            "8 - Cumberland Fashions Direct",
+                            "442540.51999999757"
+                          ]
+                        },
+                        {
+                          "C": [
+                            9,
+                            "9 - Clarksburg Fashions Direct",
+                            "416631.01999999839"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "2e2966ac-95ba-46b9-b077-d9b113c1eeac",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T02:56:46.7587052Z",
+                  "End": "2021-11-09T02:56:46.8212001Z"
+                },
+                {
+                  "Id": "07109a3d-4f77-4889-8b0f-464696794a6e",
+                  "ParentId": "2e2966ac-95ba-46b9-b077-d9b113c1eeac",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T02:56:46.7587052Z",
+                  "End": "2021-11-09T02:56:46.8055744Z"
+                },
+                {
+                  "Id": "dc2bd35e-61d9-494a-b68e-898493be5c79",
+                  "ParentId": "2e2966ac-95ba-46b9-b077-d9b113c1eeac",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T02:56:46.8055744Z",
+                  "End": "2021-11-09T02:56:46.8055744Z",
+                  "Metrics": {
+                    "RowCount": 100
+                  }
+                },
+                {
+                  "Id": "25874825-8BCB-4145-88E2-060AEEBC80F5",
+                  "ParentId": "dc2bd35e-61d9-494a-b68e-898493be5c79",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-09T02:56:46.81Z",
+                  "End": "2021-11-09T02:56:46.82Z"
+                },
+                {
+                  "Id": "4CBD24B4-0E8B-4774-87E4-E1798E80217E",
+                  "ParentId": "25874825-8BCB-4145-88E2-060AEEBC80F5",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-09T02:56:46.82Z",
+                  "End": "2021-11-09T02:56:46.82Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

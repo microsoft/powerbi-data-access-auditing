@@ -111,6 +111,9 @@ public class Binding
     [JsonProperty("Version", Required = Required.Always)]
     public long Version { get; set; }
 
+    [JsonProperty("IncludeEmptyGroups", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public bool IncludeEmptyGroups { get; set; }
+
 
     [JsonProperty("Highlights", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public Highlight[] Highlight { get; set; }
@@ -172,8 +175,8 @@ public class PointsSampleValue
 
 public class Window
 {
-    [JsonProperty("Count", Required = Required.Always)]
-    public long Count { get; set; }
+    [JsonProperty("Count", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public long? Count { get; set; }
 }
 public class PowerBiBinding
 {
@@ -434,8 +437,11 @@ public class Key
     [JsonProperty("Source", Required = Required.Always)]
     public KeySource Source { get; set; }
 
-    [JsonProperty("Select", Required = Required.Always)]
+    [JsonProperty("Select", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public int Select { get; set; }
+
+    [JsonProperty("Calc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+    public string Calc { get; set; }
 }
 
 public class KeySource
@@ -536,7 +542,7 @@ public class GroupKey
     [JsonProperty("Calc", Required = Required.Always)]
     public string Calc { get; set; }
 
-    [JsonProperty("IsSameAsSelect", Required = Required.Always)]
+    [JsonProperty("IsSameAsSelect", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public bool IsSameAsSelect { get; set; }
 }
 
@@ -608,7 +614,7 @@ public class DataRow
     public RowValue[] RowValues { get; set; } = Array.Empty<RowValue>();
 
     [JsonProperty("R", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-    public long? CopyBitmask { get; set; }
+    public long? RepeatBitmask { get; set; }
 
     [JsonProperty("Ø", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public long? NullBitmask { get; set; }
@@ -646,13 +652,13 @@ public class SubDataRow
     public ColumnHeader[] ColumnHeaders { get; set; }
 
     [JsonProperty("I", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-    public long? I { get; set; }
+    public long? Index { get; set; }
 
     [JsonProperty("C", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-    public RowValue[] RowValues { get; set; } = Array.Empty<RowValue>();
+    public RowValue[] RowValues { get; set; }
 
     [JsonProperty("R", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-    public long? CopyBitmask { get; set; }
+    public long? RepeatBitmask { get; set; }
 
     [JsonProperty("Ø", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
     public long? NullBitmask { get; set; }
