@@ -19,4 +19,12 @@ public class ReportParameters
 
     // Embed Token for the Power BI report
     public string EmbedToken { get; init; } = null!;
+    //List of pages in the report
+    public PageParameter[] Pages { get; init; } = null!;
+}
+
+public class PageParameter
+{
+    public string DisplayName { get; init; } = null!;
+    public string Name { get; init; } = null!;
 }

@@ -15,11 +15,13 @@ public class PowerBiEmbeddedReportService : IPowerBiEmbeddedReportService
 {
     private readonly IPowerBiTokenProvider _tokenProvider;
     private readonly IDataProtector _dataProtector;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private const string UrlPowerBiServiceApiRoot = "https://api.powerbi.com";
 
-    public PowerBiEmbeddedReportService(IPowerBiTokenProvider tokenProvider, IDataProtectionProvider dataProtectionProvider)
+    public PowerBiEmbeddedReportService(IPowerBiTokenProvider tokenProvider, IDataProtectionProvider dataProtectionProvider, IHttpContextAccessor httpContextAccessor)
     {
         _tokenProvider = tokenProvider;
+        _httpContextAccessor = httpContextAccessor;
         _dataProtector = dataProtectionProvider.CreateProtector(Constants.PowerBiTokenPurpose);
     }
 
@@ -37,12 +39,12 @@ public class PowerBiEmbeddedReportService : IPowerBiEmbeddedReportService
     /// Get embed params for a report
     /// </summary>
     /// <returns>Wrapper object containing Embed token, Embed URL, Report Id, and Report name for single report</returns>
-    public ReportParameters GetReportParameters(ReportDetail report, [Optional] Guid additionalDatasetId, [Optional] string? effectiveUserName)
+    public async Task<ReportParameters> GetReportParameters(ReportDetail report, [Optional] Guid additionalDatasetId)
     {
         var pbiClient = GetPowerBiClient();
 
         // Get report info
-        var pbiReport = pbiClient.Reports.GetReportInGroup(report.GroupId, report.ReportId);
+        var pbiReport = await pbiClient.Reports.GetReportInGroupAsync(report.GroupId, report.ReportId);
 
         //  Check if dataset is present for the corresponding report
         //  If isRDLReport is true then it is a RDL Report 
@@ -71,19 +73,34 @@ public class PowerBiEmbeddedReportService : IPowerBiEmbeddedReportService
             }
 
             // Get Embed token multiple resources
-            embedToken = GetEmbedToken(report, datasetIds, effectiveUserName);
+            embedToken = GetEmbedToken(report, datasetIds);
         }
+
+        var pages = await GetPages(pbiClient, report);
 
 
         // Capture embed params
         var reportParameters = new ReportParameters {
             ReportId = pbiReport.Id,
             ReportName = pbiReport.Name,
-            EmbedUrl = pbiReport.EmbedUrl,
-            EmbedToken = embedToken
+            EmbedUrl = pbiReport.EmbedUrl.Replace("app.powerbi.com", _httpContextAccessor.HttpContext?.Request.Host.ToString()),
+            EmbedToken = embedToken,
+            Pages = pages
         };
 
         return reportParameters;
+    }
+
+    /// <summary>
+    /// Gets a reports pages
+    /// </summary>
+    /// <param name="pbiClient"></param>
+    /// <param name="report"></param>
+    /// <returns></returns>
+    private static async Task<PageParameter[]> GetPages(PowerBIClient pbiClient, ReportDetail report)
+    {
+        var pages = await pbiClient.Reports.GetPagesAsync(report.GroupId, report.ReportId);
+        return pages.Value.Select(x => new PageParameter { DisplayName = x.DisplayName, Name = x.Name }).ToArray();
     }
 
     /// <summary>
@@ -91,11 +108,12 @@ public class PowerBiEmbeddedReportService : IPowerBiEmbeddedReportService
     /// </summary>
     /// <returns>Embed token</returns>
     /// <remarks>This function is not supported for RDL Report</remarks>
-    private string GetEmbedToken(ReportDetail report, IList<Guid> datasetIds, [Optional] string? effectiveUserName)
+    private string GetEmbedToken(ReportDetail report, IList<Guid> datasetIds)
     {
         var pbiClient = GetPowerBiClient();
 
         List<EffectiveIdentity>? ids = null;
+        var effectiveUserName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
         if (!string.IsNullOrEmpty(effectiveUserName) && report.Roles.Any())
         {
 

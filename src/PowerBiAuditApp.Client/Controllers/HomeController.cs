@@ -18,7 +18,7 @@ public class HomeController : Controller
     {
         var model = new HomeViewModel {
             User = HttpContext.User.Identity?.Name,
-            Reports = await _reportDetailsService.GetReportDetails()
+            Reports = await _reportDetailsService.GetReportDetailsForUser()
         };
 
         return View(model);

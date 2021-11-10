@@ -9,14 +9,18 @@ Licensed under the MIT license. -->
 	</section>
 
 	<footer class="col-lg-12 col-md-12 col-sm-12 mb-0 mt-4">
-		@if (Model.PaginationTable is not null)
+		@if (Model.Pages.Length > 1)
 		{
 			<p class="text-center">
-				<a class="btn btn-secondary" href="~/?reportId=@Model.ReportId&WorkspaceId=@Model.WorkspaceId&PageNumber=@(Model.PageNumber - 1)" role="button">«</a>
-				<a class="btn btn-secondary" href="~/?reportId=@Model.ReportId&WorkspaceId=@Model.WorkspaceId&PageNumber=@(Model.PageNumber + 1)" role="button">»</a>
-			</p>
-			<p class="text-center">
-				You are viewing page: @Model.PageNumber.
+				@if (Model.PageNumber > 0)
+				{
+					<a class="btn btn-secondary" href="~/report?WorkspaceId=@Model.WorkspaceId&reportId=@Model.ReportId&pageNumber=@(Model.PageNumber - 1)" role="button"> @Model.Pages[Model.PageNumber -1].DisplayName «</a>
+				}
+				You are viewing page: @Model.Pages[Model.PageNumber].DisplayName
+			@if (Model.PageNumber + 1 < Model.Pages.Length)
+			{
+				<a class="btn btn-secondary" href="~/report?WorkspaceId=@Model.WorkspaceId&reportId=@Model.ReportId&pageNumber=@(Model.PageNumber + 1)" role="button">@Model.Pages[Model.PageNumber +1].DisplayName »</a>
+			}
 			</p>
 		}
 		<p class="text-center">
@@ -31,7 +35,7 @@ Licensed under the MIT license. -->
 		<script src="~/js/report.js"></script>
 		<script>
 			$(function() {
-				LoadReport("@Model.EmbedToken", decodeURI("@Model.EmbedUrl"));
+				LoadReport("@Model.EmbedToken", decodeURI("@Model.EmbedUrl"), "@Model.Pages[Model.PageNumber].Name");
 			});
 		</script>
 	}
