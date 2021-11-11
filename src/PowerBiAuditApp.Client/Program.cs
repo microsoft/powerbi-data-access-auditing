@@ -22,6 +22,7 @@ builder.Services.AddScoped<IAuditLogger, AuditLogger>();
 builder.Services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
 builder.Services.AddScoped<IReportDetailsService, ReportDetailsService>();
 builder.Services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
+builder.Services.AddScoped<IQueueTriggerService, QueueTriggerService>();
 builder.Services.AddMemoryCache();
 
 builder.Services.AddDataProtection();
