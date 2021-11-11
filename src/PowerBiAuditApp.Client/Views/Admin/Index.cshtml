@@ -1,0 +1,13 @@
+﻿<div>
+    <h1>Admin Page</h1>
+
+    <button class="btn btn-secondary" onclick="location.href='@Url.Action("CreateTriggerQueue", "Admin")'">Create Trigger Queue</button>
+
+    <button class="btn btn-primary" button="submit" onclick="alert('Reports are being refreshed.\nRefresh page in 10 minutes to see the updates!');location.href='@Url.Action("RefreshReports", "Admin")'">Refresh Data</button>
+</div>
+ 
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+}
