@@ -8,5 +8,5 @@ public class ReportViewModel
     public Guid ReportId { get; init; }
     public Guid WorkspaceId { get; init; }
     public int PageNumber { get; init; }
-    public string? PaginationTable { get; init; }
+    public PageParameter[] Pages { get; init; } = null!;
 }

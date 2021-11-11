@@ -14,8 +14,7 @@ public class PbiGroupTable : ITableEntity
     public string RowKey { get { return Id.ToString(); } set { Id = new Guid(value); } }
     [IgnoreDataMember]
     public Guid Id { get; set; }
-    public string PartitionKey { get { return Name; } set { Name = value; } }
-    [IgnoreDataMember]
+    public string PartitionKey { get { return Id.ToString(); } set { Id = new Guid(value); } }
     public string Name { get; set; }
     public bool? IsReadOnly { get; set; }
     public bool? IsOnDedicatedCapacity { get; set; }

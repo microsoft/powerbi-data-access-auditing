@@ -1,0 +1,325 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-09T02:56:50.3706007+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "t",
+                      "Entity": "Time",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s1",
+                      "Entity": "Sales",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s",
+                      "Entity": "Store",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "t"
+                          }
+                        },
+                        "Property": "FiscalMonth"
+                      },
+                      "Name": "select"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s1"
+                          }
+                        },
+                        "Property": "This Year Sales"
+                      },
+                      "Name": "select2"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "s"
+                                }
+                              },
+                              "Property": "Store Type"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "'New Store'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "t"
+                            }
+                          },
+                          "Property": "FiscalMonth"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 1000
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"t\",\"Entity\":\"Time\",\"Type\":0},{\"Name\":\"s1\",\"Entity\":\"Sales\",\"Type\":0},{\"Name\":\"s\",\"Entity\":\"Store\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"FiscalMonth\"},\"Name\":\"select\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s1\"}},\"Property\":\"This Year Sales\"},\"Name\":\"select2\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Store Type\"}},\"Right\":{\"Literal\":{\"Value\":\"'New Store'\"}}}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"FiscalMonth\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":1000}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "ae368690-089d-46df-9d9f-7c5926e2dc4a",
+          "Sources": [
+            {
+              "ReportId": "171c27ee-9946-4c17-adcc-27b2225d299c",
+              "VisualId": "VisualContainer1"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 566825,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "788f948a-01c2-41a3-882a-30b5da0123fa"
+    ],
+    "results": [
+      {
+        "jobId": "788f948a-01c2-41a3-882a-30b5da0123fa",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Time",
+                        "Property": "FiscalMonth"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "\\$#,0;(\\$#,0);\\$#,0",
+                  "Name": "select2"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Time",
+                            "Property": "FiscalMonth"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            0,
+                            "41435.210000000028"
+                          ]
+                        },
+                        {
+                          "C": [
+                            1,
+                            "175707.89000000071"
+                          ]
+                        },
+                        {
+                          "C": [
+                            2,
+                            "350553.38999999728"
+                          ]
+                        },
+                        {
+                          "C": [
+                            3,
+                            "315370.72999999631"
+                          ]
+                        },
+                        {
+                          "C": [
+                            4,
+                            "353090.13999999443"
+                          ]
+                        },
+                        {
+                          "C": [
+                            5,
+                            "425290.92999999528"
+                          ]
+                        },
+                        {
+                          "C": [
+                            6,
+                            "327723.91999999696"
+                          ]
+                        },
+                        {
+                          "C": [
+                            7,
+                            "440799.62999999773"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": {
+                    "D0": [
+                      "Jan",
+                      "Feb",
+                      "Mar",
+                      "Apr",
+                      "May",
+                      "Jun",
+                      "Jul",
+                      "Aug"
+                    ]
+                  }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "2ee9db0f-4048-42b7-a698-fae3d83074e9",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T02:56:49.2900024Z",
+                  "End": "2021-11-09T02:56:49.3056293Z"
+                },
+                {
+                  "Id": "2455b5f7-a267-4313-8462-e3eac88e2a42",
+                  "ParentId": "2ee9db0f-4048-42b7-a698-fae3d83074e9",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T02:56:49.2900024Z",
+                  "End": "2021-11-09T02:56:49.3056293Z",
+                  "Metrics": {
+                    "RowCount": 8
+                  }
+                },
+                {
+                  "Id": "7C3E6711-4398-4AF7-BB36-191D504F4ABD",
+                  "ParentId": "2455b5f7-a267-4313-8462-e3eac88e2a42",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-09T02:56:49.297Z",
+                  "End": "2021-11-09T02:56:49.31Z"
+                },
+                {
+                  "Id": "853A5D94-DC67-4F57-BFB1-7A7355635E1C",
+                  "ParentId": "7C3E6711-4398-4AF7-BB36-191D504F4ABD",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-09T02:56:49.31Z",
+                  "End": "2021-11-09T02:56:49.31Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

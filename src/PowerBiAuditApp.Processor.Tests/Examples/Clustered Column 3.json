@@ -1,0 +1,420 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-09T03:49:08.5434477+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "s",
+                      "Entity": "Store",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "Open Month"
+                      },
+                      "Name": "select"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "Chain"
+                      },
+                      "Name": "select1"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "Open Store Count"
+                      },
+                      "Name": "select2"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "s"
+                                }
+                              },
+                              "Property": "Store Type"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "'New Store'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "s"
+                            }
+                          },
+                          "Property": "Open Month"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "Secondary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          1
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 200
+                      }
+                    },
+                    "Secondary": {
+                      "Top": {
+                        "Count": 60
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Store\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Open Month\"},\"Name\":\"select\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Chain\"},\"Name\":\"select1\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Open Store Count\"},\"Name\":\"select2\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Store Type\"}},\"Right\":{\"Literal\":{\"Value\":\"'New Store'\"}}}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Open Month\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,2]}]},\"Secondary\":{\"Groupings\":[{\"Projections\":[1]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":200}},\"Secondary\":{\"Top\":{\"Count\":60}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "ae368690-089d-46df-9d9f-7c5926e2dc4a",
+          "Sources": [
+            {
+              "ReportId": "171c27ee-9946-4c17-adcc-27b2225d299c",
+              "VisualId": "VisualContainer2"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 566825,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "f2779c58-8968-456b-b059-d6e5d563bdad"
+    ],
+    "results": [
+      {
+        "jobId": "f2779c58-8968-456b-b059-d6e5d563bdad",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Store",
+                        "Property": "Open Month"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select"
+                },
+                {
+                  "Kind": 1,
+                  "SecondaryDepth": 0,
+                  "Value": "G1",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Store",
+                        "Property": "Chain"
+                      },
+                      "Calc": "G1",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select1"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "0",
+                  "Name": "select2"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Store",
+                            "Property": "Open Month"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                },
+                "Secondary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Store",
+                            "Property": "Chain"
+                          },
+                          "Select": 1
+                        }
+                      ],
+                      "Member": "DM1"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Secondary": {
+                  "Id": "L0",
+                  "Top": {
+                    "Count": 60
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "SH": [
+                    {
+                      "DM1": [
+                        {
+                          "S": [
+                            {
+                              "N": "G1",
+                              "T": 1
+                            }
+                          ],
+                          "G1": "Fashions Direct"
+                        },
+                        {
+                          "G1": "Lindseys"
+                        }
+                      ]
+                    }
+                  ],
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            }
+                          ],
+                          "G0": 0,
+                          "X": [
+                            {
+                              "S": [
+                                {
+                                  "N": "M0",
+                                  "T": 4
+                                }
+                              ],
+                              "M0": 1
+                            },
+                            {
+                              "R": 1
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 1,
+                          "X": [
+                            {
+                              "M0": 2
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 2,
+                          "X": [
+                            {
+                              "M0": 1
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 3,
+                          "X": [
+                            {
+                              "R": 1
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 4,
+                          "X": [
+                            {
+                              "I": 1,
+                              "M0": 2
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 5,
+                          "X": [
+                            {
+                              "M0": 1
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 6,
+                          "X": [
+                            {
+                              "I": 1,
+                              "R": 1
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": {
+                    "D0": [
+                      "Jan",
+                      "Feb",
+                      "Mar",
+                      "Apr",
+                      "May",
+                      "Jun",
+                      "Jul"
+                    ]
+                  }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "550c247f-284b-44ee-bec4-533991ae7f94",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T03:49:07.0787136Z",
+                  "End": "2021-11-09T03:49:07.1255865Z"
+                },
+                {
+                  "Id": "b3d2ebae-7080-4aa6-9f54-8be7afac3781",
+                  "ParentId": "550c247f-284b-44ee-bec4-533991ae7f94",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T03:49:07.0787136Z",
+                  "End": "2021-11-09T03:49:07.1099663Z"
+                },
+                {
+                  "Id": "662ec629-dee6-494d-8857-7c5024e52644",
+                  "ParentId": "550c247f-284b-44ee-bec4-533991ae7f94",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T03:49:07.1099663Z",
+                  "End": "2021-11-09T03:49:07.1255865Z",
+                  "Metrics": {
+                    "RowCount": 10
+                  }
+                },
+                {
+                  "Id": "A99F34E9-E653-416A-8C0C-D2AD8ACBC597",
+                  "ParentId": "662ec629-dee6-494d-8857-7c5024e52644",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-09T03:49:07.127Z",
+                  "End": "2021-11-09T03:49:07.13Z"
+                },
+                {
+                  "Id": "48859D68-A5E0-4FC4-B668-A34BEC74BA93",
+                  "ParentId": "A99F34E9-E653-416A-8C0C-D2AD8ACBC597",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-09T03:49:07.13Z",
+                  "End": "2021-11-09T03:49:07.13Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

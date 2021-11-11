@@ -1,4 +1,5 @@
-﻿using Microsoft.PowerBI.Api;
+﻿using System.Net;
+using Microsoft.PowerBI.Api;
 using Microsoft.PowerBI.Api.Models;
 using Microsoft.Rest;
 
@@ -18,10 +19,10 @@ public class PowerBiReportService : IPowerBiReportService
     /// Get Power BI client
     /// </summary>
     /// <returns>Power BI client object</returns>
-    private PowerBIClient GetPowerBiClient()
+    private PowerBIClient GetPowerBiClient(string serviceRoot = UrlPowerBiServiceApiRoot)
     {
         var tokenCredentials = new TokenCredentials(_tokenProvider.GetAccessToken(), "Bearer");
-        return new PowerBIClient(new Uri(UrlPowerBiServiceApiRoot), tokenCredentials);
+        return new PowerBIClient(new Uri(serviceRoot), tokenCredentials);
     }
 
     public async Task<IList<Group>> GetGroups()
@@ -54,15 +55,17 @@ public class PowerBiReportService : IPowerBiReportService
         return (await pbiClient.Dataflows.GetDataflowsAsync(groupId)).Value;
     }
 
-    public async Task<ActivityEventResponse> ActivityEvents(DateTimeOffset? start)
+    public async Task<ActivityEventResponse> GetActivityEvents(DateTimeOffset start, DateTimeOffset end)
     {
         var pbiClient = GetPowerBiClient();
-        return await pbiClient.Admin.GetActivityEventsAsync(start?.ToString("o"));
+        return await pbiClient.Admin.GetActivityEventsAsync($"'{start.UtcDateTime:yyyy-MM-ddTHH:mm:ssK}'", $"'{end.UtcDateTime:yyyy-MM-ddTHH:mm:ssK}'");
     }
 
-    public async Task<ActivityEventResponse> ActivityEvents(string continuationToken)
+    public async Task<ActivityEventResponse?> GetActivityEvents(ActivityEventResponse? activityEventResponse)
     {
-        var pbiClient = GetPowerBiClient();
-        return await pbiClient.Admin.GetActivityEventsAsync(continuationToken: continuationToken);
+        if (activityEventResponse is null) return null;
+        var uri = new Uri(activityEventResponse.ContinuationUri);
+        var pbiClient = GetPowerBiClient($"{uri.Scheme}://{uri.Host}");
+        return await pbiClient.Admin.GetActivityEventsAsync(continuationToken: $"'{WebUtility.UrlDecode(activityEventResponse.ContinuationToken)}'");
     }
 }

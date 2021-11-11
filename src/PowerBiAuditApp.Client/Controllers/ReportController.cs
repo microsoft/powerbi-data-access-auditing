@@ -19,27 +19,20 @@ public class ReportController : Controller
     public async Task<IActionResult> Index(Guid workspaceId, Guid reportId, int pageNumber)
     {
 
-        var report = await _reportDetailsService.GetReportDetail(workspaceId, reportId);
+        var report = await _reportDetailsService.GetReportForUser(workspaceId, reportId);
         if (report is null)
             return RedirectToAction("Index", "Home");
 
-        var reportParameters = string.IsNullOrWhiteSpace(HttpContext.User.Identity?.Name)
-            ? _powerBiReportService.GetReportParameters(report)
-            : _powerBiReportService.GetReportParameters(report, effectiveUserName: HttpContext.User.Identity?.Name!);
-
-        var localisedUri = reportParameters.EmbedUrl.Replace("app.powerbi.com", Request.Host.ToString());
-        if (!string.IsNullOrWhiteSpace(report.PaginationTable) && !string.IsNullOrWhiteSpace(report.PaginationColumn))
-            localisedUri = new Uri($"{localisedUri}&$filter={report.PaginationTable}/{report.PaginationColumn} eq {pageNumber}", UriKind.Absolute).AbsoluteUri;
-
+        var reportParameters = await _powerBiReportService.GetReportParameters(report);
 
         return View(new ReportViewModel {
             User = HttpContext.User.Identity?.Name,
             EmbedToken = reportParameters.EmbedToken,
-            EmbedUrl = localisedUri,
+            EmbedUrl = reportParameters.EmbedUrl,
             ReportId = report.ReportId,
             WorkspaceId = report.GroupId,
-            PageNumber = pageNumber,
-            PaginationTable = report.PaginationTable,
+            PageNumber = Math.Max(Math.Min(pageNumber, reportParameters.Pages.Length - 1), 0),
+            Pages = reportParameters.Pages
         });
     }
 }

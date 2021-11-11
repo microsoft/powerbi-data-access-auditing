@@ -3,7 +3,7 @@
 // Licensed under the MIT license.
 // ----------------------------------------------------------------------------
 
-function LoadReport(embedToken, embedUrl) {
+function LoadReport(embedToken, embedUrl, page) {
 
     embedUrl = decodeURIComponent(embedUrl.replace(/&amp;/g, "&"));
 
@@ -16,6 +16,8 @@ function LoadReport(embedToken, embedUrl) {
         accessToken: embedToken,
         // You can embed different reports as per your need
         embedUrl: embedUrl,
+
+        pageName: page,
         // Enable this setting to remove gray shoulders from embedded report
         settings: {
             visualRenderedEvents: true,

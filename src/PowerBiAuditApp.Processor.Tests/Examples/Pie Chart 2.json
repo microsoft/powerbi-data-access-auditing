@@ -1,0 +1,460 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-09T03:49:08.4881388+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "s",
+                      "Entity": "Store",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s1",
+                      "Entity": "Sales",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "City"
+                      },
+                      "Name": "select"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "Chain"
+                      },
+                      "Name": "select1"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s1"
+                          }
+                        },
+                        "Property": "This Year Sales"
+                      },
+                      "Name": "select2"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "s"
+                                }
+                              },
+                              "Property": "Store Type"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "'New Store'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 2,
+                      "Expression": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "s1"
+                            }
+                          },
+                          "Property": "This Year Sales"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "Secondary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          1
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Top": {
+                      }
+                    },
+                    "Secondary": {
+                      "Top": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Store\",\"Type\":0},{\"Name\":\"s1\",\"Entity\":\"Sales\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"City\"},\"Name\":\"select\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Chain\"},\"Name\":\"select1\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s1\"}},\"Property\":\"This Year Sales\"},\"Name\":\"select2\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Store Type\"}},\"Right\":{\"Literal\":{\"Value\":\"'New Store'\"}}}}}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s1\"}},\"Property\":\"This Year Sales\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,2]}]},\"Secondary\":{\"Groupings\":[{\"Projections\":[1]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Top\":{}},\"Secondary\":{\"Top\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "ae368690-089d-46df-9d9f-7c5926e2dc4a",
+          "Sources": [
+            {
+              "ReportId": "171c27ee-9946-4c17-adcc-27b2225d299c",
+              "VisualId": "VisualContainer3"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 566825,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "871fac83-016f-42a7-9166-4d7570853062"
+    ],
+    "results": [
+      {
+        "jobId": "871fac83-016f-42a7-9166-4d7570853062",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Store",
+                        "Property": "City"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select"
+                },
+                {
+                  "Kind": 1,
+                  "SecondaryDepth": 0,
+                  "Value": "G1",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Store",
+                        "Property": "Chain"
+                      },
+                      "Calc": "G1",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select1"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "\\$#,0;(\\$#,0);\\$#,0",
+                  "Name": "select2"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Store",
+                            "Property": "City"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                },
+                "Secondary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Store",
+                            "Property": "Chain"
+                          },
+                          "Select": 1
+                        }
+                      ],
+                      "Member": "DM1"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Top": {
+                    "Count": 930,
+                    "Calc": "A0"
+                  }
+                },
+                "Secondary": {
+                  "Id": "L1",
+                  "Top": {
+                    "Count": 18,
+                    "Calc": "A1"
+                  }
+                },
+                "Intersection": {
+                  "Id": "L2",
+                  "Top": {
+                    "Count": 3500,
+                    "Calc": "A2"
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "S": [
+                    {
+                      "N": "A0",
+                      "T": 4
+                    },
+                    {
+                      "N": "A1",
+                      "T": 4
+                    },
+                    {
+                      "N": "A2",
+                      "T": 4
+                    }
+                  ],
+                  "C": [
+                    3500,
+                    3500,
+                    -1
+                  ],
+                  "SH": [
+                    {
+                      "DM1": [
+                        {
+                          "S": [
+                            {
+                              "N": "G1",
+                              "T": 1
+                            }
+                          ],
+                          "G1": "Fashions Direct"
+                        },
+                        {
+                          "G1": "Lindseys"
+                        }
+                      ]
+                    }
+                  ],
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1
+                            }
+                          ],
+                          "G0": "Winchester, VA",
+                          "X": [
+                            {
+                              "S": [
+                                {
+                                  "N": "M0",
+                                  "T": 3
+                                }
+                              ],
+                              "M0": "495164.66999999591"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "Washington, PA",
+                          "X": [
+                            {
+                              "M0": "457286.05999999767"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "Sharonville, OH",
+                          "X": [
+                            {
+                              "M0": "403197.3799999964"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "Monroeville, PA",
+                          "X": [
+                            {
+                              "M0": "398258.04999999667"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "York, PA",
+                          "X": [
+                            {
+                              "M0": "315504.36999999551"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "Cincinnati, OH",
+                          "X": [
+                            {
+                              "M0": "144705.27999999994"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "Wilson, NC",
+                          "X": [
+                            {
+                              "I": 1,
+                              "M0": "87220.399999999849"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "Ft. Oglethorpe, GA",
+                          "X": [
+                            {
+                              "I": 1,
+                              "M0": "61277.540000000095"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "Knoxville, TN",
+                          "X": [
+                            {
+                              "I": 1,
+                              "M0": "49160.530000000093"
+                            }
+                          ]
+                        },
+                        {
+                          "G0": "Pasadena, MD",
+                          "X": [
+                            {
+                              "I": 1,
+                              "M0": "18197.55999999999"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "52af4ecb-259e-4b6c-87a8-b6b342950ec6",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T03:49:07.1412144Z",
+                  "End": "2021-11-09T03:49:07.1724625Z"
+                },
+                {
+                  "Id": "5bad0d90-ab50-4370-92c3-95ac9081daff",
+                  "ParentId": "52af4ecb-259e-4b6c-87a8-b6b342950ec6",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-09T03:49:07.1412144Z",
+                  "End": "2021-11-09T03:49:07.1724625Z",
+                  "Metrics": {
+                    "RowCount": 13
+                  }
+                },
+                {
+                  "Id": "3B2BB75F-ADE7-4C41-8574-DFEEE3D36484",
+                  "ParentId": "5bad0d90-ab50-4370-92c3-95ac9081daff",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-09T03:49:07.153Z",
+                  "End": "2021-11-09T03:49:07.177Z"
+                },
+                {
+                  "Id": "4117721C-0233-4016-B0FD-DBA1165D5066",
+                  "ParentId": "3B2BB75F-ADE7-4C41-8574-DFEEE3D36484",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-09T03:49:07.177Z",
+                  "End": "2021-11-09T03:49:07.177Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

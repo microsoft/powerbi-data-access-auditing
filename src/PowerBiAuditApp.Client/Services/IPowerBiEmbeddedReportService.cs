@@ -10,5 +10,5 @@ public interface IPowerBiEmbeddedReportService
     /// Get embed params for a report
     /// </summary>
     /// <returns>Wrapper object containing Embed token, Embed URL, Report Id, and Report name for single report</returns>
-    ReportParameters GetReportParameters(ReportDetail report, [Optional] Guid additionalDatasetId, [Optional] string? effectiveUserName);
+    Task<ReportParameters> GetReportParameters(ReportDetail report, [Optional] Guid additionalDatasetId);
 }

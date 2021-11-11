@@ -42,13 +42,21 @@ public class ReportDetail : ITableEntity
         set => StringRoles = JsonConvert.SerializeObject(value);
     }
 
+    public string StringAadGroups { get; set; } = null!;
+
+    [IgnoreDataMember]
+    public Guid[] AadGroups {
+        get {
+            return StringRoles is not null
+                ? JsonConvert.DeserializeObject<Guid[]>(StringAadGroups) ?? Array.Empty<Guid>()
+                : Array.Empty<Guid>();
+        }
+        set => StringAadGroups = JsonConvert.SerializeObject(value);
+    }
+
     public List<int>? DrillThroughReports { get; set; }
 
     public List<string>? RequiredParameters { get; set; }
-
-    public string? PaginationTable { get; set; }
-
-    public string? PaginationColumn { get; set; }
 
     public DateTimeOffset? Timestamp { get; set; }
     public ETag ETag { get; set; }
