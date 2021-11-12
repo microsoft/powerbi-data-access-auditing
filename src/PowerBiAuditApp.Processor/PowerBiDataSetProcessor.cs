@@ -260,8 +260,13 @@ namespace PowerBiAuditApp.Processor
             {
                 if (!reportDetails.TryGetValue(pbiReport.Id, out var reportDetail))
                 {
+                    if (!pbiGroups.TryGetValue(pbiReport.GroupId, out var pbiReportGroup))
+                        throw new ArgumentException($"Group doesn't seem to exist for report {reportDetail.Name}");
+
                     reportDetail = new ReportDetail {
                         ReportId = pbiReport.Id,
+                        GroupId = pbiReport.GroupId,
+                        GroupName = pbiReportGroup.Name,
                         Enabled = false,
                         DisplayLevel = 1,
                         Roles = Array.Empty<string>(),
