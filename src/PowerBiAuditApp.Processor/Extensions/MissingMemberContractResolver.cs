@@ -2,17 +2,18 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace PowerBiAuditApp.Processor.Extensions;
-
-public class MissingMemberContractResolver : DefaultContractResolver
+namespace PowerBiAuditApp.Processor.Extensions
 {
-    protected override JsonObjectContract CreateObjectContract(Type objectType)
+    public class MissingMemberContractResolver : DefaultContractResolver
     {
-        var contract = base.CreateObjectContract(objectType);
-        if (contract.ExtensionDataSetter != null && contract.MissingMemberHandling == null)
+        protected override JsonObjectContract CreateObjectContract(Type objectType)
         {
-            contract.MissingMemberHandling = MissingMemberHandling.Ignore;
+            var contract = base.CreateObjectContract(objectType);
+            if (contract.ExtensionDataSetter != null && contract.MissingMemberHandling == null)
+            {
+                contract.MissingMemberHandling = MissingMemberHandling.Ignore;
+            }
+            return contract;
         }
-        return contract;
     }
 }

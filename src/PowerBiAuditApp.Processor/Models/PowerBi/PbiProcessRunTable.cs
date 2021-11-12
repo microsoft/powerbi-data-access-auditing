@@ -1,15 +1,10 @@
 ﻿using System;
-using Azure;
-using Azure.Data.Tables;
+using Microsoft.WindowsAzure.Storage.Table;
 
-namespace PowerBiAuditApp.Processor.Models.PowerBi;
-
-public class PbiProcessRunTable : ITableEntity
+namespace PowerBiAuditApp.Processor.Models.PowerBi
 {
-    public string PartitionKey { get; set; }
-    public string RowKey { get; set; }
-    public DateTimeOffset LastProcessedDate { get; set; }
-
-    public DateTimeOffset? Timestamp { get; set; }
-    public ETag ETag { get; set; }
+    public class PbiProcessRunTable : TableEntity
+    {
+        public DateTimeOffset LastProcessedDate { get; set; }
+    }
 }

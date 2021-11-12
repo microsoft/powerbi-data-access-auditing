@@ -1,22 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+	  <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <LangVersion>9.0</LangVersion>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Examples\Area Chart.json" />
-    <None Remove="Examples\Clustered Column 2.json" />
-    <None Remove="Examples\Clustered Column 3.json" />
-    <None Remove="Examples\Line Chart.json" />
-    <None Remove="Examples\Pie Chart 2.json" />
-    <None Remove="Examples\Slicer.json" />
-  </ItemGroup>
-
-  <ItemGroup>
+	<ItemGroup>
     <Content Include="Examples\Area Chart.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
