@@ -20,12 +20,6 @@ namespace PowerBiAuditApp.Processor
             });
             builder.Services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
             builder.Services.AddScoped<IPowerBiReportService, PowerBiReportService>();
-
-            //builder.Services.AddAzureClients(c =>
-            //{
-            //    c.UseCredential(new DefaultAzureCredential());
-            //    c.AddTableServiceClient(configuration.GetSection("StorageAccountTableEndpoint"));
-            //});
         }
     }
 }

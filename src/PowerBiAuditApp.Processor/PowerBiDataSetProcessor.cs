@@ -24,8 +24,8 @@ namespace PowerBiAuditApp.Processor
         }
 
 
-        [FunctionName(nameof(PowerBiDataSetProcessor_HttpStart))]
-        public static async Task<HttpResponseMessage> PowerBiDataSetProcessor_HttpStart(
+        [FunctionName(nameof(PowerBiDataSetProcessor_QueueStart))]
+        public static async Task PowerBiDataSetProcessor_QueueStart(
             [QueueTrigger("app-trigger-queue", Connection = "StorageAccountQueueEndpoint")] string name,
             [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)

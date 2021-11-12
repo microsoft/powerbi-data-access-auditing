@@ -1,9 +1,12 @@
-﻿using Azure.Storage.Queues;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Azure.Storage.Queues;
 
-namespace PowerBiAuditApp.Client.Services;
-
-public interface IQueueTriggerService
+namespace PowerBiAuditApp.Client.Services
 {
-    Task<QueueClient> GetTriggerQueue(CancellationToken cancellationToken = default);
-    Task SendQueueMessage(QueueClient queueClient, string message, CancellationToken cancellationToken = default);
+    public interface IQueueTriggerService
+    {
+        Task<QueueClient> GetTriggerQueue(CancellationToken cancellationToken = default);
+        Task SendQueueMessage(QueueClient queueClient, string message, CancellationToken cancellationToken = default);
+    }
 }

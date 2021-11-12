@@ -36,6 +36,7 @@ namespace PowerBiAuditApp.Client
             services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
             services.AddScoped<IReportDetailsService, ReportDetailsService>();
             services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
+            services.AddScoped<IQueueTriggerService, QueueTriggerService>();
             services.AddMemoryCache();
 
             services.AddDataProtection();
