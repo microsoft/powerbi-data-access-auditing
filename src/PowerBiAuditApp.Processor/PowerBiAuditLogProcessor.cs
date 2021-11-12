@@ -361,7 +361,7 @@ namespace PowerBiAuditApp.Processor
                         {
                             var previousCsvIndex = headers
                                 .Select((x, i) => (value: x, index: i))
-                                .Where(x => x.value.SubDataColumnIndex == columnIndex && previousCsvRow[x.index] is not null)
+                                .Where(x => x.value.SubDataColumnIndex == columnIndex)
                                 .Max(x => x.index);
 
                             csvRow[index] = previousCsvRow[previousCsvIndex];
