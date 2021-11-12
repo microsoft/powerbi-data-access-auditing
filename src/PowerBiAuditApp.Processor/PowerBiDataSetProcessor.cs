@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.PowerBI.Api.Models;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -28,7 +26,7 @@ namespace PowerBiAuditApp.Processor
 
         [FunctionName(nameof(PowerBiDataSetProcessor_HttpStart))]
         public static async Task<HttpResponseMessage> PowerBiDataSetProcessor_HttpStart(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestMessage req,
+            [QueueTrigger("app-trigger-queue", Connection = "StorageAccountQueueEndpoint")] string name,
             [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)
         {
@@ -36,9 +34,8 @@ namespace PowerBiAuditApp.Processor
             var instanceId = await starter.StartNewAsync(nameof(PowerBiDataSetProcessor));
 
             log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
-
-            return starter.CreateCheckStatusResponse(req, instanceId);
         }
+
 
         [FunctionName(nameof(PowerBiDataSetProcessor_TimerStart))]
         public static async Task PowerBiDataSetProcessor_TimerStart(
