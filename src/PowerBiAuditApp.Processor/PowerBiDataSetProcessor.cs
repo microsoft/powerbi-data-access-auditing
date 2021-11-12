@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Azure;
-using Azure.Data.Tables;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.PowerBI.Api.Models;
+using Microsoft.WindowsAzure.Storage.Table;
 using PowerBiAuditApp.Models;
 using PowerBiAuditApp.Processor.Extensions;
 using PowerBiAuditApp.Processor.Models.PowerBi;
@@ -20,17 +19,15 @@ namespace PowerBiAuditApp.Processor
     public class PowerBiDataSetProcessor
     {
         private readonly IPowerBiReportService _powerBiReportService;
-        private readonly TableServiceClient _tableServiceClient; //ToDo this should be moved over to a service binding if the table binding becomes available in "Microsoft.Azure.WebJobs.Extensions.Storage" v5
 
-        public PowerBiDataSetProcessor(IPowerBiReportService powerBiReportService, TableServiceClient tableServiceClient)
+        public PowerBiDataSetProcessor(IPowerBiReportService powerBiReportService)
         {
             _powerBiReportService = powerBiReportService;
-            _tableServiceClient = tableServiceClient;
         }
 
 
-        [FunctionName($"{nameof(PowerBiDataSetProcessor)}_{nameof(HttpStart)}")]
-        public static async Task<HttpResponseMessage> HttpStart(
+        [FunctionName(nameof(PowerBiDataSetProcessor_HttpStart))]
+        public static async Task<HttpResponseMessage> PowerBiDataSetProcessor_HttpStart(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestMessage req,
             [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)
@@ -43,8 +40,8 @@ namespace PowerBiAuditApp.Processor
             return starter.CreateCheckStatusResponse(req, instanceId);
         }
 
-        [FunctionName($"{nameof(PowerBiDataSetProcessor)}_{nameof(TimerStart)}")]
-        public static async Task TimerStart(
+        [FunctionName(nameof(PowerBiDataSetProcessor_TimerStart))]
+        public static async Task PowerBiDataSetProcessor_TimerStart(
             [TimerTrigger("0 0 2 * * *")] TimerInfo myTimer,// At 2:00am
             [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)
@@ -59,48 +56,52 @@ namespace PowerBiAuditApp.Processor
         [FunctionName(nameof(PowerBiDataSetProcessor))]
         public async Task RunOrchestrator([OrchestrationTrigger] IDurableOrchestrationContext context)
         {
-            var groups = await context.CallActivityAsync<IList<Group>>($"{nameof(PowerBiDataSetProcessor)}_{nameof(GetAndSyncGroups)}", null);
+            var groups = await context.CallActivityAsync<IList<Group>>(nameof(PowerBiDataSetProcessor_GetAndSyncGroups), null);
 
             var tasks = new List<Task>();
             foreach (var group in groups)
             {
-                tasks.Add(context.CallActivityAsync($"{nameof(PowerBiDataSetProcessor)}_{nameof(SyncReports)}", group));
-                tasks.Add(context.CallActivityAsync($"{nameof(PowerBiDataSetProcessor)}_{nameof(SyncDataSets)}", group));
-                tasks.Add(context.CallActivityAsync($"{nameof(PowerBiDataSetProcessor)}_{nameof(SyncDashboards)}", group));
-                tasks.Add(context.CallActivityAsync($"{nameof(PowerBiDataSetProcessor)}_{nameof(SyncDataFlows)}", group));
+                tasks.Add(context.CallActivityAsync(nameof(PowerBiDataSetProcessor_SyncReports), group));
+                tasks.Add(context.CallActivityAsync(nameof(PowerBiDataSetProcessor_SyncDataSets), group));
+                tasks.Add(context.CallActivityAsync(nameof(PowerBiDataSetProcessor_SyncDashboards), group));
+                tasks.Add(context.CallActivityAsync(nameof(PowerBiDataSetProcessor_SyncDataFlows), group));
             }
             await Task.WhenAll(tasks);
 
 
-            await context.CallActivityAsync($"{nameof(PowerBiDataSetProcessor)}_{nameof(UpdateReportSettings)}", null);
+            await context.CallActivityAsync(nameof(PowerBiDataSetProcessor_UpdateReportSettings), null);
         }
 
 
 
-        [FunctionName($"{nameof(PowerBiDataSetProcessor)}_{nameof(GetAndSyncGroups)}")]
-        public async Task<IList<Group>> GetAndSyncGroups([ActivityTrigger] IDurableActivityContext ctx, ILogger log)
+        [FunctionName(nameof(PowerBiDataSetProcessor_GetAndSyncGroups))]
+        public async Task<IList<Group>> PowerBiDataSetProcessor_GetAndSyncGroups(
+            [ActivityTrigger] IDurableActivityContext ctx,
+            [Table(nameof(PbiGroupTable), Connection = "StorageAccountTableEndpoint")] CloudTable groupTable,
+            ILogger log)
         {
             log.LogInformation("Starting Sync of Groups");
+            await groupTable.CreateIfNotExistsAsync();
+
             var now = DateTimeOffset.UtcNow;
             var groups = await _powerBiReportService.GetGroups();
 
-            var tableClient = await GetTableClient<PbiGroupTable>();
 
-            var tasks = new List<Task<Response>>();
+            var tasks = new List<Task>();
             foreach (var group in groups)
             {
-                tasks.Add(tableClient.UpsertEntityAsync(new PbiGroupTable(group), TableUpdateMode.Replace));
+                tasks.Add(groupTable.UpsertEntityAsync(new PbiGroupTable(group)));
             }
             await Task.WhenAll(tasks);
 
             var reportIds = groups.Select(x => x.Id).ToArray();
-            var query = tableClient.QueryAsync<PbiReportTable>(x => x.Timestamp < now);
+            var rowsToDelete = await groupTable.GetEntitiesOlderThanAsync<PbiGroupTable>(now);
 
-            tasks = new List<Task<Response>>();
-            await foreach (var pbiReportTable in query)
+            tasks = new List<Task>();
+            foreach (var pbiReportTable in rowsToDelete)
             {
                 if (reportIds.Contains(pbiReportTable.Id))
-                    tasks.Add(tableClient.DeleteEntityAsync(pbiReportTable.PartitionKey, pbiReportTable.RowKey));
+                    tasks.Add(groupTable.DeleteEntityAsync(pbiReportTable));
             }
             await Task.WhenAll(tasks);
             log.LogInformation("Finished Sync of Groups");
@@ -108,141 +109,156 @@ namespace PowerBiAuditApp.Processor
         }
 
 
-        [FunctionName($"{nameof(PowerBiDataSetProcessor)}_{nameof(SyncReports)}")]
-        public async Task SyncReports([ActivityTrigger] Group group, ILogger log)
+        [FunctionName(nameof(PowerBiDataSetProcessor_SyncReports))]
+        public async Task PowerBiDataSetProcessor_SyncReports(
+            [ActivityTrigger] Group group,
+            [Table(nameof(PbiReportTable), Connection = "StorageAccountTableEndpoint")] CloudTable reportTable,
+            ILogger log)
         {
             log.LogInformation("Starting Sync of Reports for Groups {groupName}", group.Name);
+            await reportTable.CreateIfNotExistsAsync();
+
             var now = DateTimeOffset.UtcNow;
             var reports = await _powerBiReportService.GetReports(group.Id);
 
-            var tableClient = await GetTableClient<PbiReportTable>();
-
-            var tasks = new List<Task<Response>>();
+            var tasks = new List<Task>();
             foreach (var report in reports)
             {
-                tasks.Add(tableClient.UpsertEntityAsync(new PbiReportTable(report, group.Id), TableUpdateMode.Replace));
+                tasks.Add(reportTable.UpsertEntityAsync(new PbiReportTable(report, group.Id)));
             }
             await Task.WhenAll(tasks);
 
             var reportIds = reports.Select(x => x.Id).ToArray();
-            var query = tableClient.QueryAsync<PbiReportTable>(x => x.PartitionKey == group.Id.ToString() && x.Timestamp < now);
+            var query = await reportTable.GetEntitiesOlderThanAsync<PbiReportTable>(group.Id.ToString(), now);
 
-            tasks = new List<Task<Response>>();
-            await foreach (var pbiGroupTable in query)
+            tasks = new List<Task>();
+            foreach (var pbiGroupTable in query)
             {
                 if (reportIds.Contains(pbiGroupTable.Id))
-                    tasks.Add(tableClient.DeleteEntityAsync(pbiGroupTable.PartitionKey, pbiGroupTable.RowKey));
+                    tasks.Add(reportTable.DeleteEntityAsync(pbiGroupTable));
             }
             await Task.WhenAll(tasks);
             log.LogInformation("Finished Sync of Reports for Groups {groupName}", group.Name);
         }
 
 
-        [FunctionName($"{nameof(PowerBiDataSetProcessor)}_{nameof(SyncDataSets)}")]
-        public async Task SyncDataSets([ActivityTrigger] Group group, ILogger log)
+        [FunctionName(nameof(PowerBiDataSetProcessor_SyncDataSets))]
+        public async Task PowerBiDataSetProcessor_SyncDataSets(
+            [ActivityTrigger] Group group,
+            [Table(nameof(PbiDataSetTable), Connection = "StorageAccountTableEndpoint")] CloudTable dataSetTable,
+            ILogger log)
         {
             log.LogInformation("Starting Sync of Data Sets for Groups {groupName}", group.Name);
+            await dataSetTable.CreateIfNotExistsAsync();
+
             var now = DateTimeOffset.UtcNow;
             var dataSets = await _powerBiReportService.GetDataSets(group.Id);
 
-            var tableClient = await GetTableClient<PbiDataSetTable>();
-
-            var tasks = new List<Task<Response>>();
+            var tasks = new List<Task>();
             foreach (var dataSet in dataSets)
             {
-                tasks.Add(tableClient.UpsertEntityAsync(new PbiDataSetTable(dataSet, group.Id), TableUpdateMode.Replace));
+                tasks.Add(dataSetTable.UpsertEntityAsync(new PbiDataSetTable(dataSet, group.Id)));
             }
             await Task.WhenAll(tasks);
 
             var reportIds = dataSets.Select(x => x.Id).ToArray();
-            var query = tableClient.QueryAsync<PbiDataSetTable>(x => x.PartitionKey == group.Id.ToString() && x.Timestamp < now);
+            var query = await dataSetTable.GetEntitiesOlderThanAsync<PbiDataSetTable>(group.Id.ToString(), now);
 
-            tasks = new List<Task<Response>>();
-            await foreach (var pbiDataSetTable in query)
+            tasks = new List<Task>();
+            foreach (var pbiDataSetTable in query)
             {
                 if (reportIds.Contains(pbiDataSetTable.Id))
-                    tasks.Add(tableClient.DeleteEntityAsync(pbiDataSetTable.PartitionKey, pbiDataSetTable.RowKey));
+                    tasks.Add(dataSetTable.DeleteEntityAsync(pbiDataSetTable));
             }
             await Task.WhenAll(tasks);
             log.LogInformation("Finished Sync of Data Sets for Groups {groupName}", group.Name);
         }
 
-        [FunctionName($"{nameof(PowerBiDataSetProcessor)}_{nameof(SyncDashboards)}")]
-        public async Task SyncDashboards([ActivityTrigger] Group group, ILogger log)
+        [FunctionName(nameof(PowerBiDataSetProcessor_SyncDashboards))]
+        public async Task PowerBiDataSetProcessor_SyncDashboards(
+            [ActivityTrigger] Group group,
+            [Table(nameof(PbiDashboardTable), Connection = "StorageAccountTableEndpoint")] CloudTable dashboardTable,
+            ILogger log)
         {
             log.LogInformation("Starting Sync of Dashboards for Groups {groupName}", group.Name);
+            await dashboardTable.CreateIfNotExistsAsync();
+
             var now = DateTimeOffset.UtcNow;
             var dashboards = await _powerBiReportService.GetDashboards(group.Id);
 
-            var tableClient = await GetTableClient<PbiDashboardTable>();
-
-            var tasks = new List<Task<Response>>();
+            var tasks = new List<Task>();
             foreach (var dashboard in dashboards)
             {
-                tasks.Add(tableClient.UpsertEntityAsync(new PbiDashboardTable(dashboard, group.Id), TableUpdateMode.Replace));
+                tasks.Add(dashboardTable.UpsertEntityAsync(new PbiDashboardTable(dashboard, group.Id)));
             }
             await Task.WhenAll(tasks);
 
             var reportIds = dashboards.Select(x => x.Id).ToArray();
-            var query = tableClient.QueryAsync<PbiDashboardTable>(x => x.PartitionKey == group.Id.ToString() && x.Timestamp < now);
+            var query = await dashboardTable.GetEntitiesOlderThanAsync<PbiDashboardTable>(group.Id.ToString(), now);
 
-            tasks = new List<Task<Response>>();
-            await foreach (var pbiDashboardTable in query)
+            tasks = new List<Task>();
+            foreach (var pbiDashboardTable in query)
             {
                 if (reportIds.Contains(pbiDashboardTable.Id))
-                    tasks.Add(tableClient.DeleteEntityAsync(pbiDashboardTable.PartitionKey, pbiDashboardTable.RowKey));
+                    tasks.Add(dashboardTable.DeleteEntityAsync(pbiDashboardTable));
             }
             await Task.WhenAll(tasks);
 
             log.LogInformation("Finished Sync of Dashboards for Groups {groupName}", group.Name);
         }
 
-        [FunctionName($"{nameof(PowerBiDataSetProcessor)}_{nameof(SyncDataFlows)}")]
-        public async Task SyncDataFlows([ActivityTrigger] Group group, ILogger log)
+        [FunctionName(nameof(PowerBiDataSetProcessor_SyncDataFlows))]
+        public async Task PowerBiDataSetProcessor_SyncDataFlows(
+            [ActivityTrigger] Group group,
+            [Table(nameof(PbiDataFlowTable), Connection = "StorageAccountTableEndpoint")] CloudTable dataFlowTable,
+            ILogger log)
         {
             log.LogInformation("Starting Sync of Data Flows for Groups {groupName}", group.Name);
+            await dataFlowTable.CreateIfNotExistsAsync();
+
             var now = DateTimeOffset.UtcNow;
             var dataFlows = await _powerBiReportService.GetDataFlows(group.Id);
 
-            var tableClient = await GetTableClient<PbiDataFlowTable>();
 
-            var tasks = new List<Task<Response>>();
+
+            var tasks = new List<Task>();
             foreach (var dataFlow in dataFlows)
             {
-                tasks.Add(tableClient.UpsertEntityAsync(new PbiDataFlowTable(dataFlow, group.Id), TableUpdateMode.Replace));
+                tasks.Add(dataFlowTable.UpsertEntityAsync(new PbiDataFlowTable(dataFlow, group.Id)));
             }
             await Task.WhenAll(tasks);
 
             var reportIds = dataFlows.Select(x => x.ObjectId).ToArray();
-            var query = tableClient
-                .QueryAsync<PbiDataFlowTable>(x => x.PartitionKey == group.Id.ToString() && x.Timestamp < now);
+            var query = await dataFlowTable
+                .GetEntitiesOlderThanAsync<PbiDataFlowTable>(group.Id.ToString(), now);
 
-            tasks = new List<Task<Response>>();
-            await foreach (var pbiDataFlowTable in query)
+            tasks = new List<Task>();
+            foreach (var pbiDataFlowTable in query)
             {
                 if (reportIds.Contains(pbiDataFlowTable.ObjectId))
-                    tasks.Add(tableClient.DeleteEntityAsync(pbiDataFlowTable.PartitionKey, pbiDataFlowTable.RowKey));
+                    tasks.Add(dataFlowTable.DeleteEntityAsync(pbiDataFlowTable));
             }
             await Task.WhenAll(tasks);
             log.LogInformation("Finished Sync of Data Flows for Groups {groupName}", group.Name);
         }
 
-        [FunctionName($"{nameof(PowerBiDataSetProcessor)}_{nameof(UpdateReportSettings)}")]
-        public async Task UpdateReportSettings([ActivityTrigger] IDurableActivityContext ctx, ILogger log)
+        [FunctionName(nameof(PowerBiDataSetProcessor_UpdateReportSettings))]
+        public async Task PowerBiDataSetProcessor_UpdateReportSettings(
+            [ActivityTrigger] IDurableActivityContext ctx,
+            [Table(nameof(PbiGroupTable), Connection = "StorageAccountTableEndpoint")] CloudTable groupTable,
+            [Table(nameof(PbiReportTable), Connection = "StorageAccountTableEndpoint")] CloudTable reportTable,
+            [Table(nameof(ReportDetail), Connection = "StorageAccountTableEndpoint")] CloudTable reportDetailTable,
+            ILogger log)
         {
             log.LogInformation("Starting update of Frontend report settings");
 
-            var groupTableClient = await GetTableClient<PbiGroupTable>();
-            var pbiGroups = await groupTableClient.QueryAsync<PbiGroupTable>().ToDictionaryAsync(x => x.Id);
+            var pbiGroups = await groupTable.ToDictionaryAsync<PbiGroupTable, Guid>(x => x.Id);
 
+            var pbiReports = await reportTable.ToListAsync<PbiReportTable>();
 
-            var reportTableClient = await GetTableClient<PbiReportTable>();
-            var pbiReports = await reportTableClient.QueryAsync<PbiReportTable>().ToListAsync();
+            var reportDetails = await reportDetailTable.ToDictionaryAsync<ReportDetail, Guid>(x => x.ReportId);
 
-            var reportDetailsTableClient = await GetTableClient<ReportDetail>();
-            var reportDetails = await reportDetailsTableClient.QueryAsync<ReportDetail>().ToDictionaryAsync(x => x.ReportId);
-
-            var tasks = new List<Task<Response>>();
+            var tasks = new List<Task>();
             foreach (var pbiReport in pbiReports)
             {
                 if (!reportDetails.TryGetValue(pbiReport.Id, out var reportDetail))
@@ -268,7 +284,7 @@ namespace PowerBiAuditApp.Processor
                 reportDetail.Name = pbiReport.Name;
                 reportDetail.Description = pbiReport.Description;
                 reportDetail.ReportType = pbiReport.ReportType;
-                tasks.Add(reportDetailsTableClient.UpsertEntityAsync(reportDetail, TableUpdateMode.Replace));
+                tasks.Add(reportDetailTable.UpsertEntityAsync(reportDetail));
             }
 
             // Delete missing tasks
@@ -276,19 +292,12 @@ namespace PowerBiAuditApp.Processor
             foreach (var (_, reportDetail) in reportDetails.Where(x => reportIds.Contains(x.Key)))
             {
                 reportDetail.Deleted = true;
-                tasks.Add(reportDetailsTableClient.UpdateEntityAsync(reportDetail, ETag.All));
+                tasks.Add(reportDetailTable.UpsertEntityAsync(reportDetail));
             }
 
 
             await Task.WhenAll(tasks);
             log.LogInformation("Finished update of Frontend report settings");
-        }
-
-        private async Task<TableClient> GetTableClient<T>() where T : ITableEntity
-        {
-            var tableClient = _tableServiceClient.GetTableClient(typeof(T).Name);
-            await tableClient.CreateIfNotExistsAsync();
-            return tableClient;
         }
     }
 }

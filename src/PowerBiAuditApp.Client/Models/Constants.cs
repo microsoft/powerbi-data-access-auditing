@@ -1,6 +1,7 @@
-﻿namespace PowerBiAuditApp.Client.Models;
-
-public static class Constants
+﻿namespace PowerBiAuditApp.Client.Models
 {
-    public const string PowerBiTokenPurpose = "power-bi-token";
+    public static class Constants
+    {
+        public const string PowerBiTokenPurpose = "power-bi-token";
+    }
 }

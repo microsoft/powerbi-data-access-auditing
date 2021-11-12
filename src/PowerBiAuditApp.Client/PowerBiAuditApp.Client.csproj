@@ -1,32 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup Label="Configuration">
-    <TypeScriptTarget>ESNext</TypeScriptTarget>
-  </PropertyGroup>
+	<PropertyGroup Label="Configuration">
+		<TypeScriptTarget>ES2019</TypeScriptTarget>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-PowerBiAuditApp-C05CDABB-AADA-4EFC-AC8C-60A3A21CF2EE</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<UserSecretsId>aspnet-PowerBiAuditApp-C05CDABB-AADA-4EFC-AC8C-60A3A21CF2EE</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
-    <PackageReference Include="Azure.Storage.Queues" Version="12.8.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.18.0" />
-    <PackageReference Include="Microsoft.Extensions.Azure" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="1.18.0" />
-    <PackageReference Include="Microsoft.PowerBI.Api" Version="3.30.1" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Azure.Data.Tables" Version="12.3.0" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
+		<PackageReference Include="Azure.Storage.Queues" Version="12.8.0" />
+		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.18.0" />
+		<PackageReference Include="Microsoft.Extensions.Azure" Version="1.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Identity.Web" Version="1.18.0" />
+		<PackageReference Include="Microsoft.PowerBI.Api" Version="3.30.1" />
+		<PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Extensions\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PowerBiAuditApp.Services\PowerBiAuditApp.Services.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PowerBiAuditApp.Services\PowerBiAuditApp.Services.csproj" />
+	</ItemGroup>
 
 </Project>

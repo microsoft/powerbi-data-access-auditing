@@ -1,16 +1,21 @@
-﻿using Microsoft.PowerBI.Api.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.PowerBI.Api.Models;
 
-namespace PowerBiAuditApp.Services;
-
-public interface IPowerBiReportService
+namespace PowerBiAuditApp.Services
 {
-    Task<IList<Group>> GetGroups();
 
-    Task<IList<Report>> GetReports(Guid groupId);
+    public interface IPowerBiReportService
+    {
+        Task<IList<Group>> GetGroups();
 
-    Task<IList<Dataset>> GetDataSets(Guid groupId);
-    Task<IList<Dashboard>> GetDashboards(Guid groupId);
-    Task<IList<Dataflow>> GetDataFlows(Guid groupId);
-    Task<ActivityEventResponse> GetActivityEvents(DateTimeOffset start, DateTimeOffset end);
-    Task<ActivityEventResponse?> GetActivityEvents(ActivityEventResponse? activityEventResponse);
+        Task<IList<Report>> GetReports(Guid groupId);
+
+        Task<IList<Dataset>> GetDataSets(Guid groupId);
+        Task<IList<Dashboard>> GetDashboards(Guid groupId);
+        Task<IList<Dataflow>> GetDataFlows(Guid groupId);
+        Task<ActivityEventResponse> GetActivityEvents(DateTimeOffset start, DateTimeOffset end);
+        Task<ActivityEventResponse> GetActivityEvents(ActivityEventResponse activityEventResponse);
+    }
 }

@@ -1,10 +1,11 @@
-﻿namespace PowerBiAuditApp.Services;
-
-public interface IPowerBiTokenProvider
+﻿namespace PowerBiAuditApp.Services
 {
-    /// <summary>
-    /// Generates and returns Access token
-    /// </summary>
-    /// <returns>AAD token</returns>
-    string? GetAccessToken();
+    public interface IPowerBiTokenProvider
+    {
+        /// <summary>
+        /// Generates and returns Access token
+        /// </summary>
+        /// <returns>AAD token</returns>
+        string GetAccessToken();
+    }
 }
