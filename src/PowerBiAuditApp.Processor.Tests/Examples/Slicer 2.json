@@ -1,0 +1,319 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T03:04:48.3980149+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "b",
+                      "Entity": "BU",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d",
+                      "Entity": "Date",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "VP"
+                      },
+                      "Name": "BU.VP"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Year"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "2014D"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Window": {
+                      }
+                    }
+                  },
+                  "IncludeEmptyGroups": true,
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "6583d919-e183-4b84-9fae-3915108a7640",
+          "Sources": [
+            {
+              "ReportId": "49237d9d-8a9a-4c74-bd33-1337a0c9152f",
+              "VisualId": "VisualContainer1"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 573297,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "dde538b1-a627-42f2-b04d-c1e5fa7a9a42"
+    ],
+    "results": [
+      {
+        "jobId": "dde538b1-a627-42f2-b04d-c1e5fa7a9a42",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "BU",
+                        "Property": "VP"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "BU.VP"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "BU",
+                            "Property": "VP"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1
+                            }
+                          ],
+                          "G0": "Aliza Fekete"
+                        },
+                        {
+                          "G0": "Anabell Hynes"
+                        },
+                        {
+                          "G0": "Andrew Thompson"
+                        },
+                        {
+                          "G0": "Angelita Bowley"
+                        },
+                        {
+                          "G0": "April Legolis"
+                        },
+                        {
+                          "G0": "Beverly Blair"
+                        },
+                        {
+                          "G0": "Brad Eagles"
+                        },
+                        {
+                          "G0": "Brett Jones"
+                        },
+                        {
+                          "G0": "Dan Brown"
+                        },
+                        {
+                          "G0": "Dianna Mason"
+                        },
+                        {
+                          "G0": "Glennie Butters"
+                        },
+                        {
+                          "G0": "Jean Shagall"
+                        },
+                        {
+                          "G0": "Jerri Ebron"
+                        },
+                        {
+                          "G0": "Jim Oyama"
+                        },
+                        {
+                          "G0": "June Foster"
+                        },
+                        {
+                          "G0": "Li Pennywell"
+                        },
+                        {
+                          "G0": "Li Xi"
+                        },
+                        {
+                          "G0": "Lin Batista"
+                        },
+                        {
+                          "G0": "Maurine Krieger"
+                        },
+                        {
+                          "G0": "Miguel Shuck"
+                        },
+                        {
+                          "G0": "Mikki Rein"
+                        },
+                        {
+                          "G0": "Patty Gallop"
+                        },
+                        {
+                          "G0": "Raquel Kaup"
+                        },
+                        {
+                          "G0": "Reena Hentz"
+                        },
+                        {
+                          "G0": "Rosalina Reach"
+                        },
+                        {
+                          "G0": "Ruthann Lee"
+                        },
+                        {
+                          "G0": "Scott Salman"
+                        },
+                        {
+                          "G0": "Sherley Rhymes"
+                        },
+                        {
+                          "G0": "Tom Benson"
+                        },
+                        {
+                          "G0": "Trudy Fitch"
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "34fdf76c-1d2b-4046-b480-0c0b2a6d2836",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:48.2979062Z",
+                  "End": "2021-11-15T03:04:48.3447796Z"
+                },
+                {
+                  "Id": "ba9a8381-5fa7-4c87-8c6c-e47551809599",
+                  "ParentId": "34fdf76c-1d2b-4046-b480-0c0b2a6d2836",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:48.2979062Z",
+                  "End": "2021-11-15T03:04:48.3291577Z"
+                },
+                {
+                  "Id": "87337b16-01c6-4038-9f70-207856aee9e4",
+                  "ParentId": "34fdf76c-1d2b-4046-b480-0c0b2a6d2836",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:48.3291577Z",
+                  "End": "2021-11-15T03:04:48.3291577Z",
+                  "Metrics": {
+                    "RowCount": 30
+                  }
+                },
+                {
+                  "Id": "3D22584E-F963-4001-9FD7-CFBE2BF337B9",
+                  "ParentId": "87337b16-01c6-4038-9f70-207856aee9e4",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:04:48.34Z",
+                  "End": "2021-11-15T03:04:48.34Z"
+                },
+                {
+                  "Id": "083BCFB2-5FB6-4004-968D-B38F3E650A59",
+                  "ParentId": "3D22584E-F963-4001-9FD7-CFBE2BF337B9",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:04:48.34Z",
+                  "End": "2021-11-15T03:04:48.34Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

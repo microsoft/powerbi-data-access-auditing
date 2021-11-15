@@ -1,0 +1,1185 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-12T09:02:14.4137137+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "c",
+                      "Entity": "Countries",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "o",
+                      "Entity": "OWID COVID data",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s",
+                      "Entity": "States",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d",
+                      "Entity": "Dates",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "c"
+                          }
+                        },
+                        "Property": "Country"
+                      },
+                      "Name": "Countries.COUNTRY"
+                    },
+                    {
+                      "Aggregation": {
+                        "Expression": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "c"
+                              }
+                            },
+                            "Property": "Population"
+                          }
+                        },
+                        "Function": 0
+                      },
+                      "Name": "Sum(Countries.Population)"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "o"
+                          }
+                        },
+                        "Property": "% of Population Vaccinated"
+                      },
+                      "Name": "owid-covid-data.Measure"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "In": {
+                              "Expressions": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "c"
+                                      }
+                                    },
+                                    "Property": "Country"
+                                  }
+                                }
+                              ],
+                              "Values": [
+                                [
+                                  {
+                                    "Literal": {
+                                      "Value": "null"
+                                    }
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 1,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "c"
+                                }
+                              },
+                              "Property": "Population"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "1000000L"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "s"
+                                  }
+                                },
+                                "Property": "State (groups)"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'Main states'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "In": {
+                              "Expressions": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "c"
+                                      }
+                                    },
+                                    "Property": "Country"
+                                  }
+                                }
+                              ],
+                              "Values": [
+                                [
+                                  {
+                                    "Literal": {
+                                      "Value": "null"
+                                    }
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 4,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Date"
+                            }
+                          },
+                          "Right": {
+                            "DateSpan": {
+                              "Expression": {
+                                "Literal": {
+                                  "Value": "datetime'2021-04-12T00:00:00'"
+                                }
+                              },
+                              "TimeUnit": 5
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 2,
+                      "Expression": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "o"
+                            }
+                          },
+                          "Property": "% of Population Vaccinated"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 1000
+                      }
+                    }
+                  },
+                  "SuppressedJoinPredicates": [
+                    1
+                  ],
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Countries\",\"Type\":0},{\"Name\":\"o\",\"Entity\":\"OWID COVID data\",\"Type\":0},{\"Name\":\"s\",\"Entity\":\"States\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Dates\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country\"},\"Name\":\"Countries.COUNTRY\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Population\"}},\"Function\":0},\"Name\":\"Sum(Countries.Population)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"o\"}},\"Property\":\"% of Population Vaccinated\"},\"Name\":\"owid-covid-data.Measure\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}},{\"Condition\":{\"Comparison\":{\"ComparisonKind\":1,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Population\"}},\"Right\":{\"Literal\":{\"Value\":\"1000000L\"}}}}},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"State (groups)\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Main states'\"}}]]}}},{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}},{\"Condition\":{\"Comparison\":{\"ComparisonKind\":4,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Date\"}},\"Right\":{\"DateSpan\":{\"Expression\":{\"Literal\":{\"Value\":\"datetime'2021-04-12T00:00:00'\"}},\"TimeUnit\":5}}}}}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"o\"}},\"Property\":\"% of Population Vaccinated\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":1000}}},\"SuppressedJoinPredicates\":[1],\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "387d52a5-4a92-4fd3-b0ca-36e3af877093",
+          "Sources": [
+            {
+              "ReportId": "cc400a31-a746-48cf-86c9-047cfc011e96",
+              "VisualId": "519ef34108ec0583040c"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 573281,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "5d667232-eee2-4dac-8774-a477330b1a1f"
+    ],
+    "results": [
+      {
+        "jobId": "5d667232-eee2-4dac-8774-a477330b1a1f",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Countries",
+                        "Property": "Country"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Countries.COUNTRY"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "#,0",
+                  "Name": "Sum(Countries.Population)"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "0.0%;-0.0%;0.0%",
+                  "Name": "owid-covid-data.Measure"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Countries",
+                            "Property": "Country"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1
+                            },
+                            {
+                              "N": "M0",
+                              "T": 4
+                            },
+                            {
+                              "N": "M1",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            "Israel",
+                            8519377,
+                            0.6157
+                          ]
+                        },
+                        {
+                          "C": [
+                            "United Kingdom",
+                            67530172,
+                            0.4742
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Chile",
+                            18952038,
+                            0.3856
+                          ]
+                        },
+                        {
+                          "C": [
+                            "United States",
+                            329064917,
+                            0.3613
+                          ]
+                        },
+                        {
+                          "C": [
+                            "United Arab Emirates",
+                            9770529,
+                            0.3519
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Bahrain",
+                            1641172,
+                            0.3343
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Hungary",
+                            9684679,
+                            0.3074
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Serbia",
+                            8772235,
+                            0.2523
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Uruguay",
+                            3461734,
+                            "0.25120000000000003"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Finland",
+                            5532156,
+                            0.2047
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Canada",
+                            37411047,
+                            0.1991
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Estonia",
+                            1325648,
+                            0.1953
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Singapore",
+                            5804337,
+                            0.1934
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Lithuania",
+                            2759627,
+                            "0.18100000000000002"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Austria",
+                            8955102,
+                            "0.16879999999999998"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Spain",
+                            46736776,
+                            0.1642
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Belgium",
+                            11539328,
+                            0.1624
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Germany",
+                            83517045,
+                            "0.16190000000000002"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Slovenia",
+                            2078654,
+                            0.161
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Norway",
+                            5378857,
+                            0.1603
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Slovakia",
+                            5457013,
+                            0.1595
+                          ]
+                        },
+                        {
+                          "C": [
+                            "France",
+                            65129728,
+                            "0.15869999999999998"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Portugal",
+                            10226187,
+                            "0.15439999999999998"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Italy",
+                            60550075,
+                            "0.15380000000000002"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Denmark",
+                            5771876,
+                            0.1525
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Ireland",
+                            4882495,
+                            0.1518
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Poland",
+                            37887768,
+                            "0.14980000000000002"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Cyprus",
+                            1198575,
+                            0.1495
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Greece",
+                            10473455,
+                            0.142
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Sweden",
+                            10036379,
+                            0.1343
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Turkey",
+                            83429615,
+                            0.1317
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Czech Republic",
+                            10689209,
+                            0.1313
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Morocco",
+                            36471769,
+                            0.1216
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Switzerland",
+                            8591365,
+                            0.1211
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Romania",
+                            19364557,
+                            0.1209
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Netherlands",
+                            17097130,
+                            0.1201
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Croatia",
+                            4130304,
+                            "0.11789999999999999"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Kuwait",
+                            4207083,
+                            "0.11710000000000001"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Argentina",
+                            44780677,
+                            "0.10310000000000001"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Brazil",
+                            211049527,
+                            0.0992
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Dominican Republic",
+                            10738958,
+                            0.0922
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Latvia",
+                            1906743,
+                            0.0815
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Azerbaijan",
+                            10047718,
+                            0.0748
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Mexico",
+                            127575529,
+                            0.0735
+                          ]
+                        },
+                        {
+                          "C": [
+                            "India",
+                            1366417754,
+                            0.0689
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Bulgaria",
+                            7000119,
+                            0.067
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Cambodia",
+                            16486542,
+                            0.0658
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Russia",
+                            145872256,
+                            0.0604
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Panama",
+                            4246439,
+                            0.0583
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Colombia",
+                            50339443,
+                            "0.043899999999999995"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Jordan",
+                            10101694,
+                            0.0397
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Indonesia",
+                            270625568,
+                            "0.037599999999999995"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Qatar",
+                            2832067,
+                            0.0347
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Bangladesh",
+                            163046161,
+                            "0.034300000000000004"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Oman",
+                            4974986,
+                            0.0331
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Rwanda",
+                            12626950,
+                            0.0269
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Lebanon",
+                            6855713,
+                            "0.026099999999999998"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Palestine",
+                            4981420,
+                            0.0258
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Bolivia",
+                            11513100,
+                            0.0248
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Ghana",
+                            30417856,
+                            0.0226
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Senegal",
+                            16296364,
+                            0.021
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Peru",
+                            32510453,
+                            0.0197
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Myanmar",
+                            54045420,
+                            0.0184
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Kazakhstan",
+                            18551427,
+                            "0.018000000000000002"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Malaysia",
+                            31949777
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            "Moldova",
+                            4043263,
+                            0.0166
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Jamaica",
+                            2948279,
+                            0.0161
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Ecuador",
+                            17373662,
+                            0.0155
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Zimbabwe",
+                            14645468,
+                            0.0138
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Botswana",
+                            2303697,
+                            0.0134
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Tunisia",
+                            11694719,
+                            0.0131
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Malawi",
+                            18628747,
+                            0.0111
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Togo",
+                            8082366,
+                            0.01
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Belarus",
+                            9452411,
+                            0.0097
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Philippines",
+                            108116615,
+                            0.0096
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Ukraine",
+                            43993638,
+                            0.0089
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Venezuela",
+                            28515829,
+                            0.0088
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Japan",
+                            126860301,
+                            0.0087
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Kenya",
+                            52573973,
+                            "0.0078000000000000005"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Guatemala",
+                            17581472,
+                            0.0077
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Angola",
+                            31825295,
+                            0.0075
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Thailand",
+                            69625582,
+                            "0.0070999999999999995"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Gambia",
+                            2347706,
+                            0.0069
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Paraguay",
+                            7044636,
+                            0.0064
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Australia",
+                            25203198,
+                            0.0062
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Honduras",
+                            9746117,
+                            "0.0056000000000000008"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Laos",
+                            7169455
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            "Georgia",
+                            3996765,
+                            0.0052
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Pakistan",
+                            216565318,
+                            0.005
+                          ]
+                        },
+                        {
+                          "C": [
+                            "South Africa",
+                            58558270,
+                            0.0049
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Nigeria",
+                            200963599,
+                            "0.0046999999999999993"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Uzbekistan",
+                            32981716,
+                            0.0044
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Uganda",
+                            44269594,
+                            0.004
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Iraq",
+                            39309783,
+                            0.0038
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Trinidad and Tobago",
+                            1394973,
+                            "0.0034000000000000002"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Afghanistan",
+                            38041754,
+                            0.0031
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Mauritius",
+                            1269668,
+                            0.003
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Albania",
+                            2880917,
+                            0.0021
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Gabon",
+                            2172579,
+                            0.0018
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Mozambique",
+                            30366036
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            "Egypt",
+                            100388073,
+                            0.0015
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Iran",
+                            82913906
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            "Sudan",
+                            42813238
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            "Namibia",
+                            2494530,
+                            0.001
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Mauritania",
+                            4525696,
+                            0.0006
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Vietnam",
+                            96462106
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            "Kyrgyzstan",
+                            6415850,
+                            0.0003
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Armenia",
+                            2957731,
+                            0.0002
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Syria",
+                            17070135,
+                            0.0001
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Mali",
+                            19658031,
+                            0
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "03436106-9811-4e9c-9100-508e2ca55c46",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-12T09:02:14.4363064Z",
+                  "End": "2021-11-12T09:02:14.4363064Z"
+                },
+                {
+                  "Id": "ca1a878f-5870-4351-8447-519442d7bba9",
+                  "ParentId": "03436106-9811-4e9c-9100-508e2ca55c46",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-12T09:02:14.4363064Z",
+                  "End": "2021-11-12T09:02:14.4363064Z",
+                  "Metrics": {
+                    "RowCount": 110
+                  }
+                },
+                {
+                  "Id": "66DF5C6E-9BD9-4450-B733-116FD9202AA4",
+                  "ParentId": "ca1a878f-5870-4351-8447-519442d7bba9",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-12T09:02:14.44Z",
+                  "End": "2021-11-12T09:02:14.447Z"
+                },
+                {
+                  "Id": "D4B3C5C5-3E80-4FF4-BE65-047B1B6188A4",
+                  "ParentId": "66DF5C6E-9BD9-4450-B733-116FD9202AA4",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-12T09:02:14.447Z",
+                  "End": "2021-11-12T09:02:14.447Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

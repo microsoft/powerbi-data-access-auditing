@@ -1,0 +1,346 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-12T09:02:58.2818974+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "c",
+                      "Entity": "Countries",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d",
+                      "Entity": "Days with restrictions grouped",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s",
+                      "Entity": "States",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d1",
+                      "Entity": "Dates",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "c" } },
+                        "Property": "Continent"
+                      },
+                      "Name": "Countries.Custom"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "Cancelling public events"
+                      },
+                      "Name": "Days with restrictions grouped.Cancelling public events"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "Face coverings required"
+                      },
+                      "Name": "Days with restrictions grouped.Face coverings required"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "International travel controls"
+                      },
+                      "Name": "Days with restrictions grouped.International travel controls"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "Public transport closures"
+                      },
+                      "Name": "Days with restrictions grouped.Public transport closures"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "Stay at home requirements"
+                      },
+                      "Name": "Days with restrictions grouped.Stay at home requirements"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "Workplace closures"
+                      },
+                      "Name": "Days with restrictions grouped.Workplace closures"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": { "SourceRef": { "Source": "c" } },
+                        "Property": "GDP % chg 2020"
+                      },
+                      "Name": "Countries.GDP % chg 2020"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "Domestic travel restrictions"
+                      },
+                      "Name": "Days with restrictions grouped.Domestic travel restrictions"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "Restrictions on gathering"
+                      },
+                      "Name": "Days with restrictions grouped.Restrictions on gathering"
+                    },
+                    {
+                      "Column": {
+                        "Expression": { "SourceRef": { "Source": "d" } },
+                        "Property": "School closures"
+                      },
+                      "Name": "Days with restrictions grouped.School closures"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "In": {
+                              "Expressions": [
+                                {
+                                  "Column": {
+                                    "Expression": { "SourceRef": { "Source": "c" } },
+                                    "Property": "REGION"
+                                  }
+                                }
+                              ],
+                              "Values": [ [ { "Literal": { "Value": "null" } } ] ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": { "SourceRef": { "Source": "s" } },
+                                "Property": "State (groups)"
+                              }
+                            }
+                          ],
+                          "Values": [ [ { "Literal": { "Value": "'Main states'" } } ] ]
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "In": {
+                              "Expressions": [
+                                {
+                                  "Column": {
+                                    "Expression": { "SourceRef": { "Source": "c" } },
+                                    "Property": "Country"
+                                  }
+                                }
+                              ],
+                              "Values": [ [ { "Literal": { "Value": "null" } } ] ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 4,
+                          "Left": {
+                            "Column": {
+                              "Expression": { "SourceRef": { "Source": "d1" } },
+                              "Property": "Date"
+                            }
+                          },
+                          "Right": {
+                            "DateSpan": {
+                              "Expression": { "Literal": { "Value": "datetime'2021-04-12T00:00:00'" } },
+                              "TimeUnit": 5
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 2,
+                      "Expression": {
+                        "Measure": {
+                          "Expression": { "SourceRef": { "Source": "c" } },
+                          "Property": "GDP % chg 2020"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": { "Groupings": [ { "Projections": [ 7 ] } ] },
+                  "Aggregates": [
+                    {
+                      "Select": 7,
+                      "Aggregations": [
+                        {
+                          "Scope": { "PrimaryDepth": 1 },
+                          "RespectInstanceFilters": true,
+                          "Min": {}
+                        },
+                        {
+                          "Scope": { "PrimaryDepth": 1 },
+                          "RespectInstanceFilters": true,
+                          "Max": {}
+                        }
+                      ]
+                    }
+                  ],
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Countries\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Days with restrictions grouped\",\"Type\":0},{\"Name\":\"s\",\"Entity\":\"States\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"Dates\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Continent\"},\"Name\":\"Countries.Custom\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Cancelling public events\"},\"Name\":\"Days with restrictions grouped.Cancelling public events\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Face coverings required\"},\"Name\":\"Days with restrictions grouped.Face coverings required\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"International travel controls\"},\"Name\":\"Days with restrictions grouped.International travel controls\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Public transport closures\"},\"Name\":\"Days with restrictions grouped.Public transport closures\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Stay at home requirements\"},\"Name\":\"Days with restrictions grouped.Stay at home requirements\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Workplace closures\"},\"Name\":\"Days with restrictions grouped.Workplace closures\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"GDP % chg 2020\"},\"Name\":\"Countries.GDP % chg 2020\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Domestic travel restrictions\"},\"Name\":\"Days with restrictions grouped.Domestic travel restrictions\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Restrictions on gathering\"},\"Name\":\"Days with restrictions grouped.Restrictions on gathering\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"School closures\"},\"Name\":\"Days with restrictions grouped.School closures\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"REGION\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"State (groups)\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Main states'\"}}]]}}},{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}},{\"Condition\":{\"Comparison\":{\"ComparisonKind\":4,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Date\"}},\"Right\":{\"DateSpan\":{\"Expression\":{\"Literal\":{\"Value\":\"datetime'2021-04-12T00:00:00'\"}},\"TimeUnit\":5}}}}}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"GDP % chg 2020\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[7]}]},\"Aggregates\":[{\"Select\":7,\"Aggregations\":[{\"Scope\":{\"PrimaryDepth\":1},\"RespectInstanceFilters\":true,\"Min\":{}},{\"Scope\":{\"PrimaryDepth\":1},\"RespectInstanceFilters\":true,\"Max\":{}}]}],\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "387d52a5-4a92-4fd3-b0ca-36e3af877093",
+          "Sources": [
+            {
+              "ReportId": "cc400a31-a746-48cf-86c9-047cfc011e96",
+              "VisualId": "6a7d746ecee71d10922e"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [],
+    "modelId": 573281,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [ "c8b943b2-0e2c-4ee9-8107-3c176c156a81" ],
+    "results": [
+      {
+        "jobId": "c8b943b2-0e2c-4ee9-8107-3c176c156a81",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Name": "Countries.GDP % chg 2020"
+                },
+                null,
+                null,
+                null
+              ],
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "M0",
+                              "T": 3
+                            }
+                          ],
+                          "M0": "-5.0379521276595742"
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "Msg": [
+                    {
+                      "Code": "IgnoredOrderBy",
+                      "Severity": "Warning",
+                      "Message": "The order by Sandbox.Countries/GDP___chg_2020 is ignored. An order by needs to be a projected column or a measure and groups need to be present in the query."
+                    }
+                  ]
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "9487b8bc-1b20-470a-8738-4904f09ae602",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-12T09:02:58.3482779Z",
+                  "End": "2021-11-12T09:02:58.3639097Z"
+                },
+                {
+                  "Id": "148a56ef-c523-493e-9bb7-b965b33235b6",
+                  "ParentId": "9487b8bc-1b20-470a-8738-4904f09ae602",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-12T09:02:58.3482779Z",
+                  "End": "2021-11-12T09:02:58.3482779Z",
+                  "Metrics": { "RowCount": 1 }
+                },
+                {
+                  "Id": "5CE8FE36-539E-4F95-A2E9-EF317693C01B",
+                  "ParentId": "148a56ef-c523-493e-9bb7-b965b33235b6",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-12T09:02:58.36Z",
+                  "End": "2021-11-12T09:02:58.36Z"
+                },
+                {
+                  "Id": "714E7AF5-BAFE-4964-9167-017816DEF4ED",
+                  "ParentId": "5CE8FE36-539E-4F95-A2E9-EF317693C01B",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-12T09:02:58.36Z",
+                  "End": "2021-11-12T09:02:58.36Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

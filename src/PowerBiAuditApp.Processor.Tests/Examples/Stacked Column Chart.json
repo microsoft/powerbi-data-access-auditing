@@ -1,0 +1,613 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T03:04:58.6712184+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "b",
+                      "Entity": "BU",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "e",
+                      "Entity": "Ethnicity",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "e1",
+                      "Entity": "Employee",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d",
+                      "Entity": "Date",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "Region"
+                      },
+                      "Name": "select"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "VP"
+                      },
+                      "Name": "select1"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "e"
+                          }
+                        },
+                        "Property": "Ethnicity"
+                      },
+                      "Name": "select2"
+                    },
+                    {
+                      "Aggregation": {
+                        "Expression": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "e1"
+                              }
+                            },
+                            "Property": "BadHires"
+                          }
+                        },
+                        "Function": 0
+                      },
+                      "Name": "select3"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Year"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "2014L"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Month"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "'Dec'"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "b"
+                            }
+                          },
+                          "Property": "Region"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          3
+                        ]
+                      }
+                    ]
+                  },
+                  "Secondary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 200
+                      }
+                    },
+                    "Secondary": {
+                      "Top": {
+                        "Count": 60
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"b\",\"Entity\":\"BU\",\"Type\":0},{\"Name\":\"e\",\"Entity\":\"Ethnicity\",\"Type\":0},{\"Name\":\"e1\",\"Entity\":\"Employee\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Region\"},\"Name\":\"select\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"VP\"},\"Name\":\"select1\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Ethnicity\"},\"Name\":\"select2\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e1\"}},\"Property\":\"BadHires\"}},\"Function\":0},\"Name\":\"select3\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}},\"Right\":{\"Literal\":{\"Value\":\"2014L\"}}}}},{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"}},\"Right\":{\"Literal\":{\"Value\":\"'Dec'\"}}}}}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Region\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,3]}]},\"Secondary\":{\"Groupings\":[{\"Projections\":[2]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":200}},\"Secondary\":{\"Top\":{\"Count\":60}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "6583d919-e183-4b84-9fae-3915108a7640",
+          "Sources": [
+            {
+              "ReportId": "49237d9d-8a9a-4c74-bd33-1337a0c9152f",
+              "VisualId": "VisualContainer3"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 573297,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "ab7d0faa-a471-4e53-a7c1-7a3f6b51e772"
+    ],
+    "results": [
+      {
+        "jobId": "ab7d0faa-a471-4e53-a7c1-7a3f6b51e772",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "BU",
+                        "Property": "Region"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select"
+                },
+                null,
+                {
+                  "Kind": 1,
+                  "SecondaryDepth": 0,
+                  "Value": "G1",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Ethnicity",
+                        "Property": "Ethnicity"
+                      },
+                      "Calc": "G1",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select2"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Name": "select3"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "BU",
+                            "Property": "Region"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                },
+                "Secondary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Ethnicity",
+                            "Property": "Ethnicity"
+                          },
+                          "Select": 2
+                        }
+                      ],
+                      "Member": "DM1"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Secondary": {
+                  "Id": "L0",
+                  "Top": {
+                    "Count": 60
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "SH": [
+                    {
+                      "DM1": [
+                        {
+                          "S": [
+                            {
+                              "N": "G1",
+                              "T": 1
+                            }
+                          ],
+                          "G1": "Group A"
+                        },
+                        {
+                          "G1": "Group B"
+                        },
+                        {
+                          "G1": "Group C"
+                        },
+                        {
+                          "G1": "Group D"
+                        },
+                        {
+                          "G1": "Group E"
+                        },
+                        {
+                          "G1": "Group F"
+                        },
+                        {
+                          "G1": "Group G"
+                        }
+                      ]
+                    }
+                  ],
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            }
+                          ],
+                          "G0": 0,
+                          "X": [
+                            {
+                              "S": [
+                                {
+                                  "N": "M0",
+                                  "T": 3
+                                }
+                              ],
+                              "M0": 632
+                            },
+                            {
+                              "M0": 140
+                            },
+                            {
+                              "M0": 50
+                            },
+                            {
+                              "M0": 9
+                            },
+                            {
+                              "M0": 7
+                            },
+                            {
+                              "M0": 46
+                            },
+                            {
+                              "M0": 0
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 1,
+                          "X": [
+                            {
+                              "M0": 564
+                            },
+                            {
+                              "M0": 134
+                            },
+                            {
+                              "M0": 33
+                            },
+                            {
+                              "M0": 9
+                            },
+                            {
+                              "M0": 11
+                            },
+                            {
+                              "M0": 21
+                            },
+                            {
+                              "M0": 0
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 2,
+                          "X": [
+                            {
+                              "M0": 716
+                            },
+                            {
+                              "M0": 240
+                            },
+                            {
+                              "M0": 20
+                            },
+                            {
+                              "M0": 18
+                            },
+                            {
+                              "M0": 4
+                            },
+                            {
+                              "M0": 56
+                            },
+                            {
+                              "M0": 0
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 3,
+                          "X": [
+                            {
+                              "M0": 270
+                            },
+                            {
+                              "M0": 150
+                            },
+                            {
+                              "M0": 21
+                            },
+                            {
+                              "M0": 3
+                            },
+                            {
+                              "M0": 4
+                            },
+                            {
+                              "M0": 16
+                            },
+                            {
+                              "M0": 1
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 4,
+                          "X": [
+                            {
+                              "M0": 620
+                            },
+                            {
+                              "M0": 218
+                            },
+                            {
+                              "M0": 36
+                            },
+                            {
+                              "M0": 8
+                            },
+                            {
+                              "M0": 5
+                            },
+                            {
+                              "M0": 26
+                            },
+                            {
+                              "M0": 4
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 5,
+                          "X": [
+                            {
+                              "M0": 506
+                            },
+                            {
+                              "M0": 483
+                            },
+                            {
+                              "M0": 43
+                            },
+                            {
+                              "M0": 22
+                            },
+                            {
+                              "M0": 7
+                            },
+                            {
+                              "M0": 47
+                            },
+                            {
+                              "M0": 1
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 6,
+                          "X": [
+                            {
+                              "M0": 225
+                            },
+                            {
+                              "M0": 135
+                            },
+                            {
+                              "M0": 48
+                            },
+                            {
+                              "M0": 10
+                            },
+                            {
+                              "M0": 2
+                            },
+                            {
+                              "M0": 30
+                            },
+                            {
+                              "M0": 5
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": {
+                    "D0": [
+                      "North",
+                      "Midwest",
+                      "Northwest",
+                      "East",
+                      "Central",
+                      "South",
+                      "West"
+                    ]
+                  }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "72d5f3f7-b82b-491f-bb00-1aef50bcba20",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:58.5004177Z",
+                  "End": "2021-11-15T03:04:58.5472908Z"
+                },
+                {
+                  "Id": "2191f8d9-f451-45b7-9a86-1572a1ae1395",
+                  "ParentId": "72d5f3f7-b82b-491f-bb00-1aef50bcba20",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:58.5004177Z",
+                  "End": "2021-11-15T03:04:58.5472908Z"
+                },
+                {
+                  "Id": "5170c4bc-e533-461e-8eb2-536d3d5860c8",
+                  "ParentId": "72d5f3f7-b82b-491f-bb00-1aef50bcba20",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:58.5472908Z",
+                  "End": "2021-11-15T03:04:58.5472908Z",
+                  "Metrics": {
+                    "RowCount": 56
+                  }
+                },
+                {
+                  "Id": "A12F3484-02B1-46C9-9D3E-AF7FD9E942CF",
+                  "ParentId": "5170c4bc-e533-461e-8eb2-536d3d5860c8",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:04:58.55Z",
+                  "End": "2021-11-15T03:04:58.553Z"
+                },
+                {
+                  "Id": "1BAE6F80-9770-40E6-B1BB-63493408B91C",
+                  "ParentId": "A12F3484-02B1-46C9-9D3E-AF7FD9E942CF",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:04:58.553Z",
+                  "End": "2021-11-15T03:04:58.553Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

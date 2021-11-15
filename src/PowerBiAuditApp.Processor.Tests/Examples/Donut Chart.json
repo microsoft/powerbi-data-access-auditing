@@ -1,0 +1,313 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T03:04:32.596619+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "g",
+                      "Entity": "Gender",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "e",
+                      "Entity": "Employee",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d",
+                      "Entity": "Date",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "g"
+                          }
+                        },
+                        "Property": "Gender"
+                      },
+                      "Name": "Gender.Gender"
+                    },
+                    {
+                      "Aggregation": {
+                        "Expression": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "e"
+                              }
+                            },
+                            "Property": "BadHires"
+                          }
+                        },
+                        "Function": 0
+                      },
+                      "Name": "Sum(Employee.BadHires)"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Year"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "2014L"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Month"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "'Dec'"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Top": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"g\",\"Entity\":\"Gender\",\"Type\":0},{\"Name\":\"e\",\"Entity\":\"Employee\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"g\"}},\"Property\":\"Gender\"},\"Name\":\"Gender.Gender\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"BadHires\"}},\"Function\":0},\"Name\":\"Sum(Employee.BadHires)\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}},\"Right\":{\"Literal\":{\"Value\":\"2014L\"}}}}},{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"}},\"Right\":{\"Literal\":{\"Value\":\"'Dec'\"}}}}}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Top\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "6583d919-e183-4b84-9fae-3915108a7640",
+          "Sources": [
+            {
+              "ReportId": "49237d9d-8a9a-4c74-bd33-1337a0c9152f",
+              "VisualId": "VisualContainer1"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 573297,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "5b05dcdb-b525-4ca1-b254-c11994ba6fe3"
+    ],
+    "results": [
+      {
+        "jobId": "5b05dcdb-b525-4ca1-b254-c11994ba6fe3",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Gender",
+                        "Property": "Gender"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Gender.Gender"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Name": "Sum(Employee.BadHires)"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Gender",
+                            "Property": "Gender"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Top": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            0,
+                            3013
+                          ]
+                        },
+                        {
+                          "C": [
+                            1,
+                            2643
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": {
+                    "D0": [
+                      "Male",
+                      "Female"
+                    ]
+                  }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "fa1d5855-d6d8-451e-8b27-93ae93439867",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:32.4733298Z",
+                  "End": "2021-11-15T03:04:32.5358314Z"
+                },
+                {
+                  "Id": "667e1927-e49d-4975-9dfa-f639eff495cb",
+                  "ParentId": "fa1d5855-d6d8-451e-8b27-93ae93439867",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:32.4889569Z",
+                  "End": "2021-11-15T03:04:32.5045837Z"
+                },
+                {
+                  "Id": "fe399de2-6969-48a0-ab84-f1175f95b53c",
+                  "ParentId": "fa1d5855-d6d8-451e-8b27-93ae93439867",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:32.5202035Z",
+                  "End": "2021-11-15T03:04:32.5358314Z",
+                  "Metrics": {
+                    "RowCount": 2
+                  }
+                },
+                {
+                  "Id": "A1B74745-94AD-43B6-ADC6-0ADB94955FC4",
+                  "ParentId": "fe399de2-6969-48a0-ab84-f1175f95b53c",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:04:32.523Z",
+                  "End": "2021-11-15T03:04:32.537Z"
+                },
+                {
+                  "Id": "9A2246C6-FA27-4892-8FFB-2DD9A1C39CB7",
+                  "ParentId": "A1B74745-94AD-43B6-ADC6-0ADB94955FC4",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:04:32.537Z",
+                  "End": "2021-11-15T03:04:32.537Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
