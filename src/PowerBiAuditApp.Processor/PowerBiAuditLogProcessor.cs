@@ -203,6 +203,16 @@ namespace PowerBiAuditApp.Processor
                     return;
                 }
 
+                // If no headers are returned then don't log it
+                var headers = GetHeaders(data);
+                if (!headers.Any())
+                {
+                    if (data.Sum(CountRows) > 0)
+                        throw new ArgumentException("No Headers found for data");
+                    log.LogWarning("Did not find any data in {fileName}:{key}", name, key);
+                    return;
+                }
+
                 var filename = $"{name} ({result.JobId}-{dataSet.Name}-{key}).csv";
                 var blob = processedLogClient.GetBlockBlobReference(filename);
 
@@ -211,7 +221,6 @@ namespace PowerBiAuditApp.Processor
                 await using var csvWriter = new CsvWriter(writer,
                     new CsvConfiguration(CultureInfo.InvariantCulture) { LeaveOpen = false, HasHeaderRecord = false });
 
-                var headers = GetHeaders(data);
 
                 WriteHeaders(headers, headerLookup, query, csvWriter);
                 WriteRows(data, headers, dataSet, csvWriter);
@@ -231,6 +240,8 @@ namespace PowerBiAuditApp.Processor
         /// </summary>
         private static ColumnHeader[] GetHeaders(PowerBiDataRow[] data)
         {
+            if (data.Sum(CountRows) == 0) return Array.Empty<ColumnHeader>();
+
             var headers = data.Single(x => x.ColumnHeaders is not null).ColumnHeaders.ToList();
 
 
@@ -261,9 +272,6 @@ namespace PowerBiAuditApp.Processor
                 }
             }
 
-            //var matrixData = data.Where(x => x.M is not null)
-            //    .SelectMany((x, i) => x.M.SelectMany(m => m.Select(d => (data: d.Value, key: d.Key, index: i))))
-            //    .SingleOrDefault(x => x.data.Any(d => d.ColumnHeaders is not null));
             var matrixData = data
                 .Select((x, i) => (data: x, index: i))
                 .Where(x => x.data.M is not null)
@@ -289,7 +297,6 @@ namespace PowerBiAuditApp.Processor
 
                             var newColumnHeader = columnHeader.Clone();
                             newColumnHeader.MatrixKey = key;
-                            newColumnHeader.MatrixDataIndex = matrixDataIndex;
                             newColumnHeader.MatrixRowIndex = i;
                             newColumnHeader.MatrixColumnIndex = columnIndex++;
                             headers.Add(newColumnHeader);
@@ -392,7 +399,11 @@ namespace PowerBiAuditApp.Processor
             if (totalRows == 0 && row.ColumnHeaders is not null) return null; // Column header rows sometimes don't contain data.
 
             if (totalRows != headerRows)
-                throw new ArgumentException($"Number of rows doesn't match the headers (rows: {totalRows} headers:{headerRows}");
+            {
+                var baseHeaderRowCount = headers.Count(x => x.SubDataRowIndex is null && x.MatrixRowIndex is null);
+                if (totalRows != baseHeaderRowCount && (headerRows == baseHeaderRowCount || totalRows > headerRows))
+                    throw new ArgumentException($"Number of rows doesn't match the headers (rows: {totalRows} headers:{headerRows}");
+            }
 
             for (var index = 0; index < headers.Length; index++)
             {
@@ -509,13 +520,14 @@ namespace PowerBiAuditApp.Processor
             var header = headers[index];
             var rowIndex = header.MatrixRowIndex ?? throw new NullReferenceException();
             var columnIndex = header.MatrixColumnIndex ?? throw new NullReferenceException();
-            var dataIndex = header.MatrixDataIndex ?? throw new NullReferenceException();
             var key = header.MatrixKey ?? throw new NullReferenceException();
 
-            if (rows[dataIndex][key].Length <= rowIndex)
+
+            var dataSet = rows.Single(x => x.ContainsKey(key))[key];
+            if (dataSet.Length <= rowIndex)
                 return "--END OF SUB ROWS--";
 
-            var row = rows[dataIndex][key][rowIndex];
+            var row = dataSet[rowIndex];
 
             if (IsBitSet(row.RepeatBitmask ?? 0, columnIndex)) // this is a duplicate
             {
@@ -559,7 +571,7 @@ namespace PowerBiAuditApp.Processor
             CountSetBits(row.NullBitmask ?? 0) +
             row.RowValues.Length +
             row.ValueLookup.Count +
-            (row.M?.Sum(m => m.Sum(x => x.Value.Max(CountRows))) ?? 0);
+            (row.M?.Sum(m => m.Sum(x => x.Value.Any() ? x.Value.Max(CountRows) : 0)) ?? 0);
 
         private static object ParseRowValue(ColumnHeader header, Dictionary<string, string[]> valueDictionary, RowValue data)
         {

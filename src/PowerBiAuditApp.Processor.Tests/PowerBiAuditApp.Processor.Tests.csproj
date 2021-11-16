@@ -19,6 +19,9 @@
     <None Remove="Examples\Line and Column Stacked Chart.json" />
     <None Remove="Examples\Line Chart 2.json" />
     <None Remove="Examples\Map 2.json" />
+    <None Remove="Examples\Matrix 2.json" />
+    <None Remove="Examples\Matrix.json" />
+    <None Remove="Examples\Multi Row Card.json" />
     <None Remove="Examples\Mutiple Queries.json" />
     <None Remove="Examples\Scatter Chart 2.json" />
     <None Remove="Examples\Stacked Bar Chart.json" />
@@ -27,6 +30,21 @@
   </ItemGroup>
 
 	<ItemGroup>
+    <Content Include="Examples\Matrix 2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Matrix.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Multi Row Card.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="Examples\Treemap.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

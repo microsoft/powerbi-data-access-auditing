@@ -198,7 +198,7 @@ namespace PowerBiAuditApp.Processor.Models
         public DataReductionIntersection Intersection { get; set; }
     }
 
-    public partial class DataReductionIntersection
+    public class DataReductionIntersection
     {
         [JsonProperty("BinnedLineSample", Required = Required.Always)]
         public BinnedLineSample BinnedLineSample { get; set; }
@@ -420,9 +420,11 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("OrderBy", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public OrderBy[] OrderBy { get; set; }
 
-
         [JsonProperty("Transform", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Transform[] Transform { get; set; }
+
+        [JsonProperty("Top", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public long Top { get; set; }
     }
     public class Transform
     {
@@ -546,6 +548,9 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Comparison", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Comparison Comparison { get; set; }
 
+        [JsonProperty("Or", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public Comparison Or { get; set; }
+
         [JsonProperty("In", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public In In { get; set; }
 
@@ -573,8 +578,11 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Expressions", Required = Required.Always)]
         public ColumnExpression[] Expressions { get; set; }
 
-        [JsonProperty("Values", Required = Required.Always)]
+        [JsonProperty("Values", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public LiteralExpression[][] Values { get; set; }
+
+        [JsonProperty("Table", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public SourceRefExpression Table { get; set; }
     }
 
     public class Comparison
@@ -605,6 +613,8 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Comparison", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Comparison Comparison { get; set; }
 
+        [JsonProperty("Or", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public Comparison Or { get; set; }
 
         [JsonProperty("SourceRef", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public SourceRef SourceRef { get; set; }
@@ -666,8 +676,15 @@ namespace PowerBiAuditApp.Processor.Models
 
         [JsonProperty("Comparison", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Comparison Comparison { get; set; }
-    }
 
+        [JsonProperty("AnyValue", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public AnyValue AnyValue { get; set; }
+    }
+    public class AnyValue
+    {
+        [JsonProperty("DefaultValueOverridesAncestors", Required = Required.Always)]
+        public bool DefaultValueOverridesAncestors { get; set; }
+    }
 
     public class DateSpan
     {
@@ -1005,8 +1022,11 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("HAD", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Had { get; set; }
 
+        [JsonProperty("M0", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public string M0 { get; set; }
+
         [JsonProperty("M1", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public long M1 { get; set; }
+        public string M1 { get; set; }
 
         [JsonProperty("Msg", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public List<PowerBiMessage> Msg { get; set; }
@@ -1153,9 +1173,6 @@ namespace PowerBiAuditApp.Processor.Models
 
         [JsonIgnore]
         public int? MatrixRowIndex { get; set; }
-
-        [JsonIgnore]
-        public int? MatrixDataIndex { get; set; }
 
         [JsonIgnore]
         public int? MatrixColumnIndex { get; set; }
