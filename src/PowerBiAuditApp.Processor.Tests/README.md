@@ -20,7 +20,11 @@
 | Human Resources Sample PBIX.pbix | Slicer                          | Slicer 2.json                                                |
 | Human Resources Sample PBIX.pbix | Donut Cart                      | Donut Chart.json                                             |
 | Human Resources Sample PBIX.pbix | Stacked Column Chart            | Stacked Column Chart.json                                    |
-| NA                               | Table                           | Data With Nulls.json                                         |
+| Life expectancy v202009.pbix     | Treemap                         | Treemap.json                                                 |
+| Life expectancy v202009.pbix     | KPI                             | Kpi.json                                                     |
+| Life expectancy v202009.pbix     | Key influencers                 | Key influencers.json                                         |
+| Life expectancy v202009.pbix     | Clustered Bar Chart             | Clustered Bar Chart.json                                     |
+| Life expectancy v202009.pbix     | Gage                            | Gage.js                                                      |
 | pbitest_nopii.pbix               | Tree Map                        | BBI No PII - Occupation.json                                 |
 | pbitest_nopii.pbix               | Pie                             | BBI No PII - Marital Status.json                             |
 | pbitest_nopii.pbix               | Table                           | BBI No PII - Main.json                                       |

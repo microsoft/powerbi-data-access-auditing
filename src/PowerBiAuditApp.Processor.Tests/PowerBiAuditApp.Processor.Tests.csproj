@@ -8,17 +8,65 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Examples\Clustered Bar Chart.json" />
+    <None Remove="Examples\Decomposition Tree 2.json" />
     <None Remove="Examples\Decomposition Tree.json" />
+    <None Remove="Examples\Extra Long Bitmask.json" />
+    <None Remove="Examples\Gage.json" />
+    <None Remove="Examples\Key influencers.json" />
+    <None Remove="Examples\Kpi.json" />
     <None Remove="Examples\Line and Column Stacked Chart 2.json" />
     <None Remove="Examples\Line and Column Stacked Chart.json" />
     <None Remove="Examples\Line Chart 2.json" />
     <None Remove="Examples\Map 2.json" />
+    <None Remove="Examples\Mutiple Queries.json" />
     <None Remove="Examples\Scatter Chart 2.json" />
     <None Remove="Examples\Stacked Bar Chart.json" />
+    <None Remove="Examples\Treemap.json" />
     <None Remove="Results\Donut Chart.json" />
   </ItemGroup>
 
 	<ItemGroup>
+    <Content Include="Examples\Treemap.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Kpi.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Gage.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Key influencers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Clustered Bar Chart.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Extra Long Bitmask.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Decomposition Tree 2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Examples\Mutiple Queries.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="Examples\Stacked Bar Chart.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

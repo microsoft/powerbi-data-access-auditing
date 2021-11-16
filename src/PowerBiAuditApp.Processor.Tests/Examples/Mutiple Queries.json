@@ -1,0 +1,933 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T09:57:28.6431538+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "m",
+                      "Entity": "Metrics",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "y",
+                      "Entity": "Years",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "c",
+                      "Entity": "Country",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "y"
+                          }
+                        },
+                        "Property": "Years"
+                      },
+                      "Name": "Years.Years"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "GEH Goal"
+                      },
+                      "Name": "Metrics.GEH Goal"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "Goverment Expenditure on Health (%)"
+                      },
+                      "Name": "Metrics.Goverment Expenditure on Health (%)"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "m"
+                                    }
+                                  },
+                                  "Property": "Goverment Expenditure on Health (%)"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "null"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Target": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "y"
+                              }
+                            },
+                            "Property": "Years"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "c"
+                                  }
+                                },
+                                "Property": "Continent"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'Europe'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "y"
+                            }
+                          },
+                          "Property": "Years"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Bottom": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"y\",\"Entity\":\"Years\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"},\"Name\":\"Years.Years\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"GEH Goal\"},\"Name\":\"Metrics.GEH Goal\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Goverment Expenditure on Health (%)\"},\"Name\":\"Metrics.Goverment Expenditure on Health (%)\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Goverment Expenditure on Health (%)\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}},\"Target\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}]},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Continent\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Europe'\"}}]]}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Bottom\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "71694abd09640a8dc50f"
+            }
+          ]
+        }
+      },
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "m",
+                      "Entity": "Metrics",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "y",
+                      "Entity": "Years",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "c",
+                      "Entity": "Country",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "y"
+                          }
+                        },
+                        "Property": "Years"
+                      },
+                      "Name": "Years.Years"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "GEH Goal"
+                      },
+                      "Name": "Metrics.GEH Goal"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "Goverment Expenditure on Health (%)"
+                      },
+                      "Name": "Metrics.Goverment Expenditure on Health (%)"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "m"
+                                    }
+                                  },
+                                  "Property": "Goverment Expenditure on Health (%)"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "null"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Target": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "y"
+                              }
+                            },
+                            "Property": "Years"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "c"
+                                  }
+                                },
+                                "Property": "Continent"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'Asia'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "y"
+                            }
+                          },
+                          "Property": "Years"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Bottom": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"y\",\"Entity\":\"Years\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"},\"Name\":\"Years.Years\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"GEH Goal\"},\"Name\":\"Metrics.GEH Goal\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Goverment Expenditure on Health (%)\"},\"Name\":\"Metrics.Goverment Expenditure on Health (%)\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Goverment Expenditure on Health (%)\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}},\"Target\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}]},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Continent\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Asia'\"}}]]}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Bottom\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "ac40c208d7c7402f30e2"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 575212,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "46604019-925e-45d3-8d3b-9126dfc025c3",
+      "7e166a9a-0879-45bc-b67b-afe6be1bfbfe"
+    ],
+    "results": [
+      {
+        "jobId": "7e166a9a-0879-45bc-b67b-afe6be1bfbfe",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "Format": "0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Years",
+                        "Property": "Years"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Years.Years"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "0%;-0%;0%",
+                  "Name": "Metrics.GEH Goal"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "0%;-0%;0%",
+                  "Name": "Metrics.Goverment Expenditure on Health (%)"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Years",
+                            "Property": "Years"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Bottom": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 4
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            },
+                            {
+                              "N": "M1",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            1995,
+                            0.6,
+                            "0.49488372093023258"
+                          ]
+                        },
+                        {
+                          "C": [
+                            1996,
+                            "0.50279069767441864"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1997,
+                            "0.50418604651162791"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1998,
+                            "0.49813953488372092"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1999,
+                            "0.48581395348837214"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2000,
+                            "0.48522727272727273"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2001,
+                            "0.48977272727272725"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2002,
+                            "0.47488888888888886"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2003,
+                            "0.47456521739130436"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2004,
+                            "0.47521739130434781"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2005,
+                            "0.47130434782608693"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2006,
+                            "0.49130434782608695"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2007,
+                            "0.49630434782608696"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2008,
+                            "0.50826086956521743"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2009,
+                            "0.52695652173913043"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2010,
+                            "0.53086956521739137"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2011,
+                            "0.532608695652174"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2012,
+                            "0.53239130434782611"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2013,
+                            "0.5397826086956522"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2014,
+                            "0.54630434782608694"
+                          ],
+                          "R": 2
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "215b4101-067e-4a32-9e52-ee7d1bdcb70c",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:28.6039161Z",
+                  "End": "2021-11-15T09:57:28.6195437Z"
+                },
+                {
+                  "Id": "4b61412f-60f9-4aae-8e10-411e2fcd808c",
+                  "ParentId": "215b4101-067e-4a32-9e52-ee7d1bdcb70c",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:28.6039161Z",
+                  "End": "2021-11-15T09:57:28.6195437Z",
+                  "Metrics": {
+                    "RowCount": 20
+                  }
+                },
+                {
+                  "Id": "72D8D3B2-BEF1-4152-B3F9-95BA03CE508E",
+                  "ParentId": "4b61412f-60f9-4aae-8e10-411e2fcd808c",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:28.617Z",
+                  "End": "2021-11-15T09:57:28.623Z"
+                },
+                {
+                  "Id": "DF4BF235-F28C-4563-9645-5E450316AD8E",
+                  "ParentId": "72D8D3B2-BEF1-4152-B3F9-95BA03CE508E",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:28.623Z",
+                  "End": "2021-11-15T09:57:28.623Z"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "jobId": "46604019-925e-45d3-8d3b-9126dfc025c3",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "Format": "0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Years",
+                        "Property": "Years"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Years.Years"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "0%;-0%;0%",
+                  "Name": "Metrics.GEH Goal"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "0%;-0%;0%",
+                  "Name": "Metrics.Goverment Expenditure on Health (%)"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Years",
+                            "Property": "Years"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Bottom": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 4
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            },
+                            {
+                              "N": "M1",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            1995,
+                            0.6,
+                            "0.73547619047619051"
+                          ]
+                        },
+                        {
+                          "C": [
+                            1996,
+                            "0.73119047619047617"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1997,
+                            "0.73166666666666669"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1998,
+                            "0.72285714285714286"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1999,
+                            "0.72023809523809523"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2000,
+                            "0.7142857142857143"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2001,
+                            "0.71380952380952378"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2002,
+                            "0.7176190476190476"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2003,
+                            "0.72428571428571431"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2004,
+                            0.715
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2005,
+                            "0.71690476190476193"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2006,
+                            "0.720952380952381"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2007
+                          ],
+                          "R": 6
+                        },
+                        {
+                          "C": [
+                            2008,
+                            "0.72452380952380946"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2009,
+                            "0.72404761904761894"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2010,
+                            "0.72571428571428565"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2011,
+                            "0.72166666666666668"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2012
+                          ],
+                          "R": 6
+                        },
+                        {
+                          "C": [
+                            2013,
+                            "0.72071428571428564"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2014,
+                            "0.720952380952381"
+                          ],
+                          "R": 2
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "324151ae-b772-4932-a4e2-b0e362115208",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:28.6039161Z",
+                  "End": "2021-11-15T09:57:28.6195437Z"
+                },
+                {
+                  "Id": "f0af276a-e0fe-422a-b10a-209c2c0dfdfa",
+                  "ParentId": "324151ae-b772-4932-a4e2-b0e362115208",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:28.6039161Z",
+                  "End": "2021-11-15T09:57:28.6195437Z",
+                  "Metrics": {
+                    "RowCount": 20
+                  }
+                },
+                {
+                  "Id": "FD8380B9-5D6B-4519-92E4-CF5F306D7B4E",
+                  "ParentId": "f0af276a-e0fe-422a-b10a-209c2c0dfdfa",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:28.617Z",
+                  "End": "2021-11-15T09:57:28.623Z"
+                },
+                {
+                  "Id": "C1927BB6-9280-45DF-9BA0-8A232B31A764",
+                  "ParentId": "FD8380B9-5D6B-4519-92E4-CF5F306D7B4E",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:28.623Z",
+                  "End": "2021-11-15T09:57:28.623Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

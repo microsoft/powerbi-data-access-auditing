@@ -121,7 +121,7 @@ namespace PowerBiAuditApp.Processor.Tests
             //Arrange
             var jsonString = await File.ReadAllTextAsync(filePath);
             var model = JsonConvert.DeserializeObject<AuditLog>(jsonString);
-            var headerData = model!.Response.Results.Single().Result.Data.Dsr.DataOrRow.Single().PrimaryRows.Single().Values.Single().Single(x => x.ColumnHeaders is not null);
+            var headerData = model!.Response.Results.First().Result.Data.Dsr.DataOrRow.Single().PrimaryRows.Single().Values.Single().Single(x => x.ColumnHeaders is not null);
             headerData.ColumnHeaders = headerData.ColumnHeaders.Take(headerData.ColumnHeaders.Length - 1).ToArray();
 
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model)));
@@ -145,7 +145,7 @@ namespace PowerBiAuditApp.Processor.Tests
             //Arrange
             var jsonString = await File.ReadAllTextAsync(filePath);
             var model = JsonConvert.DeserializeObject<AuditLog>(jsonString);
-            var headerData = model!.Response.Results.Single().Result.Data.Dsr.DataOrRow.Single().PrimaryRows.Single().Values.Single().Single(x => x.ColumnHeaders is not null);
+            var headerData = model!.Response.Results.First().Result.Data.Dsr.DataOrRow.Single().PrimaryRows.Single().Values.Single().Single(x => x.ColumnHeaders is not null);
             headerData.ColumnHeaders = headerData.ColumnHeaders.Concat(headerData.ColumnHeaders.Take(1)).ToArray();
 
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model)));

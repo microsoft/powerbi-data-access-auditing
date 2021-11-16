@@ -1,0 +1,351 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T09:57:04.6599178+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "m",
+                      "Entity": "Metrics",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "c",
+                      "Entity": "Country",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "p",
+                      "Entity": "Population",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "GDP Per Capita (USD)"
+                      },
+                      "Name": "Metrics.GDP Per Capita (USD)"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "c"
+                          }
+                        },
+                        "Property": "Country"
+                      },
+                      "Name": "Country.Country"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "c"
+                          }
+                        },
+                        "Property": "Continent"
+                      },
+                      "Name": "Country.Continent"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "p"
+                                }
+                              },
+                              "Property": "Year"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "2017L"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "In": {
+                              "Expressions": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "c"
+                                      }
+                                    },
+                                    "Property": "Country"
+                                  }
+                                }
+                              ],
+                              "Values": [
+                                [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Monaco'"
+                                    }
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 2,
+                      "Expression": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "m"
+                            }
+                          },
+                          "Property": "GDP Per Capita (USD)"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 1000
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0},{\"Name\":\"p\",\"Entity\":\"Population\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"GDP Per Capita (USD)\"},\"Name\":\"Metrics.GDP Per Capita (USD)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country\"},\"Name\":\"Country.Country\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Continent\"},\"Name\":\"Country.Continent\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"p\"}},\"Property\":\"Year\"}},\"Right\":{\"Literal\":{\"Value\":\"2017L\"}}}}},{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Monaco'\"}}]]}}}}}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"GDP Per Capita (USD)\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,2]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":1000}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "6eedbc64bc4400d0309a"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 575212,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "56a6c735-9b4e-4ea3-ae42-5920b69b2d89"
+    ],
+    "results": [
+      {
+        "jobId": "56a6c735-9b4e-4ea3-ae42-5920b69b2d89",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
+                  "Name": "Metrics.GDP Per Capita (USD)"
+                },
+                null,
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Country",
+                        "Property": "Continent"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Country.Continent"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Country",
+                            "Property": "Continent"
+                          },
+                          "Select": 2
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            "Europe",
+                            "18759.779183530471"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Oceania",
+                            "8207.90857103044"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Asia",
+                            "7004.0556883569443"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "North America",
+                            "6912.7541315240305"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "South America",
+                            "2936.0150142208913"
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Africa",
+                            "1318.9549403412359"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "907c8065-1c61-4342-9300-ccb0dc860326",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:04.6913466Z",
+                  "End": "2021-11-15T09:57:04.722592Z"
+                },
+                {
+                  "Id": "7e95a4df-4539-4fc0-92ce-8d4950269581",
+                  "ParentId": "907c8065-1c61-4342-9300-ccb0dc860326",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:04.6913466Z",
+                  "End": "2021-11-15T09:57:04.722592Z"
+                },
+                {
+                  "Id": "693fe2b8-066e-4898-b715-a63f994acd2d",
+                  "ParentId": "907c8065-1c61-4342-9300-ccb0dc860326",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:04.722592Z",
+                  "End": "2021-11-15T09:57:04.722592Z",
+                  "Metrics": {
+                    "RowCount": 6
+                  }
+                },
+                {
+                  "Id": "FA895248-D608-4D97-AF09-B14A702A306D",
+                  "ParentId": "693fe2b8-066e-4898-b715-a63f994acd2d",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:04.733Z",
+                  "End": "2021-11-15T09:57:04.737Z"
+                },
+                {
+                  "Id": "D0A7DF11-F039-4003-A259-B3CBB84575E5",
+                  "ParentId": "FA895248-D608-4D97-AF09-B14A702A306D",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:04.737Z",
+                  "End": "2021-11-15T09:57:04.737Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

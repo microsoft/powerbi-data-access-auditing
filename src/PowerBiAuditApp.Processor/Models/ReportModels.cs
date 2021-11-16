@@ -51,7 +51,7 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("QueryId", Required = Required.Always)]
         public string QueryId { get; set; }
 
-        [JsonProperty("ApplicationContext", Required = Required.Always)]
+        [JsonProperty("ApplicationContext", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ApplicationContext ApplicationContext { get; set; }
     }
 
@@ -93,7 +93,7 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Binding", Required = Required.Always)]
         public Binding Binding { get; set; }
 
-        [JsonProperty("ExecutionMetricsKind", Required = Required.Always)]
+        [JsonProperty("ExecutionMetricsKind", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public long ExecutionMetricsKind { get; set; }
     }
 
@@ -120,6 +120,8 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("SuppressedJoinPredicates", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public long[] SuppressedJoinPredicates { get; set; }
 
+        [JsonProperty("Projections", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public long[] Projections { get; set; }
 
         [JsonProperty("Highlights", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Highlight[] Highlight { get; set; }
@@ -183,14 +185,23 @@ namespace PowerBiAuditApp.Processor.Models
         public long DataVolume { get; set; }
 
         [JsonProperty("Primary", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public DataReductionGrouping Primary { get; set; }
+        public Limits Primary { get; set; }
 
         [JsonProperty("Secondary", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public DataReductionGrouping Secondary { get; set; }
+        public Limits Secondary { get; set; }
 
 
         [JsonProperty("Scoped", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public DataReductionScoped[] Scoped { get; set; }
+
+        [JsonProperty("Intersection", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public DataReductionIntersection Intersection { get; set; }
+    }
+
+    public partial class DataReductionIntersection
+    {
+        [JsonProperty("BinnedLineSample", Required = Required.Always)]
+        public BinnedLineSample BinnedLineSample { get; set; }
     }
 
     public class DataReductionScoped
@@ -204,40 +215,85 @@ namespace PowerBiAuditApp.Processor.Models
     public class Algorithm
     {
         [JsonProperty("Window", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Window Window { get; set; }
+        public Limit Window { get; set; }
 
         [JsonProperty("Sample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Window Sample { get; set; }
+        public Limit Sample { get; set; }
     }
 
-    public class DataReductionGrouping
+    public class Limits
     {
         [JsonProperty("Id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
         [JsonProperty("Top", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public LimitDetail Top { get; set; }
+        public Limit Top { get; set; }
 
         [JsonProperty("Bottom", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public LimitDetail Bottom { get; set; }
+        public Limit Bottom { get; set; }
 
 
         [JsonProperty("Scope", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Scope Scope { get; set; }
 
         [JsonProperty("Window", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Window Window { get; set; }
+        public Limit Window { get; set; }
 
 
         [JsonProperty("OverlappingPointsSample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public OverlappingPointsSample OverlappingPointsSample { get; set; }
 
         [JsonProperty("Sample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Sample Sample { get; set; }
+        public Limit Sample { get; set; }
 
 
         [JsonProperty("BinnedLineSample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public BinnedLineSample BinnedLineSample { get; set; }
+
+        [JsonProperty("TopNPerLevel", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public TopNPerLevel TopNPerLevel { get; set; }
+    }
+
+    public class TopNPerLevel
+    {
+        [JsonProperty("Count", Required = Required.Always)]
+        public long Count { get; set; }
+
+        [JsonProperty("WindowExpansion", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public WindowExpansion WindowExpansion { get; set; }
+    }
+
+    public class WindowExpansion
+    {
+        [JsonProperty("From", Required = Required.Always)]
+        public From[] From { get; set; }
+
+        [JsonProperty("Levels", Required = Required.Always)]
+        public Level[] Levels { get; set; }
+
+        [JsonProperty("WindowInstances", Required = Required.Always)]
+        public WindowInstances WindowInstances { get; set; }
+    }
+
+    public class WindowInstances
+    {
+        [JsonProperty("Values", Required = Required.Always)]
+        public LiteralExpression[] Values { get; set; }
+
+        [JsonProperty("WindowExpansionInstanceWindowValue", Required = Required.Always)]
+        public object[] WindowExpansionInstanceWindowValue { get; set; }
+
+        [JsonProperty("Children", Required = Required.Always)]
+        public WindowInstances[] Children { get; set; }
+    }
+
+    public class Limit
+    {
+        [JsonProperty("Count", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public long Count { get; set; }
+
+        [JsonProperty("Calc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public string Calc { get; set; }
     }
 
     public class BinnedLineSample
@@ -250,15 +306,30 @@ namespace PowerBiAuditApp.Processor.Models
 
         [JsonProperty("IntersectionDbCountCalc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string IntersectionDbCountCalc { get; set; }
+
+        [JsonProperty("PrimaryScalarKey", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public long PrimaryScalarKey { get; set; }
+
+        [JsonProperty("SecondaryScalarKey", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public long SecondaryScalarKey { get; set; }
+
+        [JsonProperty("PrimaryDbCountCalc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public string PrimaryDbCountCalc { get; set; }
+
+        [JsonProperty("SecondaryDbCountCalc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public string SecondaryDbCountCalc { get; set; }
     }
 
     public class OverlappingPointsSample
     {
-        [JsonProperty("X", Required = Required.Always)]
+        [JsonProperty("X", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public PointsSampleValue X { get; set; }
 
-        [JsonProperty("Y", Required = Required.Always)]
+        [JsonProperty("Y", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public PointsSampleValue Y { get; set; }
+
+        [JsonProperty("Count", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public long Count { get; set; }
     }
 
     public class PointsSampleValue
@@ -267,15 +338,6 @@ namespace PowerBiAuditApp.Processor.Models
         public long Index { get; set; }
     }
 
-
-    public class Window
-    {
-        [JsonProperty("Count", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public long? Count { get; set; }
-
-        [JsonProperty("Calc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Calc { get; set; }
-    }
     public class PowerBiBinding
     {
         [JsonProperty("Groupings", Required = Required.Always)]
@@ -283,7 +345,40 @@ namespace PowerBiAuditApp.Processor.Models
 
         [JsonProperty("Synchronization", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public PowerBiSynchronization[] Synchronization { get; set; }
+
+        [JsonProperty("Expansion", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public Expansion Expansion { get; set; }
     }
+
+    public class Expansion
+    {
+        [JsonProperty("From", Required = Required.Always)]
+        public From[] From { get; set; }
+
+        [JsonProperty("Levels", Required = Required.Always)]
+        public Level[] Levels { get; set; }
+
+        [JsonProperty("Instances", Required = Required.Always)]
+        public Instances Instances { get; set; }
+    }
+
+    public class Level
+    {
+        [JsonProperty("Expressions", Required = Required.Always)]
+        public ColumnExpression[] Expressions { get; set; }
+
+        [JsonProperty("Default", Required = Required.Always)]
+        public long Default { get; set; }
+    }
+    public class Instances
+    {
+        [JsonProperty("Values", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public LiteralExpression[] Values { get; set; }
+
+        [JsonProperty("Children", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public Instances[] Children { get; set; }
+    }
+
     public class PowerBiSynchronization
     {
         [JsonProperty("Groupings", Required = Required.Always)]
@@ -292,7 +387,7 @@ namespace PowerBiAuditApp.Processor.Models
 
     public class PowerBiBindingGrouping
     {
-        [JsonProperty("Projections", Required = Required.Always)]
+        [JsonProperty("Projections", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public long[] Projections { get; set; }
 
         [JsonProperty("Subtotal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
@@ -300,6 +395,12 @@ namespace PowerBiAuditApp.Processor.Models
 
         [JsonProperty("SuppressedProjections", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public long[] SuppressedProjections { get; set; }
+
+        [JsonProperty("ShowItemsWithNoData", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public long[] ShowItemsWithNoData { get; set; }
+
+        [JsonProperty("Aggregates", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public BindingAggregate[] Aggregates { get; set; }
     }
 
     public class SemanticQueryDataShapeCommandQuery
@@ -376,6 +477,9 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Aggregation", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Aggregation Aggregation { get; set; }
 
+        [JsonProperty("Measure", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public Column Measure { get; set; }
+
         [JsonProperty("TransformOutputRoleRef", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public TransformOutputRoleRef TransformOutputRoleRef { get; set; }
     }
@@ -392,11 +496,27 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Name", Required = Required.Always)]
         public string Name { get; set; }
 
-        [JsonProperty("Entity", Required = Required.Always)]
+        [JsonProperty("Entity", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Entity { get; set; }
+
+
+        [JsonProperty("Expression", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public SubueryExpression Expression { get; set; }
 
         [JsonProperty("Type", Required = Required.Always)]
         public long Type { get; set; }
+    }
+
+    public class SubueryExpression
+    {
+        [JsonProperty("Subquery", Required = Required.Always)]
+        public Subquery Subquery { get; set; }
+    }
+
+    public class Subquery
+    {
+        [JsonProperty("Query", Required = Required.Always)]
+        public SemanticQueryDataShapeCommandQuery Query { get; set; }
     }
 
     public class OrderBy
@@ -428,6 +548,9 @@ namespace PowerBiAuditApp.Processor.Models
 
         [JsonProperty("In", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public In In { get; set; }
+
+        [JsonProperty("Exists", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public Column Exists { get; set; }
     }
 
     public class Not
@@ -481,7 +604,54 @@ namespace PowerBiAuditApp.Processor.Models
 
         [JsonProperty("Comparison", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public Comparison Comparison { get; set; }
+
+
+        [JsonProperty("SourceRef", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public SourceRef SourceRef { get; set; }
+
+
+        [JsonProperty("HierarchyLevel", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public HierarchyLevel HierarchyLevel { get; set; }
     }
+    public class HierarchyLevel
+    {
+        [JsonProperty("Expression", Required = Required.Always)]
+        public HierarchyLevelExpression Expression { get; set; }
+
+        [JsonProperty("Level", Required = Required.Always)]
+        public string Level { get; set; }
+    }
+
+    public class HierarchyLevelExpression
+    {
+        [JsonProperty("Hierarchy", Required = Required.Always)]
+        public Hierarchy Hierarchy { get; set; }
+    }
+    public class Hierarchy
+    {
+        [JsonProperty("Expression", Required = Required.Always)]
+        public HierarchyExpression Expression { get; set; }
+
+        [JsonProperty("Hierarchy", Required = Required.Always)]
+        public string HierarchyHierarchy { get; set; }
+    }
+    public class HierarchyExpression
+    {
+        [JsonProperty("PropertyVariationSource", Required = Required.Always)]
+        public PropertyVariationSource PropertyVariationSource { get; set; }
+    }
+    public class PropertyVariationSource
+    {
+        [JsonProperty("Expression", Required = Required.Always)]
+        public ColumnExpression Expression { get; set; }
+
+        [JsonProperty("Name", Required = Required.Always)]
+        public string Name { get; set; }
+
+        [JsonProperty("Property", Required = Required.Always)]
+        public string Property { get; set; }
+    }
+
 
     public class LiteralExpression
     {
@@ -489,7 +659,7 @@ namespace PowerBiAuditApp.Processor.Models
         public string Name { get; set; }
 
         [JsonProperty("Literal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ComparisonLiteral Literal { get; set; }
+        public ValueHolder Literal { get; set; }
 
         [JsonProperty("DateSpan", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public DateSpan DateSpan { get; set; }
@@ -508,7 +678,7 @@ namespace PowerBiAuditApp.Processor.Models
         public long TimeUnit { get; set; }
     }
 
-    public class ComparisonLiteral
+    public class ValueHolder
     {
         [JsonProperty("Value", Required = Required.Always)]
         public string Value { get; set; }
@@ -520,7 +690,7 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Expression", Required = Required.Always)]
         public SourceRefExpression Expression { get; set; }
 
-        [JsonProperty("Property", Required = Required.Always)]
+        [JsonProperty("Property", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Property { get; set; }
     }
 
@@ -541,7 +711,9 @@ namespace PowerBiAuditApp.Processor.Models
 
     public class QueryMeasure
     {
+        [JsonProperty("Expression", Required = Required.Always)]
         public SourceRefExpression Expression { get; set; }
+        [JsonProperty("Property", Required = Required.Always)]
         public string Property { get; set; }
     }
 
@@ -586,7 +758,7 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("dsr", Required = Required.Always)]
         public Dsr Dsr { get; set; }
 
-        [JsonProperty("metrics", Required = Required.Always)]
+        [JsonProperty("metrics", Required = Required.AllowNull)]
         public Metrics Metrics { get; set; }
     }
 
@@ -643,9 +815,28 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("SynchronizationIndex", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string SynchronizationIndex { get; set; }
 
+        [JsonProperty("SubtotalMember", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public string SubtotalMember { get; set; }
+
+        [JsonProperty("RestartIdentities", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public string[] RestartIdentities { get; set; }
+
 
         [JsonProperty("SynchronizedGroup", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public ExpressionGroupingDetail SynchronizedGroup { get; set; }
+
+
+        [JsonProperty("Aggregates", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public ExpressionGroupingAggregates Aggregates { get; set; }
+    }
+
+    public class ExpressionGroupingAggregates
+    {
+        [JsonProperty("AggregatesMember", Required = Required.Always)]
+        public string AggregatesMember { get; set; }
+
+        [JsonProperty("Ids", Required = Required.Always)]
+        public string[] Ids { get; set; }
     }
 
     public class Key
@@ -673,8 +864,11 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Id", Required = Required.Always)]
         public string Id { get; set; }
 
-        [JsonProperty("Top", Required = Required.Always)]
-        public LimitDetail Top { get; set; }
+        [JsonProperty("Top", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public Limit Top { get; set; }
+
+        [JsonProperty("BinnedLineSample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public BinnedLineSample BinnedLineSample { get; set; }
     }
 
     public class LimitsGroup
@@ -690,52 +884,9 @@ namespace PowerBiAuditApp.Processor.Models
         public Intersection Intersection { get; set; }
 
         [JsonProperty("Scoped", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public DataReductionGrouping[] Scoped { get; set; }
+        public Limits[] Scoped { get; set; }
     }
 
-    public class Limits
-    {
-        [JsonProperty("Id", Required = Required.Always)]
-        public string Id { get; set; }
-
-        [JsonProperty("Top", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public LimitDetail Top { get; set; }
-
-        [JsonProperty("Bottom", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public LimitDetail Bottom { get; set; }
-
-        [JsonProperty("OverlappingPointsSample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public OverlappingPointsSampleLimits OverlappingPointsSample { get; set; }
-
-        [JsonProperty("Sample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public Sample Sample { get; set; }
-
-        [JsonProperty("BinnedLineSample", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public BinnedLineSample BinnedLineSample { get; set; }
-    }
-    public class OverlappingPointsSampleLimits
-    {
-        [JsonProperty("Count", Required = Required.Always)]
-        public long Count { get; set; }
-    }
-
-    public class Sample
-    {
-        [JsonProperty("Count", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public long Count { get; set; }
-
-        [JsonProperty("Calc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Calc { get; set; }
-    }
-
-    public class LimitDetail
-    {
-        [JsonProperty("Count", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public long Count { get; set; }
-
-        [JsonProperty("Calc", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string Calc { get; set; }
-    }
 
     public class DescriptorSelect
     {
@@ -762,7 +913,7 @@ namespace PowerBiAuditApp.Processor.Models
         public string Format { get; set; }
 
         [JsonProperty("Highlight", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public ComparisonLiteral Highlight { get; set; }
+        public ValueHolder Highlight { get; set; }
 
         [JsonProperty("Min", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string[] Min { get; set; }
@@ -770,6 +921,8 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Max", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string[] Max { get; set; }
 
+        [JsonProperty("Subtotal", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public string[] Subtotal { get; set; }
 
         [JsonProperty("Aggregates", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public SelectAggregate[] Aggregates { get; set; }
@@ -851,6 +1004,9 @@ namespace PowerBiAuditApp.Processor.Models
 
         [JsonProperty("HAD", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public bool Had { get; set; }
+
+        [JsonProperty("M1", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public long M1 { get; set; }
 
         [JsonProperty("Msg", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public List<PowerBiMessage> Msg { get; set; }
@@ -1060,6 +1216,9 @@ namespace PowerBiAuditApp.Processor.Models
     public struct RowValue
     {
         public double? Double { get; set; }
+        public DateTime? Date { get; set; }
+        public bool IsNull { get; set; }
+
         public long? Integer;
         public string String;
     }
@@ -1072,12 +1231,17 @@ namespace PowerBiAuditApp.Processor.Models
         {
             switch (reader.TokenType)
             {
+                case JsonToken.Date:
+                    var dateValue = serializer.Deserialize<DateTime>(reader);
+                    return new RowValue { Date = dateValue };
                 case JsonToken.Integer:
                     var integerValue = serializer.Deserialize<long>(reader);
                     return new RowValue { Integer = integerValue };
                 case JsonToken.Float:
                     var doubleValue = serializer.Deserialize<double>(reader);
                     return new RowValue { Double = doubleValue };
+                case JsonToken.Null:
+                    return new RowValue { IsNull = true };
                 case JsonToken.String:
                     var stringValue = serializer.Deserialize<string>(reader);
                     return new RowValue { String = stringValue };
@@ -1101,6 +1265,16 @@ namespace PowerBiAuditApp.Processor.Models
             if (value.Double is not null)
             {
                 serializer.Serialize(writer, value.Double);
+                return;
+            }
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Date is not null)
+            {
+                serializer.Serialize(writer, value.Date);
                 return;
             }
             throw new Exception("Cannot marshal type RowValue");

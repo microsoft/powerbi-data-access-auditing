@@ -42,22 +42,22 @@ namespace PowerBiAuditApp.Processor
 
             try
             {
+                var resultIndex = 0;
                 foreach (var result in model.Response.Results)
                 {
                     var headerLookup = GetHeaderLookup(result);
+                    var query = model.Request.Queries[resultIndex++];
 
                     async Task WriteCsvs(PowerBiDataSet dataSet)
                     {
                         foreach (var (key, data) in dataSet.PrimaryRows.SelectMany(x => x))
                         {
-                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, model.Request.Queries,
-                                $"Primary{key}", result, dataSet, headerLookup);
+                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Primary{key}", result, dataSet, headerLookup);
                         }
 
                         foreach (var (key, data) in dataSet.SecondaryRows.SelectMany(x => x))
                         {
-                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, model.Request.Queries,
-                                $"Secondary{key}", result, dataSet, headerLookup);
+                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Secondary{key}", result, dataSet, headerLookup);
                         }
 
                         foreach (var subDataSet in dataSet.DataOrRow ?? Array.Empty<PowerBiDataSet>())
@@ -145,6 +145,17 @@ namespace PowerBiAuditApp.Processor
                 )
                 .Where(x => x.Value != null);
 
+            var withSubTotalKeys = result.Result.Data.Descriptor.Select
+                .Where(x => x?.Subtotal is not null)
+                .ToArray();
+
+            var subtotalKeys = withSubTotalKeys
+                .SelectMany(x => x.Subtotal)
+                .ToDictionary(x => x, x =>
+                    withSubTotalKeys.FirstOrDefault(d => d.Value != x && d.Subtotal.Any(g => g == x))
+                )
+                .Where(x => x.Value != null);
+
 
             var withSyncKeys = result.Result.Data.Descriptor.Select
                 .Where(x => x?.Synchronized is not null)
@@ -170,6 +181,7 @@ namespace PowerBiAuditApp.Processor
 
             return headerLookup.Concat(highlightKeys)
                 .Concat(calcKeys)
+                .Concat(subtotalKeys)
                 .Concat(syncKeys)
                 .Concat(syncKeysFromDescriptor)
                 .ToDictionary(x => x.Key, x => x.Value);
@@ -179,7 +191,7 @@ namespace PowerBiAuditApp.Processor
         /// Process the returned json and write it to a csv file
         /// </summary>
         private static async Task WriteCsv(string name, CloudBlockBlob auditBlobClient, CloudBlobContainer processedLogClient,
-            IAsyncCollector<SendGridMessage> messageCollector, ILogger log, PowerBiDataRow[] data, Query[] queries, string key, ResultElement result, PowerBiDataSet dataSet,
+            IAsyncCollector<SendGridMessage> messageCollector, ILogger log, PowerBiDataRow[] data, Query query, string key, ResultElement result, PowerBiDataSet dataSet,
             Dictionary<string, DescriptorSelect> headerLookup)
         {
             try
@@ -201,7 +213,7 @@ namespace PowerBiAuditApp.Processor
 
                 var headers = GetHeaders(data);
 
-                WriteHeaders(headers, headerLookup, queries, csvWriter);
+                WriteHeaders(headers, headerLookup, query, csvWriter);
                 WriteRows(data, headers, dataSet, csvWriter);
 
                 await csvWriter.FlushAsync();
@@ -249,18 +261,23 @@ namespace PowerBiAuditApp.Processor
                 }
             }
 
-            var matrixData = data.Where(x => x.M is not null)
-                .SelectMany((x, i) => x.M.SelectMany(m => m.Select(d => (data: d.Value, key: d.Key, index: i))))
+            //var matrixData = data.Where(x => x.M is not null)
+            //    .SelectMany((x, i) => x.M.SelectMany(m => m.Select(d => (data: d.Value, key: d.Key, index: i))))
+            //    .SingleOrDefault(x => x.data.Any(d => d.ColumnHeaders is not null));
+            var matrixData = data
+                .Select((x, i) => (data: x, index: i))
+                .Where(x => x.data.M is not null)
+                .SelectMany(x => x.data.M.SelectMany(m => m.Select((d, i) => (data: d.Value, key: d.Key, x.index, matrixDataIndex: i))))
                 .Where(x => x.data.Any(d => d.ColumnHeaders is not null))
                 .ToArray();
 
             if (matrixData.Any())
             {
-                foreach (var (matrixDataRows, key, dataIndex) in matrixData)
+                foreach (var (matrixDataRows, key, index, matrixDataIndex) in matrixData)
                 {
                     var columns = GetHeaders(matrixDataRows);
 
-                    var matrixColumnCount = matrixDataRows.Length;
+                    var matrixColumnCount = data.Max(x => x.M.Single(m => m.Keys.Contains(key))[key].Length);
 
                     for (var i = 0; i < matrixColumnCount; i++)
                     {
@@ -272,7 +289,7 @@ namespace PowerBiAuditApp.Processor
 
                             var newColumnHeader = columnHeader.Clone();
                             newColumnHeader.MatrixKey = key;
-                            newColumnHeader.MatrixDataIndex = dataIndex;
+                            newColumnHeader.MatrixDataIndex = matrixDataIndex;
                             newColumnHeader.MatrixRowIndex = i;
                             newColumnHeader.MatrixColumnIndex = columnIndex++;
                             headers.Add(newColumnHeader);
@@ -286,12 +303,12 @@ namespace PowerBiAuditApp.Processor
         /// <summary>
         /// Write Headers to csv
         /// </summary>
-        private static void WriteHeaders(ColumnHeader[] headers, Dictionary<string, DescriptorSelect> headerLookup, Query[] queries, CsvWriter csvWriter)
+        private static void WriteHeaders(ColumnHeader[] headers, Dictionary<string, DescriptorSelect> headerLookup, Query query, CsvWriter csvWriter)
         {
             // Write CSV headers
             foreach (var header in headers)
             {
-                var headerName = GetHeaderName(headerLookup, queries, header);
+                var headerName = GetHeaderName(headerLookup, query, header);
                 if (header.MatrixRowIndex is not null && headers.Count(x => x.NameIndex == header.NameIndex) > 1)
                     headerName = $"{headerName}[{header.MatrixRowIndex + 1}]";
 
@@ -308,7 +325,7 @@ namespace PowerBiAuditApp.Processor
         /// <summary>
         /// Lookup the header name
         /// </summary>
-        private static string GetHeaderName(Dictionary<string, DescriptorSelect> headerLookup, Query[] queries, ColumnHeader header)
+        private static string GetHeaderName(Dictionary<string, DescriptorSelect> headerLookup, Query query, ColumnHeader header)
         {
             var headerDescriptor = headerLookup[header.NameIndex];
             var suffix = string.Empty;
@@ -321,10 +338,10 @@ namespace PowerBiAuditApp.Processor
                     return string.Join("---", headerDescriptor.GroupKeys.Select(g => g.Source.Property)) + suffix;
                 case DescriptorKind.Grouping:
                     {
-                        var selectProperty = queries
-                            .SelectMany(q => q.QueryQuery.Commands.Select(c =>
+                        var selectProperty = query
+                            .QueryQuery.Commands.Select(c =>
                                 c.SemanticQueryDataShapeCommand.Query.Select.SingleOrDefault(s =>
-                                    s.Name == headerDescriptor.Name)))
+                                    s.Name == headerDescriptor.Name))
                             .SingleOrDefault(q => q is not null)?.Measure?.Property;
 
                         if (selectProperty is not null)
@@ -348,6 +365,8 @@ namespace PowerBiAuditApp.Processor
             foreach (var row in data)
             {
                 previousCsvRow = GetRow(row, headers, dataSet.ValueDictionary, previousCsvRow);
+                if (previousCsvRow is null) continue;
+
                 foreach (var rowData in previousCsvRow)
                 {
                     csvWriter.WriteField(rowData);
@@ -369,9 +388,11 @@ namespace PowerBiAuditApp.Processor
             var matrixDataIndexLookup = new Dictionary<int, int>();
 
             var totalRows = CountRows(row);
+            var headerRows = headers.Count(x => x.SubDataRowIndex is null && (x.MatrixRowIndex is null || x.MatrixRowIndex == 0));
+            if (totalRows == 0 && row.ColumnHeaders is not null) return null; // Column header rows sometimes don't contain data.
 
-            if (totalRows != headers.Count(x => x.SubDataRowIndex is null))
-                throw new ArgumentException($"Number of rows doesn't match the headers (rows: {totalRows} headers:{headers.Count(x => x.SubDataRowIndex is null)}");
+            if (totalRows != headerRows)
+                throw new ArgumentException($"Number of rows doesn't match the headers (rows: {totalRows} headers:{headerRows}");
 
             for (var index = 0; index < headers.Length; index++)
             {
@@ -491,6 +512,9 @@ namespace PowerBiAuditApp.Processor
             var dataIndex = header.MatrixDataIndex ?? throw new NullReferenceException();
             var key = header.MatrixKey ?? throw new NullReferenceException();
 
+            if (rows[dataIndex][key].Length <= rowIndex)
+                return "--END OF SUB ROWS--";
+
             var row = rows[dataIndex][key][rowIndex];
 
             if (IsBitSet(row.RepeatBitmask ?? 0, columnIndex)) // this is a duplicate
@@ -535,10 +559,13 @@ namespace PowerBiAuditApp.Processor
             CountSetBits(row.NullBitmask ?? 0) +
             row.RowValues.Length +
             row.ValueLookup.Count +
-            (row.M?.Sum(m => m.Sum(x => x.Value.Sum(CountRows))) ?? 0);
+            (row.M?.Sum(m => m.Sum(x => x.Value.Max(CountRows))) ?? 0);
 
         private static object ParseRowValue(ColumnHeader header, Dictionary<string, string[]> valueDictionary, RowValue data)
         {
+            if (data.IsNull)
+                return null;
+
             switch (header.ColumnType)
             {
                 case ColumnType.String:
@@ -553,12 +580,22 @@ namespace PowerBiAuditApp.Processor
                         return data.String;
                     }
                 case ColumnType.Int:
-                case ColumnType.Long:
                     {
                         if (data.Integer is null)
                             throw new NullReferenceException();
 
                         return data.Integer;
+                    }
+                case ColumnType.Long:
+                    {
+                        if (data.Date is not null)
+                            return data.Date;
+
+                        if (data.Integer is not null)
+                            return data.Integer;
+
+                        throw new NullReferenceException();
+
                     }
 
                 case ColumnType.Double:
@@ -579,13 +616,13 @@ namespace PowerBiAuditApp.Processor
             }
         }
 
-        private static bool IsBitSet(long num, int pos) => (num & (1 << pos)) != 0;
+        private static bool IsBitSet(long num, int pos) => (num & ((long)1 << pos)) != 0;
         private static int CountSetBits(long bitmask)
         {
 
             var count = 0;
-            var mask = 1;
-            for (var i = 0; i < 32; i++)
+            long mask = 1;
+            for (var i = 0; i < 64; i++)
             {
                 if ((mask & bitmask) == mask)
                     count++;
