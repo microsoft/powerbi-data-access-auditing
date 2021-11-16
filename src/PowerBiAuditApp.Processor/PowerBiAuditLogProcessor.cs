@@ -401,7 +401,7 @@ namespace PowerBiAuditApp.Processor
             if (totalRows != headerRows)
             {
                 var baseHeaderRowCount = headers.Count(x => x.SubDataRowIndex is null && x.MatrixRowIndex is null);
-                if (totalRows != baseHeaderRowCount && (headerRows == baseHeaderRowCount || totalRows > headerRows))
+                if (totalRows != baseHeaderRowCount)
                     throw new ArgumentException($"Number of rows doesn't match the headers (rows: {totalRows} headers:{headerRows}");
             }
 
