@@ -1,9 +1,11 @@
-﻿using PowerBiAuditApp.Models;
+﻿using System.Collections.Generic;
+using PowerBiAuditApp.Models;
 
-namespace PowerBiAuditApp.Client.Models;
-
-public class HomeViewModel
+namespace PowerBiAuditApp.Client.Models
 {
-    public string? User { get; init; }
-    public IList<ReportDetail> Reports { get; init; } = null!;
+    public class HomeViewModel
+    {
+        public string User { get; init; }
+        public IList<ReportDetail> Reports { get; init; } = null!;
+    }
 }

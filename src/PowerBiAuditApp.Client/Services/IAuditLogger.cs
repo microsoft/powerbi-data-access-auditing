@@ -1,6 +1,12 @@
-﻿namespace PowerBiAuditApp.Client.Services;
+﻿using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
-public interface IAuditLogger
+namespace PowerBiAuditApp.Client.Services
 {
-    Task CreateAuditLog(HttpContext httpContext, HttpResponseMessage responseMessage, CancellationToken cancellationToken = default);
+    public interface IAuditLogger
+    {
+        Task CreateAuditLog(HttpContext httpContext, HttpResponseMessage responseMessage, CancellationToken cancellationToken = default);
+    }
 }

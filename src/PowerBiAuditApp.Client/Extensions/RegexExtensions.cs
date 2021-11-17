@@ -1,14 +1,15 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace PowerBiAuditApp.Client.Extensions;
-
-public static class RegexExtensions
+namespace PowerBiAuditApp.Client.Extensions
 {
-    public static string RegexReplace(this string str, string pattern, string replacement, RegexOptions? options = null)
+    public static class RegexExtensions
     {
-        if (options is null)
-            return Regex.Replace(str, pattern, replacement);
+        public static string RegexReplace(this string str, string pattern, string replacement, RegexOptions? options = null)
+        {
+            if (options is null)
+                return Regex.Replace(str, pattern, replacement);
 
-        return Regex.Replace(str, pattern, replacement, options.Value);
+            return Regex.Replace(str, pattern, replacement, options.Value);
+        }
     }
 }
