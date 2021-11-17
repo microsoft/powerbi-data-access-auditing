@@ -26,7 +26,7 @@ namespace PowerBiAuditApp.Processor
 
         [FunctionName(nameof(PowerBiDataSetProcessor_QueueStart))]
         public static async Task PowerBiDataSetProcessor_QueueStart(
-            [QueueTrigger("app-trigger-queue", Connection = "StorageAccountQueueEndpoint")] string name,
+            [QueueTrigger("app-trigger-data-refresh", Connection = "StorageAccountQueueEndpoint")] string name,
             [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)
         {
@@ -167,6 +167,7 @@ namespace PowerBiAuditApp.Processor
                 if (reportIds.Contains(pbiDataSetTable.Id))
                     tasks.Add(dataSetTable.DeleteEntityAsync(pbiDataSetTable));
             }
+
             await Task.WhenAll(tasks);
             log.LogInformation("Finished Sync of Data Sets for Groups {groupName}", group.Name);
         }
@@ -243,6 +244,7 @@ namespace PowerBiAuditApp.Processor
         public async Task PowerBiDataSetProcessor_UpdateReportSettings(
             [ActivityTrigger] IDurableActivityContext ctx,
             [Table(nameof(PbiGroupTable), Connection = "StorageAccountTableEndpoint")] CloudTable groupTable,
+            [Table(nameof(PbiDataSetTable), Connection = "StorageAccountTableEndpoint")] CloudTable dataSetTable,
             [Table(nameof(PbiReportTable), Connection = "StorageAccountTableEndpoint")] CloudTable reportTable,
             [Table(nameof(ReportDetail), Connection = "StorageAccountTableEndpoint")] CloudTable reportDetailTable,
             ILogger log)
@@ -250,6 +252,7 @@ namespace PowerBiAuditApp.Processor
             log.LogInformation("Starting update of Frontend report settings");
 
             var pbiGroups = await groupTable.ToDictionaryAsync<PbiGroupTable, Guid>(x => x.Id);
+            var dataSets = await dataSetTable.ToDictionaryAsync<PbiDataSetTable, string>(x => x.Id);
 
             var pbiReports = await reportTable.ToListAsync<PbiReportTable>();
 
@@ -261,7 +264,7 @@ namespace PowerBiAuditApp.Processor
                 if (!reportDetails.TryGetValue(pbiReport.Id, out var reportDetail))
                 {
                     if (!pbiGroups.TryGetValue(pbiReport.GroupId, out var pbiReportGroup))
-                        throw new ArgumentException($"Group doesn't seem to exist for report {reportDetail.Name}");
+                        throw new ArgumentException($"Group doesn't seem to exist for report {pbiReport.Name}");
 
                     reportDetail = new ReportDetail {
                         ReportId = pbiReport.Id,
@@ -286,6 +289,13 @@ namespace PowerBiAuditApp.Processor
                 reportDetail.Name = pbiReport.Name;
                 reportDetail.Description = pbiReport.Description;
                 reportDetail.ReportType = pbiReport.ReportType;
+
+                dataSets.TryGetValue(pbiReport.DatasetId, out var dataSet);
+
+                reportDetail.EffectiveIdentityRequired = dataSet?.IsEffectiveIdentityRequired ?? false;
+                reportDetail.EffectiveIdentityRolesRequired = dataSet?.IsEffectiveIdentityRolesRequired ?? false;
+
+
                 tasks.Add(reportDetailTable.UpsertEntityAsync(reportDetail));
             }
 
