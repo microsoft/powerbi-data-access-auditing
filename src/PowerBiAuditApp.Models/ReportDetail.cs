@@ -54,7 +54,9 @@ namespace PowerBiAuditApp.Models
         }
 
         public bool EffectiveIdentityRequired { get; set; }
+        public string EffectiveIdentityOverRide { get; set; }
         public bool EffectiveIdentityRolesRequired { get; set; }
+        public int? ReportRowLimit { get; set; }
 
         public List<int> DrillThroughReports { get; set; }
 

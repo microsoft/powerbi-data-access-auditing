@@ -118,9 +118,11 @@ namespace PowerBiAuditApp.Client.Services
             var pbiClient = GetPowerBiClient();
 
             List<EffectiveIdentity> ids = null;
-            var effectiveUserName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-            if (report.EffectiveIdentityRequired && report.Roles.Any())
+            if (report.EffectiveIdentityRequired)
             {
+                var effectiveUserName = string.IsNullOrWhiteSpace(report.EffectiveIdentityOverRide)
+                    ? _httpContextAccessor.HttpContext?.User.Identity?.Name
+                    : report.EffectiveIdentityOverRide;
 
                 if (report.EffectiveIdentityRolesRequired && !report.Roles.Any())
                     throw new ArgumentException("Roles need to be setup for this report");
