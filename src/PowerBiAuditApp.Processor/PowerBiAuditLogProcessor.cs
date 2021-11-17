@@ -42,21 +42,33 @@ namespace PowerBiAuditApp.Processor
 
             try
             {
+                var resultIndex = 0;
                 foreach (var result in model.Response.Results)
                 {
                     var headerLookup = GetHeaderLookup(result);
+                    var query = model.Request.Queries[resultIndex++];
 
-                    foreach (var dataSet in result.Result.Data.Dsr.DataOrRow)
+                    async Task WriteCsvs(PowerBiDataSet dataSet)
                     {
                         foreach (var (key, data) in dataSet.PrimaryRows.SelectMany(x => x))
                         {
-                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, model.Request.Queries, $"Primary{key}", result, dataSet, headerLookup);
+                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Primary{key}", result, dataSet, headerLookup);
                         }
 
                         foreach (var (key, data) in dataSet.SecondaryRows.SelectMany(x => x))
                         {
-                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, model.Request.Queries, $"Secondary{key}", result, dataSet, headerLookup);
+                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Secondary{key}", result, dataSet, headerLookup);
                         }
+
+                        foreach (var subDataSet in dataSet.DataOrRow ?? Array.Empty<PowerBiDataSet>())
+                        {
+                            await WriteCsvs(subDataSet);
+                        }
+                    }
+
+                    foreach (var dataSet in result.Result.Data.Dsr.DataOrRow)
+                    {
+                        await WriteCsvs(dataSet);
                     }
                 }
             }
@@ -128,11 +140,50 @@ namespace PowerBiAuditApp.Processor
             var calcKeys = withGroupKeys
                 .SelectMany(x => x.GroupKeys)
                 .Where(x => x.Calc is not null)
-                .ToDictionary(x => x.Calc, x => withGroupKeys.FirstOrDefault(d => d.Value != x.Calc && d.GroupKeys.Any(g => g.Calc == x.Calc)))
+                .ToDictionary(x => x.Calc, x =>
+                    withGroupKeys.FirstOrDefault(d => d.Value != x.Calc && d.GroupKeys.Any(g => g.Calc == x.Calc))
+                )
                 .Where(x => x.Value != null);
+
+            var withSubTotalKeys = result.Result.Data.Descriptor.Select
+                .Where(x => x?.Subtotal is not null)
+                .ToArray();
+
+            var subtotalKeys = withSubTotalKeys
+                .SelectMany(x => x.Subtotal)
+                .ToDictionary(x => x, x =>
+                    withSubTotalKeys.FirstOrDefault(d => d.Value != x && d.Subtotal.Any(g => g == x))
+                )
+                .Where(x => x.Value != null);
+
+
+            var withSyncKeys = result.Result.Data.Descriptor.Select
+                .Where(x => x?.Synchronized is not null)
+                .ToArray();
+
+            var syncKeys = withSyncKeys
+                .ToDictionary(x => x.Synchronized.Value);
+
+            var syncKeyLookup = withSyncKeys
+                .Select(s =>
+                    (value: s, lookupKeys: s.Synchronized.GroupKeys.Select(g => $"{g.Source.Entity}.{g.Source.Property}"))
+                );
+
+            var syncKeysFromDescriptor = new[] { result.Result.Data.Descriptor.Expressions?.Primary, result.Result.Data.Descriptor.Expressions?.Secondary }
+                .Where(x => x?.Groupings is not null)
+                .SelectMany(x => x.Groupings)
+                .Where(x => x.SynchronizationIndex is not null)
+                .Select(x => (keys: x.Keys.Select(k => $"{k.Source.Entity}.{k.Source.Property}").ToArray(), value: x))
+                .ToDictionary(x =>
+                        x.value.SynchronizationIndex,
+                    x => syncKeyLookup.Single(s => s.lookupKeys.All(l => x.keys.Contains(l)) && x.keys.All(k => s.lookupKeys.Contains(k))).value
+                );
 
             return headerLookup.Concat(highlightKeys)
                 .Concat(calcKeys)
+                .Concat(subtotalKeys)
+                .Concat(syncKeys)
+                .Concat(syncKeysFromDescriptor)
                 .ToDictionary(x => x.Key, x => x.Value);
         }
 
@@ -140,7 +191,7 @@ namespace PowerBiAuditApp.Processor
         /// Process the returned json and write it to a csv file
         /// </summary>
         private static async Task WriteCsv(string name, CloudBlockBlob auditBlobClient, CloudBlobContainer processedLogClient,
-            IAsyncCollector<SendGridMessage> messageCollector, ILogger log, PowerBiDataRow[] data, Query[] queries, string key, ResultElement result, PowerBiDataSet dataSet,
+            IAsyncCollector<SendGridMessage> messageCollector, ILogger log, PowerBiDataRow[] data, Query query, string key, ResultElement result, PowerBiDataSet dataSet,
             Dictionary<string, DescriptorSelect> headerLookup)
         {
             try
@@ -148,6 +199,16 @@ namespace PowerBiAuditApp.Processor
                 // If no data was returned don't log it
                 if (!data.Any())
                 {
+                    log.LogWarning("Did not find any data in {fileName}:{key}", name, key);
+                    return;
+                }
+
+                // If no headers are returned then don't log it
+                var headers = GetHeaders(data);
+                if (!headers.Any())
+                {
+                    if (data.Sum(CountRows) > 0)
+                        throw new ArgumentException("No Headers found for data");
                     log.LogWarning("Did not find any data in {fileName}:{key}", name, key);
                     return;
                 }
@@ -160,9 +221,8 @@ namespace PowerBiAuditApp.Processor
                 await using var csvWriter = new CsvWriter(writer,
                     new CsvConfiguration(CultureInfo.InvariantCulture) { LeaveOpen = false, HasHeaderRecord = false });
 
-                var headers = GetHeaders(data);
 
-                WriteHeaders(headers, headerLookup, queries, csvWriter);
+                WriteHeaders(headers, headerLookup, query, csvWriter);
                 WriteRows(data, headers, dataSet, csvWriter);
 
                 await csvWriter.FlushAsync();
@@ -180,7 +240,9 @@ namespace PowerBiAuditApp.Processor
         /// </summary>
         private static ColumnHeader[] GetHeaders(PowerBiDataRow[] data)
         {
-            var headers = data.Single(x => x.ColumnHeaders is not null).ColumnHeaders;
+            if (data.Sum(CountRows) == 0) return Array.Empty<ColumnHeader>();
+
+            var headers = data.Single(x => x.ColumnHeaders is not null).ColumnHeaders.ToList();
 
 
             var subDataRows =
@@ -192,8 +254,6 @@ namespace PowerBiAuditApp.Processor
                 .SelectMany(x => x.ColumnHeaders)
                 .Where(c => c is not null).ToArray();
 
-
-            var subHeaderSet = new List<ColumnHeader>();
             if (subHeaders?.Any() == true)
             {
                 var subColumnCount = data.Where(d => d.SubDataRows is not null)
@@ -207,29 +267,61 @@ namespace PowerBiAuditApp.Processor
                         var newSubHeader = subHeader.Clone();
                         newSubHeader.SubDataRowIndex = i;
                         newSubHeader.SubDataColumnIndex = columnIndex++;
-                        subHeaderSet.Add(newSubHeader);
+                        headers.Add(newSubHeader);
                     }
                 }
-
-                headers = headers.Concat(subHeaderSet).ToArray();
             }
 
-            return headers;
+            var matrixData = data
+                .Select((x, i) => (data: x, index: i))
+                .Where(x => x.data.M is not null)
+                .SelectMany(x => x.data.M.SelectMany(m => m.Select((d, i) => (data: d.Value, key: d.Key, x.index, matrixDataIndex: i))))
+                .Where(x => x.data.Any(d => d.ColumnHeaders is not null))
+                .ToArray();
+
+            if (matrixData.Any())
+            {
+                foreach (var (matrixDataRows, key, index, matrixDataIndex) in matrixData)
+                {
+                    var columns = GetHeaders(matrixDataRows);
+
+                    var matrixColumnCount = data.Max(x => x.M.Single(m => m.Keys.Contains(key))[key].Length);
+
+                    for (var i = 0; i < matrixColumnCount; i++)
+                    {
+                        var columnIndex = 0;
+                        foreach (var columnHeader in columns)
+                        {
+                            if (columnHeader.MatrixKey is not null)
+                                throw new NotSupportedException("More than one level of matrix data is not supported");
+
+                            var newColumnHeader = columnHeader.Clone();
+                            newColumnHeader.MatrixKey = key;
+                            newColumnHeader.MatrixRowIndex = i;
+                            newColumnHeader.MatrixColumnIndex = columnIndex++;
+                            headers.Add(newColumnHeader);
+                        }
+                    }
+                }
+            }
+
+            return headers.ToArray();
         }
         /// <summary>
         /// Write Headers to csv
         /// </summary>
-        private static void WriteHeaders(ColumnHeader[] headers, Dictionary<string, DescriptorSelect> headerLookup, Query[] queries, CsvWriter csvWriter)
+        private static void WriteHeaders(ColumnHeader[] headers, Dictionary<string, DescriptorSelect> headerLookup, Query query, CsvWriter csvWriter)
         {
             // Write CSV headers
             foreach (var header in headers)
             {
-                var headerName = GetHeaderName(headerLookup, queries, header);
+                var headerName = GetHeaderName(headerLookup, query, header);
+                if (header.MatrixRowIndex is not null && headers.Count(x => x.NameIndex == header.NameIndex) > 1)
+                    headerName = $"{headerName}[{header.MatrixRowIndex + 1}]";
+
                 if (header.SubDataRowIndex is not null && headers.Count(x => x.NameIndex == header.NameIndex) > 1)
-                {
-                    csvWriter.WriteField($"{headerName}[{header.SubDataRowIndex + 1}]");
-                    continue;
-                }
+                    headerName = $"{headerName}[{header.SubDataRowIndex + 1}]";
+
 
                 csvWriter.WriteField(headerName);
             }
@@ -240,7 +332,7 @@ namespace PowerBiAuditApp.Processor
         /// <summary>
         /// Lookup the header name
         /// </summary>
-        private static string GetHeaderName(Dictionary<string, DescriptorSelect> headerLookup, Query[] queries, ColumnHeader header)
+        private static string GetHeaderName(Dictionary<string, DescriptorSelect> headerLookup, Query query, ColumnHeader header)
         {
             var headerDescriptor = headerLookup[header.NameIndex];
             var suffix = string.Empty;
@@ -253,10 +345,10 @@ namespace PowerBiAuditApp.Processor
                     return string.Join("---", headerDescriptor.GroupKeys.Select(g => g.Source.Property)) + suffix;
                 case DescriptorKind.Grouping:
                     {
-                        var selectProperty = queries
-                            .SelectMany(q => q.QueryQuery.Commands.Select(c =>
+                        var selectProperty = query
+                            .QueryQuery.Commands.Select(c =>
                                 c.SemanticQueryDataShapeCommand.Query.Select.SingleOrDefault(s =>
-                                    s.Name == headerDescriptor.Name)))
+                                    s.Name == headerDescriptor.Name))
                             .SingleOrDefault(q => q is not null)?.Measure?.Property;
 
                         if (selectProperty is not null)
@@ -280,6 +372,8 @@ namespace PowerBiAuditApp.Processor
             foreach (var row in data)
             {
                 previousCsvRow = GetRow(row, headers, dataSet.ValueDictionary, previousCsvRow);
+                if (previousCsvRow is null) continue;
+
                 foreach (var rowData in previousCsvRow)
                 {
                     csvWriter.WriteField(rowData);
@@ -297,139 +391,201 @@ namespace PowerBiAuditApp.Processor
             var rowDataIndex = 0;
             var csvRow = new object[headers.Length];
 
-            var copyBitmask = row.RepeatBitmask ?? 0;
-            var nullBitmask = row.NullBitmask ?? 0;
             var subRowDataIndexLookup = new Dictionary<int, int>();
+            var matrixDataIndexLookup = new Dictionary<int, int>();
 
-            var totalRows = CountSetBits(copyBitmask) +
-                            CountSetBits(nullBitmask) +
-                            row.RowValues.Length +
-                            row.ValueLookup.Count;
+            var totalRows = CountRows(row);
+            var headerRows = headers.Count(x => x.SubDataRowIndex is null && (x.MatrixRowIndex is null || x.MatrixRowIndex == 0));
+            if (totalRows == 0 && row.ColumnHeaders is not null) return null; // Column header rows sometimes don't contain data.
 
-            if (totalRows != headers.Count(x => x.SubDataRowIndex is null))
-                throw new ArgumentException($"Number of rows doesn't match the headers (rows: {totalRows} headers:{headers.Count(x => x.SubDataRowIndex is null)}");
+            if (totalRows != headerRows)
+            {
+                var baseHeaderRowCount = headers.Count(x => x.SubDataRowIndex is null && x.MatrixRowIndex is null);
+                if (totalRows != baseHeaderRowCount)
+                    throw new ArgumentException($"Number of rows doesn't match the headers (rows: {totalRows} headers:{headerRows}");
+            }
 
             for (var index = 0; index < headers.Length; index++)
             {
-                if (IsBitSet(copyBitmask, index))
+                if (IsBitSet(row.RepeatBitmask ?? 0, index))
                 {
                     // this is a duplicate
                     csvRow[index] = previousCsvRow[index];
                     continue;
                 }
 
-                if (IsBitSet(nullBitmask, index))
+                if (IsBitSet(row.NullBitmask ?? 0, index))
                 {
-                    // this is a null
+                    // This is a null value
                     csvRow[index] = null;
                     continue;
                 }
 
                 if (row.ValueLookup.TryGetValue(headers[index].NameIndex, out var cellData))
                 {
-                    csvRow[index] = ParseRowValue(headers, valueDictionary, index, cellData);
+                    csvRow[index] = ParseRowValue(headers[index], valueDictionary, cellData);
                     continue;
                 }
 
-                if (row.RowValues.Length < rowDataIndex + 1 && row.SubDataRows != null)
+                if (row.RowValues.Length < rowDataIndex + 1)
                 {
-                    var header = headers[index];
-                    var rowIndex = header.SubDataRowIndex ?? throw new NullReferenceException();
-                    var columnIndex = header.SubDataColumnIndex ?? throw new NullReferenceException();
-
-                    var subData = row.SubDataRows.SingleOrDefault(x => x.Index == rowIndex);
-                    if (subData is null)
+                    if (row.SubDataRows != null)
                     {
-                        if (row.SubDataRows.Length > rowIndex)
-                        {
-                            subData = row.SubDataRows[rowIndex];
-                        }
-
-                        if (subData is null || subData.Index is not null)
-                        {
-                            csvRow[index] = 0;
-                            continue;
-                        }
-                    }
-
-
-                    if (IsBitSet(subData.RepeatBitmask ?? 0, columnIndex))
-                    {
-                        // this is a duplicate
-
-                        if (rowIndex <= 0 || !row.SubDataRows.Any(x => x.Index is null || x.Index < rowIndex)) // data came from the previous row
-                        {
-                            var previousCsvIndex = headers
-                                .Select((x, i) => (value: x, index: i))
-                                .Where(x => x.value.SubDataColumnIndex == columnIndex && previousCsvRow[x.index] is not null)
-                                .Max(x => x.index);
-
-                            csvRow[index] = previousCsvRow[previousCsvIndex];
-                            continue;
-                        }
-
-                        var previousIndex = headers
-                            .Select((x, i) => (value: x, index: i))
-                            .Single(x => x.value.SubDataColumnIndex == columnIndex && x.value.SubDataRowIndex == rowIndex - 1)
-                            .index;
-
-                        csvRow[index] = csvRow[previousIndex];
+                        csvRow[index] = ProcessSubDataColumn(row.SubDataRows, headers, valueDictionary, previousCsvRow, index, csvRow, subRowDataIndexLookup);
                         continue;
                     }
-
-                    if (IsBitSet(subData.NullBitmask ?? 0, columnIndex))
+                    if (row.M != null)
                     {
-                        // this is a null
-                        csvRow[index] = null;
+                        csvRow[index] = ProcessMatrixColumn(row.M, headers, valueDictionary, previousCsvRow, index, csvRow, matrixDataIndexLookup);
                         continue;
                     }
-
-
-                    if (subData.ValueLookup.TryGetValue(header.NameIndex, out var subCellData))
-                    {
-                        csvRow[index] = headers[index].ColumnType switch {
-                            ColumnType.String => subCellData,
-                            ColumnType.Int => int.Parse(subCellData),
-                            ColumnType.Double => double.Parse(subCellData),
-                            _ => throw new ArgumentOutOfRangeException(nameof(headers), $"Unknown type {headers[index].ColumnType}")
-                        };
-                        continue;
-                    }
-
-                    if (!subRowDataIndexLookup.TryGetValue(rowIndex, out var subRowDataIndex))
-                        subRowDataIndex = 0;
-
-
-                    if (subData.RowValues is null) // no rows returned for sub-data (aka data only has headings)
-                    {
-                        csvRow[index] = 0;
-                        continue;
-                    }
-
-                    var subDataValue = subData.RowValues[subRowDataIndex++];
-                    csvRow[index] = ParseRowValue(headers, valueDictionary, index, subDataValue);
-
-                    subRowDataIndexLookup[rowIndex] = subRowDataIndex;
-                    continue;
                 }
 
-                var data = row.RowValues[rowDataIndex++];
-                csvRow[index] = ParseRowValue(headers, valueDictionary, index, data);
+                csvRow[index] = ParseRowValue(headers[index], valueDictionary, row.RowValues[rowDataIndex++]);
             }
 
             return csvRow;
         }
 
-        private static object ParseRowValue(ColumnHeader[] headers, Dictionary<string, string[]> valueDictionary, int index, RowValue data)
+        private static object ProcessSubDataColumn(SubDataRow[] subDataRows, ColumnHeader[] headers, Dictionary<string, string[]> valueDictionary, object[] previousCsvRow, int index, object[] csvRow, Dictionary<int, int> subRowDataIndexLookup)
         {
-            switch (headers[index].ColumnType)
+            var header = headers[index];
+            var rowIndex = header.SubDataRowIndex ?? throw new NullReferenceException();
+            var columnIndex = header.SubDataColumnIndex ?? throw new NullReferenceException();
+
+            var subData = subDataRows.SingleOrDefault(x => x.Index == rowIndex);
+            if (subData is null)
+            {
+                if (subDataRows.Length > rowIndex)
+                    subData = subDataRows[rowIndex];
+
+                if (subData is null || subData.Index is not null)
+                    return 0;
+            }
+
+
+            if (IsBitSet(subData.RepeatBitmask ?? 0, columnIndex))
+            {
+                // this is a duplicate
+
+                if (rowIndex <= 0 ||
+                    !subDataRows.Any(x => x.Index is null || x.Index < rowIndex)) // data came from the previous row
+                {
+                    var previousCsvIndex = headers
+                        .Select((x, i) => (value: x, index: i))
+                        .Where(x => x.value.SubDataColumnIndex == columnIndex)
+                        .Max(x => x.index);
+
+                    return previousCsvRow[previousCsvIndex];
+                }
+
+                var previousIndex = headers
+                    .Select((x, i) => (value: x, index: i))
+                    .Single(x => x.value.SubDataColumnIndex == columnIndex && x.value.SubDataRowIndex == rowIndex - 1)
+                    .index;
+
+                return csvRow[previousIndex];
+            }
+
+            if (IsBitSet(subData.NullBitmask ?? 0, columnIndex)) // This is a null value
+                return null;
+
+
+            if (subData.ValueLookup.TryGetValue(header.NameIndex, out var subCellData))
+            {
+                return header.ColumnType switch {
+                    ColumnType.String => subCellData,
+                    ColumnType.Int => int.Parse(subCellData),
+                    ColumnType.Double => double.Parse(subCellData),
+                    _ => throw new ArgumentOutOfRangeException(nameof(headers), $"Unknown type {headers[index].ColumnType}")
+                };
+            }
+
+            if (!subRowDataIndexLookup.TryGetValue(rowIndex, out var subRowDataIndex))
+                subRowDataIndex = 0;
+
+
+            if (subData.RowValues is null) // no rows returned for sub-data (aka data only has headings)
+            {
+                return 0;
+            }
+
+            var subDataValue = subData.RowValues[subRowDataIndex++];
+            subRowDataIndexLookup[rowIndex] = subRowDataIndex;
+            return ParseRowValue(header, valueDictionary, subDataValue);
+
+        }
+        private static object ProcessMatrixColumn(Dictionary<string, PowerBiDataRow[]>[] rows, ColumnHeader[] headers, Dictionary<string, string[]> valueDictionary, object[] previousCsvRow, int index, object[] csvRow, Dictionary<int, int> matrixDataIndexLookup)
+        {
+            var header = headers[index];
+            var rowIndex = header.MatrixRowIndex ?? throw new NullReferenceException();
+            var columnIndex = header.MatrixColumnIndex ?? throw new NullReferenceException();
+            var key = header.MatrixKey ?? throw new NullReferenceException();
+
+
+            var dataSet = rows.Single(x => x.ContainsKey(key))[key];
+            if (dataSet.Length <= rowIndex)
+                return "--END OF SUB ROWS--";
+
+            var row = dataSet[rowIndex];
+
+            if (IsBitSet(row.RepeatBitmask ?? 0, columnIndex)) // this is a duplicate
+            {
+
+                // this is a duplicate
+                var indexedHeader = headers.Select((x, i) => (header: x, index: i));
+                if (rowIndex <= 0) // data came from the previous row
+                {
+                    var previousCsvIndex = indexedHeader
+                        .Where(x => x.header.MatrixColumnIndex == columnIndex)
+                        .Max(x => x.index);
+
+                    return previousCsvRow[previousCsvIndex];
+                }
+
+                var previousIndex = indexedHeader
+                    .Single(x => x.header.MatrixRowIndex == rowIndex - 1 && x.header.MatrixColumnIndex == columnIndex)
+                    .index;
+
+                return csvRow[previousIndex];
+            }
+
+            if (IsBitSet(row.NullBitmask ?? 0, columnIndex)) // This is a null value
+                return null;
+
+            if (row.ValueLookup.TryGetValue(header.NameIndex, out var cellData))
+                return ParseRowValue(header, valueDictionary, cellData);
+
+            if (!matrixDataIndexLookup.TryGetValue(rowIndex, out var matrixDataIndex))
+                matrixDataIndex = 0;
+
+            if (row.RowValues.Length < matrixDataIndex + 1)
+                throw new NotSupportedException("Matrix or sub-row parsing in matrices are not supported at this time.");
+
+            matrixDataIndexLookup[rowIndex] = matrixDataIndex + 1;
+            return ParseRowValue(header, valueDictionary, row.RowValues[matrixDataIndex]);
+        }
+
+        private static int CountRows(PowerBiDataRow row) =>
+            CountSetBits(row.RepeatBitmask ?? 0) +
+            CountSetBits(row.NullBitmask ?? 0) +
+            row.RowValues.Length +
+            row.ValueLookup.Count +
+            (row.M?.Sum(m => m.Sum(x => x.Value.Any() ? x.Value.Max(CountRows) : 0)) ?? 0);
+
+        private static object ParseRowValue(ColumnHeader header, Dictionary<string, string[]> valueDictionary, RowValue data)
+        {
+            if (data.IsNull)
+                return null;
+
+            switch (header.ColumnType)
             {
                 case ColumnType.String:
                     {
                         if (data.Integer is not null)
                         {
                             // need to lookup
-                            var lookup = headers[index].DataIndex;
+                            var lookup = header.DataIndex;
                             return valueDictionary[lookup][data.Integer.Value];
                         }
 
@@ -442,31 +598,43 @@ namespace PowerBiAuditApp.Processor
 
                         return data.Integer;
                     }
+                case ColumnType.Long:
+                    {
+                        if (data.Date is not null)
+                            return data.Date;
+
+                        if (data.Integer is not null)
+                            return data.Integer;
+
+                        throw new NullReferenceException();
+
+                    }
 
                 case ColumnType.Double:
                     {
                         if (data.Double is not null)
-                        {
                             return data.Double;
-                        }
 
-                        if (data.String is null)
-                            throw new NullReferenceException();
+                        if (data.Integer is not null)
+                            return (double)data.Integer;
 
-                        return double.Parse(data.String);
+                        if (data.String is not null)
+                            return double.Parse(data.String);
+
+                        throw new NullReferenceException();
                     }
                 default:
                     throw new NotSupportedException();
             }
         }
 
-        private static bool IsBitSet(long num, int pos) => (num & (1 << pos)) != 0;
+        private static bool IsBitSet(long num, int pos) => (num & ((long)1 << pos)) != 0;
         private static int CountSetBits(long bitmask)
         {
 
             var count = 0;
-            var mask = 1;
-            for (var i = 0; i < 32; i++)
+            long mask = 1;
+            for (var i = 0; i < 64; i++)
             {
                 if ((mask & bitmask) == mask)
                     count++;

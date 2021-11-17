@@ -1,0 +1,1520 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-12T09:02:41.312874+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "c",
+                      "Entity": "Cases per US State",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d",
+                      "Entity": "Dates",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s",
+                      "Entity": "States",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "c1",
+                      "Entity": "Countries",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "TransformTableRef": {
+                            "Source": "output0"
+                          }
+                        },
+                        "Property": "Dates.Date"
+                      },
+                      "Name": "Dates.Date"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "TransformTableRef": {
+                            "Source": "output0"
+                          }
+                        },
+                        "Property": "Sum(Cases per US State.distributed_per_hundred)"
+                      },
+                      "Name": "Sum(Cases per US State.distributed_per_hundred)"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "TransformTableRef": {
+                            "Source": "output0"
+                          }
+                        },
+                        "Property": "forecastValue"
+                      },
+                      "Name": "forecastValue"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "TransformTableRef": {
+                            "Source": "output0"
+                          }
+                        },
+                        "Property": "confidenceHighBound"
+                      },
+                      "Name": "confidenceHighBound"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "TransformTableRef": {
+                            "Source": "output0"
+                          }
+                        },
+                        "Property": "confidenceLowBound"
+                      },
+                      "Name": "confidenceLowBound"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "And": {
+                          "Left": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Date"
+                                }
+                              },
+                              "Right": {
+                                "DateSpan": {
+                                  "Expression": {
+                                    "Literal": {
+                                      "Value": "datetime'2020-04-04T00:00:00'"
+                                    }
+                                  },
+                                  "TimeUnit": 5
+                                }
+                              }
+                            }
+                          },
+                          "Right": {
+                            "Comparison": {
+                              "ComparisonKind": 4,
+                              "Left": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Date"
+                                }
+                              },
+                              "Right": {
+                                "DateSpan": {
+                                  "Expression": {
+                                    "Literal": {
+                                      "Value": "datetime'2021-04-07T00:00:00'"
+                                    }
+                                  },
+                                  "TimeUnit": 5
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "s"
+                                  }
+                                },
+                                "Property": "State (groups)"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'Main states'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "In": {
+                              "Expressions": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "c1"
+                                      }
+                                    },
+                                    "Property": "Country"
+                                  }
+                                }
+                              ],
+                              "Values": [
+                                [
+                                  {
+                                    "Literal": {
+                                      "Value": "null"
+                                    }
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 4,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Date"
+                            }
+                          },
+                          "Right": {
+                            "DateSpan": {
+                              "Expression": {
+                                "Literal": {
+                                  "Value": "datetime'2021-04-12T00:00:00'"
+                                }
+                              },
+                              "TimeUnit": 5
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "Transform": [
+                    {
+                      "Name": "Forecast",
+                      "Algorithm": "Forecast",
+                      "Input": {
+                        "Parameters": [
+                          {
+                            "Literal": {
+                              "Value": "7D"
+                            },
+                            "Name": "Unit"
+                          },
+                          {
+                            "Literal": {
+                              "Value": "40D"
+                            },
+                            "Name": "ForecastLength"
+                          },
+                          {
+                            "Literal": {
+                              "Value": "0D"
+                            },
+                            "Name": "IgnoreLast"
+                          },
+                          {
+                            "Literal": {
+                              "Value": "0.95D"
+                            },
+                            "Name": "ConfidenceLevel"
+                          }
+                        ],
+                        "Table": {
+                          "Name": "input0",
+                          "Columns": [
+                            {
+                              "Expression": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Date"
+                                },
+                                "Name": "Dates.Date"
+                              },
+                              "Role": "X"
+                            },
+                            {
+                              "Expression": {
+                                "Aggregation": {
+                                  "Expression": {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "c"
+                                        }
+                                      },
+                                      "Property": "distributed_per_hundred"
+                                    }
+                                  },
+                                  "Function": 1
+                                },
+                                "Name": "Sum(Cases per US State.distributed_per_hundred)"
+                              },
+                              "Role": "Y"
+                            }
+                          ]
+                        }
+                      },
+                      "Output": {
+                        "Table": {
+                          "Name": "output0",
+                          "Columns": [
+                            {
+                              "Expression": {
+                                "Column": {
+                                  "Expression": {
+                                    "TransformTableRef": {
+                                      "Source": "input0"
+                                    }
+                                  },
+                                  "Property": "Dates.Date"
+                                },
+                                "Name": "Dates.Date"
+                              }
+                            },
+                            {
+                              "Expression": {
+                                "Column": {
+                                  "Expression": {
+                                    "TransformTableRef": {
+                                      "Source": "input0"
+                                    }
+                                  },
+                                  "Property": "Sum(Cases per US State.distributed_per_hundred)"
+                                },
+                                "Name": "Sum(Cases per US State.distributed_per_hundred)"
+                              }
+                            },
+                            {
+                              "Expression": {
+                                "TransformOutputRoleRef": {
+                                  "Role": "Forecast"
+                                },
+                                "Name": "forecastValue"
+                              },
+                              "Role": "forecast.ForecastValue"
+                            },
+                            {
+                              "Expression": {
+                                "TransformOutputRoleRef": {
+                                  "Role": "UpperBound"
+                                },
+                                "Name": "confidenceHighBound"
+                              },
+                              "Role": "forecast.ConfidenceHighBound"
+                            },
+                            {
+                              "Expression": {
+                                "TransformOutputRoleRef": {
+                                  "Role": "LowerBound"
+                                },
+                                "Name": "confidenceLowBound"
+                              },
+                              "Role": "forecast.ConfidenceLowBound"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2,
+                          3,
+                          4
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "BinnedLineSample": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Cases per US State\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Dates\",\"Type\":0},{\"Name\":\"s\",\"Entity\":\"States\",\"Type\":0},{\"Name\":\"c1\",\"Entity\":\"Countries\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"TransformTableRef\":{\"Source\":\"output0\"}},\"Property\":\"Dates.Date\"},\"Name\":\"Dates.Date\"},{\"Column\":{\"Expression\":{\"TransformTableRef\":{\"Source\":\"output0\"}},\"Property\":\"Sum(Cases per US State.distributed_per_hundred)\"},\"Name\":\"Sum(Cases per US State.distributed_per_hundred)\"},{\"Column\":{\"Expression\":{\"TransformTableRef\":{\"Source\":\"output0\"}},\"Property\":\"forecastValue\"},\"Name\":\"forecastValue\"},{\"Column\":{\"Expression\":{\"TransformTableRef\":{\"Source\":\"output0\"}},\"Property\":\"confidenceHighBound\"},\"Name\":\"confidenceHighBound\"},{\"Column\":{\"Expression\":{\"TransformTableRef\":{\"Source\":\"output0\"}},\"Property\":\"confidenceLowBound\"},\"Name\":\"confidenceLowBound\"}],\"Where\":[{\"Condition\":{\"And\":{\"Left\":{\"Comparison\":{\"ComparisonKind\":2,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Date\"}},\"Right\":{\"DateSpan\":{\"Expression\":{\"Literal\":{\"Value\":\"datetime'2020-04-04T00:00:00'\"}},\"TimeUnit\":5}}}},\"Right\":{\"Comparison\":{\"ComparisonKind\":4,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Date\"}},\"Right\":{\"DateSpan\":{\"Expression\":{\"Literal\":{\"Value\":\"datetime'2021-04-07T00:00:00'\"}},\"TimeUnit\":5}}}}}}},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"State (groups)\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Main states'\"}}]]}}},{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c1\"}},\"Property\":\"Country\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}},{\"Condition\":{\"Comparison\":{\"ComparisonKind\":4,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Date\"}},\"Right\":{\"DateSpan\":{\"Expression\":{\"Literal\":{\"Value\":\"datetime'2021-04-12T00:00:00'\"}},\"TimeUnit\":5}}}}}],\"Transform\":[{\"Name\":\"Forecast\",\"Algorithm\":\"Forecast\",\"Input\":{\"Parameters\":[{\"Literal\":{\"Value\":\"7D\"},\"Name\":\"Unit\"},{\"Literal\":{\"Value\":\"40D\"},\"Name\":\"ForecastLength\"},{\"Literal\":{\"Value\":\"0D\"},\"Name\":\"IgnoreLast\"},{\"Literal\":{\"Value\":\"0.95D\"},\"Name\":\"ConfidenceLevel\"}],\"Table\":{\"Name\":\"input0\",\"Columns\":[{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Date\"},\"Name\":\"Dates.Date\"},\"Role\":\"X\"},{\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"distributed_per_hundred\"}},\"Function\":1},\"Name\":\"Sum(Cases per US State.distributed_per_hundred)\"},\"Role\":\"Y\"}]}},\"Output\":{\"Table\":{\"Name\":\"output0\",\"Columns\":[{\"Expression\":{\"Column\":{\"Expression\":{\"TransformTableRef\":{\"Source\":\"input0\"}},\"Property\":\"Dates.Date\"},\"Name\":\"Dates.Date\"}},{\"Expression\":{\"Column\":{\"Expression\":{\"TransformTableRef\":{\"Source\":\"input0\"}},\"Property\":\"Sum(Cases per US State.distributed_per_hundred)\"},\"Name\":\"Sum(Cases per US State.distributed_per_hundred)\"}},{\"Expression\":{\"TransformOutputRoleRef\":{\"Role\":\"Forecast\"},\"Name\":\"forecastValue\"},\"Role\":\"forecast.ForecastValue\"},{\"Expression\":{\"TransformOutputRoleRef\":{\"Role\":\"UpperBound\"},\"Name\":\"confidenceHighBound\"},\"Role\":\"forecast.ConfidenceHighBound\"},{\"Expression\":{\"TransformOutputRoleRef\":{\"Role\":\"LowerBound\"},\"Name\":\"confidenceLowBound\"},\"Role\":\"forecast.ConfidenceLowBound\"}]}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2,3,4]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"BinnedLineSample\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "387d52a5-4a92-4fd3-b0ca-36e3af877093",
+          "Sources": [
+            {
+              "ReportId": "cc400a31-a746-48cf-86c9-047cfc011e96",
+              "VisualId": "3fac96590354093397a3"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 573281,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "8a7512f1-153e-4306-bdef-6d95d37539e1"
+    ],
+    "results": [
+      {
+        "jobId": "8a7512f1-153e-4306-bdef-6d95d37539e1",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Dates",
+                        "Property": "Date"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Dates.Date"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Name": "Sum(Cases per US State.distributed_per_hundred)"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Name": "forecastValue"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M2",
+                  "Name": "confidenceHighBound"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M3",
+                  "Name": "confidenceLowBound"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Dates",
+                            "Property": "Date"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "BinnedLineSample": {
+                    "MaxTargetPointCount": 3500,
+                    "MinPointsPerSeriesCount": 350,
+                    "IntersectionDbCountCalc": "A0"
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "S": [
+                    {
+                      "N": "A0",
+                      "T": 4
+                    }
+                  ],
+                  "A0": 83,
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 7
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            },
+                            {
+                              "N": "M1",
+                              "T": 3
+                            },
+                            {
+                              "N": "M2",
+                              "T": 3
+                            },
+                            {
+                              "N": "M3",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            1610668800000,
+                            "9.3382352941176467"
+                          ],
+                          "Ø": 28
+                        },
+                        {
+                          "C": [
+                            1610755200000
+                          ],
+                          "R": 30
+                        },
+                        {
+                          "C": [
+                            1610841600000
+                          ],
+                          "R": 30
+                        },
+                        {
+                          "C": [
+                            1610928000000,
+                            "9.3382352941176485"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611014400000,
+                            "9.3382352941176467"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611100800000,
+                            "10.635686274509801"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611187200000,
+                            "11.222156862745098"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611273600000,
+                            "11.732941176470588"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611360000000,
+                            "12.044509803921569"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611446400000
+                          ],
+                          "R": 30
+                        },
+                        {
+                          "C": [
+                            1611532800000,
+                            "12.044509803921564"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611619200000,
+                            "12.867254901960782"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611705600000,
+                            "13.749803921568628"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611792000000,
+                            "14.243921568627455"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611878400000,
+                            "14.488039215686275"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1611964800000,
+                            "14.731764705882352"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612051200000
+                          ],
+                          "R": 30
+                        },
+                        {
+                          "C": [
+                            1612137600000,
+                            "14.73176470588235"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612224000000,
+                            "15.486862745098041"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612310400000,
+                            "16.465686274509803"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612396800000,
+                            "17.003137254901961"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612483200000,
+                            "17.190392156862742"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612569600000,
+                            "17.448431372549017"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612656000000
+                          ],
+                          "R": 30
+                        },
+                        {
+                          "C": [
+                            1612742400000,
+                            "17.44843137254902"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612828800000,
+                            "18.538823529411765"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1612915200000,
+                            "19.369607843137256"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613001600000,
+                            "20.10019607843137"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613088000000,
+                            "20.314509803921563"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613174400000,
+                            "20.554509803921569"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613260800000,
+                            "20.581960784313736"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613347200000,
+                            "20.581960784313733"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613433600000,
+                            "21.124509803921566"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613520000000,
+                            "21.359215686274514"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613606400000,
+                            "21.541568627450975"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613692800000,
+                            "23.539607843137254"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613779200000,
+                            "23.800588235294107"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613865600000,
+                            "23.860980392156865"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1613952000000,
+                            "23.861372549019606"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614038400000,
+                            "25.941176470588239"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614124800000,
+                            "27.810392156862747"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614211200000,
+                            "28.836666666666687"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614297600000,
+                            "29.792941176470595"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614384000000,
+                            "30.425490196078432"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614470400000,
+                            "30.425490196078428"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614556800000,
+                            "30.425490196078432"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614643200000,
+                            "32.277254901960795"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614729600000,
+                            "33.665098039215692"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614816000000,
+                            "34.760784313725487"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614902400000,
+                            "36.142941176470593"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1614988800000,
+                            "36.7770588235294"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615075200000,
+                            "36.777058823529408"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615161600000,
+                            "36.781176470588228"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615248000000,
+                            "38.773137254901961"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615334400000,
+                            "40.105098039215676"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615420800000,
+                            "41.21156862745098"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615507200000,
+                            "41.871764705882342"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615593600000,
+                            "42.562941176470595"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615680000000,
+                            "42.56254901960785"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615766400000,
+                            "42.562549019607843"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615852800000,
+                            "44.5978431372549"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1615939200000,
+                            "46.037254901960793"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616025600000,
+                            "47.271764705882354"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616112000000,
+                            "48.162745098039231"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616198400000,
+                            "48.941372549019604"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616284800000
+                          ],
+                          "R": 30
+                        },
+                        {
+                          "C": [
+                            1616371200000,
+                            "48.941372549019611"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616457600000,
+                            "51.148823529411757"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616544000000,
+                            "52.514901960784329"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616630400000,
+                            "53.946862745098031"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616716800000,
+                            "55.074313725490192"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616803200000,
+                            "56.091568627450982"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616889600000,
+                            "56.09196078431372"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1616976000000,
+                            "56.091960784313741"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617062400000,
+                            "58.750392156862752"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617148800000,
+                            "60.394705882352923"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617235200000,
+                            "62.119411764705873"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617321600000,
+                            "63.285294117647062"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617408000000,
+                            "64.317450980392152"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617494400000,
+                            "64.318039215686255"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617580800000,
+                            "64.318039215686284"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617667200000,
+                            "67.72392156862746"
+                          ],
+                          "R": 28
+                        },
+                        {
+                          "C": [
+                            1617753600000,
+                            "69.448627450980382",
+                            "69.448627450980382",
+                            "69.448627450980382",
+                            "69.448627450980382"
+                          ]
+                        },
+                        {
+                          "C": [
+                            1617840000000,
+                            "70.658575747219075",
+                            "72.076512658334252",
+                            "69.2406388361039"
+                          ],
+                          "Ø": 2
+                        },
+                        {
+                          "C": [
+                            1617926400000,
+                            "71.869675209518135",
+                            "73.974444349537364",
+                            "69.7649060694989"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618012800000,
+                            "73.08077467181721",
+                            "75.78373027439622",
+                            "70.3778190692382"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618099200000,
+                            "74.291874134116284",
+                            "77.5595496625073",
+                            "71.024198605725275"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618185600000,
+                            "75.502973596415359",
+                            "79.321961282374616",
+                            "71.6839859104561"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618272000000,
+                            "76.714073058714419",
+                            "81.080567127671458",
+                            "72.34757898975738"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618358400000,
+                            "77.9251725210135",
+                            "82.840650584209968",
+                            "73.009694457817019"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618444800000,
+                            "79.136271983312568",
+                            "84.605370634537408",
+                            "73.667173332087728"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618531200000,
+                            "80.347371445611628",
+                            "86.376718637485936",
+                            "74.31802425373732"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618617600000,
+                            "81.5584709079107",
+                            "88.155993003705447",
+                            "74.960948812115959"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618704000000,
+                            "82.769570370209777",
+                            "89.944057215592935",
+                            "75.59508352482662"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618790400000,
+                            "83.980669832508852",
+                            "91.741489978287618",
+                            "76.219849686730086"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618876800000,
+                            "85.191769294807912",
+                            "93.548677337312839",
+                            "76.834861252302986"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1618963200000,
+                            "86.402868757106987",
+                            "95.365871618123151",
+                            "77.439865896090822"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619049600000,
+                            "87.613968219406061",
+                            "97.193230446058081",
+                            "78.034705992754041"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619136000000,
+                            "88.825067681705121",
+                            "99.0308433159601",
+                            "78.619292047450145"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619222400000,
+                            "90.0361671440042",
+                            "100.87875011397449",
+                            "79.1935841740339"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619308800000,
+                            "91.24726660630327",
+                            "102.73695428715467",
+                            "79.757578925451867"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619395200000,
+                            "92.458366068602345",
+                            "104.60543236585877",
+                            "80.311299771345915"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619481600000,
+                            "93.669465530901419",
+                            "106.48414094796637",
+                            "80.854790113836472"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619568000000,
+                            "94.88056499320048",
+                            "108.37302188409325",
+                            "81.388108102307712"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619654400000,
+                            "96.091664455499554",
+                            "110.27200616711889",
+                            "81.91132274388022"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619740800000,
+                            "97.302763917798615",
+                            "112.18101687527104",
+                            "82.424510960326188"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619827200000,
+                            "98.513863380097689",
+                            "114.09997141520616",
+                            "82.927755344989222"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1619913600000,
+                            "99.724962842396764",
+                            "116.0287832416048",
+                            "83.421142443188728"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620000000000,
+                            "100.93606230469584",
+                            "117.96736318143307",
+                            "83.9047614279586"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620086400000,
+                            "102.14716176699491",
+                            "119.91562045703785",
+                            "84.378703076951979"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620172800000,
+                            "103.35826122929397",
+                            "121.87346347803548",
+                            "84.84305898055247"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620259200000,
+                            "104.56936069159305",
+                            "123.84080045448584",
+                            "85.29792092870025"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620345600000,
+                            "105.78046015389211",
+                            "125.81753987109406",
+                            "85.74338043669016"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620432000000,
+                            "106.99155961619118",
+                            "127.80359085277733",
+                            "86.179528379605031"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620518400000,
+                            "108.20265907849026",
+                            "129.79886344492783",
+                            "86.606454712052681"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620604800000,
+                            "109.41375854078933",
+                            "131.80326882643732",
+                            "87.02424825514133"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620691200000,
+                            "110.62485800308841",
+                            "133.81671946955925",
+                            "87.43299653661758"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620777600000,
+                            "111.83595746538747",
+                            "135.8391292576357",
+                            "87.832785673139227"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620864000000,
+                            "113.04705692768654",
+                            "137.87041356937573",
+                            "88.223700285997353"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1620950400000,
+                            "114.2581563899856",
+                            "139.91048933655497",
+                            "88.605823443416242"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1621036800000,
+                            "115.46925585228468",
+                            "141.95927508059737",
+                            "88.979236623971985"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1621123200000,
+                            "116.68035531458375",
+                            "144.01669093239127",
+                            "89.344019696776215"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1621209600000,
+                            "117.89145477688282",
+                            "146.0826586388234",
+                            "89.700250914942231"
+                          ],
+                          "R": 2
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "23f0adc4-7775-4c45-a9ef-11ff88dd37a9",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-12T09:02:41.3406452Z",
+                  "End": "2021-11-12T09:02:41.3562702Z"
+                },
+                {
+                  "Id": "f3940bdb-7ea4-4f50-93cc-586062d23caa",
+                  "ParentId": "23f0adc4-7775-4c45-a9ef-11ff88dd37a9",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-12T09:02:41.3406452Z",
+                  "End": "2021-11-12T09:02:41.3562702Z",
+                  "Metrics": {
+                    "RowCount": 84
+                  }
+                },
+                {
+                  "Id": "E6C0F90E-161B-4DF8-83AF-262CA9421ADE",
+                  "ParentId": "f3940bdb-7ea4-4f50-93cc-586062d23caa",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-12T09:02:41.35Z",
+                  "End": "2021-11-12T09:02:41.353Z"
+                },
+                {
+                  "Id": "D60FDBFB-F7AB-4F40-B11D-37F75EAA3622",
+                  "ParentId": "E6C0F90E-161B-4DF8-83AF-262CA9421ADE",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-12T09:02:41.353Z",
+                  "End": "2021-11-12T09:02:41.353Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
