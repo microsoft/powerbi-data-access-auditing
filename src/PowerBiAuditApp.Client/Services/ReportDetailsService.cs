@@ -34,6 +34,8 @@ public class ReportDetailsService : IReportDetailsService
     public async Task<ReportDetail?> GetReportDetail(Guid workspaceId, Guid reportId) => (await GetReportDetails()).FirstOrDefault(x => x.GroupId == workspaceId && x.ReportId == reportId);
     public async Task<ReportDetail?> GetReportForUser(Guid workspaceId, Guid reportId) => (await GetReportDetailsForUser()).FirstOrDefault(x => x.GroupId == workspaceId && x.ReportId == reportId);
 
+    public Task UpdateReportDetails(IList<ReportDetail> reports, CancellationToken cancellationToken) => ModifyReportDetails(reports, cancellationToken);
+
     private async Task<IList<ReportDetail>> RetrieveReportDetails() =>
         await
             _memoryCache.GetOrCreateAsync(CacheKey, async entry =>
@@ -49,4 +51,15 @@ public class ReportDetailsService : IReportDetailsService
                 }
                 return reportDetails;
             });
+
+    private async Task ModifyReportDetails(IList<ReportDetail> reports, CancellationToken cancellationToken)
+    {
+        var tableClient = _tableServiceClient.GetTableClient(nameof(ReportDetail));
+        await tableClient.CreateIfNotExistsAsync(cancellationToken);
+
+        foreach (var report in reports)
+        {
+            await tableClient.UpdateEntityAsync<ReportDetail>(report, Azure.ETag.All, TableUpdateMode.Merge, cancellationToken);
+        }
+    }
 }

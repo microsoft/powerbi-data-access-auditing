@@ -15,14 +15,17 @@ public class QueueTriggerService : IQueueTriggerService
         _queueServiceClient = queueServiceClient;
     }
     
-    public async Task<QueueClient> GetTriggerQueue(CancellationToken cancellationToken = default)
+    private async Task<QueueClient> GetTriggerQueue(CancellationToken cancellationToken)
     {
         var client = _queueServiceClient.GetQueueClient(_settings.Value.TriggerQueueName?.ToLower());
         await client.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
         return client;
     }
 
-    public async Task SendQueueMessage(QueueClient queueClient, string message, CancellationToken cancellationToken = default) =>
+    public async Task SendQueueMessage(string message, CancellationToken cancellationToken)
+    {
+        var queueClient = await GetTriggerQueue(cancellationToken);
         await queueClient.SendMessageAsync(message, cancellationToken: cancellationToken);
+    }
 }
 

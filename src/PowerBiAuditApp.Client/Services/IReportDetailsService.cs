@@ -11,4 +11,5 @@ public interface IReportDetailsService
     Task<IList<ReportDetail>> GetReportDetailsForUser();
     Task<ReportDetail?> GetReportDetail(Guid workspaceId, Guid reportId);
     Task<ReportDetail?> GetReportForUser(Guid workspaceId, Guid reportId);
+    Task UpdateReportDetails(IList<ReportDetail> reports, CancellationToken cancellationToken);
 }

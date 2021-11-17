@@ -1,13 +1,60 @@
-﻿<div>
+﻿@using PowerBiAuditApp.Models
+@model PowerBiAuditApp.Client.Models.AdminViewModel
+
+<div class="d-flex justify-content-between">
     <h1>Admin Page</h1>
 
-    <button class="btn btn-secondary" onclick="location.href='@Url.Action("CreateTriggerQueue", "Admin")'">Create Trigger Queue</button>
+    <a class="btn btn-primary align-self-center" href="@Url.Action("RefreshReports", "Admin")">Refresh Reports</a>
+</div>
 
-    <button class="btn btn-primary" button="submit" onclick="alert('Reports are being refreshed.\nRefresh page in 10 minutes to see the updates!');location.href='@Url.Action("RefreshReports", "Admin")'">Refresh Data</button>
+<div class="container">
+    @if(Convert.ToBoolean(TempData["refreshed"]))
+    {
+        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+            <i class="bi-check-circle-fill flex-shrink-0 me-2" style="width: 24px; height: 24px; text-align: center"></i>
+            <div>
+                Reports have been refreshed
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <h2>All Reports</h2>
+    
+    <form>
+        @foreach (var reportDetail in Model?.Reports ?? Array.Empty<ReportDetail>())
+        {
+            <div class="row justify-content-center p-2">
+                <label class="col-md-6">@reportDetail.Name</label>
+                <div class="form-check form-switch col-auto">
+                    @if(reportDetail.Enabled)
+                    {
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="@reportDetail.Name" value="show" checked>
+                    } else
+                    {
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="@reportDetail.Name" value="show">
+                    }
+                </div>
+            </div>       
+        }
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+        
+        
+
+    
+    
 </div>
  
 @section Scripts
 {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/admin.js"></script>
+    <script>
+        $('form').submit(function(data) {
+            SubmitForm(data);
+        });
+    </script>
 }
