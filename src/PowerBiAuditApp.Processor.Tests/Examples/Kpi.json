@@ -1,0 +1,609 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T09:56:17.9949562+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "m",
+                      "Entity": "Metrics",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "y",
+                      "Entity": "Years",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "c",
+                      "Entity": "Country",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "s",
+                      "Entity": "Sex",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "y"
+                          }
+                        },
+                        "Property": "Years"
+                      },
+                      "Name": "Years.Years"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "GDP Per Capita (USD)"
+                      },
+                      "Name": "Metrics.GDP Per Capita (USD)"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "GDP Goal"
+                      },
+                      "Name": "Metrics.GDP Red"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "m"
+                                    }
+                                  },
+                                  "Property": "GDP Per Capita (USD)"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "null"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Target": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "y"
+                              }
+                            },
+                            "Property": "Years"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "In": {
+                              "Expressions": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "c"
+                                      }
+                                    },
+                                    "Property": "Country Code"
+                                  }
+                                }
+                              ],
+                              "Values": [
+                                [
+                                  {
+                                    "Literal": {
+                                      "Value": "null"
+                                    }
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "s"
+                                  }
+                                },
+                                "Property": "Sex"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'Both sexes'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "And": {
+                          "Left": {
+                            "Comparison": {
+                              "ComparisonKind": 1,
+                              "Left": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "y"
+                                    }
+                                  },
+                                  "Property": "Years"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "1990D"
+                                }
+                              }
+                            }
+                          },
+                          "Right": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "y"
+                                    }
+                                  },
+                                  "Property": "Years"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "2017D"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "y"
+                            }
+                          },
+                          "Property": "Years"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Bottom": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"y\",\"Entity\":\"Years\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0},{\"Name\":\"s\",\"Entity\":\"Sex\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"},\"Name\":\"Years.Years\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"GDP Per Capita (USD)\"},\"Name\":\"Metrics.GDP Per Capita (USD)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"GDP Goal\"},\"Name\":\"Metrics.GDP Red\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"GDP Per Capita (USD)\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}},\"Target\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}]},{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country Code\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Sex\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Both sexes'\"}}]]}}},{\"Condition\":{\"And\":{\"Left\":{\"Comparison\":{\"ComparisonKind\":1,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}},\"Right\":{\"Literal\":{\"Value\":\"1990D\"}}}},\"Right\":{\"Comparison\":{\"ComparisonKind\":3,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}},\"Right\":{\"Literal\":{\"Value\":\"2017D\"}}}}}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Bottom\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "f300565a41c419ab7749"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 575212,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "cee9ad53-97b7-44c5-a1bb-6ce10efced1c"
+    ],
+    "results": [
+      {
+        "jobId": "cee9ad53-97b7-44c5-a1bb-6ce10efced1c",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "Format": "0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Years",
+                        "Property": "Years"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Years.Years"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
+                  "Name": "Metrics.GDP Per Capita (USD)"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "#,0",
+                  "Name": "Metrics.GDP Red"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Years",
+                            "Property": "Years"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Bottom": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 4
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            },
+                            {
+                              "N": "M1",
+                              "T": 4
+                            }
+                          ],
+                          "C": [
+                            1991,
+                            "6417.2816662679434",
+                            10000
+                          ]
+                        },
+                        {
+                          "C": [
+                            1992,
+                            "6796.1338494547163"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1993,
+                            "6487.8296467563168"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1994,
+                            "6790.8457107625236"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1995,
+                            "7559.5748145122507"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1996,
+                            "7780.8539729148069"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1997,
+                            "7556.1805592851606"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1998,
+                            "7439.4795095953823"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1999,
+                            "7918.90488579289"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2000,
+                            "7734.4571937376595"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2001,
+                            "7609.9250019273495"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2002,
+                            "7996.7369919212251"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2003,
+                            "9437.59875337611"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2004,
+                            "10870.405659744116"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2005,
+                            "11829.243650344746"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2006,
+                            "12977.279162244731"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2007,
+                            "14890.83057893464"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2008,
+                            "16402.1493670689"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2009,
+                            "14287.725676794718"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2010,
+                            "15026.628175904416"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2011,
+                            "16752.77928075855"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2012,
+                            "16532.271503565738"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2013,
+                            "16950.273340147494"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2014,
+                            "16894.863120018515"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2015,
+                            "14896.018429552931"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2016,
+                            "15027.376974658377"
+                          ],
+                          "R": 4
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "f91ad539-7fe1-402e-a97f-8c4fa2feffff",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:56:17.9708891Z",
+                  "End": "2021-11-15T09:56:18.0021365Z"
+                },
+                {
+                  "Id": "d7be34bc-2266-43a8-9512-840190769f5a",
+                  "ParentId": "f91ad539-7fe1-402e-a97f-8c4fa2feffff",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:56:17.9708891Z",
+                  "End": "2021-11-15T09:56:17.9865136Z"
+                },
+                {
+                  "Id": "ccd79082-739e-4436-8203-bcad4eb8abfd",
+                  "ParentId": "f91ad539-7fe1-402e-a97f-8c4fa2feffff",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:56:17.9865136Z",
+                  "End": "2021-11-15T09:56:18.0021365Z",
+                  "Metrics": {
+                    "RowCount": 26
+                  }
+                },
+                {
+                  "Id": "EEDE0504-0FBE-46A1-AF39-4242DFBAAFF3",
+                  "ParentId": "ccd79082-739e-4436-8203-bcad4eb8abfd",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:56:17.997Z",
+                  "End": "2021-11-15T09:56:18.003Z"
+                },
+                {
+                  "Id": "110E9FFD-70BD-4AE5-B589-433ABC8B2F66",
+                  "ParentId": "EEDE0504-0FBE-46A1-AF39-4242DFBAAFF3",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:56:18.003Z",
+                  "End": "2021-11-15T09:56:18.003Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

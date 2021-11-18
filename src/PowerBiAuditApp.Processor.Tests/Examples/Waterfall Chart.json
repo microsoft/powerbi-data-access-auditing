@@ -1,0 +1,379 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T03:05:11.8785079+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "b",
+                      "Entity": "BU",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "e",
+                      "Entity": "Employee",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "g",
+                      "Entity": "Gender",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "d",
+                      "Entity": "Date",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "Region"
+                      },
+                      "Name": "select"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "VP"
+                      },
+                      "Name": "select1"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "e"
+                          }
+                        },
+                        "Property": "Actives YoY Var"
+                      },
+                      "Name": "Employee.Actives YoY Var"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "g"
+                                  }
+                                },
+                                "Property": "Gender"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'Male'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Year"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "2014L"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Month"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "'Dec'"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Top": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "6583d919-e183-4b84-9fae-3915108a7640",
+          "Sources": [
+            {
+              "ReportId": "49237d9d-8a9a-4c74-bd33-1337a0c9152f",
+              "VisualId": "VisualContainer4"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 573297,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "e3699333-7ed5-441e-9ee1-a5d7852d3a85"
+    ],
+    "results": [
+      {
+        "jobId": "e3699333-7ed5-441e-9ee1-a5d7852d3a85",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "BU",
+                        "Property": "Region"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select"
+                },
+                null,
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "#,0",
+                  "Name": "Employee.Actives YoY Var"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "BU",
+                            "Property": "Region"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Top": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            },
+                            {
+                              "N": "M0",
+                              "T": 4
+                            }
+                          ],
+                          "C": [
+                            0,
+                            140
+                          ]
+                        },
+                        {
+                          "C": [
+                            1,
+                            223
+                          ]
+                        },
+                        {
+                          "C": [
+                            2,
+                            15
+                          ]
+                        },
+                        {
+                          "C": [
+                            3,
+                            97
+                          ]
+                        },
+                        {
+                          "C": [
+                            4,
+                            374
+                          ]
+                        },
+                        {
+                          "C": [
+                            5,
+                            273
+                          ]
+                        },
+                        {
+                          "C": [
+                            6,
+                            241
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": {
+                    "D0": [
+                      "North",
+                      "Midwest",
+                      "Northwest",
+                      "East",
+                      "Central",
+                      "South",
+                      "West"
+                    ]
+                  }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "79b5fc3c-efc8-414f-8654-137446321490",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:05:11.7267059Z",
+                  "End": "2021-11-15T03:05:11.8204591Z"
+                },
+                {
+                  "Id": "cc78a173-2382-4656-886f-12862f87872e",
+                  "ParentId": "79b5fc3c-efc8-414f-8654-137446321490",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:05:11.7267059Z",
+                  "End": "2021-11-15T03:05:11.8204591Z",
+                  "Metrics": {
+                    "RowCount": 7
+                  }
+                },
+                {
+                  "Id": "0FBA9026-D6D7-4AD7-866C-AFA219F83F3B",
+                  "ParentId": "cc78a173-2382-4656-886f-12862f87872e",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:05:11.743Z",
+                  "End": "2021-11-15T03:05:11.82Z"
+                },
+                {
+                  "Id": "4B67989A-ABA8-4BAF-94A3-55B0B4646455",
+                  "ParentId": "0FBA9026-D6D7-4AD7-866C-AFA219F83F3B",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:05:11.82Z",
+                  "End": "2021-11-15T03:05:11.82Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

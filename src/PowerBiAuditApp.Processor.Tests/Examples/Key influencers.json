@@ -1,0 +1,384 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T09:56:38.5432518+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "analysis_subquery",
+                      "Expression": {
+                        "Subquery": {
+                          "Query": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "i",
+                                "Entity": "Indicators",
+                                "Type": 0
+                              }
+                            ],
+                            "Select": [
+                              {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Life expectancy"
+                                },
+                                "Name": "target"
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Female pupils below minimum reading proficiency at end of primary (%)"
+                                },
+                                "Name": "Indicators.Female pupils below minimum reading proficiency at end of primary (%)"
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "GDP per capita (US $)"
+                                },
+                                "Name": "Indicators.GDP per capita (US $)"
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Net national income per capita"
+                                },
+                                "Name": "Indicators.Net national income per capita"
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "People using safely managed drinking water services (% of population)"
+                                },
+                                "Name": "Indicators.People using safely managed drinking water services (% of population)"
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Percentage of female population with no education"
+                                },
+                                "Name": "Indicators.Percentage of female population with no education"
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Safe drinking water services (% of population)"
+                                },
+                                "Name": "Indicators.Safe drinking water services (% of population)"
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Year"
+                                },
+                                "Name": "Indicators.Year"
+                              },
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Safe drinking water services (% of population)"
+                                },
+                                "Name": "driver"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "Type": 2
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "analysis_subquery"
+                          }
+                        },
+                        "Property": "driver"
+                      },
+                      "Name": "expr.driver"
+                    },
+                    {
+                      "Aggregation": {
+                        "Expression": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "analysis_subquery"
+                              }
+                            },
+                            "Property": "target"
+                          }
+                        },
+                        "Function": 1
+                      },
+                      "Name": "Avg(expr.target)"
+                    },
+                    {
+                      "Aggregation": {
+                        "Expression": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "analysis_subquery"
+                              }
+                            },
+                            "Property": "target"
+                          }
+                        },
+                        "Function": 5
+                      },
+                      "Name": "CountNonNull(expr.target)"
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 2,
+                      "Expression": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "analysis_subquery"
+                                }
+                              },
+                              "Property": "target"
+                            }
+                          },
+                          "Function": 1
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 1000
+                      }
+                    }
+                  },
+                  "SuppressedJoinPredicates": [
+                    2
+                  ],
+                  "Version": 1
+                }
+              }
+            }
+          ]
+        },
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "keyDriversDrillVisual"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 575212,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "b733bbc5-6efe-491a-9a64-bb3b1839bf5f"
+    ],
+    "results": [
+      {
+        "jobId": "b733bbc5-6efe-491a-9a64-bb3b1839bf5f",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G7",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Indicators",
+                        "Property": "Safe drinking water services (% of population)"
+                      },
+                      "Calc": "G7",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "expr.driver"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Name": "Avg(expr.target)"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M2",
+                  "Name": "CountNonNull(expr.target)"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Indicators",
+                            "Property": "Safe drinking water services (% of population)"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM1"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM1": [
+                        {
+                          "S": [
+                            {
+                              "N": "G7",
+                              "T": 1
+                            },
+                            {
+                              "N": "M1",
+                              "T": 3
+                            },
+                            {
+                              "N": "M2",
+                              "T": 4
+                            }
+                          ],
+                          "C": [
+                            "more than 85%",
+                            "78.373906940395472",
+                            531
+                          ]
+                        },
+                        {
+                          "C": [
+                            "65% - 85%",
+                            "73.386142080542157",
+                            166
+                          ]
+                        },
+                        {
+                          "C": [
+                            "45% - 65%",
+                            "71.998225988700568",
+                            177
+                          ]
+                        },
+                        {
+                          "C": [
+                            "25% - 45%",
+                            "68.5554411764706",
+                            102
+                          ]
+                        },
+                        {
+                          "C": [
+                            "null",
+                            "63.305621019247653",
+                            8387
+                          ]
+                        },
+                        {
+                          "C": [
+                            "less than 25%",
+                            "56.290771428571425",
+                            70
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": null
+          }
+        }
+      }
+    ]
+  }
+}

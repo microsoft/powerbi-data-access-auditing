@@ -58,6 +58,11 @@ namespace PowerBiAuditApp.Models
             set => StringAadGroups = JsonConvert.SerializeObject(value);
         }
 
+        public bool EffectiveIdentityRequired { get; set; }
+        public string EffectiveIdentityOverRide { get; set; }
+        public bool EffectiveIdentityRolesRequired { get; set; }
+        public int? ReportRowLimit { get; set; }
+
         public List<int> DrillThroughReports { get; set; }
 
         public List<string> RequiredParameters { get; set; }

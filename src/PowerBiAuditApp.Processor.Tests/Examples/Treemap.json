@@ -1,0 +1,2805 @@
+{
+  "User": "emlyn.rice@arkahna.io",
+  "Date": "2021-11-15T09:56:05.2725252+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "p",
+                      "Entity": "Population",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "c",
+                      "Entity": "Country",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "b",
+                      "Entity": "Buckets",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "m",
+                      "Entity": "Metrics",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "h",
+                      "Entity": "Indicators",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "y",
+                      "Entity": "Years",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Aggregation": {
+                        "Expression": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "p"
+                              }
+                            },
+                            "Property": "Population"
+                          }
+                        },
+                        "Function": 0
+                      },
+                      "Name": "Sum(Population.Population)"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "c"
+                          }
+                        },
+                        "Property": "Country Code"
+                      },
+                      "Name": "Country.Country Code"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "Life Expectancy 2"
+                      },
+                      "Name": "Metrics.Life Expectancy"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "Bucket"
+                      },
+                      "Name": "Buckets.Bucket"
+                    },
+                    {
+                      "Aggregation": {
+                        "Expression": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "c"
+                              }
+                            },
+                            "Property": "Country"
+                          }
+                        },
+                        "Function": 3
+                      },
+                      "Name": "Min(Country.Country)"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "m"
+                                    }
+                                  },
+                                  "Property": "Life Expectancy 2"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "null"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Target": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "b"
+                              }
+                            },
+                            "Property": "Bucket"
+                          }
+                        },
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "c"
+                              }
+                            },
+                            "Property": "Country Code"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "h"
+                                  }
+                                },
+                                "Property": "Sex"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'Both sexes'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "y"
+                                }
+                              },
+                              "Property": "Years"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "2017D"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 2,
+                      "Expression": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "p"
+                                }
+                              },
+                              "Property": "Population"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          2,
+                          3,
+                          4
+                        ]
+                      }
+                    ]
+                  },
+                  "Secondary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          1
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Top": {
+                      }
+                    },
+                    "Secondary": {
+                      "Top": {
+                      }
+                    }
+                  },
+                  "SuppressedJoinPredicates": [
+                    2,
+                    4
+                  ],
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"p\",\"Entity\":\"Population\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0},{\"Name\":\"b\",\"Entity\":\"Buckets\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"h\",\"Entity\":\"Indicators\",\"Type\":0},{\"Name\":\"y\",\"Entity\":\"Years\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"p\"}},\"Property\":\"Population\"}},\"Function\":0},\"Name\":\"Sum(Population.Population)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country Code\"},\"Name\":\"Country.Country Code\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Life Expectancy 2\"},\"Name\":\"Metrics.Life Expectancy\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Bucket\"},\"Name\":\"Buckets.Bucket\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country\"}},\"Function\":3},\"Name\":\"Min(Country.Country)\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Life Expectancy 2\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}},\"Target\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Bucket\"}},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Country Code\"}}]},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"h\"}},\"Property\":\"Sex\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Both sexes'\"}}]]}}},{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}},\"Right\":{\"Literal\":{\"Value\":\"2017D\"}}}}}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"p\"}},\"Property\":\"Population\"}},\"Function\":0}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,2,3,4]}]},\"Secondary\":{\"Groupings\":[{\"Projections\":[1]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Top\":{}},\"Secondary\":{\"Top\":{}}},\"SuppressedJoinPredicates\":[2,4],\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "d4d069eaeabe387e1830"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 575212,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "25bb1f8c-8788-4159-a8ef-0459d93bb0aa"
+    ],
+    "results": [
+      {
+        "jobId": "25bb1f8c-8788-4159-a8ef-0459d93bb0aa",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "#,0",
+                  "Name": "Sum(Population.Population)"
+                },
+                {
+                  "Kind": 1,
+                  "SecondaryDepth": 0,
+                  "Value": "G1",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Country",
+                        "Property": "Country Code"
+                      },
+                      "Calc": "G1",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Country.Country Code"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "0",
+                  "Name": "Metrics.Life Expectancy"
+                },
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Buckets",
+                        "Property": "Bucket"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Buckets.Bucket"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M2",
+                  "Name": "Min(Country.Country)"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Buckets",
+                            "Property": "Bucket"
+                          },
+                          "Select": 3
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                },
+                "Secondary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Country",
+                            "Property": "Country Code"
+                          },
+                          "Select": 1
+                        }
+                      ],
+                      "Member": "DM1"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Top": {
+                    "Count": 10,
+                    "Calc": "A0"
+                  }
+                },
+                "Secondary": {
+                  "Id": "L1",
+                  "Top": {
+                    "Count": 455,
+                    "Calc": "A1"
+                  }
+                },
+                "Intersection": {
+                  "Id": "L2",
+                  "Top": {
+                    "Count": 1000,
+                    "Calc": "A2"
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "S": [
+                    {
+                      "N": "A0",
+                      "T": 4
+                    },
+                    {
+                      "N": "A1",
+                      "T": 4
+                    },
+                    {
+                      "N": "A2",
+                      "T": 4
+                    }
+                  ],
+                  "C": [
+                    1000,
+                    1000,
+                    -1
+                  ],
+                  "SH": [
+                    {
+                      "DM1": [
+                        {
+                          "S": [
+                            {
+                              "N": "G1",
+                              "T": 1
+                            }
+                          ],
+                          "G1": "AFG"
+                        },
+                        {
+                          "G1": "AGO"
+                        },
+                        {
+                          "G1": "ALB"
+                        },
+                        {
+                          "G1": "ARE"
+                        },
+                        {
+                          "G1": "ARG"
+                        },
+                        {
+                          "G1": "ARM"
+                        },
+                        {
+                          "G1": "ATG"
+                        },
+                        {
+                          "G1": "AUS"
+                        },
+                        {
+                          "G1": "AUT"
+                        },
+                        {
+                          "G1": "AZE"
+                        },
+                        {
+                          "G1": "BDI"
+                        },
+                        {
+                          "G1": "BEL"
+                        },
+                        {
+                          "G1": "BEN"
+                        },
+                        {
+                          "G1": "BFA"
+                        },
+                        {
+                          "G1": "BGD"
+                        },
+                        {
+                          "G1": "BGR"
+                        },
+                        {
+                          "G1": "BHR"
+                        },
+                        {
+                          "G1": "BHS"
+                        },
+                        {
+                          "G1": "BIH"
+                        },
+                        {
+                          "G1": "BLR"
+                        },
+                        {
+                          "G1": "BLZ"
+                        },
+                        {
+                          "G1": "BOL"
+                        },
+                        {
+                          "G1": "BRA"
+                        },
+                        {
+                          "G1": "BRB"
+                        },
+                        {
+                          "G1": "BRN"
+                        },
+                        {
+                          "G1": "BTN"
+                        },
+                        {
+                          "G1": "BWA"
+                        },
+                        {
+                          "G1": "CAF"
+                        },
+                        {
+                          "G1": "CAN"
+                        },
+                        {
+                          "G1": "CHE"
+                        },
+                        {
+                          "G1": "CHL"
+                        },
+                        {
+                          "G1": "CHN"
+                        },
+                        {
+                          "G1": "CIV"
+                        },
+                        {
+                          "G1": "CMR"
+                        },
+                        {
+                          "G1": "COD"
+                        },
+                        {
+                          "G1": "COG"
+                        },
+                        {
+                          "G1": "COL"
+                        },
+                        {
+                          "G1": "COM"
+                        },
+                        {
+                          "G1": "CPV"
+                        },
+                        {
+                          "G1": "CRI"
+                        },
+                        {
+                          "G1": "CUB"
+                        },
+                        {
+                          "G1": "CYP"
+                        },
+                        {
+                          "G1": "CZE"
+                        },
+                        {
+                          "G1": "DEU"
+                        },
+                        {
+                          "G1": "DJI"
+                        },
+                        {
+                          "G1": "DNK"
+                        },
+                        {
+                          "G1": "DOM"
+                        },
+                        {
+                          "G1": "DZA"
+                        },
+                        {
+                          "G1": "ECU"
+                        },
+                        {
+                          "G1": "EGY"
+                        },
+                        {
+                          "G1": "ERI"
+                        },
+                        {
+                          "G1": "ESP"
+                        },
+                        {
+                          "G1": "EST"
+                        },
+                        {
+                          "G1": "ETH"
+                        },
+                        {
+                          "G1": "FIN"
+                        },
+                        {
+                          "G1": "FJI"
+                        },
+                        {
+                          "G1": "FRA"
+                        },
+                        {
+                          "G1": "FSM"
+                        },
+                        {
+                          "G1": "GAB"
+                        },
+                        {
+                          "G1": "GBR"
+                        },
+                        {
+                          "G1": "GEO"
+                        },
+                        {
+                          "G1": "GHA"
+                        },
+                        {
+                          "G1": "GIN"
+                        },
+                        {
+                          "G1": "GMB"
+                        },
+                        {
+                          "G1": "GNB"
+                        },
+                        {
+                          "G1": "GNQ"
+                        },
+                        {
+                          "G1": "GRC"
+                        },
+                        {
+                          "G1": "GRD"
+                        },
+                        {
+                          "G1": "GTM"
+                        },
+                        {
+                          "G1": "GUY"
+                        },
+                        {
+                          "G1": "HND"
+                        },
+                        {
+                          "G1": "HRV"
+                        },
+                        {
+                          "G1": "HTI"
+                        },
+                        {
+                          "G1": "HUN"
+                        },
+                        {
+                          "G1": "IDN"
+                        },
+                        {
+                          "G1": "IND"
+                        },
+                        {
+                          "G1": "IRL"
+                        },
+                        {
+                          "G1": "IRN"
+                        },
+                        {
+                          "G1": "IRQ"
+                        },
+                        {
+                          "G1": "ISL"
+                        },
+                        {
+                          "G1": "ISR"
+                        },
+                        {
+                          "G1": "ITA"
+                        },
+                        {
+                          "G1": "JAM"
+                        },
+                        {
+                          "G1": "JOR"
+                        },
+                        {
+                          "G1": "JPN"
+                        },
+                        {
+                          "G1": "KAZ"
+                        },
+                        {
+                          "G1": "KEN"
+                        },
+                        {
+                          "G1": "KGZ"
+                        },
+                        {
+                          "G1": "KHM"
+                        },
+                        {
+                          "G1": "KIR"
+                        },
+                        {
+                          "G1": "KOR"
+                        },
+                        {
+                          "G1": "KWT"
+                        },
+                        {
+                          "G1": "LAO"
+                        },
+                        {
+                          "G1": "LBN"
+                        },
+                        {
+                          "G1": "LBR"
+                        },
+                        {
+                          "G1": "LBY"
+                        },
+                        {
+                          "G1": "LCA"
+                        },
+                        {
+                          "G1": "LKA"
+                        },
+                        {
+                          "G1": "LSO"
+                        },
+                        {
+                          "G1": "LTU"
+                        },
+                        {
+                          "G1": "LUX"
+                        },
+                        {
+                          "G1": "LVA"
+                        },
+                        {
+                          "G1": "MAC"
+                        },
+                        {
+                          "G1": "MAR"
+                        },
+                        {
+                          "G1": "MDA"
+                        },
+                        {
+                          "G1": "MDG"
+                        },
+                        {
+                          "G1": "MDV"
+                        },
+                        {
+                          "G1": "MEX"
+                        },
+                        {
+                          "G1": "MKD"
+                        },
+                        {
+                          "G1": "MLI"
+                        },
+                        {
+                          "G1": "MLT"
+                        },
+                        {
+                          "G1": "MMR"
+                        },
+                        {
+                          "G1": "MNE"
+                        },
+                        {
+                          "G1": "MNG"
+                        },
+                        {
+                          "G1": "MOZ"
+                        },
+                        {
+                          "G1": "MRT"
+                        },
+                        {
+                          "G1": "MUS"
+                        },
+                        {
+                          "G1": "MWI"
+                        },
+                        {
+                          "G1": "MYS"
+                        },
+                        {
+                          "G1": "NAM"
+                        },
+                        {
+                          "G1": "NER"
+                        },
+                        {
+                          "G1": "NGA"
+                        },
+                        {
+                          "G1": "NIC"
+                        },
+                        {
+                          "G1": "NLD"
+                        },
+                        {
+                          "G1": "NOR"
+                        },
+                        {
+                          "G1": "NPL"
+                        },
+                        {
+                          "G1": "NZL"
+                        },
+                        {
+                          "G1": "OMN"
+                        },
+                        {
+                          "G1": "PAK"
+                        },
+                        {
+                          "G1": "PAN"
+                        },
+                        {
+                          "G1": "PER"
+                        },
+                        {
+                          "G1": "PHL"
+                        },
+                        {
+                          "G1": "PNG"
+                        },
+                        {
+                          "G1": "POL"
+                        },
+                        {
+                          "G1": "PRK"
+                        },
+                        {
+                          "G1": "PRT"
+                        },
+                        {
+                          "G1": "PRY"
+                        },
+                        {
+                          "G1": "PSE"
+                        },
+                        {
+                          "G1": "QAT"
+                        },
+                        {
+                          "G1": "ROU"
+                        },
+                        {
+                          "G1": "RUS"
+                        },
+                        {
+                          "G1": "RWA"
+                        },
+                        {
+                          "G1": "SAU"
+                        },
+                        {
+                          "G1": "SDN"
+                        },
+                        {
+                          "G1": "SEN"
+                        },
+                        {
+                          "G1": "SGP"
+                        },
+                        {
+                          "G1": "SLB"
+                        },
+                        {
+                          "G1": "SLE"
+                        },
+                        {
+                          "G1": "SLV"
+                        },
+                        {
+                          "G1": "SOM"
+                        },
+                        {
+                          "G1": "SRB"
+                        },
+                        {
+                          "G1": "SSD"
+                        },
+                        {
+                          "G1": "STP"
+                        },
+                        {
+                          "G1": "SUR"
+                        },
+                        {
+                          "G1": "SVK"
+                        },
+                        {
+                          "G1": "SVN"
+                        },
+                        {
+                          "G1": "SWE"
+                        },
+                        {
+                          "G1": "SWZ"
+                        },
+                        {
+                          "G1": "SYC"
+                        },
+                        {
+                          "G1": "SYR"
+                        },
+                        {
+                          "G1": "TCD"
+                        },
+                        {
+                          "G1": "TGO"
+                        },
+                        {
+                          "G1": "THA"
+                        },
+                        {
+                          "G1": "TJK"
+                        },
+                        {
+                          "G1": "TKM"
+                        },
+                        {
+                          "G1": "TLS"
+                        },
+                        {
+                          "G1": "TON"
+                        },
+                        {
+                          "G1": "TTO"
+                        },
+                        {
+                          "G1": "TUN"
+                        },
+                        {
+                          "G1": "TUR"
+                        },
+                        {
+                          "G1": "TZA"
+                        },
+                        {
+                          "G1": "UGA"
+                        },
+                        {
+                          "G1": "UKR"
+                        },
+                        {
+                          "G1": "URY"
+                        },
+                        {
+                          "G1": "USA"
+                        },
+                        {
+                          "G1": "UZB"
+                        },
+                        {
+                          "G1": "VCT"
+                        },
+                        {
+                          "G1": "VEN"
+                        },
+                        {
+                          "G1": "VNM"
+                        },
+                        {
+                          "G1": "VUT"
+                        },
+                        {
+                          "G1": "WSM"
+                        },
+                        {
+                          "G1": "YEM"
+                        },
+                        {
+                          "G1": "ZAF"
+                        },
+                        {
+                          "G1": "ZMB"
+                        },
+                        {
+                          "G1": "ZWE"
+                        }
+                      ]
+                    }
+                  ],
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            }
+                          ],
+                          "G0": 0,
+                          "X": [
+                            {
+                              "S": [
+                                {
+                                  "N": "M0",
+                                  "T": 4
+                                },
+                                {
+                                  "N": "M1",
+                                  "T": 3
+                                },
+                                {
+                                  "N": "M2",
+                                  "T": 1,
+                                  "DN": "D1"
+                                }
+                              ],
+                              "C": [
+                              ],
+                              "Ø": 7
+                            },
+                            {
+                              "I": 2,
+                              "C": [
+                                2884000,
+                                79,
+                                0
+                              ]
+                            },
+                            {
+                              "C": [
+                                9487000,
+                                78,
+                                1
+                              ]
+                            },
+                            {
+                              "C": [
+                                43937000,
+                                77,
+                                2
+                              ]
+                            },
+                            {
+                              "C": [
+                                2945000,
+                                76,
+                                3
+                              ]
+                            },
+                            {
+                              "C": [
+                                95000,
+                                78,
+                                4
+                              ]
+                            },
+                            {
+                              "I": 9,
+                              "C": [
+                                9845000,
+                                73,
+                                5
+                              ]
+                            },
+                            {
+                              "I": 14,
+                              "C": [
+                                159684992,
+                                6
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                7102000,
+                                76,
+                                7
+                              ]
+                            },
+                            {
+                              "C": [
+                                1494000,
+                                78,
+                                8
+                              ]
+                            },
+                            {
+                              "C": [
+                                382000,
+                                74,
+                                9
+                              ]
+                            },
+                            {
+                              "C": [
+                                3352000,
+                                78,
+                                10
+                              ]
+                            },
+                            {
+                              "C": [
+                                9450000,
+                                74,
+                                11
+                              ]
+                            },
+                            {
+                              "C": [
+                                376000,
+                                12
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                11193000,
+                                73,
+                                13
+                              ]
+                            },
+                            {
+                              "C": [
+                                207834000,
+                                76,
+                                14
+                              ]
+                            },
+                            {
+                              "C": [
+                                286000,
+                                78,
+                                15
+                              ]
+                            },
+                            {
+                              "C": [
+                                424000,
+                                77,
+                                16
+                              ]
+                            },
+                            {
+                              "C": [
+                                746000,
+                                73,
+                                17
+                              ]
+                            },
+                            {
+                              "I": 30,
+                              "C": [
+                                18470000,
+                                80,
+                                18
+                              ]
+                            },
+                            {
+                              "C": [
+                                1421021952,
+                                77,
+                                19
+                              ]
+                            },
+                            {
+                              "I": 36,
+                              "C": [
+                                48910000,
+                                78,
+                                20
+                              ]
+                            },
+                            {
+                              "I": 38,
+                              "C": [
+                                537000,
+                                74,
+                                21
+                              ]
+                            },
+                            {
+                              "C": [
+                                4950000,
+                                80,
+                                22
+                              ]
+                            },
+                            {
+                              "C": [
+                                11339000,
+                                79,
+                                23
+                              ]
+                            },
+                            {
+                              "I": 42,
+                              "C": [
+                                10641000,
+                                80,
+                                24
+                              ]
+                            },
+                            {
+                              "I": 46,
+                              "C": [
+                                10513000,
+                                75,
+                                25
+                              ]
+                            },
+                            {
+                              "C": [
+                                41389000,
+                                78,
+                                26
+                              ]
+                            },
+                            {
+                              "C": [
+                                16785000,
+                                27
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                96443000,
+                                73,
+                                28
+                              ]
+                            },
+                            {
+                              "I": 52,
+                              "C": [
+                                1319000,
+                                78,
+                                29
+                              ]
+                            },
+                            {
+                              "I": 60,
+                              "C": [
+                                4009000,
+                                74,
+                                30
+                              ]
+                            },
+                            {
+                              "I": 67,
+                              "C": [
+                                111000,
+                                73,
+                                31
+                              ]
+                            },
+                            {
+                              "C": [
+                                16915000,
+                                74,
+                                32
+                              ]
+                            },
+                            {
+                              "I": 70,
+                              "C": [
+                                9429000,
+                                33
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                4183000,
+                                78,
+                                34
+                              ]
+                            },
+                            {
+                              "I": 73,
+                              "C": [
+                                9730000,
+                                76,
+                                35
+                              ]
+                            },
+                            {
+                              "C": [
+                                264651008,
+                                72,
+                                36
+                              ]
+                            },
+                            {
+                              "I": 77,
+                              "C": [
+                                80674000,
+                                77,
+                                37
+                              ]
+                            },
+                            {
+                              "C": [
+                                37553000,
+                                71,
+                                38
+                              ]
+                            },
+                            {
+                              "I": 82,
+                              "C": [
+                                2921000,
+                                75,
+                                39
+                              ]
+                            },
+                            {
+                              "C": [
+                                9786000,
+                                76,
+                                40
+                              ]
+                            },
+                            {
+                              "I": 85,
+                              "C": [
+                                18080000,
+                                73,
+                                41
+                              ]
+                            },
+                            {
+                              "I": 87,
+                              "C": [
+                                6190000,
+                                72,
+                                42
+                              ]
+                            },
+                            {
+                              "I": 91,
+                              "C": [
+                                4056000,
+                                78,
+                                43
+                              ]
+                            },
+                            {
+                              "I": 93,
+                              "C": [
+                                6819000,
+                                79,
+                                44
+                              ]
+                            },
+                            {
+                              "I": 95,
+                              "C": [
+                                6581000,
+                                74,
+                                45
+                              ]
+                            },
+                            {
+                              "C": [
+                                181000,
+                                77,
+                                46
+                              ]
+                            },
+                            {
+                              "C": [
+                                21128000,
+                                78,
+                                47
+                              ]
+                            },
+                            {
+                              "I": 99,
+                              "C": [
+                                2845000,
+                                75,
+                                48
+                              ]
+                            },
+                            {
+                              "I": 101,
+                              "C": [
+                                1951000,
+                                49
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                623000,
+                                50
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                35581000,
+                                76,
+                                51
+                              ]
+                            },
+                            {
+                              "C": [
+                                4060000,
+                                73,
+                                52
+                              ]
+                            },
+                            {
+                              "I": 106,
+                              "C": [
+                                496000,
+                                80,
+                                53
+                              ]
+                            },
+                            {
+                              "C": [
+                                124777000,
+                                76,
+                                54
+                              ]
+                            },
+                            {
+                              "C": [
+                                2082000,
+                                55
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 111,
+                              "C": [
+                                53383000,
+                                71,
+                                56
+                              ]
+                            },
+                            {
+                              "C": [
+                                628000,
+                                77,
+                                57
+                              ]
+                            },
+                            {
+                              "I": 115,
+                              "C": [
+                                4283000,
+                                71,
+                                58
+                              ]
+                            },
+                            {
+                              "C": [
+                                1264000,
+                                75,
+                                59
+                              ]
+                            },
+                            {
+                              "I": 118,
+                              "C": [
+                                31105000,
+                                76,
+                                60
+                              ]
+                            },
+                            {
+                              "I": 122,
+                              "C": [
+                                6385000,
+                                77,
+                                61
+                              ]
+                            },
+                            {
+                              "I": 125,
+                              "C": [
+                                27633000,
+                                71,
+                                62
+                              ]
+                            },
+                            {
+                              "I": 127,
+                              "C": [
+                                4666000,
+                                78,
+                                63
+                              ]
+                            },
+                            {
+                              "I": 129,
+                              "C": [
+                                4107000,
+                                79,
+                                64
+                              ]
+                            },
+                            {
+                              "C": [
+                                31444000,
+                                77,
+                                65
+                              ]
+                            },
+                            {
+                              "C": [
+                                105173000,
+                                71,
+                                66
+                              ]
+                            },
+                            {
+                              "I": 133,
+                              "C": [
+                                37953000,
+                                78,
+                                67
+                              ]
+                            },
+                            {
+                              "C": [
+                                25430000,
+                                72,
+                                68
+                              ]
+                            },
+                            {
+                              "I": 136,
+                              "C": [
+                                6867000,
+                                75,
+                                69
+                              ]
+                            },
+                            {
+                              "C": [
+                                4747000,
+                                72,
+                                70
+                              ]
+                            },
+                            {
+                              "C": [
+                                2725000,
+                                80,
+                                71
+                              ]
+                            },
+                            {
+                              "C": [
+                                19654000,
+                                76,
+                                72
+                              ]
+                            },
+                            {
+                              "C": [
+                                145530000,
+                                72,
+                                73
+                              ]
+                            },
+                            {
+                              "I": 142,
+                              "C": [
+                                33101000,
+                                77,
+                                74
+                              ]
+                            },
+                            {
+                              "I": 146,
+                              "C": [
+                                636000,
+                                73,
+                                75
+                              ]
+                            },
+                            {
+                              "I": 148,
+                              "C": [
+                                6388000,
+                                75,
+                                76
+                              ]
+                            },
+                            {
+                              "I": 150,
+                              "C": [
+                                8830000,
+                                77,
+                                77
+                              ]
+                            },
+                            {
+                              "I": 152,
+                              "C": [
+                                207000,
+                                71,
+                                78
+                              ]
+                            },
+                            {
+                              "C": [
+                                571000,
+                                72,
+                                79
+                              ]
+                            },
+                            {
+                              "C": [
+                                5448000,
+                                78,
+                                80
+                              ]
+                            },
+                            {
+                              "I": 158,
+                              "C": [
+                                96000,
+                                75,
+                                81
+                              ]
+                            },
+                            {
+                              "C": [
+                                17096000,
+                                71,
+                                82
+                              ]
+                            },
+                            {
+                              "I": 162,
+                              "C": [
+                                69210000,
+                                78,
+                                83
+                              ]
+                            },
+                            {
+                              "C": [
+                                8880000,
+                                72,
+                                84
+                              ]
+                            },
+                            {
+                              "C": [
+                                5758000,
+                                71,
+                                85
+                              ]
+                            },
+                            {
+                              "C": [
+                                1243000,
+                                73,
+                                86
+                              ]
+                            },
+                            {
+                              "C": [
+                                102000,
+                                71,
+                                87
+                              ]
+                            },
+                            {
+                              "C": [
+                                1384000,
+                                74,
+                                88
+                              ]
+                            },
+                            {
+                              "C": [
+                                11433000,
+                                78,
+                                89
+                              ]
+                            },
+                            {
+                              "C": [
+                                81116000,
+                                79,
+                                90
+                              ]
+                            },
+                            {
+                              "I": 172,
+                              "C": [
+                                44488000,
+                                72,
+                                91
+                              ]
+                            },
+                            {
+                              "C": [
+                                3437000,
+                                78,
+                                92
+                              ]
+                            },
+                            {
+                              "C": [
+                                325084992,
+                                79,
+                                93
+                              ]
+                            },
+                            {
+                              "C": [
+                                31960000,
+                                71,
+                                94
+                              ]
+                            },
+                            {
+                              "C": [
+                                110000,
+                                73,
+                                95
+                              ]
+                            },
+                            {
+                              "C": [
+                                29402000,
+                                74,
+                                96
+                              ]
+                            },
+                            {
+                              "C": [
+                                94601000,
+                                75,
+                                97
+                              ]
+                            },
+                            {
+                              "C": [
+                                285000,
+                                71,
+                                98
+                              ]
+                            },
+                            {
+                              "C": [
+                                195000,
+                                73,
+                                99
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 1,
+                          "X": [
+                            {
+                              "C": [
+                                36296000,
+                                65,
+                                "Afghanistan"
+                              ]
+                            },
+                            {
+                              "C": [
+                                29817000,
+                                63,
+                                "Angola"
+                              ]
+                            },
+                            {
+                              "I": 10,
+                              "C": [
+                                10827000,
+                                61,
+                                "Burundi"
+                              ]
+                            },
+                            {
+                              "I": 12,
+                              "C": [
+                                11175000,
+                                63,
+                                "Benin"
+                              ]
+                            },
+                            {
+                              "C": [
+                                19193000,
+                                61,
+                                "Burkina Faso"
+                              ]
+                            },
+                            {
+                              "I": 26,
+                              "C": [
+                                2205000,
+                                68,
+                                "Botswana"
+                              ]
+                            },
+                            {
+                              "I": 32,
+                              "C": [
+                                24437000,
+                                61,
+                                "Côte d'Ivoire"
+                              ]
+                            },
+                            {
+                              "C": [
+                                24566000,
+                                "Cameroon"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                81399000,
+                                62,
+                                "Congo, Democratic Republic of the"
+                              ]
+                            },
+                            {
+                              "C": [
+                                5111000,
+                                64,
+                                "Congo"
+                              ]
+                            },
+                            {
+                              "I": 37,
+                              "C": [
+                                814000,
+                                66,
+                                "Comoros"
+                              ]
+                            },
+                            {
+                              "I": 44,
+                              "C": [
+                                944000,
+                                67,
+                                "Djibouti"
+                              ]
+                            },
+                            {
+                              "I": 50,
+                              "C": [
+                                3413000,
+                                65,
+                                "Eritrea"
+                              ]
+                            },
+                            {
+                              "I": 53,
+                              "C": [
+                                106400000,
+                                66,
+                                "Ethiopia"
+                              ]
+                            },
+                            {
+                              "I": 55,
+                              "C": [
+                                877000,
+                                67,
+                                "Fiji"
+                              ]
+                            },
+                            {
+                              "I": 57,
+                              "C": [
+                                111000,
+                                "Micronesia (Federated States of)"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                2065000,
+                                "Gabon"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 61,
+                              "C": [
+                                29121000,
+                                65,
+                                "Ghana"
+                              ]
+                            },
+                            {
+                              "C": [
+                                12068000,
+                                62,
+                                "Guinea"
+                              ]
+                            },
+                            {
+                              "C": [
+                                2214000,
+                                65,
+                                "Gambia"
+                              ]
+                            },
+                            {
+                              "I": 65,
+                              "C": [
+                                1262000,
+                                66,
+                                "Equatorial Guinea"
+                              ]
+                            },
+                            {
+                              "I": 69,
+                              "C": [
+                                775000,
+                                69,
+                                "Guyana"
+                              ]
+                            },
+                            {
+                              "I": 72,
+                              "C": [
+                                10982000,
+                                64,
+                                "Haiti"
+                              ]
+                            },
+                            {
+                              "I": 75,
+                              "C": [
+                                1338676992,
+                                70,
+                                "India"
+                              ]
+                            },
+                            {
+                              "I": 78,
+                              "C": [
+                                37553000,
+                                68,
+                                38
+                              ]
+                            },
+                            {
+                              "I": 86,
+                              "C": [
+                                50221000,
+                                67,
+                                "Kenya"
+                              ]
+                            },
+                            {
+                              "I": 88,
+                              "C": [
+                                16009000,
+                                70,
+                                "Cambodia"
+                              ]
+                            },
+                            {
+                              "C": [
+                                114000,
+                                65,
+                                "Kiribati"
+                              ]
+                            },
+                            {
+                              "I": 92,
+                              "C": [
+                                6953000,
+                                68,
+                                "Lao People's Democratic Republic"
+                              ]
+                            },
+                            {
+                              "I": 94,
+                              "C": [
+                                4702000,
+                                65,
+                                "Liberia"
+                              ]
+                            },
+                            {
+                              "I": 105,
+                              "C": [
+                                25571000,
+                                "Madagascar"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 109,
+                              "C": [
+                                18512000,
+                                63,
+                                "Mali"
+                              ]
+                            },
+                            {
+                              "I": 111,
+                              "C": [
+                                53383000,
+                                67,
+                                56
+                              ]
+                            },
+                            {
+                              "I": 113,
+                              "C": [
+                                3114000,
+                                70,
+                                "Mongolia"
+                              ]
+                            },
+                            {
+                              "C": [
+                                28649000,
+                                61,
+                                "Mozambique"
+                              ]
+                            },
+                            {
+                              "C": [
+                                4283000,
+                                65,
+                                58
+                              ]
+                            },
+                            {
+                              "I": 117,
+                              "C": [
+                                17670000,
+                                62,
+                                "Malawi"
+                              ]
+                            },
+                            {
+                              "I": 119,
+                              "C": [
+                                2403000,
+                                65,
+                                "Namibia"
+                              ]
+                            },
+                            {
+                              "C": [
+                                21602000,
+                                62,
+                                "Niger"
+                              ]
+                            },
+                            {
+                              "C": [
+                                190872992,
+                                66,
+                                "Nigeria"
+                              ]
+                            },
+                            {
+                              "I": 128,
+                              "C": [
+                                207906000,
+                                68,
+                                "Pakistan"
+                              ]
+                            },
+                            {
+                              "I": 132,
+                              "C": [
+                                8438000,
+                                63,
+                                "Papua New Guinea"
+                              ]
+                            },
+                            {
+                              "I": 141,
+                              "C": [
+                                11981000,
+                                69,
+                                "Rwanda"
+                              ]
+                            },
+                            {
+                              "I": 143,
+                              "C": [
+                                40813000,
+                                67,
+                                "Sudan"
+                              ]
+                            },
+                            {
+                              "C": [
+                                15419000,
+                                "Senegal"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 146,
+                              "C": [
+                                636000,
+                                64,
+                                75
+                              ]
+                            },
+                            {
+                              "I": 151,
+                              "C": [
+                                10911000,
+                                61,
+                                "South Sudan"
+                              ]
+                            },
+                            {
+                              "C": [
+                                207000,
+                                70,
+                                78
+                              ]
+                            },
+                            {
+                              "I": 159,
+                              "C": [
+                                17096000,
+                                69,
+                                82
+                              ]
+                            },
+                            {
+                              "C": [
+                                15017000,
+                                61,
+                                "Chad"
+                              ]
+                            },
+                            {
+                              "C": [
+                                7698000,
+                                62,
+                                "Togo"
+                              ]
+                            },
+                            {
+                              "I": 164,
+                              "C": [
+                                5758000,
+                                68,
+                                85
+                              ]
+                            },
+                            {
+                              "C": [
+                                1243000,
+                                70,
+                                86
+                              ]
+                            },
+                            {
+                              "I": 170,
+                              "C": [
+                                54660000,
+                                65,
+                                "Tanzania, United Republic of"
+                              ]
+                            },
+                            {
+                              "C": [
+                                41167000,
+                                63,
+                                "Uganda"
+                              ]
+                            },
+                            {
+                              "I": 179,
+                              "C": [
+                                285000,
+                                65,
+                                98
+                              ]
+                            },
+                            {
+                              "I": 181,
+                              "C": [
+                                27835000,
+                                67,
+                                "Yemen"
+                              ]
+                            },
+                            {
+                              "C": [
+                                57010000,
+                                64,
+                                "South Africa"
+                              ]
+                            },
+                            {
+                              "C": [
+                                16854000,
+                                "Zambia"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                14237000,
+                                61,
+                                "Zimbabwe"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 2,
+                          "X": [
+                            {
+                              "I": 7,
+                              "C": [
+                                24585000,
+                                83,
+                                "Australia"
+                              ]
+                            },
+                            {
+                              "C": [
+                                8820000,
+                                82,
+                                "Austria"
+                              ]
+                            },
+                            {
+                              "I": 11,
+                              "C": [
+                                11420000,
+                                "Belgium"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 28,
+                              "C": [
+                                36732000,
+                                83,
+                                "Canada"
+                              ]
+                            },
+                            {
+                              "C": [
+                                8456000,
+                                84,
+                                "Switzerland"
+                              ]
+                            },
+                            {
+                              "C": [
+                                18470000,
+                                81,
+                                18
+                              ]
+                            },
+                            {
+                              "I": 39,
+                              "C": [
+                                4950000,
+                                82,
+                                22
+                              ]
+                            },
+                            {
+                              "I": 41,
+                              "C": [
+                                1180000,
+                                81,
+                                "Cyprus"
+                              ]
+                            },
+                            {
+                              "I": 43,
+                              "C": [
+                                82658000,
+                                82,
+                                "Germany"
+                              ]
+                            },
+                            {
+                              "I": 45,
+                              "C": [
+                                5732000,
+                                "Denmark"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 51,
+                              "C": [
+                                46647000,
+                                84,
+                                "Spain"
+                              ]
+                            },
+                            {
+                              "I": 54,
+                              "C": [
+                                5511000,
+                                82,
+                                "Finland"
+                              ]
+                            },
+                            {
+                              "I": 56,
+                              "C": [
+                                64843000,
+                                83,
+                                "France"
+                              ]
+                            },
+                            {
+                              "I": 59,
+                              "C": [
+                                66727000,
+                                82,
+                                "United Kingdom of Great Britain and Northern Ireland"
+                              ]
+                            },
+                            {
+                              "I": 66,
+                              "C": [
+                                10569000,
+                                "Greece"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 76,
+                              "C": [
+                                4753000,
+                                "Ireland"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 79,
+                              "C": [
+                                334000,
+                                83,
+                                "Iceland"
+                              ]
+                            },
+                            {
+                              "C": [
+                                8244000,
+                                "Israel"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                60674000,
+                                "Italy"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 84,
+                              "C": [
+                                127503000,
+                                85,
+                                "Japan"
+                              ]
+                            },
+                            {
+                              "I": 90,
+                              "C": [
+                                51096000,
+                                82,
+                                "Korea, Republic of"
+                              ]
+                            },
+                            {
+                              "I": 93,
+                              "C": [
+                                6819000,
+                                81,
+                                44
+                              ]
+                            },
+                            {
+                              "I": 100,
+                              "C": [
+                                592000,
+                                83,
+                                "Luxembourg"
+                              ]
+                            },
+                            {
+                              "I": 110,
+                              "C": [
+                                438000,
+                                "Malta"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 123,
+                              "C": [
+                                17021000,
+                                82,
+                                "Netherlands"
+                              ]
+                            },
+                            {
+                              "C": [
+                                5296000,
+                                83,
+                                "Norway"
+                              ]
+                            },
+                            {
+                              "I": 126,
+                              "C": [
+                                4702000,
+                                82,
+                                "New Zealand"
+                              ]
+                            },
+                            {
+                              "I": 130,
+                              "C": [
+                                31444000,
+                                80,
+                                65
+                              ]
+                            },
+                            {
+                              "I": 135,
+                              "C": [
+                                10289000,
+                                82,
+                                "Portugal"
+                              ]
+                            },
+                            {
+                              "I": 138,
+                              "C": [
+                                2725000,
+                                81,
+                                71
+                              ]
+                            },
+                            {
+                              "I": 145,
+                              "C": [
+                                5708000,
+                                84,
+                                "Singapore"
+                              ]
+                            },
+                            {
+                              "I": 155,
+                              "C": [
+                                2076000,
+                                82,
+                                "Slovenia"
+                              ]
+                            },
+                            {
+                              "C": [
+                                9905000,
+                                83,
+                                "Sweden"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "G0": 3,
+                          "X": [
+                            {
+                              "C": [
+                                36296000,
+                                59,
+                                "Afghanistan"
+                              ]
+                            },
+                            {
+                              "I": 27,
+                              "C": [
+                                4596000,
+                                52,
+                                "Central African Republic"
+                              ]
+                            },
+                            {
+                              "I": 32,
+                              "C": [
+                                24437000,
+                                58,
+                                "Côte d'Ivoire"
+                              ]
+                            },
+                            {
+                              "C": [
+                                24566000,
+                                59,
+                                "Cameroon"
+                              ]
+                            },
+                            {
+                              "I": 64,
+                              "C": [
+                                1828000,
+                                "Guinea-Bissau"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "C": [
+                                1262000,
+                                "Equatorial Guinea"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 98,
+                              "C": [
+                                2092000,
+                                52,
+                                "Lesotho"
+                              ]
+                            },
+                            {
+                              "I": 109,
+                              "C": [
+                                18512000,
+                                59,
+                                "Mali"
+                              ]
+                            },
+                            {
+                              "I": 114,
+                              "C": [
+                                28649000,
+                                60,
+                                "Mozambique"
+                              ]
+                            },
+                            {
+                              "I": 121,
+                              "C": [
+                                190872992,
+                                54,
+                                "Nigeria"
+                              ]
+                            },
+                            {
+                              "I": 147,
+                              "C": [
+                                7488000,
+                                57,
+                                "Sierra Leone"
+                              ]
+                            },
+                            {
+                              "I": 149,
+                              "C": [
+                                14589000,
+                                58,
+                                "Somalia"
+                              ]
+                            },
+                            {
+                              "I": 151,
+                              "C": [
+                                10911000,
+                                "South Sudan"
+                              ],
+                              "R": 2
+                            },
+                            {
+                              "I": 157,
+                              "C": [
+                                1125000,
+                                59,
+                                "Eswatini"
+                              ]
+                            },
+                            {
+                              "I": 160,
+                              "C": [
+                                15017000,
+                                54,
+                                "Chad"
+                              ]
+                            },
+                            {
+                              "I": 183,
+                              "C": [
+                                16854000,
+                                60,
+                                "Zambia"
+                              ]
+                            },
+                            {
+                              "C": [
+                                14237000,
+                                "Zimbabwe"
+                              ],
+                              "R": 2
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": {
+                    "D0": [
+                      "70-79",
+                      "60-69",
+                      ">80",
+                      "45-59"
+                    ],
+                    "D1": [
+                      "Albania",
+                      "United Arab Emirates",
+                      "Argentina",
+                      "Armenia",
+                      "Antigua and Barbuda",
+                      "Azerbaijan",
+                      "Bangladesh",
+                      "Bulgaria",
+                      "Bahrain",
+                      "Bahamas",
+                      "Bosnia and Herzegovina",
+                      "Belarus",
+                      "Belize",
+                      "Bolivia (Plurinational State of)",
+                      "Brazil",
+                      "Barbados",
+                      "Brunei Darussalam",
+                      "Bhutan",
+                      "Chile",
+                      "China",
+                      "Colombia",
+                      "Cabo Verde",
+                      "Costa Rica",
+                      "Cuba",
+                      "Czechia",
+                      "Dominican Republic",
+                      "Algeria",
+                      "Ecuador",
+                      "Egypt",
+                      "Estonia",
+                      "Georgia",
+                      "Grenada",
+                      "Guatemala",
+                      "Honduras",
+                      "Croatia",
+                      "Hungary",
+                      "Indonesia",
+                      "Iran (Islamic Republic of)",
+                      "Iraq",
+                      "Jamaica",
+                      "Jordan",
+                      "Kazakhstan",
+                      "Kyrgyzstan",
+                      "Kuwait",
+                      "Lebanon",
+                      "Libya",
+                      "Saint Lucia",
+                      "Sri Lanka",
+                      "Lithuania",
+                      "Latvia",
+                      "Macao",
+                      "Morocco",
+                      "Moldova, Republic of",
+                      "Maldives",
+                      "Mexico",
+                      "North Macedonia",
+                      "Myanmar",
+                      "Montenegro",
+                      "Mauritania",
+                      "Mauritius",
+                      "Malaysia",
+                      "Nicaragua",
+                      "Nepal",
+                      "Oman",
+                      "Panama",
+                      "Peru",
+                      "Philippines",
+                      "Poland",
+                      "Korea (Democratic People's Republic of)",
+                      "Paraguay",
+                      "Palestine, State of",
+                      "Qatar",
+                      "Romania",
+                      "Russian Federation",
+                      "Saudi Arabia",
+                      "Solomon Islands",
+                      "El Salvador",
+                      "Serbia",
+                      "Sao Tome and Principe",
+                      "Suriname",
+                      "Slovakia",
+                      "Seychelles",
+                      "Syrian Arab Republic",
+                      "Thailand",
+                      "Tajikistan",
+                      "Turkmenistan",
+                      "Timor-Leste",
+                      "Tonga",
+                      "Trinidad and Tobago",
+                      "Tunisia",
+                      "Turkey",
+                      "Ukraine",
+                      "Uruguay",
+                      "United States of America",
+                      "Uzbekistan",
+                      "Saint Vincent and the Grenadines",
+                      "Venezuela (Bolivarian Republic of)",
+                      "Viet Nam",
+                      "Vanuatu",
+                      "Samoa"
+                    ]
+                  }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "5ff59bee-8ddf-470f-91dd-15cd6b6cb36e",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:56:05.1764806Z",
+                  "End": "2021-11-15T09:56:05.2233564Z"
+                },
+                {
+                  "Id": "c6964e77-416f-47a3-bb62-12c973444182",
+                  "ParentId": "5ff59bee-8ddf-470f-91dd-15cd6b6cb36e",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:56:05.1764806Z",
+                  "End": "2021-11-15T09:56:05.2077312Z",
+                  "Metrics": {
+                    "RowCount": 396
+                  }
+                },
+                {
+                  "Id": "0E2E0AA1-7877-4833-A339-029D2BB06DA2",
+                  "ParentId": "c6964e77-416f-47a3-bb62-12c973444182",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:56:05.19Z",
+                  "End": "2021-11-15T09:56:05.217Z"
+                },
+                {
+                  "Id": "CD7C16AF-4ECD-4F02-B2A3-81B75D82EC96",
+                  "ParentId": "0E2E0AA1-7877-4833-A339-029D2BB06DA2",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:56:05.217Z",
+                  "End": "2021-11-15T09:56:05.217Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -27,7 +27,7 @@ namespace PowerBiAuditApp.Processor
 
         [FunctionName(nameof(PowerBiActivityEventProcessor))]
         public async Task Run(
-            [TimerTrigger("0 */30 * * * *")] TimerInfo myTimer,
+            [TimerTrigger("0 */10 * * * *")] TimerInfo myTimer,
             [Blob("activity-events", Connection = "StorageAccountBlobEndpoint")] CloudBlobContainer cloudBlobContainer,
             [Table(nameof(PbiProcessRunTable), Connection = "StorageAccountTableEndpoint")] CloudTable processRunTable,
             ILogger log)
