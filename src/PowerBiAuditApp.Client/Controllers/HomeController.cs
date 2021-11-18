@@ -19,7 +19,7 @@ namespace PowerBiAuditApp.Client.Controllers
         {
             var model = new HomeViewModel {
                 User = HttpContext.User.Identity?.Name,
-                Reports = await _reportDetailsService.GetReportDetailsForUser()
+                Reports = await _reportDetailsService.GetEnabledReportDetailsForUser()
             };
 
             return View(model);

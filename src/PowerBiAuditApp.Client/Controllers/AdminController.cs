@@ -24,7 +24,7 @@ namespace PowerBiAuditApp.Client.Controllers
         public async Task<IActionResult> Index()
         {
             var model = new AdminViewModel {
-                Reports = await _reportDetailsService.GetReportDetailsForUser(),
+                Reports = await _reportDetailsService.GetAllReportDetailsForUser(),
             };
 
             return View(model);
@@ -45,7 +45,7 @@ namespace PowerBiAuditApp.Client.Controllers
         public async Task<IList<ReportDetail>> SaveReportDisplayDetails(string query) {
             var queryParameters = query is null ? new NameValueCollection() : HttpUtility.ParseQueryString(query);
 
-            var reports = await _reportDetailsService.GetReportDetailsForUser();
+            var reports = await _reportDetailsService.GetAllReportDetailsForUser();
             foreach (var report in reports)
             {
                 report.Enabled = queryParameters.Get(report.Name) == "show";
