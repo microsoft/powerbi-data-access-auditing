@@ -1,5 +1,6 @@
 ﻿using System;
 using Azure.Identity;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,9 @@ namespace PowerBiAuditApp.Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var applicationInsightsOptions = new ApplicationInsightsServiceOptions { ConnectionString = Configuration["APPINSIGHTS_CONNECTIONSTRING"] };
+            services.AddApplicationInsightsTelemetry(applicationInsightsOptions);
+
             // Register Services
             services.Configure<ServicePrincipal>(Configuration.GetSection("ServicePrincipal"));
             services.Configure<StorageAccountSettings>(Configuration.GetSection("StorageAccountSettings"));
@@ -37,7 +41,9 @@ namespace PowerBiAuditApp.Client
             services.AddScoped<IReportDetailsService, ReportDetailsService>();
             services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
             services.AddScoped<IQueueTriggerService, QueueTriggerService>();
+            services.AddScoped<IGraphService, GraphService>();
 
+            services.AddTokenAcquisition();
             services.AddDataProtection();
             services.AddHttpContextAccessor();
 
@@ -69,7 +75,10 @@ namespace PowerBiAuditApp.Client
             });
 
 
-            services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
+            services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
+                .EnableTokenAcquisitionToCallDownstreamApi()
+                .AddMicrosoftGraph(Configuration.GetSection("GraphApi"))
+                .AddInMemoryTokenCaches(); ;
 
             services.AddControllersWithViews();
 
