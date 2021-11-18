@@ -1,8 +1,10 @@
-﻿using PowerBiAuditApp.Models;
+﻿using System.Collections.Generic;
+using PowerBiAuditApp.Models;
 
-namespace PowerBiAuditApp.Client.Models;
-
-public class AdminViewModel
+namespace PowerBiAuditApp.Client.Models
 {
-    public IList<ReportDetail> Reports { get; init; } = null!;
+    public class AdminViewModel
+    {
+        public IList<ReportDetail> Reports { get; init; } = null!;
+    }
 }

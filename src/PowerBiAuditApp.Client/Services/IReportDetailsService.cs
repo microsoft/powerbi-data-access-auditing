@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PowerBiAuditApp.Models;
 
@@ -11,6 +12,6 @@ namespace PowerBiAuditApp.Client.Services
         Task<IList<ReportDetail>> GetReportDetailsForUser();
         Task<ReportDetail> GetReportDetail(Guid workspaceId, Guid reportId);
         Task<ReportDetail> GetReportForUser(Guid workspaceId, Guid reportId);
-    }
-    Task UpdateReportDetails(IList<ReportDetail> reports, CancellationToken cancellationToken);
+        Task SaveReportDisplayDetails(IList<ReportDetail> reports, CancellationToken cancellationToken = default);
+    } 
 }

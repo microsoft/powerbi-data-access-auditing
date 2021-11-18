@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-﻿using System.Collections.Specialized;
+using System.Collections.Specialized;
 using System.Web;
-﻿using System;
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using PowerBiAuditApp.Client.Models;
 using PowerBiAuditApp.Client.Services;
 using PowerBiAuditApp.Models;
+using System.Collections.Generic;
 
 namespace PowerBiAuditApp.Client.Controllers
 {
@@ -43,15 +43,15 @@ namespace PowerBiAuditApp.Client.Controllers
 
         [HttpPost]
         public async Task<IList<ReportDetail>> SaveReportDisplayDetails(string query) {
-            var test = query is null ? new NameValueCollection() : HttpUtility.ParseQueryString(query);
+            var queryParameters = query is null ? new NameValueCollection() : HttpUtility.ParseQueryString(query);
 
             var reports = await _reportDetailsService.GetReportDetailsForUser();
             foreach (var report in reports)
             {
-                report.Enabled = test.Get(report.Name) == "show";
+                report.Enabled = queryParameters.Get(report.Name) == "show";
             }
 
-            await _reportDetailsService.UpdateReportDetails(reports, HttpContext.RequestAborted);
+            await _reportDetailsService.SaveReportDisplayDetails(reports, HttpContext.RequestAborted);
 
             return reports;
         }

@@ -2,9 +2,7 @@
     form.preventDefault();
 
     var data = { "query": $('form').serialize() };
-    $.post("/Admin/SaveReportDisplayDetails", data, function (x) {
-        console.log(x);
-    });
+    $.post("/Admin/SaveReportDisplayDetails", data);
 
     console.log("Form submitted");
 }
