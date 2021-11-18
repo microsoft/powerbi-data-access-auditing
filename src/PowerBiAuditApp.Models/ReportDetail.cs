@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Azure;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
@@ -9,10 +10,12 @@ namespace PowerBiAuditApp.Models
     public class ReportDetail : TableEntity, Azure.Data.Tables.ITableEntity
     {
         [IgnoreProperty]
+        [IgnoreDataMember]
         // Report Id for which Embed token needs to be generated
         public Guid ReportId { get { return new Guid(RowKey); } set { RowKey = value.ToString(); } }
 
         [IgnoreProperty]
+        [IgnoreDataMember]
         // Workspace Id for which Embed token needs to be generated
         public Guid GroupId { get { return new Guid(PartitionKey); } set { PartitionKey = value.ToString(); } }
 
@@ -32,6 +35,7 @@ namespace PowerBiAuditApp.Models
         public string StringRoles { get; set; } = null!;
 
         [IgnoreProperty]
+        [IgnoreDataMember]
         public string[] Roles {
             get {
                 return StringRoles is not null
@@ -44,6 +48,7 @@ namespace PowerBiAuditApp.Models
         public string StringAadGroups { get; set; } = null!;
 
         [IgnoreProperty]
+        [IgnoreDataMember]
         public Guid[] AadGroups {
             get {
                 return StringRoles is not null

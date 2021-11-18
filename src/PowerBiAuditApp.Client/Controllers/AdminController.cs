@@ -1,38 +1,59 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Specialized;
+using System.Web;
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using PowerBiAuditApp.Client.Models;
 using PowerBiAuditApp.Client.Services;
+using PowerBiAuditApp.Models;
+using System.Collections.Generic;
 
 namespace PowerBiAuditApp.Client.Controllers
 {
     public class AdminController : Controller
     {
         private readonly IQueueTriggerService _queueTriggerService;
+        private readonly IReportDetailsService _reportDetailsService;
 
-        public AdminController(IQueueTriggerService queueTriggerService)
+        public AdminController(IQueueTriggerService queueTriggerService, IReportDetailsService reportDetailsService)
         {
             _queueTriggerService = queueTriggerService;
+            _reportDetailsService = reportDetailsService;
         }
 
-        public IActionResult Index() => View();
+        public async Task<IActionResult> Index()
+        {
+            var model = new AdminViewModel {
+                Reports = await _reportDetailsService.GetAllReportDetails(),
+            };
+
+            return View(model);
+        }
 
         public async Task<IActionResult> RefreshReports()
         {
-            // Send message to trigger queue & redirect back to admin page
-            var queueClient = await _queueTriggerService.GetTriggerQueue();
-
             var filename = $"{Guid.NewGuid()} {DateTime.UtcNow:yyyy-MM-dd hh-mm-ss}.json";
 
-            await _queueTriggerService.SendQueueMessage(queueClient, filename);
+            await _queueTriggerService.SendQueueMessage(filename, HttpContext.RequestAborted);
 
-            return RedirectToAction("Index");
+            TempData["refreshed"] = true;
+
+            return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> CreateTriggerQueue()
-        {
-            await _queueTriggerService.GetTriggerQueue();
+        [HttpPost]
+        public async Task<IList<ReportDetail>> SaveReportDisplayDetails(string query) {
+            var queryParameters = query is null ? new NameValueCollection() : HttpUtility.ParseQueryString(query);
 
-            return RedirectToAction("index");
+            var reports = await _reportDetailsService.GetAllReportDetails();
+            foreach (var report in reports)
+            {
+                report.Enabled = queryParameters.Get(report.Name) == "show";
+            }
+
+            await _reportDetailsService.SaveReportDisplayDetails(reports, HttpContext.RequestAborted);
+
+            return reports;
         }
     }
 }
