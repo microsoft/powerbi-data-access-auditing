@@ -21,7 +21,7 @@
 
     <h2>All Reports</h2>
     
-    <form>
+    <form id="reportDisplayForm">
         @foreach (var reportDetail in Model?.Reports ?? Array.Empty<ReportDetail>())
         {
             <div class="row justify-content-center p-2">
@@ -38,13 +38,8 @@
             </div>       
         }
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" disabled>Save</button>
     </form>
-        
-        
-
-    
-    
 </div>
  
 @section Scripts
@@ -52,9 +47,4 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/admin.js"></script>
-    <script>
-        $('form').submit(function(data) {
-            SubmitForm(data);
-        });
-    </script>
 }
