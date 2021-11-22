@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PowerBiAuditApp.Client.Models;
@@ -19,13 +20,16 @@ namespace PowerBiAuditApp.Client.Controllers
         {
             var model = new HomeViewModel {
                 User = HttpContext.User.Identity?.Name,
-                Reports = await _reportDetailsService.GetReportDetailsForUser()
+                Reports = (await _reportDetailsService.GetReportDetailsForUser())
+                    .OrderBy(x => x.GroupName)
+                    .ThenBy(x => x.Name)
+                    .GroupBy(x => x.GroupName)
+                    .ToDictionary(x => x.Key, x => x.ToArray())
+
             };
 
             return View(model);
         }
-
-        public IActionResult Privacy() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

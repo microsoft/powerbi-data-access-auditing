@@ -6,6 +6,6 @@ namespace PowerBiAuditApp.Client.Models
     public class HomeViewModel
     {
         public string User { get; init; }
-        public IList<ReportDetail> Reports { get; init; } = null!;
+        public Dictionary<string, ReportDetail[]> Reports { get; init; } = null!;
     }
 }

@@ -11,9 +11,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using PowerBiAuditApp.Client.Middleware;
 using PowerBiAuditApp.Client.Models;
+using PowerBiAuditApp.Client.Security;
 using PowerBiAuditApp.Client.Services;
 using PowerBiAuditApp.Services;
-using PowerBiAuditApp.Services.Models;
+using ServicePrincipal = PowerBiAuditApp.Services.Models.ServicePrincipal;
 
 namespace PowerBiAuditApp.Client
 {
@@ -42,6 +43,7 @@ namespace PowerBiAuditApp.Client
             services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
             services.AddScoped<IQueueTriggerService, QueueTriggerService>();
             services.AddScoped<IGraphService, GraphService>();
+            services.AddSingleton<IAuthorizationHandler, GroupPolicyHandler>();
 
             services.AddTokenAcquisition();
             services.AddDataProtection();
@@ -76,9 +78,9 @@ namespace PowerBiAuditApp.Client
 
 
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
-                .EnableTokenAcquisitionToCallDownstreamApi()
+                .EnableTokenAcquisitionToCallDownstreamApi(options => Configuration.Bind("AzureAd", options), new[] { "Group.Read.All" })
                 .AddMicrosoftGraph(Configuration.GetSection("GraphApi"))
-                .AddInMemoryTokenCaches(); ;
+                .AddDistributedTokenCaches();
 
             services.AddControllersWithViews();
 
@@ -91,6 +93,8 @@ namespace PowerBiAuditApp.Client
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
+
+                options.AddPolicy(AdministratorAuthorizeAttribute.PolicyName, policy => policy.AddRequirements(new GroupRequirement(new Guid(Configuration.GetSection("AdministratorRoleId").Value!))));
             });
         }
 

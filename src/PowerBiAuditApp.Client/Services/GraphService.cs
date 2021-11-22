@@ -36,5 +36,7 @@ namespace PowerBiAuditApp.Client.Services
 
             return result;
         }
+
+        public Task EnsureRequiredScopes() => _graphServiceClient.Me.Request().GetAsync();
     }
 }

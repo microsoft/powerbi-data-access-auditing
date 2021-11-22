@@ -7,16 +7,24 @@ Licensed under the MIT license. -->
 
 	<div class="container">
 		<!-- Example row of columns -->
-		<div class="row">
-			@foreach (var reportDetail in Model?.Reports ?? Array.Empty<ReportDetail>())
+			@foreach (var (groupName, reports) in Model?.Reports ?? new Dictionary<string, ReportDetail[]>())
 			{
-				<div class="col-md-4">
-					<h2>@reportDetail.Name</h2>
-					<p>@reportDetail.Description </p>
-					<p><a class="btn btn-secondary" href="report/?WorkspaceId=@reportDetail.GroupId&reportId=@reportDetail.ReportId" role="button">View Report»</a></p>
-				</div>
+				<div class="row m-2 mb-0"><h3 class="mb-0 p-0">@groupName</h3></div>
+			    <div class="row">
+			    @foreach (var reportDetail in reports)
+			    {
+			        <div class="col-md-4">
+			            <div class="card m-2">
+                            <div class="card-body">
+                                <h5 class="card-title">@reportDetail.Name</h5>
+                                <p class="card-text">@reportDetail.Description</p>
+                                <div class="d-flex flex-row-reverse"><a class="btn btn-secondary" href="report/?WorkspaceId=@reportDetail.GroupId&reportId=@reportDetail.ReportId" role="button">View Report</a></div>
+                            </div>
+                        </div>
+                    </div>
+			    }
+                </div>
 			}
-		</div>
 
 		<hr>
 
