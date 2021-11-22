@@ -26,6 +26,10 @@
       "provider": "jsdelivr",
       "library": "powerbi-client@2.16.5",
       "destination": "wwwroot/lib/powerbi-client/"
+    },
+    {
+      "library": "bootstrap-icons@1.7.1",
+      "destination": "wwwroot/lib/bootstrap-icons/"
     }
   ]
 }
