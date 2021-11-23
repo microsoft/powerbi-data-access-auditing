@@ -7,24 +7,31 @@
     <a class="btn btn-primary align-self-center" href="@Url.Action("RefreshReports", "Admin")">Refresh Reports</a>
 </div>
 
-<div class="container">
-    @if(Convert.ToBoolean(TempData["refreshed"]))
-    {
-        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+    
+<form id="reportDisplayForm">
+    <div class="container mb-5">
+        @if(Convert.ToBoolean(TempData["refreshed"]))
+        {
+            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                <i class="bi-check-circle-fill flex-shrink-0 me-2" style="width: 24px; height: 24px; text-align: center"></i>
+                <div>
+                    Report refresh has been queued. Please allow 5 minutes for data to be refreshed.
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        
+        <div id="report-saved-alert" class="alert alert-success alert-dismissible fade show d-flex align-items-center d-none" role="alert">
             <i class="bi-check-circle-fill flex-shrink-0 me-2" style="width: 24px; height: 24px; text-align: center"></i>
             <div>
-                Reports have been refreshed
+                Reports have been saved.
             </div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" aria-label="Close"></button>
         </div>
-    }
-
-    <h2>All Reports</h2>
     
-    <form id="reportDisplayForm">
         @foreach (var (groupName, reports) in Model.Reports)
         {
-            <h4>@groupName</h4>
+            <h2>@groupName</h2>
             @foreach (var report in reports)
             {
                 <div class="card my-3">
@@ -60,7 +67,7 @@
                             <div class="col @(report.EffectiveIdentityRequired ? "" : "invisible")">
                                 <label class="col-form-label fw-bold">Override Effective User</label>
                                 <div class="form-check form-switch">
-                                    @if (string.IsNullOrWhiteSpace(report.EffectiveIdentityOverRide))
+                                    @if (!string.IsNullOrWhiteSpace(report.EffectiveIdentityOverRide))
                                     {
                                         <input class="form-check-input linked-input" type="checkbox" id="flexSwitchCheckChecked" name="@($"{report.Name} Effective Id Required")" value="yes" checked>
                                         <input class="form-control" type="text" name="@($"{report.Name} Effective Id Override")" placeholder="User" value="@report.EffectiveIdentityOverRide">
@@ -77,10 +84,14 @@
                 </div>
             }
         }
-
-        <button type="submit" class="btn btn-primary" disabled>Save</button>
-    </form>
-</div>
+    </div>  
+    
+    <div class="container fixed-bottom floating-button-container">
+        <div class="row d-flex flex-row-reverse px-3">
+            <div class="bg-light w-25  px-0 mx-1"><button type="submit" class="btn btn-primary w-100" disabled>Save</button></div>
+        </div>
+    </div>
+</form>
  
 @section Scripts
 {

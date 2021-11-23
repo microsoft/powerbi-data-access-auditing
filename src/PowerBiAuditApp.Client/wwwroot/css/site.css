@@ -41,6 +41,10 @@ iframe {
     border: none;
 }
 
+.floating-button-container {
+    margin-bottom: 2.3rem;
+}
+
 @media only screen and (max-width: 574px) {
     #report-container {
         height: calc(0.5625 * 100vw); /* 16:9 aspect ratio */
