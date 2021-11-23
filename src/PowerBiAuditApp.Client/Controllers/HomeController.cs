@@ -9,9 +9,9 @@ namespace PowerBiAuditApp.Client.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IReportDetailsService _reportDetailsService;
+        private readonly IUserReportDetailsService _reportDetailsService;
 
-        public HomeController(IReportDetailsService reportDetailsService)
+        public HomeController(IUserReportDetailsService reportDetailsService)
         {
             _reportDetailsService = reportDetailsService;
         }
@@ -20,7 +20,7 @@ namespace PowerBiAuditApp.Client.Controllers
         {
             var model = new HomeViewModel {
                 User = HttpContext.User.Identity?.Name,
-                Reports = (await _reportDetailsService.GetReportDetailsForUser())
+                Reports = (await _reportDetailsService.GetReportDetails())
                     .OrderBy(x => x.GroupName)
                     .ThenBy(x => x.Name)
                     .GroupBy(x => x.GroupName)

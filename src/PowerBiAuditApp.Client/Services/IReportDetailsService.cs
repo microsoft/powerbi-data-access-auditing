@@ -8,10 +8,8 @@ namespace PowerBiAuditApp.Client.Services
 {
     public interface IReportDetailsService
     {
-        Task<IList<ReportDetail>> GetAllReportDetails();
-        Task<IList<ReportDetail>> GetReportDetailsForUser();
-        Task<ReportDetail> GetReportDetail(Guid workspaceId, Guid reportId);
-        Task<ReportDetail> GetReportForUser(Guid workspaceId, Guid reportId);
+        Task<IList<ReportDetail>> GetReportDetails();
+        Task<ReportDetail> GetReportDetail(Guid reportId);
         Task SaveReportDisplayDetails(IList<ReportDetail> reports, CancellationToken cancellationToken = default);
-    } 
+    }
 }

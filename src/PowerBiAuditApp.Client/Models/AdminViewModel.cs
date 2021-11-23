@@ -5,6 +5,6 @@ namespace PowerBiAuditApp.Client.Models
 {
     public class AdminViewModel
     {
-        public IList<ReportDetail> Reports { get; init; } = null!;
+        public Dictionary<string, ReportDetail[]> Reports { get; init; } = null!;
     }
 }

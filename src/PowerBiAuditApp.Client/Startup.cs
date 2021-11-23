@@ -39,7 +39,8 @@ namespace PowerBiAuditApp.Client
 
             services.AddScoped<IAuditLogger, AuditLogger>();
             services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
-            services.AddScoped<IReportDetailsService, ReportDetailsService>();
+            services.AddSingleton<IReportDetailsService, ReportDetailsService>();
+            services.AddScoped<IUserReportDetailsService, UserReportDetailsService>();
             services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
             services.AddScoped<IQueueTriggerService, QueueTriggerService>();
             services.AddScoped<IGraphService, GraphService>();
@@ -48,6 +49,7 @@ namespace PowerBiAuditApp.Client
             services.AddTokenAcquisition();
             services.AddDataProtection();
             services.AddHttpContextAccessor();
+            services.AddMemoryCache();
 
             services.AddAzureClients(clientFactory =>
             {

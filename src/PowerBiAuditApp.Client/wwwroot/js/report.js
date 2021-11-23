@@ -65,7 +65,6 @@ function LoadReport(embedToken, embedUrl, page) {
 
     // Triggers when a report is successfully embedded in UI
     report.on("rendered", function () {
-        Audit(report);
         console.log("Report render successful");
 
     });
@@ -105,31 +104,6 @@ function LoadReport(embedToken, embedUrl, page) {
         console.error('Error', errorMsg);
         return;
     });
-}
-
-async function Audit(report) {
-    // Retrieve the page collection and get the visuals for the active page.
-    try {
-        const pages = await report.getPages();
-
-        // Retrieve the page that contain the visual. For the sample report it will be the active page
-        const page = pages.filter(function (page) {
-            return page.isActive;
-        })[0];
-
-        const visuals = await page.getVisuals();
-
-        visuals.forEach(async function (visual) {
-            // Exports visual data
-            await visual.exportData(models.ExportDataType.Summarized);
-
-            //console.log(result.data);
-        });
-
-    }
-    catch (errors) {
-        console.log(errors);
-    }
 }
 
 

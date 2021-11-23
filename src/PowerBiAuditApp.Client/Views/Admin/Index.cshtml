@@ -22,10 +22,10 @@
     <h2>All Reports</h2>
     
     <form id="reportDisplayForm">
-        @foreach (var group in Model?.Reports.GroupBy(report => report.GroupName))
+        @foreach (var (groupName, reports) in Model.Reports)
         {
-            <h4>@group.Key</h4>
-            @foreach (var report in group)
+            <h4>@groupName</h4>
+            @foreach (var report in reports)
             {
                 <div class="card my-3">
                     <h5 class="card-header">@report.Name</h5>
@@ -57,16 +57,17 @@
                                     }
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col @(report.EffectiveIdentityRequired ? "" : "invisible")">
                                 <label class="col-form-label fw-bold">Override Effective User</label>
                                 <div class="form-check form-switch">
-                                    @if(report.EffectiveIdentityRequired)
+                                    @if (string.IsNullOrWhiteSpace(report.EffectiveIdentityOverRide))
                                     {
                                         <input class="form-check-input linked-input" type="checkbox" id="flexSwitchCheckChecked" name="@($"{report.Name} Effective Id Required")" value="yes" checked>
                                         <input class="form-control" type="text" name="@($"{report.Name} Effective Id Override")" placeholder="User" value="@report.EffectiveIdentityOverRide">
-                                    } else
+                                    }
+                                    else
                                     {
-                                        <input class="form-check-input linked-input" type="checkbox" id="flexSwitchCheckDefault" name="@($"{report.Name} Effective Id Requireed")" value="yes">
+                                        <input class="form-check-input linked-input" type="checkbox" id="flexSwitchCheckDefault" name="@($"{report.Name} Effective Id Required")" value="yes">
                                         <input class="form-control" type="text" name="@($"{report.Name} Effective Id Override")" placeholder="User" value="@report.EffectiveIdentityOverRide" style="display: none">
                                     }
                                 </div>

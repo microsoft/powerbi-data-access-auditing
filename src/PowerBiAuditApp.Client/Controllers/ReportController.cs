@@ -9,9 +9,9 @@ namespace PowerBiAuditApp.Client.Controllers
     public class ReportController : Controller
     {
         private readonly IPowerBiEmbeddedReportService _powerBiReportService;
-        private readonly IReportDetailsService _reportDetailsService;
+        private readonly IUserReportDetailsService _reportDetailsService;
 
-        public ReportController(IPowerBiEmbeddedReportService powerBiReportService, IReportDetailsService reportDetailsService)
+        public ReportController(IPowerBiEmbeddedReportService powerBiReportService, IUserReportDetailsService reportDetailsService)
         {
             _powerBiReportService = powerBiReportService;
             _reportDetailsService = reportDetailsService;
@@ -21,7 +21,7 @@ namespace PowerBiAuditApp.Client.Controllers
         public async Task<IActionResult> Index(Guid workspaceId, Guid reportId, int pageNumber)
         {
 
-            var report = await _reportDetailsService.GetReportForUser(workspaceId, reportId);
+            var report = await _reportDetailsService.GetReportDetail(workspaceId, reportId);
             if (report is null)
                 return RedirectToAction("Index", "Home");
 
