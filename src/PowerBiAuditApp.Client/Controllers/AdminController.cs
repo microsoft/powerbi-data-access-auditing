@@ -63,6 +63,9 @@ namespace PowerBiAuditApp.Client.Controllers
             foreach (var report in reports)
             {
                 report.Enabled = queryParameters.Get(report.Name) == "show";
+                report.ReportRowLimit = int.TryParse(queryParameters.Get(report.Name + " Row Limit"), out var tempVal) ? tempVal : null;
+                report.EffectiveIdentityRequired = queryParameters.Get(report.Name + " Effective Id Required") == "yes";
+                report.EffectiveIdentityOverRide = queryParameters.Get(report.Name + " Effective Id Override");
             }
 
             await _reportDetailsService.SaveReportDisplayDetails(reports, HttpContext.RequestAborted);

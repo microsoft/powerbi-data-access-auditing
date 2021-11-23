@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Data.Tables;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Caching.Memory;
 using PowerBiAuditApp.Models;
 
 namespace PowerBiAuditApp.Client.Services
@@ -58,7 +57,7 @@ namespace PowerBiAuditApp.Client.Services
 
             foreach (var report in reports)
             {
-                await tableClient.UpdateEntityAsync(report, Azure.ETag.All, TableUpdateMode.Merge, cancellationToken);
+                await tableClient.UpdateEntityAsync(report, Azure.ETag.All, TableUpdateMode.Replace, cancellationToken);
             }
         }
     }
