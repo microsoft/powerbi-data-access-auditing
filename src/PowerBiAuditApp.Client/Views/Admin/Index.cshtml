@@ -22,20 +22,59 @@
     <h2>All Reports</h2>
     
     <form id="reportDisplayForm">
-        @foreach (var reportDetail in Model?.Reports ?? Array.Empty<ReportDetail>())
+        @foreach (var group in Model?.Reports.GroupBy(report => report.GroupName))
         {
-            <div class="row justify-content-center p-2">
-                <label class="col-md-6">@reportDetail.Name</label>
-                <div class="form-check form-switch col-auto">
-                    @if(reportDetail.Enabled)
-                    {
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="@reportDetail.Name" value="show" checked>
-                    } else
-                    {
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="@reportDetail.Name" value="show">
-                    }
+            <h4>@group.Key</h4>
+            @foreach (var report in group)
+            {
+                <div class="card my-2">
+                    <div class="card-body">
+                        <h5 class="card-title">@report.Name</h5>
+                        <div class="row gx-5">
+                            <div class="col">
+                                <label class="col-form-label fw-bold">Enable</label>
+                                <div class="form-check form-switch">
+                                    @if(report.Enabled)
+                                    {
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="@report.Name" value="show" checked>
+                                    } else
+                                    {
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="@report.Name" value="show">
+                                    }
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label fw-bold">Row Limit</label>
+                                <div class="form-check form-switch ">
+                                    @if(report.ReportRowLimit != null)
+                                    {
+                                        <input class="form-check-input linked-input" type="checkbox" name="@($"{report.Name} Enable Row Limit")" id="flexSwitchCheckChecked" value="show" checked>
+                                        <input class="form-control" type="number" name="@($"{report.Name} Row Limit")" placeholder="Number of rows" value="@report.ReportRowLimit">
+                                    } else
+                                    {
+                                        <input class="form-check-input linked-input" type="checkbox" name="@($"{report.Name} Enable Row Limit")" id="flexSwitchCheckDefault" value="show">
+                                        <input class="form-control" type="number" name="@($"{report.Name} Row Limit")" placeholder="Number of rows" value="@report.ReportRowLimit" style="display: none">
+                                    }
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label fw-bold">Override Effective User</label>
+                                <div class="form-check form-switch">
+                                    @if(report.EffectiveIdentityRequired)
+                                    {
+                                        <input class="form-check-input linked-input" type="checkbox" id="flexSwitchCheckChecked" name="@($"{report.Name} Effective Id Required")" value="yes" checked>
+                                        <input class="form-control" type="text" name="@($"{report.Name} Effective Id Override")" placeholder="User" value="@report.EffectiveIdentityOverRide">
+                                    } else
+                                    {
+                                        <input class="form-check-input linked-input" type="checkbox" id="flexSwitchCheckDefault" name="@($"{report.Name} Effective Id Requireed")" value="yes">
+                                        <input class="form-control" type="text" name="@($"{report.Name} Effective Id Override")" placeholder="User" value="@report.EffectiveIdentityOverRide" style="display: none">
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>       
+            }
         }
 
         <button type="submit" class="btn btn-primary" disabled>Save</button>
