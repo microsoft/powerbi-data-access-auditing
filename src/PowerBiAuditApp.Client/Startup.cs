@@ -1,5 +1,6 @@
 ﻿using System;
 using Azure.Identity;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,9 +11,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using PowerBiAuditApp.Client.Middleware;
 using PowerBiAuditApp.Client.Models;
+using PowerBiAuditApp.Client.Security;
 using PowerBiAuditApp.Client.Services;
 using PowerBiAuditApp.Services;
-using PowerBiAuditApp.Services.Models;
+using ServicePrincipal = PowerBiAuditApp.Services.Models.ServicePrincipal;
 
 namespace PowerBiAuditApp.Client
 {
@@ -28,6 +30,9 @@ namespace PowerBiAuditApp.Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var applicationInsightsOptions = new ApplicationInsightsServiceOptions { ConnectionString = Configuration["APPINSIGHTS_CONNECTIONSTRING"] };
+            services.AddApplicationInsightsTelemetry(applicationInsightsOptions);
+
             // Register Services
             services.Configure<ServicePrincipal>(Configuration.GetSection("ServicePrincipal"));
             services.Configure<StorageAccountSettings>(Configuration.GetSection("StorageAccountSettings"));
@@ -37,7 +42,10 @@ namespace PowerBiAuditApp.Client
             services.AddScoped<IReportDetailsService, ReportDetailsService>();
             services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
             services.AddScoped<IQueueTriggerService, QueueTriggerService>();
+            services.AddScoped<IGraphService, GraphService>();
+            services.AddSingleton<IAuthorizationHandler, GroupPolicyHandler>();
 
+            services.AddTokenAcquisition();
             services.AddDataProtection();
             services.AddHttpContextAccessor();
 
@@ -69,7 +77,10 @@ namespace PowerBiAuditApp.Client
             });
 
 
-            services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
+            services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
+                .EnableTokenAcquisitionToCallDownstreamApi(options => Configuration.Bind("AzureAd", options), new[] { "Group.Read.All" })
+                .AddMicrosoftGraph(Configuration.GetSection("GraphApi"))
+                .AddDistributedTokenCaches();
 
             services.AddControllersWithViews();
 
@@ -82,6 +93,8 @@ namespace PowerBiAuditApp.Client
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
+
+                options.AddPolicy(AdministratorAuthorizeAttribute.PolicyName, policy => policy.AddRequirements(new GroupRequirement(new Guid(Configuration.GetSection("AdministratorRoleId").Value!))));
             });
         }
 
