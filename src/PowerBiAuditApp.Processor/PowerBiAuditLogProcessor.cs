@@ -45,6 +45,11 @@ namespace PowerBiAuditApp.Processor
                 var resultIndex = 0;
                 foreach (var result in model.Response.Results)
                 {
+                    if (result.Result.Data.Descriptor is null && result.Result.Data.Dsr.DataShapes is not null)
+                    {
+                        log.LogInformation("{name} ({result.JobId}) is a returned error message and contains no data.", name, result.JobId);
+                        continue;
+                    }
                     var headerLookup = GetHeaderLookup(result);
                     var query = model.Request.Queries[resultIndex++];
 

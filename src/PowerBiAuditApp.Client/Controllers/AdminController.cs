@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,11 @@ namespace PowerBiAuditApp.Client.Controllers
             await _graphService.EnsureRequiredScopes();
 
             var model = new AdminViewModel {
-                Reports = await _reportDetailsService.GetAllReportDetails(),
+                Reports = (await _reportDetailsService.GetReportDetails())
+                    .OrderBy(x => x.GroupName)
+                    .ThenBy(x => x.Name)
+                    .GroupBy(x => x.GroupName)
+                    .ToDictionary(x => x.Key, x => x.ToArray())
             };
 
             return View(model);
@@ -57,14 +62,15 @@ namespace PowerBiAuditApp.Client.Controllers
             // Example graph service call 
             //var bob = await _graphService.GetGroupIds("City of Bunbury - Projects", "Regis Resources - Projects");
 
+            //var bill = await _graphService.QueryGroups("City");
+
             var queryParameters = query is null ? new NameValueCollection() : HttpUtility.ParseQueryString(query);
 
-            var reports = await _reportDetailsService.GetAllReportDetails();
+            var reports = await _reportDetailsService.GetReportDetails();
             foreach (var report in reports)
             {
                 report.Enabled = queryParameters.Get(report.Name) == "show";
                 report.ReportRowLimit = int.TryParse(queryParameters.Get(report.Name + " Row Limit"), out var tempVal) ? tempVal : null;
-                report.EffectiveIdentityRequired = queryParameters.Get(report.Name + " Effective Id Required") == "yes";
                 report.EffectiveIdentityOverRide = queryParameters.Get(report.Name + " Effective Id Override");
             }
 

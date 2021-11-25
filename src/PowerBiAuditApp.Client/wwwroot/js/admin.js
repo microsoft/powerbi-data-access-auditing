@@ -19,13 +19,20 @@ $(window).on('beforeunload', function () {
     }
 });
 
+
+$("#report-saved-alert .btn-close").on('click', () => $("#report-saved-alert").addClass('d-none'));
+
 $('#reportDisplayForm').submit(function (event) {
     event.preventDefault();
 
     $('.linked-input:not(:checked)').next().val("");
 
     var data = { "query": $('#reportDisplayForm').serialize() };
-    $.post("/Admin/SaveReportDisplayDetails", data);
+    $.post("/Admin/SaveReportDisplayDetails", data)
+        .done(() => {
+            $("#report-saved-alert").removeClass('d-none');
+            $(".view-main").scrollTop(0);
+        });
 
     console.log("Form submitted");
 

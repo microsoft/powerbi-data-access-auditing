@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.PowerBI.Api;
 using Microsoft.PowerBI.Api.Models;
 using Microsoft.Rest;
+using Newtonsoft.Json.Linq;
 using PowerBiAuditApp.Client.Extensions;
 using PowerBiAuditApp.Client.Models;
 using PowerBiAuditApp.Models;
@@ -154,7 +155,7 @@ namespace PowerBiAuditApp.Client.Services
             // Generate Embed token
             var embedToken = pbiClient.EmbedToken.GenerateToken(tokenRequest);
 
-            return EncryptAndFormatToken(embedToken);
+            return EncryptAndFormatToken(embedToken, report);
         }
 
         /// <summary>
@@ -171,16 +172,15 @@ namespace PowerBiAuditApp.Client.Services
             // Generate Embed token
             var embedToken = pbiClient.Reports.GenerateTokenInGroup(report.GroupId, report.ReportId, generateTokenRequestParameters);
 
-            return EncryptAndFormatToken(embedToken);
+            return EncryptAndFormatToken(embedToken, report);
         }
 
         /// <summary>
         /// Encrypt the token so it's not usable by the end user to run a report;
         /// Update the cluster url so the users browser isn't redirected to the wrong place
         /// </summary>
-        /// <param name="embedToken"></param>
         /// <returns></returns>
-        private string EncryptAndFormatToken(EmbedToken embedToken)
+        private string EncryptAndFormatToken(EmbedToken embedToken, ReportDetail report)
         {
             //return embedToken.Token;
             var tokenParts = embedToken.Token.Split(".");
@@ -189,13 +189,22 @@ namespace PowerBiAuditApp.Client.Services
             var protectedBytes = _dataProtector.Protect(unprotectedBytes);
             tokenParts[0] = Convert.ToBase64String(protectedBytes);
 
+            string additionalData;
             if (tokenParts.Length > 1)
             {
-
-                var additionalData = Encoding.UTF8.GetString(Convert.FromBase64String(tokenParts[1])).ReplaceUrls();
-                var additionalBytes = Encoding.UTF8.GetBytes(additionalData);
-                tokenParts[1] = Convert.ToBase64String(additionalBytes);
+                additionalData = Encoding.UTF8.GetString(Convert.FromBase64String(tokenParts[1])).ReplaceUrls();
             }
+            else
+            {
+                additionalData = "{}";
+                tokenParts = new[] { tokenParts[0], null };
+            }
+
+            var json = JObject.Parse(additionalData);
+            json["reportId"] = report.ReportId;
+
+            var additionalBytes = Encoding.UTF8.GetBytes(json.ToString());
+            tokenParts[1] = Convert.ToBase64String(additionalBytes);
 
             return string.Join(".", tokenParts);
         }

@@ -20,12 +20,14 @@ namespace PowerBiAuditApp.Client
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,7 +41,8 @@ namespace PowerBiAuditApp.Client
 
             services.AddScoped<IAuditLogger, AuditLogger>();
             services.AddScoped<IPowerBiTokenProvider, PowerBiTokenProvider>();
-            services.AddScoped<IReportDetailsService, ReportDetailsService>();
+            services.AddSingleton<IReportDetailsService, ReportDetailsService>();
+            services.AddScoped<IUserReportDetailsService, UserReportDetailsService>();
             services.AddScoped<IPowerBiEmbeddedReportService, PowerBiEmbeddedReportService>();
             services.AddScoped<IQueueTriggerService, QueueTriggerService>();
             services.AddScoped<IGraphService, GraphService>();
@@ -48,6 +51,7 @@ namespace PowerBiAuditApp.Client
             services.AddTokenAcquisition();
             services.AddDataProtection();
             services.AddHttpContextAccessor();
+            services.AddMemoryCache();
 
             services.AddAzureClients(clientFactory =>
             {
@@ -82,7 +86,9 @@ namespace PowerBiAuditApp.Client
                 .AddMicrosoftGraph(Configuration.GetSection("GraphApi"))
                 .AddDistributedTokenCaches();
 
-            services.AddControllersWithViews();
+            var mvc = services.AddControllersWithViews();
+            if (Environment.IsDevelopment())
+                mvc.AddRazorRuntimeCompilation();
 
             services.AddAuthorization(options =>
             {

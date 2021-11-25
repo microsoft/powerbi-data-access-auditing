@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using PowerBiAuditApp.Client.Extensions;
 using PowerBiAuditApp.Client.Models;
 using PowerBiAuditApp.Client.Services;
@@ -21,8 +22,9 @@ namespace PowerBiAuditApp.Client.Middleware
         private readonly ILogger _logger;
         private readonly RequestDelegate _nextMiddleware;
         private readonly IDataProtector _dataProtector;
+        private readonly IReportDetailsService _reportDetailsService;
 
-        public PowerBiReverseProxyMiddleware(RequestDelegate nextMiddleware, IDataProtectionProvider dataProtectionProvider, ILoggerFactory loggerFactory)
+        public PowerBiReverseProxyMiddleware(RequestDelegate nextMiddleware, IDataProtectionProvider dataProtectionProvider, ILoggerFactory loggerFactory, IReportDetailsService reportDetailsService)
         {
             _logger = loggerFactory.CreateLogger<PowerBiReverseProxyMiddleware>();
             _logger.LogInformation("Hello");
@@ -33,6 +35,7 @@ namespace PowerBiAuditApp.Client.Middleware
             _dataProtector = dataProtectionProvider.CreateProtector(Constants.PowerBiTokenPurpose);
 
             _nextMiddleware = nextMiddleware;
+            _reportDetailsService = reportDetailsService;
         }
 
         public async Task Invoke(HttpContext httpContext, IAuditLogger auditLogger)
@@ -43,7 +46,7 @@ namespace PowerBiAuditApp.Client.Middleware
 
             var targetUri = BuildTargetUri(httpContext.Request);
 
-            var targetRequestMessage = CreateTargetMessage(httpContext, targetUri);
+            var targetRequestMessage = await CreateTargetMessage(httpContext, targetUri);
 
             if (httpContext.Request.Path.ToString().Contains("querydata"))
             {
@@ -51,7 +54,7 @@ namespace PowerBiAuditApp.Client.Middleware
             }
 
             _logger.LogInformation("MiddleWare processing: {path}", httpContext.Request.Path.Value);
-            using var responseMessage = _httpClient.SendAsync(targetRequestMessage).Result;
+            using var responseMessage = await _httpClient.SendAsync(targetRequestMessage);
             _logger.LogInformation("Begin Copy From Target");
             httpContext.Response.StatusCode = (int)responseMessage.StatusCode;
             CopyFromTargetResponseHeaders(httpContext, responseMessage);
@@ -59,10 +62,10 @@ namespace PowerBiAuditApp.Client.Middleware
             await ProcessResponseContent(httpContext, responseMessage, auditLogger);
         }
 
-        private HttpRequestMessage CreateTargetMessage(HttpContext httpContext, Uri targetUri)
+        private async Task<HttpRequestMessage> CreateTargetMessage(HttpContext httpContext, Uri targetUri)
         {
             var requestMessage = new HttpRequestMessage();
-            CopyFromOriginalRequestContentAndHeaders(httpContext, requestMessage);
+            await CopyFromOriginalRequestContentAndHeaders(httpContext, requestMessage);
 
             requestMessage.RequestUri = targetUri;
             requestMessage.Headers.Host = targetUri.Host;
@@ -72,8 +75,27 @@ namespace PowerBiAuditApp.Client.Middleware
             return requestMessage;
         }
 
-        private void CopyFromOriginalRequestContentAndHeaders(HttpContext httpContext, HttpRequestMessage requestMessage)
+        private async Task CopyFromOriginalRequestContentAndHeaders(HttpContext httpContext, HttpRequestMessage requestMessage)
         {
+            Guid? reportId = null;
+            foreach (var (key, headerValue) in httpContext.Request.Headers)
+            {
+                IEnumerable<string> values = headerValue.ToArray();
+                if (key.Equals("authorization", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    values = values.Select(x =>
+                     {
+                         var (value, id) = DecryptTokenAndReportId(x);
+                         reportId ??= id;
+
+                         return value;
+                     });
+                }
+
+                requestMessage.Headers.TryAddWithoutValidation(key, values);
+            }
+
+
             var requestMethod = httpContext.Request.Method;
 
             if (!HttpMethods.IsGet(requestMethod) &&
@@ -82,30 +104,65 @@ namespace PowerBiAuditApp.Client.Middleware
                 !HttpMethods.IsTrace(requestMethod))
             {
                 httpContext.Request.EnableBuffering();
-                var streamContent = new StreamContent(httpContext.Request.Body);
-                var streamString = streamContent.ReadAsStringAsync().Result;
-                requestMessage.Content = new StringContent(streamString);
-                requestMessage.Content.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-            }
-
-            foreach (var (key, value) in httpContext.Request.Headers)
-            {
-                IEnumerable<string> values = value.ToArray();
-                if (key.Equals("authorization", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    values = values.Select(DecryptToken);
-                }
-
-                requestMessage.Headers.TryAddWithoutValidation(key, values);
-
+                requestMessage.Content = await GetRequestContent(httpContext, reportId);
+                requestMessage.Content!.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
             }
 
         }
 
-        private string DecryptToken(string token)
+        private async Task<StringContent> GetRequestContent(HttpContext httpContext, Guid? reportId)
+        {
+            var streamBody = new StreamContent(httpContext.Request.Body);
+            var body = await streamBody.ReadAsStringAsync();
+
+            if (reportId is not null && httpContext.Request.ContentType.Contains("application/json"))
+            {
+                var json = JObject.Parse(body);
+                foreach (var query in (JArray)json["queries"] ?? new JArray())
+                {
+                    var report = await _reportDetailsService.GetReportDetail(reportId.Value);
+                    if (report.ReportRowLimit is null)
+                        continue;
+
+                    foreach (var command in (JArray)query["Query"]?["Commands"] ?? new JArray())
+                    {
+                        var binding = command["SemanticQueryDataShapeCommand"]?["Binding"] as JObject ?? throw new NullReferenceException();
+
+                        var dataReduction = binding["DataReduction"] as JObject;
+                        if (dataReduction is null)
+                        {
+                            dataReduction = new JObject();
+                            binding["DataReduction"] = dataReduction;
+                        }
+
+                        SetRowLimit(dataReduction, report.ReportRowLimit.Value, "Primary");
+                        SetRowLimit(dataReduction, report.ReportRowLimit.Value, "Secondary");
+                    }
+                }
+
+                body = json.ToString();
+            }
+            return new StringContent(body);
+        }
+
+        private static void SetRowLimit(JObject dataReduction, int rowLimit, string queryProperty)
+        {
+            var query = dataReduction[queryProperty] as JObject;
+            if (query is null)
+                return;
+
+            var limit = query["Window"] as JObject;
+
+            if (limit is null)
+                return;
+
+            limit["Count"] = rowLimit;
+        }
+
+        private (string token, Guid? reportId) DecryptTokenAndReportId(string token)
         {
             if (!token.StartsWith("EmbedToken "))
-                return token;
+                return (token, null);
 
             var sanitisedToken = WebUtility.HtmlDecode(token.Replace("EmbedToken ", "", StringComparison.CurrentCultureIgnoreCase));
 
@@ -115,15 +172,21 @@ namespace PowerBiAuditApp.Client.Middleware
             var unencryptedToken = Encoding.UTF8.GetString(unprotectedBytes);
             tokenParts[0] = unencryptedToken;
 
+            Guid? reportId = null;
             if (tokenParts.Length > 1)
             {
-
                 var additionalData = Encoding.UTF8.GetString(Convert.FromBase64String(tokenParts[1])).ReformUrls();
+
+                var json = JObject.Parse(additionalData);
+                if (Guid.TryParse(json["reportId"]?.ToString(), out var reportIdTemp))
+                    reportId = reportIdTemp;
+
+
                 var additionalBytes = Encoding.UTF8.GetBytes(additionalData);
                 tokenParts[1] = Convert.ToBase64String(additionalBytes);
             }
 
-            return $"EmbedToken {WebUtility.HtmlEncode(string.Join(".", tokenParts))}";
+            return ($"EmbedToken {WebUtility.HtmlEncode(string.Join(".", tokenParts))}", reportId);
         }
 
         private static void CopyFromTargetResponseHeaders(HttpContext httpContext, HttpResponseMessage responseMessage)
