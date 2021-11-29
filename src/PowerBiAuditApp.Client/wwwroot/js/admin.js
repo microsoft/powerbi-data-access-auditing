@@ -1,5 +1,29 @@
 ﻿var original = $('#reportDisplayForm').serialize();
 
+$('.js-data-example-ajax').select2({
+    ajax: {
+        url: "/Admin/GetSecurityGroups",
+        datatype: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                term: params.term
+            };
+        },
+        processResults: function (data) {
+            var results = $.map(data, function (obj) {
+                return {"id": `{"id": "${obj["id"]}", "name": "${obj["name"]}"}`, "text": obj["name"]};
+            });
+
+            return {
+                results: results
+            };
+        },
+    },
+    placeholder: 'Search for a security group',
+    minimumInputLength: 4
+});
+
 // Show/hide text input on toggle change of state
 $('.linked-input').on('change', function () {
     $(this).next().toggle();
@@ -20,7 +44,11 @@ $(window).on('beforeunload', function () {
 });
 
 
-$("#report-saved-alert .btn-close").on('click', () => $("#report-saved-alert").addClass('d-none'));
+$('#report-saved-alert .btn-close').on('click', () => $('#report-saved-alert').addClass("d-none"));
+$('#report-error-alert .btn-close').on('click', function () {
+    $('#report-error-alert').addClass('d-none');
+    $('#report-error-alert').empty();
+});
 
 $('#reportDisplayForm').submit(function (event) {
     event.preventDefault();
@@ -30,12 +58,16 @@ $('#reportDisplayForm').submit(function (event) {
     var data = { "query": $('#reportDisplayForm').serialize() };
     $.post("/Admin/SaveReportDisplayDetails", data)
         .done(() => {
-            $("#report-saved-alert").removeClass('d-none');
-            $(".view-main").scrollTop(0);
+            $('#report-saved-alert').removeClass('d-none');
+            $('.view-main').scrollTop(0);
+
+            console.log("Form submitted");
+
+            $('button[type="submit"]').attr("disabled", true);
+            original = $('#reportDisplayForm').serialize();
+        })
+        .fail((response) => {
+            $('#report-error-alert').removeClass('d-none');
+            $('.view-main').scrollTop(0);
         });
-
-    console.log("Form submitted");
-
-    $('button[type="submit"]').attr("disabled", true);
-    original = $('#reportDisplayForm').serialize();
 });

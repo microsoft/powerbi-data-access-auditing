@@ -25,7 +25,7 @@ namespace PowerBiAuditApp.Client.Services
                 .Select(x => new Guid(x.Value))
                 .ToArray() ?? Array.Empty<Guid>();
 
-            return (await _reportDetailsService.GetReportDetails()).Where(x => x.AadGroups.Any(a => x.Enabled && userGroups.Contains(a))).ToList();
+            return (await _reportDetailsService.GetReportDetails()).Where(x => x.AadGroups.Select(a => a.Id).Any(a => x.Enabled && userGroups.Contains(a))).ToList();
         }
 
         public async Task<ReportDetail> GetReportDetail(Guid workspaceId, Guid reportId) => (await GetReportDetails()).FirstOrDefault(x => x.GroupId == workspaceId && x.ReportId == reportId);

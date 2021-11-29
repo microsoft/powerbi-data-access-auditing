@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web;
+using Newtonsoft.Json;
 using PowerBiAuditApp.Client.Models;
 using PowerBiAuditApp.Client.Security;
 using PowerBiAuditApp.Client.Services;
@@ -45,6 +46,9 @@ namespace PowerBiAuditApp.Client.Controllers
             return View(model);
         }
 
+
+        public async Task<List<AadGroup>> GetSecurityGroups(string term) => await _graphService.QueryGroups(term);
+
         public async Task<IActionResult> RefreshReports()
         {
             var filename = $"{Guid.NewGuid()} {DateTime.UtcNow:yyyy-MM-dd hh-mm-ss}.json";
@@ -56,22 +60,21 @@ namespace PowerBiAuditApp.Client.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
         public async Task<IList<ReportDetail>> SaveReportDisplayDetails(string query)
         {
-            // Example graph service call 
-            //var bob = await _graphService.GetGroupIds("City of Bunbury - Projects", "Regis Resources - Projects");
-
-            //var bill = await _graphService.QueryGroups("City");
+            // Sample error
+            // throw new NullReferenceException();
 
             var queryParameters = query is null ? new NameValueCollection() : HttpUtility.ParseQueryString(query);
 
             var reports = await _reportDetailsService.GetReportDetails();
             foreach (var report in reports)
             {
-                report.Enabled = queryParameters.Get(report.Name) == "show";
-                report.ReportRowLimit = int.TryParse(queryParameters.Get(report.Name + " Row Limit"), out var tempVal) ? tempVal : null;
-                report.EffectiveIdentityOverRide = queryParameters.Get(report.Name + " Effective Id Override");
+                report.Enabled = queryParameters.Get(report.ReportId + "Enabled") == "show";
+                report.Description = queryParameters.Get(report.ReportId + "Description");
+                report.ReportRowLimit = int.TryParse(queryParameters.Get(report.ReportId + "RowLimit"), out var tempVal) ? tempVal : null;
+                report.EffectiveIdentityOverRide = queryParameters.Get(report.ReportId + "EffectiveIdOverride");
+                report.AadGroups = JsonConvert.DeserializeObject<AadGroup[]>($"[{queryParameters.Get(report.ReportId + "SecurityGroups")}]");
             }
 
             await _reportDetailsService.SaveReportDisplayDetails(reports, HttpContext.RequestAborted);

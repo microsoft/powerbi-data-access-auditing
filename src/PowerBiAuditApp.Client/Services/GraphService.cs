@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Graph;
+using PowerBiAuditApp.Models;
 
 namespace PowerBiAuditApp.Client.Services
 {
@@ -15,9 +16,9 @@ namespace PowerBiAuditApp.Client.Services
             _graphServiceClient = graphServiceClient;
         }
 
-        public async Task<Dictionary<string, Guid>> GetGroupIds(params string[] groupNames)
+        public async Task<List<AadGroup>> GetGroupIds(params string[] groupNames)
         {
-            var result = new Dictionary<string, Guid>();
+            var result = new List<AadGroup>();
             if (groupNames.Length == 0) return result;
 
             var filter = groupNames.Distinct().Select(groupName => $"displayName eq '{groupName}'");
@@ -29,7 +30,11 @@ namespace PowerBiAuditApp.Client.Services
             {
                 foreach (var group in groups)
                 {
-                    result.Add(group.DisplayName, new Guid(group.Id));
+                    result.Add(new AadGroup()
+                    {
+                        Id = new Guid(group.Id),
+                        Name = group.DisplayName
+                    });
                 }
             }
             while (groups.NextPageRequest != null && (groups = await groups.NextPageRequest.GetAsync()).Count > 0);
@@ -37,10 +42,10 @@ namespace PowerBiAuditApp.Client.Services
             return result;
         }
 
-        public async Task<Dictionary<string, Guid>> QueryGroups(string groupName)
+        public async Task<List<AadGroup>> QueryGroups(string groupName)
         {
-            var result = new Dictionary<string, Guid>();
-            if (groupName.Length <= 3) return result;
+            var result = new List<AadGroup>();
+            if (groupName is null || groupName.Length <= 3) return result;
 
             var groups = await _graphServiceClient.Groups.Request().Filter($"startswith(displayName, '{groupName}')").Select(x => new { x.DisplayName, x.Id }).GetAsync();
 
@@ -49,7 +54,10 @@ namespace PowerBiAuditApp.Client.Services
             {
                 foreach (var group in groups)
                 {
-                    result.Add(group.DisplayName, new Guid(group.Id));
+                    result.Add(new AadGroup() {
+                        Id = new Guid(group.Id),
+                        Name = group.DisplayName
+                    });
                 }
             }
             while (groups.NextPageRequest != null && (groups = await groups.NextPageRequest.GetAsync()).Count > 0);

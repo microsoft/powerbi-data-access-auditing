@@ -30,6 +30,10 @@
     {
       "library": "bootstrap-icons@1.7.1",
       "destination": "wwwroot/lib/bootstrap-icons/"
+    },
+    {
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/lib/select2/"
     }
   ]
 }
