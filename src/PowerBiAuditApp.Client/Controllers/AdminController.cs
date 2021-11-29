@@ -46,7 +46,7 @@ namespace PowerBiAuditApp.Client.Controllers
             return View(model);
         }
 
-
+        [HttpGet]
         public async Task<List<AadGroup>> GetSecurityGroups(string term) => await _graphService.QueryGroups(term);
 
         public async Task<IActionResult> RefreshReports()
@@ -60,11 +60,9 @@ namespace PowerBiAuditApp.Client.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
         public async Task<IList<ReportDetail>> SaveReportDisplayDetails(string query)
         {
-            // Sample error
-            // throw new NullReferenceException();
-
             var queryParameters = query is null ? new NameValueCollection() : HttpUtility.ParseQueryString(query);
 
             var reports = await _reportDetailsService.GetReportDetails();

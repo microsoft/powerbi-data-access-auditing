@@ -1,6 +1,6 @@
 ﻿var original = $('#reportDisplayForm').serialize();
 
-$('.js-data-example-ajax').select2({
+$('.security-group-tags').select2({
     ajax: {
         url: "/Admin/GetSecurityGroups",
         datatype: 'json',
@@ -60,8 +60,6 @@ $('#reportDisplayForm').submit(function (event) {
         .done(() => {
             $('#report-saved-alert').removeClass('d-none');
             $('.view-main').scrollTop(0);
-
-            console.log("Form submitted");
 
             $('button[type="submit"]').attr("disabled", true);
             original = $('#reportDisplayForm').serialize();

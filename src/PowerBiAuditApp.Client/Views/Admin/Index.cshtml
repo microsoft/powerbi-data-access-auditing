@@ -56,7 +56,7 @@
                         <div class="row gx-5">
                             <div class="col">
                                 <label class="col-form-label fw-bold">Security Groups</label>
-                                <select class="js-data-example-ajax js-states form-control" name="@($"{report.ReportId}SecurityGroups")" multiple="multiple">
+                                <select class="security-group-tags js-states form-control" name="@($"{report.ReportId}SecurityGroups")" multiple="multiple">
                                     @foreach (var option in report.AadGroups)
                                     {
                                         <option value="{'id':'@option.Id','name':'@option.Name'}" selected>@option.Name</option>
