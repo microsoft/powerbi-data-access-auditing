@@ -1,1 +1,312 @@
-{"User":"emlyn.rice@arkahna.io","Date":"2021-11-15T09:56:34.6309418+00:00","Request":{"version":"1.0.0","queries":[{"Query":{"Commands":[{"SemanticQueryDataShapeCommand":{"Query":{"Version":2,"From":[{"Name":"s","Entity":"Sex","Type":0},{"Name":"m","Entity":"Metrics","Type":0}],"Select":[{"Column":{"Expression":{"SourceRef":{"Source":"s"}},"Property":"Sex"},"Name":"Sex.Sex"},{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"LE-100"},"Name":"Metrics.LE-100"},{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"Life Expectancy 2"},"Name":"Metrics.Life Expectancy 2"}],"Where":[{"Condition":{"Not":{"Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"s"}},"Property":"Sex"}}],"Values":[[{"Literal":{"Value":"'Both sexes'"}}]]}}}}}],"OrderBy":[{"Direction":2,"Expression":{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"Life Expectancy 2"}}}]},"Binding":{"Primary":{"Groupings":[{"Projections":[0,1,2]}]},"DataReduction":{"DataVolume":4,"Primary":{"Window":{"Count":1000}}},"Version":1},"ExecutionMetricsKind":1}}]},"CacheKey":"{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Sex\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Sex\"},\"Name\":\"Sex.Sex\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"LE-100\"},\"Name\":\"Metrics.LE-100\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Life Expectancy 2\"},\"Name\":\"Metrics.Life Expectancy 2\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Sex\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Both sexes'\"}}]]}}}}}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Life Expectancy 2\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":1000}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}","QueryId":"","ApplicationContext":{"DatasetId":"c07582c7-024d-464f-ab3b-ffcbd23ab573","Sources":[{"ReportId":"6785a0aa-eeac-4d89-9023-324d0813f27d","VisualId":"483d3d92bb067605e03d"}]}}],"cancelQueries":[],"modelId":575212,"userPreferredLocale":"en-AU"},"Response":{"jobIds":["fc682876-bf0c-4aff-8e1b-41c436b612ad"],"results":[{"jobId":"fc682876-bf0c-4aff-8e1b-41c436b612ad","result":{"data":{"descriptor":{"Select":[{"Kind":1,"Depth":0,"Value":"G0","GroupKeys":[{"Source":{"Entity":"Sex","Property":"Sex"},"Calc":"G0","IsSameAsSelect":true}],"Name":"Sex.Sex"},{"Kind":2,"Value":"M0","Name":"Metrics.LE-100"},{"Kind":2,"Value":"M1","Format":"0","Name":"Metrics.Life Expectancy 2"}],"Expressions":{"Primary":{"Groupings":[{"Keys":[{"Source":{"Entity":"Sex","Property":"Sex"},"Select":0}],"Member":"DM0"}]}},"Version":2},"dsr":{"Version":2,"MinorVersion":1,"DS":[{"N":"DS0","PH":[{"DM0":[{"S":[{"N":"G0","T":1},{"N":"M0","T":3},{"N":"M1","T":3}],"C":["Female",33,67]},{"C":["Male",38,62]}]}],"IC":true,"HAD":true}]},"metrics":{"Version":"1.0.0","Events":[{"Id":"cea58bf4-c035-4617-a69e-70aae8b978cf","Name":"Execute Semantic Query","Component":"DSE","Start":"2021-11-15T09:56:34.6285512Z","End":"2021-11-15T09:56:34.6598027Z"},{"Id":"2d02d91b-c2a9-42ec-9524-23fa435f47cb","ParentId":"cea58bf4-c035-4617-a69e-70aae8b978cf","Name":"Open Connection","Component":"DSE","Start":"2021-11-15T09:56:34.6285512Z","End":"2021-11-15T09:56:34.6598027Z"},{"Id":"453e9608-b834-4d51-b7d1-9a47c1f01f66","ParentId":"cea58bf4-c035-4617-a69e-70aae8b978cf","Name":"Execute DAX Query","Component":"DSE","Start":"2021-11-15T09:56:34.6598027Z","End":"2021-11-15T09:56:34.6598027Z","Metrics":{"RowCount":2}},{"Id":"36EB7C92-3A1C-47D7-B490-477DFA9C6901","ParentId":"453e9608-b834-4d51-b7d1-9a47c1f01f66","Name":"Execute Query","Component":"AS","Start":"2021-11-15T09:56:34.667Z","End":"2021-11-15T09:56:34.667Z"},{"Id":"E1905E15-2E9E-42A0-A0F8-D4BC742F3E88","ParentId":"36EB7C92-3A1C-47D7-B490-477DFA9C6901","Name":"Serialize Rowset","Component":"AS","Start":"2021-11-15T09:56:34.667Z","End":"2021-11-15T09:56:34.667Z"}]}}}}]}}
+{
+  "User": "emlyn.rice@arkahna.io",
+  "IpAddress": "127.0.0.1",
+  "Date": "2021-11-15T09:56:34.6309418+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "s",
+                      "Entity": "Sex",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "m",
+                      "Entity": "Metrics",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "Sex"
+                      },
+                      "Name": "Sex.Sex"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "LE-100"
+                      },
+                      "Name": "Metrics.LE-100"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "Life Expectancy 2"
+                      },
+                      "Name": "Metrics.Life Expectancy 2"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "In": {
+                              "Expressions": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "s"
+                                      }
+                                    },
+                                    "Property": "Sex"
+                                  }
+                                }
+                              ],
+                              "Values": [
+                                [
+                                  {
+                                    "Literal": {
+                                      "Value": "'Both sexes'"
+                                    }
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 2,
+                      "Expression": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "m"
+                            }
+                          },
+                          "Property": "Life Expectancy 2"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 1000
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Sex\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Sex\"},\"Name\":\"Sex.Sex\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"LE-100\"},\"Name\":\"Metrics.LE-100\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Life Expectancy 2\"},\"Name\":\"Metrics.Life Expectancy 2\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Sex\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Both sexes'\"}}]]}}}}}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Life Expectancy 2\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":1000}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "483d3d92bb067605e03d"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 575212,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "fc682876-bf0c-4aff-8e1b-41c436b612ad"
+    ],
+    "results": [
+      {
+        "jobId": "fc682876-bf0c-4aff-8e1b-41c436b612ad",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Sex",
+                        "Property": "Sex"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Sex.Sex"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Name": "Metrics.LE-100"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "0",
+                  "Name": "Metrics.Life Expectancy 2"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Sex",
+                            "Property": "Sex"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            },
+                            {
+                              "N": "M1",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            "Female",
+                            33,
+                            67
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Male",
+                            38,
+                            62
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "cea58bf4-c035-4617-a69e-70aae8b978cf",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:56:34.6285512Z",
+                  "End": "2021-11-15T09:56:34.6598027Z"
+                },
+                {
+                  "Id": "2d02d91b-c2a9-42ec-9524-23fa435f47cb",
+                  "ParentId": "cea58bf4-c035-4617-a69e-70aae8b978cf",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:56:34.6285512Z",
+                  "End": "2021-11-15T09:56:34.6598027Z"
+                },
+                {
+                  "Id": "453e9608-b834-4d51-b7d1-9a47c1f01f66",
+                  "ParentId": "cea58bf4-c035-4617-a69e-70aae8b978cf",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:56:34.6598027Z",
+                  "End": "2021-11-15T09:56:34.6598027Z",
+                  "Metrics": {
+                    "RowCount": 2
+                  }
+                },
+                {
+                  "Id": "36EB7C92-3A1C-47D7-B490-477DFA9C6901",
+                  "ParentId": "453e9608-b834-4d51-b7d1-9a47c1f01f66",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:56:34.667Z",
+                  "End": "2021-11-15T09:56:34.667Z"
+                },
+                {
+                  "Id": "E1905E15-2E9E-42A0-A0F8-D4BC742F3E88",
+                  "ParentId": "36EB7C92-3A1C-47D7-B490-477DFA9C6901",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:56:34.667Z",
+                  "End": "2021-11-15T09:56:34.667Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

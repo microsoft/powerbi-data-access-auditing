@@ -37,10 +37,11 @@ namespace PowerBiAuditApp.Client.Services
             var reportDetails = new List<ReportDetail>();
             var tableClient = _tableServiceClient.GetTableClient(nameof(ReportDetail));
             await tableClient.CreateIfNotExistsAsync();
-            await foreach (var reportDetail in tableClient.QueryAsync<ReportDetail>())
+            await foreach (var reportDetail in tableClient.QueryAsync<ReportDetail>(x => !x.Deleted))
             {
                 reportDetails.Add(reportDetail);
             }
+
             return reportDetails;
         }
     }

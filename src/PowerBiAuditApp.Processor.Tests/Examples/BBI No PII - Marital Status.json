@@ -1,1 +1,267 @@
-{"User":"emlyn.rice@arkahna.io","Date":"2021-10-28T00:12:42.786168+00:00","Request":{"version":"1.0.0","queries":[{"Query":{"Commands":[{"SemanticQueryDataShapeCommand":{"Query":{"Version":2,"From":[{"Name":"s","Entity":"Sheet1","Type":0}],"Select":[{"Column":{"Expression":{"SourceRef":{"Source":"s"}},"Property":"Marital Status"},"Name":"Sheet1.Marital Status"},{"Aggregation":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"s"}},"Property":"OffenderId"}},"Function":5},"Name":"CountNonNull(Sheet1.OffenderId)"}],"OrderBy":[{"Direction":2,"Expression":{"Aggregation":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"s"}},"Property":"OffenderId"}},"Function":5}}}]},"Binding":{"Primary":{"Groupings":[{"Projections":[0,1]}]},"DataReduction":{"DataVolume":3,"Primary":{"Top":{}}},"Version":1},"ExecutionMetricsKind":1}}]},"CacheKey":"{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Sheet1\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Marital Status\"},\"Name\":\"Sheet1.Marital Status\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"OffenderId\"}},\"Function\":5},\"Name\":\"CountNonNull(Sheet1.OffenderId)\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"OffenderId\"}},\"Function\":5}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Top\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}","QueryId":"","ApplicationContext":{"DatasetId":"9650048a-8edc-47f3-8ca8-a0d79a7da3ad","Sources":[{"ReportId":"1df22824-be8b-4c31-ba70-12fb3fb948cf","VisualId":"9ada59e3f186671ad765"}]}}],"cancelQueries":[],"modelId":545474,"userPreferredLocale":"en-AU"},"Response":{"jobIds":["32fb26fd-ca8c-4e7f-8284-fac73771db42"],"results":[{"jobId":"32fb26fd-ca8c-4e7f-8284-fac73771db42","result":{"data":{"descriptor":{"Select":[{"Kind":1,"Depth":0,"Value":"G0","GroupKeys":[{"Source":{"Entity":"Sheet1","Property":"Marital Status"},"Calc":"G0","IsSameAsSelect":true}],"Name":"Sheet1.Marital Status"},{"Kind":2,"Value":"M0","Name":"CountNonNull(Sheet1.OffenderId)"}],"Expressions":{"Primary":{"Groupings":[{"Keys":[{"Source":{"Entity":"Sheet1","Property":"Marital Status"},"Select":0}],"Member":"DM0"}]}},"Limits":{"Primary":{"Id":"L0","Top":{"Count":1000}}},"Version":2},"dsr":{"Version":2,"MinorVersion":1,"DS":[{"N":"DS0","PH":[{"DM0":[{"S":[{"N":"G0","T":1},{"N":"M0","T":4}],"C":["Married",4602]},{"C":["Single",4482]}]}],"IC":true,"HAD":true}]},"metrics":{"Version":"1.0.0","Events":[{"Id":"e80bf043-c848-42f2-89b6-036c30f23dd3","Name":"Execute Semantic Query","Component":"DSE","Start":"2021-10-28T00:12:42.6320848Z","End":"2021-10-28T00:12:42.7258359Z"},{"Id":"ec4661d7-9180-436e-8f06-593a8033b670","ParentId":"e80bf043-c848-42f2-89b6-036c30f23dd3","Name":"Open Connection","Component":"DSE","Start":"2021-10-28T00:12:42.6477174Z","End":"2021-10-28T00:12:42.7102112Z"},{"Id":"e116695a-731b-4345-b13e-7bf268fa0a7c","ParentId":"e80bf043-c848-42f2-89b6-036c30f23dd3","Name":"Execute DAX Query","Component":"DSE","Start":"2021-10-28T00:12:42.7102112Z","End":"2021-10-28T00:12:42.7258359Z","Metrics":{"RowCount":2}},{"Id":"4AF9E462-CCE7-4EE0-8B78-BCEF68E60AC7","ParentId":"e116695a-731b-4345-b13e-7bf268fa0a7c","Name":"Execute Query","Component":"AS","Start":"2021-10-28T00:12:42.73Z","End":"2021-10-28T00:12:42.733Z"},{"Id":"89F04903-4DE9-40B4-B581-8C6A2BDDC39B","ParentId":"4AF9E462-CCE7-4EE0-8B78-BCEF68E60AC7","Name":"Serialize Rowset","Component":"AS","Start":"2021-10-28T00:12:42.733Z","End":"2021-10-28T00:12:42.733Z"}]}}}}]}}
+{
+  "User": "emlyn.rice@arkahna.io",
+  "IpAddress": "127.0.0.1",
+  "Date": "2021-10-28T00:12:42.786168+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "s",
+                      "Entity": "Sheet1",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "Marital Status"
+                      },
+                      "Name": "Sheet1.Marital Status"
+                    },
+                    {
+                      "Aggregation": {
+                        "Expression": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "s"
+                              }
+                            },
+                            "Property": "OffenderId"
+                          }
+                        },
+                        "Function": 5
+                      },
+                      "Name": "CountNonNull(Sheet1.OffenderId)"
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 2,
+                      "Expression": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "s"
+                                }
+                              },
+                              "Property": "OffenderId"
+                            }
+                          },
+                          "Function": 5
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Top": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"Sheet1\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Marital Status\"},\"Name\":\"Sheet1.Marital Status\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"OffenderId\"}},\"Function\":5},\"Name\":\"CountNonNull(Sheet1.OffenderId)\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"OffenderId\"}},\"Function\":5}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Top\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "9650048a-8edc-47f3-8ca8-a0d79a7da3ad",
+          "Sources": [
+            {
+              "ReportId": "1df22824-be8b-4c31-ba70-12fb3fb948cf",
+              "VisualId": "9ada59e3f186671ad765"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 545474,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "32fb26fd-ca8c-4e7f-8284-fac73771db42"
+    ],
+    "results": [
+      {
+        "jobId": "32fb26fd-ca8c-4e7f-8284-fac73771db42",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Sheet1",
+                        "Property": "Marital Status"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Sheet1.Marital Status"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Name": "CountNonNull(Sheet1.OffenderId)"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Sheet1",
+                            "Property": "Marital Status"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Top": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1
+                            },
+                            {
+                              "N": "M0",
+                              "T": 4
+                            }
+                          ],
+                          "C": [
+                            "Married",
+                            4602
+                          ]
+                        },
+                        {
+                          "C": [
+                            "Single",
+                            4482
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "e80bf043-c848-42f2-89b6-036c30f23dd3",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-10-28T00:12:42.6320848Z",
+                  "End": "2021-10-28T00:12:42.7258359Z"
+                },
+                {
+                  "Id": "ec4661d7-9180-436e-8f06-593a8033b670",
+                  "ParentId": "e80bf043-c848-42f2-89b6-036c30f23dd3",
+                  "Name": "Open Connection",
+                  "Component": "DSE",
+                  "Start": "2021-10-28T00:12:42.6477174Z",
+                  "End": "2021-10-28T00:12:42.7102112Z"
+                },
+                {
+                  "Id": "e116695a-731b-4345-b13e-7bf268fa0a7c",
+                  "ParentId": "e80bf043-c848-42f2-89b6-036c30f23dd3",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-10-28T00:12:42.7102112Z",
+                  "End": "2021-10-28T00:12:42.7258359Z",
+                  "Metrics": {
+                    "RowCount": 2
+                  }
+                },
+                {
+                  "Id": "4AF9E462-CCE7-4EE0-8B78-BCEF68E60AC7",
+                  "ParentId": "e116695a-731b-4345-b13e-7bf268fa0a7c",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-10-28T00:12:42.73Z",
+                  "End": "2021-10-28T00:12:42.733Z"
+                },
+                {
+                  "Id": "89F04903-4DE9-40B4-B581-8C6A2BDDC39B",
+                  "ParentId": "4AF9E462-CCE7-4EE0-8B78-BCEF68E60AC7",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-10-28T00:12:42.733Z",
+                  "End": "2021-10-28T00:12:42.733Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

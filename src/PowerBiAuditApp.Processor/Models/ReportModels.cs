@@ -12,6 +12,9 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("User", Required = Required.Always)]
         public string User { get; set; }
 
+        [JsonProperty("IpAddress", Required = Required.Always)]
+        public string IpAddress { get; set; }
+
         [JsonProperty("Date", Required = Required.Always)]
         public DateTimeOffset Date { get; set; }
 
@@ -22,6 +25,7 @@ namespace PowerBiAuditApp.Processor.Models
         public Response Response { get; set; }
     }
 
+    [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore)]
     public class PowerBiRequestRequest
     {
         [JsonProperty("version", Required = Required.Always)]

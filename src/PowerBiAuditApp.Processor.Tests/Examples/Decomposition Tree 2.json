@@ -1,1 +1,1251 @@
-{"User":"emlyn.rice@arkahna.io","Date":"2021-11-15T09:57:27.636641+00:00","Request":{"version":"1.0.0","queries":[{"Query":{"Commands":[{"SemanticQueryDataShapeCommand":{"Query":{"Version":2,"From":[{"Name":"m","Entity":"Metrics","Type":0},{"Name":"y","Entity":"Years","Type":0},{"Name":"c","Entity":"Country","Type":0}],"Select":[{"Column":{"Expression":{"SourceRef":{"Source":"y"}},"Property":"Years"},"Name":"Years.Years"},{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"Immunizations"},"Name":"Metrics.Immunizations"},{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"IMM Red"},"Name":"Metrics.IMM Red"}],"Where":[{"Condition":{"Not":{"Expression":{"Comparison":{"ComparisonKind":0,"Left":{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"Immunizations"}},"Right":{"Literal":{"Value":"null"}}}}}},"Target":[{"Column":{"Expression":{"SourceRef":{"Source":"y"}},"Property":"Years"}}]},{"Condition":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"c"}},"Property":"Continent"}}],"Values":[[{"Literal":{"Value":"'North America'"}}],[{"Literal":{"Value":"'South America'"}}]]}}}],"OrderBy":[{"Direction":1,"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"y"}},"Property":"Years"}}}]},"Binding":{"Primary":{"Groupings":[{"Projections":[0,1,2]}]},"DataReduction":{"DataVolume":3,"Primary":{"Bottom":{}}},"Version":1},"ExecutionMetricsKind":1}}]},"CacheKey":"{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"y\",\"Entity\":\"Years\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"},\"Name\":\"Years.Years\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Immunizations\"},\"Name\":\"Metrics.Immunizations\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"IMM Red\"},\"Name\":\"Metrics.IMM Red\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Immunizations\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}},\"Target\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}]},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Continent\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'North America'\"}}],[{\"Literal\":{\"Value\":\"'South America'\"}}]]}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Bottom\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}","QueryId":"","ApplicationContext":{"DatasetId":"c07582c7-024d-464f-ab3b-ffcbd23ab573","Sources":[{"ReportId":"6785a0aa-eeac-4d89-9023-324d0813f27d","VisualId":"51073d4eec9e1d365d0f"}]}},{"Query":{"Commands":[{"SemanticQueryDataShapeCommand":{"Query":{"Version":2,"From":[{"Name":"m","Entity":"Metrics","Type":0},{"Name":"y","Entity":"Years","Type":0},{"Name":"c","Entity":"Country","Type":0}],"Select":[{"Column":{"Expression":{"SourceRef":{"Source":"y"}},"Property":"Years"},"Name":"Years.Years"},{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"CFR Red"},"Name":"Metrics.CFR Red"},{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"Child Mortality Rate"},"Name":"Metrics.Child Mortality Rate"}],"Where":[{"Condition":{"Not":{"Expression":{"Comparison":{"ComparisonKind":0,"Left":{"Measure":{"Expression":{"SourceRef":{"Source":"m"}},"Property":"Cholera Fatality Rate (%)"}},"Right":{"Literal":{"Value":"null"}}}}}},"Target":[{"Column":{"Expression":{"SourceRef":{"Source":"y"}},"Property":"Years"}}]},{"Condition":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"c"}},"Property":"Continent"}}],"Values":[[{"Literal":{"Value":"'Europe'"}}]]}}}],"OrderBy":[{"Direction":1,"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"y"}},"Property":"Years"}}}]},"Binding":{"Primary":{"Groupings":[{"Projections":[0,1,2]}]},"DataReduction":{"DataVolume":3,"Primary":{"Bottom":{}}},"Version":1},"ExecutionMetricsKind":1}}]},"CacheKey":"{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"y\",\"Entity\":\"Years\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"},\"Name\":\"Years.Years\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"CFR Red\"},\"Name\":\"Metrics.CFR Red\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Child Mortality Rate\"},\"Name\":\"Metrics.Child Mortality Rate\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Cholera Fatality Rate (%)\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}},\"Target\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}]},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Continent\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Europe'\"}}]]}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Bottom\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}","QueryId":"","ApplicationContext":{"DatasetId":"c07582c7-024d-464f-ab3b-ffcbd23ab573","Sources":[{"ReportId":"6785a0aa-eeac-4d89-9023-324d0813f27d","VisualId":"8742b121c06f42395718"}]}}],"cancelQueries":[],"modelId":575212,"userPreferredLocale":"en-AU"},"Response":{"jobIds":["e1290830-6aaa-46ed-b0cb-fc934173b2cc","7bed04fa-fe81-40e0-9c31-d9c886ba4b13"],"results":[{"jobId":"7bed04fa-fe81-40e0-9c31-d9c886ba4b13","result":{"data":{"descriptor":{"Select":[{"Kind":1,"Depth":0,"Value":"G0","Format":"0","GroupKeys":[{"Source":{"Entity":"Years","Property":"Years"},"Calc":"G0","IsSameAsSelect":true}],"Name":"Years.Years"},{"Kind":2,"Value":"M0","Format":"0%;-0%;0%","Name":"Metrics.CFR Red"},{"Kind":2,"Value":"M1","Format":"#,0.00","Name":"Metrics.Child Mortality Rate"}],"Expressions":{"Primary":{"Groupings":[{"Keys":[{"Source":{"Entity":"Years","Property":"Years"},"Select":0}],"Member":"DM0"}]}},"Limits":{"Primary":{"Id":"L0","Bottom":{"Count":1000}}},"Version":2},"dsr":{"Version":2,"MinorVersion":1,"DS":[{"N":"DS0","PH":[{"DM0":[{"S":[{"N":"G0","T":4},{"N":"M0","T":3},{"N":"M1","T":3}],"C":[1970,0.02,"27.458333333333332"]},{"C":[1971,"27.923076923076923"],"R":2},{"C":[1972,"26.717948717948719"],"R":2},{"C":[1973,"25.641025641025642"],"R":2},{"C":[1974,"24.567901234567902"],"R":2},{"C":[1975,"23.444444444444443"],"R":2},{"C":[1976,"22.185185185185187"],"R":2},{"C":[1977,21],"R":2},{"C":[1978,"22.702380952380953"],"R":2},{"C":[1979,"21.574712643678161"],"R":2},{"C":[1980,"20.64516129032258"],"R":2},{"C":[1981,"20.768518518518519"],"R":2},{"C":[1982,"19.87962962962963"],"R":2},{"C":[1983,"19.00925925925926"],"R":2},{"C":[1984,"19.341880341880341"],"R":2},{"C":[1985,"18.230158730158731"],"R":2},{"C":[1986,"17.523809523809526"],"R":2},{"C":[1987,"16.730158730158731"],"R":2},{"C":[1988,"16.079365079365079"],"R":2},{"C":[1989,"15.333333333333334"],"R":2},{"C":[1990,"14.658730158730158"],"R":2},{"C":[1991,"14.246031746031745"],"R":2},{"C":[1992,"13.833333333333334"],"R":2},{"C":[1993,"13.412698412698413"],"R":2},{"C":[1994,"12.84920634920635"],"R":2},{"C":[1995,"12.30952380952381"],"R":2},{"C":[1996,"11.753968253968255"],"R":2},{"C":[1997,"11.261904761904763"],"R":2},{"C":[1998,"10.730158730158729"],"R":2},{"C":[1999,"10.238095238095237"],"R":2},{"C":[2000,"9.7539682539682548"],"R":2},{"C":[2001,"9.26984126984127"],"R":2},{"C":[2004,"7.9523809523809526"],"R":2},{"C":[2005,"7.5476190476190474"],"R":2},{"C":[2006,"7.1507936507936511"],"R":2},{"C":[2007,"6.746031746031746"],"R":2},{"C":[2008,"6.4920634920634921"],"R":2},{"C":[2009,"6.1825396825396828"],"R":2},{"C":[2010,"5.9444444444444446"],"R":2},{"C":[2011,"5.6746031746031749"],"R":2},{"C":[2012,"5.5396825396825395"],"R":2},{"C":[2013,"5.3888888888888893"],"R":2},{"C":[2014,"5.2142857142857144"],"R":2},{"C":[2015,"5.0634920634920633"],"R":2},{"C":[2016,"4.8730158730158726"],"R":2}]}],"IC":true,"HAD":true}]},"metrics":{"Version":"1.0.0","Events":[{"Id":"2cb8d967-8f78-4b78-9e74-833da7250ffe","Name":"Execute Semantic Query","Component":"DSE","Start":"2021-11-15T09:57:27.4945145Z","End":"2021-11-15T09:57:27.5101217Z"},{"Id":"ddf80f22-a5fa-4005-89ca-95d8ac8c2c17","ParentId":"2cb8d967-8f78-4b78-9e74-833da7250ffe","Name":"Execute DAX Query","Component":"DSE","Start":"2021-11-15T09:57:27.4945145Z","End":"2021-11-15T09:57:27.5101217Z","Metrics":{"RowCount":45}},{"Id":"4E2F063D-6886-445C-BD83-311B6010ECE2","ParentId":"ddf80f22-a5fa-4005-89ca-95d8ac8c2c17","Name":"Execute Query","Component":"AS","Start":"2021-11-15T09:57:27.51Z","End":"2021-11-15T09:57:27.517Z"},{"Id":"E4150361-8A86-47C0-9536-EF7EA026ACAD","ParentId":"4E2F063D-6886-445C-BD83-311B6010ECE2","Name":"Serialize Rowset","Component":"AS","Start":"2021-11-15T09:57:27.517Z","End":"2021-11-15T09:57:27.517Z"}]}}}},{"jobId":"e1290830-6aaa-46ed-b0cb-fc934173b2cc","result":{"data":{"descriptor":{"Select":[{"Kind":1,"Depth":0,"Value":"G0","Format":"0","GroupKeys":[{"Source":{"Entity":"Years","Property":"Years"},"Calc":"G0","IsSameAsSelect":true}],"Name":"Years.Years"},{"Kind":2,"Value":"M0","Format":"0%;-0%;0%","Name":"Metrics.Immunizations"},{"Kind":2,"Value":"M1","Format":"0%;-0%;0%","Name":"Metrics.IMM Red"}],"Expressions":{"Primary":{"Groupings":[{"Keys":[{"Source":{"Entity":"Years","Property":"Years"},"Select":0}],"Member":"DM0"}]}},"Limits":{"Primary":{"Id":"L0","Bottom":{"Count":1000}}},"Version":2},"dsr":{"Version":2,"MinorVersion":1,"DS":[{"N":"DS0","PH":[{"DM0":[{"S":[{"N":"G0","T":4},{"N":"M0","T":3},{"N":"M1","T":3}],"C":["0.89828571428571424",0.85],"Ø":1},{"C":[1980,"0.20605614973262035"],"R":4},{"C":[1981,"0.23667838874680305"],"R":4},{"C":[1982,"0.2514373814041746"],"R":4},{"C":[1983,"0.27020680147058829"],"R":4},{"C":[1984,"0.29801470588235296"],"R":4},{"C":[1985,"0.32022058823529415"],"R":4},{"C":[1986,"0.34338235294117647"],"R":4},{"C":[1987,"0.34892857142857137"],"R":4},{"C":[1988,"0.36078571428571427"],"R":4},{"C":[1989,"0.38007142857142862"],"R":4},{"C":[1990,"0.40007142857142852"],"R":4},{"C":[1991,"0.40385714285714286"],"R":4},{"C":[1992,"0.4047857142857143"],"R":4},{"C":[1993,"0.54814285714285715"],"R":4},{"C":[1994,"0.54599999999999993"],"R":4},{"C":[1995,"0.81392857142857133"],"R":4},{"C":[1996,"0.83297023809523807"],"R":4},{"C":[1997,"0.82810714285714282"],"R":4},{"C":[1998,"0.76565079365079358"],"R":4},{"C":[1999,"0.82788095238095238"],"R":4},{"C":[2000,"0.8300662593984961"],"R":4},{"C":[2001,"0.853542857142857"],"R":4},{"C":[2002,"0.85568994708994706"],"R":4},{"C":[2003,"0.86706528417818729"],"R":4},{"C":[2004,"0.90399577572964673"],"R":4},{"C":[2005,"0.918258658008658"],"R":4},{"C":[2006,"0.89833613445378147"],"R":4},{"C":[2007,"0.91026260504201673"],"R":4},{"C":[2008,"0.91458193277310929"],"R":4},{"C":[2009,"0.924296218487395"],"R":4},{"C":[2010,"0.92389495798319332"],"R":4},{"C":[2011,"0.91865966386554632"],"R":4},{"C":[2012,"0.92492436974789927"],"R":4},{"C":[2013,0.9125],"R":4},{"C":[2014,"0.91035714285714275"],"R":4},{"C":[2015,"0.91142857142857137"],"R":4},{"C":[2016,"0.91721428571428576"],"R":4},{"C":[2017,"0.8869999999999999"],"R":4}]}],"IC":true,"HAD":true}]},"metrics":{"Version":"1.0.0","Events":[{"Id":"f2d6962b-e5ca-4055-970e-08adf22f0f26","Name":"Execute Semantic Query","Component":"DSE","Start":"2021-11-15T09:57:27.4945145Z","End":"2021-11-15T09:57:27.5101217Z"},{"Id":"cc1c7c3f-7884-4a8c-9ef1-e658d414c845","ParentId":"f2d6962b-e5ca-4055-970e-08adf22f0f26","Name":"Execute DAX Query","Component":"DSE","Start":"2021-11-15T09:57:27.4945145Z","End":"2021-11-15T09:57:27.5101217Z","Metrics":{"RowCount":39}},{"Id":"0CE35441-B304-495A-B475-1E5A7C5A8989","ParentId":"cc1c7c3f-7884-4a8c-9ef1-e658d414c845","Name":"Execute Query","Component":"AS","Start":"2021-11-15T09:57:27.51Z","End":"2021-11-15T09:57:27.52Z"},{"Id":"89F43439-17AE-4E5E-B777-E5DDB00AF992","ParentId":"0CE35441-B304-495A-B475-1E5A7C5A8989","Name":"Serialize Rowset","Component":"AS","Start":"2021-11-15T09:57:27.52Z","End":"2021-11-15T09:57:27.52Z"}]}}}}]}}
+{
+  "User": "emlyn.rice@arkahna.io",
+  "IpAddress": "127.0.0.1",
+  "Date": "2021-11-15T09:57:27.636641+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "m",
+                      "Entity": "Metrics",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "y",
+                      "Entity": "Years",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "c",
+                      "Entity": "Country",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "y"
+                          }
+                        },
+                        "Property": "Years"
+                      },
+                      "Name": "Years.Years"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "Immunizations"
+                      },
+                      "Name": "Metrics.Immunizations"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "IMM Red"
+                      },
+                      "Name": "Metrics.IMM Red"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "m"
+                                    }
+                                  },
+                                  "Property": "Immunizations"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "null"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Target": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "y"
+                              }
+                            },
+                            "Property": "Years"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "c"
+                                  }
+                                },
+                                "Property": "Continent"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'North America'"
+                                }
+                              }
+                            ],
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'South America'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "y"
+                            }
+                          },
+                          "Property": "Years"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Bottom": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"y\",\"Entity\":\"Years\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"},\"Name\":\"Years.Years\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Immunizations\"},\"Name\":\"Metrics.Immunizations\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"IMM Red\"},\"Name\":\"Metrics.IMM Red\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Immunizations\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}},\"Target\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}]},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Continent\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'North America'\"}}],[{\"Literal\":{\"Value\":\"'South America'\"}}]]}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Bottom\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "51073d4eec9e1d365d0f"
+            }
+          ]
+        }
+      },
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "m",
+                      "Entity": "Metrics",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "y",
+                      "Entity": "Years",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "c",
+                      "Entity": "Country",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "y"
+                          }
+                        },
+                        "Property": "Years"
+                      },
+                      "Name": "Years.Years"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "CFR Red"
+                      },
+                      "Name": "Metrics.CFR Red"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "Child Mortality Rate"
+                      },
+                      "Name": "Metrics.Child Mortality Rate"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "m"
+                                    }
+                                  },
+                                  "Property": "Cholera Fatality Rate (%)"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "null"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Target": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "y"
+                              }
+                            },
+                            "Property": "Years"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Condition": {
+                        "In": {
+                          "Expressions": [
+                            {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "c"
+                                  }
+                                },
+                                "Property": "Continent"
+                              }
+                            }
+                          ],
+                          "Values": [
+                            [
+                              {
+                                "Literal": {
+                                  "Value": "'Europe'"
+                                }
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "y"
+                            }
+                          },
+                          "Property": "Years"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          1,
+                          2
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 3,
+                    "Primary": {
+                      "Bottom": {
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Metrics\",\"Type\":0},{\"Name\":\"y\",\"Entity\":\"Years\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Country\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"},\"Name\":\"Years.Years\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"CFR Red\"},\"Name\":\"Metrics.CFR Red\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Child Mortality Rate\"},\"Name\":\"Metrics.Child Mortality Rate\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Cholera Fatality Rate (%)\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}},\"Target\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}]},{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Continent\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Europe'\"}}]]}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"y\"}},\"Property\":\"Years\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,1,2]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Bottom\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "c07582c7-024d-464f-ab3b-ffcbd23ab573",
+          "Sources": [
+            {
+              "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+              "VisualId": "8742b121c06f42395718"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 575212,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "e1290830-6aaa-46ed-b0cb-fc934173b2cc",
+      "7bed04fa-fe81-40e0-9c31-d9c886ba4b13"
+    ],
+    "results": [
+      {
+        "jobId": "7bed04fa-fe81-40e0-9c31-d9c886ba4b13",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "Format": "0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Years",
+                        "Property": "Years"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Years.Years"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "0%;-0%;0%",
+                  "Name": "Metrics.CFR Red"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "#,0.00",
+                  "Name": "Metrics.Child Mortality Rate"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Years",
+                            "Property": "Years"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Bottom": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 4
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            },
+                            {
+                              "N": "M1",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            1970,
+                            0.02,
+                            "27.458333333333332"
+                          ]
+                        },
+                        {
+                          "C": [
+                            1971,
+                            "27.923076923076923"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1972,
+                            "26.717948717948719"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1973,
+                            "25.641025641025642"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1974,
+                            "24.567901234567902"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1975,
+                            "23.444444444444443"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1976,
+                            "22.185185185185187"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1977,
+                            21
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1978,
+                            "22.702380952380953"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1979,
+                            "21.574712643678161"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1980,
+                            "20.64516129032258"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1981,
+                            "20.768518518518519"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1982,
+                            "19.87962962962963"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1983,
+                            "19.00925925925926"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1984,
+                            "19.341880341880341"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1985,
+                            "18.230158730158731"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1986,
+                            "17.523809523809526"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1987,
+                            "16.730158730158731"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1988,
+                            "16.079365079365079"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1989,
+                            "15.333333333333334"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1990,
+                            "14.658730158730158"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1991,
+                            "14.246031746031745"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1992,
+                            "13.833333333333334"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1993,
+                            "13.412698412698413"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1994,
+                            "12.84920634920635"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1995,
+                            "12.30952380952381"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1996,
+                            "11.753968253968255"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1997,
+                            "11.261904761904763"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1998,
+                            "10.730158730158729"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            1999,
+                            "10.238095238095237"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2000,
+                            "9.7539682539682548"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2001,
+                            "9.26984126984127"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2004,
+                            "7.9523809523809526"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2005,
+                            "7.5476190476190474"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2006,
+                            "7.1507936507936511"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2007,
+                            "6.746031746031746"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2008,
+                            "6.4920634920634921"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2009,
+                            "6.1825396825396828"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2010,
+                            "5.9444444444444446"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2011,
+                            "5.6746031746031749"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2012,
+                            "5.5396825396825395"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2013,
+                            "5.3888888888888893"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2014,
+                            "5.2142857142857144"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2015,
+                            "5.0634920634920633"
+                          ],
+                          "R": 2
+                        },
+                        {
+                          "C": [
+                            2016,
+                            "4.8730158730158726"
+                          ],
+                          "R": 2
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "2cb8d967-8f78-4b78-9e74-833da7250ffe",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:27.4945145Z",
+                  "End": "2021-11-15T09:57:27.5101217Z"
+                },
+                {
+                  "Id": "ddf80f22-a5fa-4005-89ca-95d8ac8c2c17",
+                  "ParentId": "2cb8d967-8f78-4b78-9e74-833da7250ffe",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:27.4945145Z",
+                  "End": "2021-11-15T09:57:27.5101217Z",
+                  "Metrics": {
+                    "RowCount": 45
+                  }
+                },
+                {
+                  "Id": "4E2F063D-6886-445C-BD83-311B6010ECE2",
+                  "ParentId": "ddf80f22-a5fa-4005-89ca-95d8ac8c2c17",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:27.51Z",
+                  "End": "2021-11-15T09:57:27.517Z"
+                },
+                {
+                  "Id": "E4150361-8A86-47C0-9536-EF7EA026ACAD",
+                  "ParentId": "4E2F063D-6886-445C-BD83-311B6010ECE2",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:27.517Z",
+                  "End": "2021-11-15T09:57:27.517Z"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "jobId": "e1290830-6aaa-46ed-b0cb-fc934173b2cc",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "Format": "0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Years",
+                        "Property": "Years"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "Years.Years"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "0%;-0%;0%",
+                  "Name": "Metrics.Immunizations"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "0%;-0%;0%",
+                  "Name": "Metrics.IMM Red"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Years",
+                            "Property": "Years"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Limits": {
+                "Primary": {
+                  "Id": "L0",
+                  "Bottom": {
+                    "Count": 1000
+                  }
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 4
+                            },
+                            {
+                              "N": "M0",
+                              "T": 3
+                            },
+                            {
+                              "N": "M1",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            "0.89828571428571424",
+                            0.85
+                          ],
+                          "Ø": 1
+                        },
+                        {
+                          "C": [
+                            1980,
+                            "0.20605614973262035"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1981,
+                            "0.23667838874680305"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1982,
+                            "0.2514373814041746"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1983,
+                            "0.27020680147058829"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1984,
+                            "0.29801470588235296"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1985,
+                            "0.32022058823529415"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1986,
+                            "0.34338235294117647"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1987,
+                            "0.34892857142857137"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1988,
+                            "0.36078571428571427"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1989,
+                            "0.38007142857142862"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1990,
+                            "0.40007142857142852"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1991,
+                            "0.40385714285714286"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1992,
+                            "0.4047857142857143"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1993,
+                            "0.54814285714285715"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1994,
+                            "0.54599999999999993"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1995,
+                            "0.81392857142857133"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1996,
+                            "0.83297023809523807"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1997,
+                            "0.82810714285714282"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1998,
+                            "0.76565079365079358"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            1999,
+                            "0.82788095238095238"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2000,
+                            "0.8300662593984961"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2001,
+                            "0.853542857142857"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2002,
+                            "0.85568994708994706"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2003,
+                            "0.86706528417818729"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2004,
+                            "0.90399577572964673"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2005,
+                            "0.918258658008658"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2006,
+                            "0.89833613445378147"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2007,
+                            "0.91026260504201673"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2008,
+                            "0.91458193277310929"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2009,
+                            "0.924296218487395"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2010,
+                            "0.92389495798319332"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2011,
+                            "0.91865966386554632"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2012,
+                            "0.92492436974789927"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2013,
+                            0.9125
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2014,
+                            "0.91035714285714275"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2015,
+                            "0.91142857142857137"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2016,
+                            "0.91721428571428576"
+                          ],
+                          "R": 4
+                        },
+                        {
+                          "C": [
+                            2017,
+                            "0.8869999999999999"
+                          ],
+                          "R": 4
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "f2d6962b-e5ca-4055-970e-08adf22f0f26",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:27.4945145Z",
+                  "End": "2021-11-15T09:57:27.5101217Z"
+                },
+                {
+                  "Id": "cc1c7c3f-7884-4a8c-9ef1-e658d414c845",
+                  "ParentId": "f2d6962b-e5ca-4055-970e-08adf22f0f26",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T09:57:27.4945145Z",
+                  "End": "2021-11-15T09:57:27.5101217Z",
+                  "Metrics": {
+                    "RowCount": 39
+                  }
+                },
+                {
+                  "Id": "0CE35441-B304-495A-B475-1E5A7C5A8989",
+                  "ParentId": "cc1c7c3f-7884-4a8c-9ef1-e658d414c845",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:27.51Z",
+                  "End": "2021-11-15T09:57:27.52Z"
+                },
+                {
+                  "Id": "89F43439-17AE-4E5E-B777-E5DDB00AF992",
+                  "ParentId": "0CE35441-B304-495A-B475-1E5A7C5A8989",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T09:57:27.52Z",
+                  "End": "2021-11-15T09:57:27.52Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

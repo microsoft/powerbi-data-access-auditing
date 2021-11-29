@@ -12,6 +12,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PowerBiAuditApp.Processor.Extensions;
 using PowerBiAuditApp.Processor.Models;
 using SendGrid.Helpers.Mail;
@@ -43,6 +44,7 @@ namespace PowerBiAuditApp.Processor
             try
             {
                 var resultIndex = 0;
+                var logDetails = new object[] { model.User, model.IpAddress, model.Date.ToString("O") };
                 foreach (var result in model.Response.Results)
                 {
                     if (result.Result.Data.Descriptor is null && result.Result.Data.Dsr.DataShapes is not null)
@@ -57,12 +59,12 @@ namespace PowerBiAuditApp.Processor
                     {
                         foreach (var (key, data) in dataSet.PrimaryRows.SelectMany(x => x))
                         {
-                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Primary{key}", result, dataSet, headerLookup);
+                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Primary{key}", result, dataSet, headerLookup, logDetails);
                         }
 
                         foreach (var (key, data) in dataSet.SecondaryRows.SelectMany(x => x))
                         {
-                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Secondary{key}", result, dataSet, headerLookup);
+                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Secondary{key}", result, dataSet, headerLookup, logDetails);
                         }
 
                         foreach (var subDataSet in dataSet.DataOrRow ?? Array.Empty<PowerBiDataSet>())
@@ -114,13 +116,19 @@ namespace PowerBiAuditApp.Processor
             using JsonReader reader = new JsonTextReader(streamReader);
 
             var settings = new JsonSerializerSettings {
-                MissingMemberHandling = MissingMemberHandling.Error,
                 ContractResolver = new MissingMemberContractResolver()
             };
 
-            var serializer = JsonSerializer.Create(settings);
+            var jObject = (JObject)await JToken.ReadFromAsync(reader);
 
-            return serializer.Deserialize<AuditLog>(reader);
+            var auditLog = jObject.ToObject<AuditLog>(JsonSerializer.Create(settings))
+                           ?? throw new NullReferenceException(nameof(AuditLog));
+
+            settings.MissingMemberHandling = MissingMemberHandling.Error;
+            auditLog.Response = ((JObject)jObject[nameof(AuditLog.Response)])?.ToObject<Response>(JsonSerializer.Create(settings))
+                               ?? throw new NullReferenceException($"{nameof(AuditLog)}.{nameof(AuditLog.Response)}");
+            return auditLog;
+            //return serializer.Deserialize<AuditLog>(reader);
         }
 
         /// <summary>
@@ -197,7 +205,7 @@ namespace PowerBiAuditApp.Processor
         /// </summary>
         private static async Task WriteCsv(string name, CloudBlockBlob auditBlobClient, CloudBlobContainer processedLogClient,
             IAsyncCollector<SendGridMessage> messageCollector, ILogger log, PowerBiDataRow[] data, Query query, string key, ResultElement result, PowerBiDataSet dataSet,
-            Dictionary<string, DescriptorSelect> headerLookup)
+            Dictionary<string, DescriptorSelect> headerLookup, object[] logDetails)
         {
             try
             {
@@ -228,7 +236,7 @@ namespace PowerBiAuditApp.Processor
 
 
                 WriteHeaders(headers, headerLookup, query, csvWriter);
-                WriteRows(data, headers, dataSet, csvWriter);
+                WriteRows(data, headers, dataSet, csvWriter, logDetails);
 
                 await csvWriter.FlushAsync();
                 log.LogInformation("Data written for {name} ({result.JobId}-{dataSet.Name}-{key}).csv", name, result.JobId,
@@ -317,6 +325,11 @@ namespace PowerBiAuditApp.Processor
         /// </summary>
         private static void WriteHeaders(ColumnHeader[] headers, Dictionary<string, DescriptorSelect> headerLookup, Query query, CsvWriter csvWriter)
         {
+            // Write logging headers
+            csvWriter.WriteField("User");
+            csvWriter.WriteField("IP Address");
+            csvWriter.WriteField("Date");
+
             // Write CSV headers
             foreach (var header in headers)
             {
@@ -359,7 +372,7 @@ namespace PowerBiAuditApp.Processor
                         if (selectProperty is not null)
                             return selectProperty + suffix;
 
-                        return Regex.Replace(headerDescriptor.Name, @"^[^()]*\([^()]*\.([^().]*)\)[^()]*", "$1") + suffix;
+                        return Regex.Replace(headerDescriptor.Name, @"(^[^()]*)\([^()]*\.([^().]*)\)[^()]*", "$1 $2") + suffix;
                     }
 
                 default:
@@ -371,7 +384,7 @@ namespace PowerBiAuditApp.Processor
         /// <summary>
         /// Write rows to csv
         /// </summary>
-        private static void WriteRows(PowerBiDataRow[] data, ColumnHeader[] headers, PowerBiDataSet dataSet, CsvWriter csvWriter)
+        private static void WriteRows(PowerBiDataRow[] data, ColumnHeader[] headers, PowerBiDataSet dataSet, CsvWriter csvWriter, object[] logDetails)
         {
             object[] previousCsvRow = null;
             foreach (var row in data)
@@ -379,6 +392,10 @@ namespace PowerBiAuditApp.Processor
                 previousCsvRow = GetRow(row, headers, dataSet.ValueDictionary, previousCsvRow);
                 if (previousCsvRow is null) continue;
 
+                foreach (var logDetail in logDetails)
+                {
+                    csvWriter.WriteField(logDetail);
+                }
                 foreach (var rowData in previousCsvRow)
                 {
                     csvWriter.WriteField(rowData);

@@ -1,53 +1,53 @@
-﻿Occupation,OffenderId
-Firefighter,455
-Geologist,371
-Baker,333
-Carpenter,332
-Graphic Designer,291
-Programmer,291
-Insurer,290
-Social Worker,290
-Agronomist,249
-Veterinarian,248
-Historian,247
-Medic,247
-Meteorologist,247
-Aeroplane Pilot,209
-Lecturer,209
-Actor,208
-Electrician,208
-Physicist,208
-Auditor,207
-Chemist,207
-Manager,207
-Mathematician,207
-Engineer,167
-Fashion Designer,167
-Chef,166
-Dancer,166
-Producer,166
-Fine Artist,165
-Teacher,164
-Scientist,126
-Botanist,125
-Composer,125
-Cook,125
-Hairdresser,125
-Pharmacist,125
-Interior Designer,124
-Lawer,124
-Police Officer,124
-Driver,123
-Architect,84
-Astronomer,84
-Photographer,84
-Archeologist,83
-Biochemist,83
-Interpreter,83
-Jeweller,83
-Journalist,83
-Singer,82
-Economist,42
-Florist,42
-Mechanic,42
-Salesman,41
+﻿User,IP Address,Date,Occupation,CountNonNull OffenderId
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Firefighter,455
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Geologist,371
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Baker,333
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Carpenter,332
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Graphic Designer,291
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Programmer,291
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Insurer,290
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Social Worker,290
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Agronomist,249
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Veterinarian,248
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Historian,247
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Medic,247
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Meteorologist,247
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Aeroplane Pilot,209
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Lecturer,209
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Actor,208
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Electrician,208
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Physicist,208
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Auditor,207
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Chemist,207
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Manager,207
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Mathematician,207
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Engineer,167
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Fashion Designer,167
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Chef,166
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Dancer,166
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Producer,166
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Fine Artist,165
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Teacher,164
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Scientist,126
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Botanist,125
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Composer,125
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Cook,125
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Hairdresser,125
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Pharmacist,125
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Interior Designer,124
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Lawer,124
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Police Officer,124
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Driver,123
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Architect,84
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Astronomer,84
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Photographer,84
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Archeologist,83
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Biochemist,83
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Interpreter,83
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Jeweller,83
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Journalist,83
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Singer,82
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Economist,42
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Florist,42
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Mechanic,42
+emlyn.rice@arkahna.io,127.0.0.1,2021-10-28T08:12:42.7128643+08:00,Salesman,41
