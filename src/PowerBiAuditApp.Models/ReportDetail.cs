@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using Azure;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -49,11 +50,11 @@ namespace PowerBiAuditApp.Models
 
         [IgnoreProperty]
         [IgnoreDataMember]
-        public Guid[] AadGroups {
+        public AadGroup[] AadGroups {
             get {
                 return StringRoles is not null
-                    ? JsonConvert.DeserializeObject<Guid[]>(StringAadGroups) ?? Array.Empty<Guid>()
-                    : Array.Empty<Guid>();
+                    ? JsonConvert.DeserializeObject<AadGroup[]>(StringAadGroups) ?? Array.Empty<AadGroup>()
+                    : Array.Empty<AadGroup>();
             }
             set => StringAadGroups = JsonConvert.SerializeObject(value);
         }

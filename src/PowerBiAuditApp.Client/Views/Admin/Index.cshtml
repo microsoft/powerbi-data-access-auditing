@@ -28,6 +28,14 @@
             </div>
             <button type="button" class="btn-close" aria-label="Close"></button>
         </div>
+
+        <div id="report-error-alert" class="alert alert-danger alert-dismissible fade show d-flex align-items-center d-none" role="alert">
+            <i class="bi-check-circle-fill flex-shrink-0 me-2" style="width: 24px; height: 24px; text-align: center"></i>
+            <div id="alert-error-message">
+                Error saving reports. Please try again later.
+            </div>
+            <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
     
         @foreach (var (groupName, reports) in Model.Reports)
         {
@@ -35,47 +43,65 @@
             @foreach (var report in reports)
             {
                 <div class="card my-3">
-                    <h5 class="card-header">@report.Name</h5>
+                    <h5 class="card-header">
+                        @report.Name
+                    </h5>
                     <div class="card-body">
                         <div class="row gx-5">
+                            <div class="col form-check">
+                                <label class="col-form-label fw-bold">Description</label>
+                                <textarea class="form-control" name="@($"{report.ReportId}Description")">@report.Description</textarea>
+                            </div>
+                        </div>
+                        <div class="row gx-5">
+                            <div class="col">
+                                <label class="col-form-label fw-bold">Security Groups</label>
+                                <select class="security-group-tags js-states form-control" name="@($"{report.ReportId}SecurityGroups")" multiple="multiple">
+                                    @foreach (var option in report.AadGroups)
+                                    {
+                                        <option value="{'id':'@option.Id','name':'@option.Name'}" selected>@option.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between gx-5">
                             <div class="col">
                                 <label class="col-form-label fw-bold">Enable</label>
                                 <div class="form-check form-switch">
-                                    @if(report.Enabled)
+                                    @if (report.Enabled)
                                     {
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="@report.Name" value="show" checked>
+                                        <input class="form-check-input" type="checkbox" name="@($"{report.ReportId}Enabled")" value="show" checked>
                                     } else
                                     {
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="@report.Name" value="show">
+                                        <input class="form-check-input" type="checkbox" name="@($"{report.ReportId}Enabled")" value="show">
                                     }
                                 </div>
                             </div>
                             <div class="col">
                                 <label class="col-form-label fw-bold">Row Limit</label>
                                 <div class="form-check form-switch ">
-                                    @if(report.ReportRowLimit != null)
+                                    @if (report.ReportRowLimit != null)
                                     {
-                                        <input class="form-check-input linked-input" type="checkbox" name="@($"{report.Name} Enable Row Limit")" id="flexSwitchCheckChecked" value="show" checked>
-                                        <input class="form-control" type="number" name="@($"{report.Name} Row Limit")" placeholder="Number of rows" value="@report.ReportRowLimit">
+                                        <input class="form-check-input linked-input" type="checkbox" name="@($"{report.ReportId}EnableRowLimit")" value="show" checked>
+                                        <input class="form-control" type="number" name="@($"{report.ReportId}RowLimit")" placeholder="Number of rows" value="@report.ReportRowLimit">
                                     } else
                                     {
-                                        <input class="form-check-input linked-input" type="checkbox" name="@($"{report.Name} Enable Row Limit")" id="flexSwitchCheckDefault" value="show">
-                                        <input class="form-control" type="number" name="@($"{report.Name} Row Limit")" placeholder="Number of rows" value="@report.ReportRowLimit" style="display: none">
+                                        <input class="form-check-input linked-input" type="checkbox" name="@($"{report.ReportId}EnableRowLimit")" value="show">
+                                        <input class="form-control" type="number" name="@($"{report.ReportId}RowLimit")" placeholder="Number of rows" value="@report.ReportRowLimit" style="display: none">
                                     }
                                 </div>
                             </div>
                             <div class="col @(report.EffectiveIdentityRequired ? "" : "invisible")">
                                 <label class="col-form-label fw-bold">Override Effective User</label>
                                 <div class="form-check form-switch">
-                                    @if (!string.IsNullOrWhiteSpace(report.EffectiveIdentityOverRide))
+                                    @if(string.IsNullOrWhiteSpace(report.EffectiveIdentityOverRide))
                                     {
-                                        <input class="form-check-input linked-input" type="checkbox" id="flexSwitchCheckChecked" name="@($"{report.Name} Effective Id Required")" value="yes" checked>
-                                        <input class="form-control" type="text" name="@($"{report.Name} Effective Id Override")" placeholder="User" value="@report.EffectiveIdentityOverRide">
-                                    }
-                                    else
+                                        <input class="form-check-input linked-input" type="checkbox" name="@($"{report.Name}EffectiveIdEnabled")" value="yes">
+                                        <input class="form-control" type="text" name="@($"{report.ReportId}EffectiveIdOverride")" placeholder="User" value="@report.EffectiveIdentityOverRide" style="display: none">
+                                    } else
                                     {
-                                        <input class="form-check-input linked-input" type="checkbox" id="flexSwitchCheckDefault" name="@($"{report.Name} Effective Id Required")" value="yes">
-                                        <input class="form-control" type="text" name="@($"{report.Name} Effective Id Override")" placeholder="User" value="@report.EffectiveIdentityOverRide" style="display: none">
+                                        <input class="form-check-input linked-input" type="checkbox" name="@($"{report.Name}EffectiveIdEnabled")" value="yes" checked>
+                                        <input class="form-control" type="text" name="@($"{report.ReportId}EffectiveIdOverride")" placeholder="User" value="@report.EffectiveIdentityOverRide">
                                     }
                                 </div>
                             </div>
@@ -97,5 +123,7 @@
 {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/select2/js/select2.js"></script>
     <script src="~/js/admin.js"></script>
+    
 }
