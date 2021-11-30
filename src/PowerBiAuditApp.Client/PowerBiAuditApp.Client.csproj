@@ -12,6 +12,7 @@
 		<PackageReference Include="Azure.Data.Tables" Version="12.3.0" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
 		<PackageReference Include="Azure.Storage.Queues" Version="12.8.0" />
+		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.18.0" />
 		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.18.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.12" />
 		<PackageReference Include="Microsoft.Extensions.Azure" Version="1.1.1" />

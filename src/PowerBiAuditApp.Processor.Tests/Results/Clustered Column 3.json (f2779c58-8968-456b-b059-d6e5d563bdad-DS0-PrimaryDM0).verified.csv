@@ -1,8 +1,8 @@
-﻿Open Month,Open Store Count[1],Open Store Count[2]
-Jan,1,1
-Feb,2,0
-Mar,1,0
-Apr,0,0
-May,0,2
-Jun,1,0
-Jul,0,0
+﻿User,IP Address,Date,Open Month,Open Store Count[1],Open Store Count[2]
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Jan,1,1
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Feb,2,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Mar,1,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Apr,0,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,May,0,2
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Jun,1,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Jul,0,0

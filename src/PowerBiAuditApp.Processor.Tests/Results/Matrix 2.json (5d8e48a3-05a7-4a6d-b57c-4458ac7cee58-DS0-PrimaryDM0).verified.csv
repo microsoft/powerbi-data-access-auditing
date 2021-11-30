@@ -1,14 +1,14 @@
-﻿Store,Amount,Store Top N
-Fama,40478,1
-Contoso,38922,2
-VanArsdel,34480,3
-Aliqui,33977,4
-Abbas,31560,5
-Barba,30037,6
-Leo,29925,7
-Pomum,29718,8
-Salvus,26925,9
-Natura,25942,10
-Victoria,24843,11
-Quibus,21185,12
-Pirum,19152,13
+﻿User,IP Address,Date,Store,Sum Amount,Store Top N
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Fama,40478,1
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Contoso,38922,2
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,VanArsdel,34480,3
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Aliqui,33977,4
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Abbas,31560,5
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Barba,30037,6
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Leo,29925,7
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Pomum,29718,8
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Salvus,26925,9
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Natura,25942,10
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Victoria,24843,11
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Quibus,21185,12
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Pirum,19152,13

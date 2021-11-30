@@ -1,1 +1,476 @@
-{"User":"emlyn.rice@arkahna.io","Date":"2021-11-15T03:04:25.1058398+00:00","Request":{"version":"1.0.0","queries":[{"Query":{"Commands":[{"SemanticQueryDataShapeCommand":{"Query":{"Version":2,"From":[{"Name":"d","Entity":"Date","Type":0},{"Name":"b","Entity":"BU","Type":0},{"Name":"e","Entity":"Employee","Type":0}],"Select":[{"Column":{"Expression":{"SourceRef":{"Source":"d"}},"Property":"Month"},"Name":"select"},{"Column":{"Expression":{"SourceRef":{"Source":"b"}},"Property":"Region"},"Name":"select1"},{"Column":{"Expression":{"SourceRef":{"Source":"b"}},"Property":"VP"},"Name":"select2"},{"Measure":{"Expression":{"SourceRef":{"Source":"e"}},"Property":"Actives"},"Name":"Employee.Actives"},{"Measure":{"Expression":{"SourceRef":{"Source":"e"}},"Property":"Actives SPLY"},"Name":"Employee.Actives SPLY"},{"Measure":{"Expression":{"SourceRef":{"Source":"e"}},"Property":"Seps YoY % Change"},"Name":"Employee.Seps YoY % Change"}],"Where":[{"Condition":{"Comparison":{"ComparisonKind":0,"Left":{"Column":{"Expression":{"SourceRef":{"Source":"d"}},"Property":"Year"}},"Right":{"Literal":{"Value":"2014L"}}}}},{"Condition":{"Not":{"Expression":{"Comparison":{"ComparisonKind":0,"Left":{"Column":{"Expression":{"SourceRef":{"Source":"d"}},"Property":"Month"}},"Right":{"Literal":{"Value":"'Dec'"}}}}}}}],"OrderBy":[{"Direction":1,"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"d"}},"Property":"Month"}}},{"Direction":1,"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"d"}},"Property":"Month"}}}]},"Binding":{"Primary":{"Groupings":[{"Projections":[0,3,4,5]}]},"DataReduction":{"DataVolume":4,"Primary":{"Window":{"Count":1000}}},"Version":1},"ExecutionMetricsKind":1}}]},"CacheKey":"{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0},{\"Name\":\"b\",\"Entity\":\"BU\",\"Type\":0},{\"Name\":\"e\",\"Entity\":\"Employee\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"},\"Name\":\"select\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Region\"},\"Name\":\"select1\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"VP\"},\"Name\":\"select2\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Actives\"},\"Name\":\"Employee.Actives\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Actives SPLY\"},\"Name\":\"Employee.Actives SPLY\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Seps YoY % Change\"},\"Name\":\"Employee.Seps YoY % Change\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}},\"Right\":{\"Literal\":{\"Value\":\"2014L\"}}}}},{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"}},\"Right\":{\"Literal\":{\"Value\":\"'Dec'\"}}}}}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"}}},{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,3,4,5]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":1000}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}","QueryId":"","ApplicationContext":{"DatasetId":"6583d919-e183-4b84-9fae-3915108a7640","Sources":[{"ReportId":"49237d9d-8a9a-4c74-bd33-1337a0c9152f","VisualId":"VisualContainer1"}]}}],"cancelQueries":[],"modelId":573297,"userPreferredLocale":"en-AU"},"Response":{"jobIds":["6df04465-90db-4caa-8013-75c159264e25"],"results":[{"jobId":"6df04465-90db-4caa-8013-75c159264e25","result":{"data":{"descriptor":{"Select":[{"Kind":1,"Depth":0,"Value":"G0","GroupKeys":[{"Source":{"Entity":"Date","Property":"Month"},"Calc":"G0","IsSameAsSelect":true}],"Name":"select"},null,null,{"Kind":2,"Value":"M0","Format":"#,0","Name":"Employee.Actives"},{"Kind":2,"Value":"M1","Format":"#,0","Name":"Employee.Actives SPLY"},{"Kind":2,"Value":"M2","Format":"#,0.0%;-#,0.0%;#,0.0%","Name":"Employee.Seps YoY % Change"}],"Expressions":{"Primary":{"Groupings":[{"Keys":[{"Source":{"Entity":"Date","Property":"Month"},"Select":0}],"Member":"DM0"}]}},"Version":2},"dsr":{"Version":2,"MinorVersion":1,"DS":[{"N":"DS0","PH":[{"DM0":[{"S":[{"N":"G0","T":1,"DN":"D0"},{"N":"M0","T":4},{"N":"M1","T":4},{"N":"M2","T":3}],"C":[0,29035,28147,"0.18617614269788182"]},{"C":[1,29159,27928,"0.21975308641975308"]},{"C":[2,29222,27976,"0.2417465388711395"]},{"C":[3,29469,28073,"0.26859504132231404"]},{"C":[4,29984,28205,"0.31541850220264317"]},{"C":[5,30685,28306,"0.32184950135992746"]},{"C":[6,31065,28520,"0.46438482886216464"]},{"C":[7,31195,28615,"0.48158844765342962"]},{"C":[8,31726,28704,"0.41882556131260795"]},{"C":[9,32260,29452,"0.40267857142857144"]},{"C":[10,32235,29826,"0.59716157205240172"]}]}],"IC":true,"HAD":true,"ValueDicts":{"D0":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov"]}}]},"metrics":{"Version":"1.0.0","Events":[{"Id":"20b14c61-f6f5-441e-a5f2-6df7941dc328","Name":"Execute Semantic Query","Component":"DSE","Start":"2021-11-15T03:04:24.9735153Z","End":"2021-11-15T03:04:24.9891376Z"},{"Id":"cd71dfbd-5f70-4a90-be42-1f4702869faf","ParentId":"20b14c61-f6f5-441e-a5f2-6df7941dc328","Name":"Execute DAX Query","Component":"DSE","Start":"2021-11-15T03:04:24.9735153Z","End":"2021-11-15T03:04:24.9891376Z","Metrics":{"RowCount":11}},{"Id":"FAA16716-3EF0-4A02-AF3C-789730D9C509","ParentId":"cd71dfbd-5f70-4a90-be42-1f4702869faf","Name":"Execute Query","Component":"AS","Start":"2021-11-15T03:04:24.99Z","End":"2021-11-15T03:04:25Z"},{"Id":"4FD0208E-0E6D-4FF6-8299-ABC67135F0D7","ParentId":"FAA16716-3EF0-4A02-AF3C-789730D9C509","Name":"Serialize Rowset","Component":"AS","Start":"2021-11-15T03:04:25Z","End":"2021-11-15T03:04:25Z"}]}}}}]}}
+{
+  "User": "emlyn.rice@arkahna.io",
+  "IpAddress": "127.0.0.1",
+  "Date": "2021-11-15T03:04:25.1058398+00:00",
+  "Request": {
+    "version": "1.0.0",
+    "queries": [
+      {
+        "Query": {
+          "Commands": [
+            {
+              "SemanticQueryDataShapeCommand": {
+                "Query": {
+                  "Version": 2,
+                  "From": [
+                    {
+                      "Name": "d",
+                      "Entity": "Date",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "b",
+                      "Entity": "BU",
+                      "Type": 0
+                    },
+                    {
+                      "Name": "e",
+                      "Entity": "Employee",
+                      "Type": 0
+                    }
+                  ],
+                  "Select": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "Month"
+                      },
+                      "Name": "select"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "Region"
+                      },
+                      "Name": "select1"
+                    },
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "VP"
+                      },
+                      "Name": "select2"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "e"
+                          }
+                        },
+                        "Property": "Actives"
+                      },
+                      "Name": "Employee.Actives"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "e"
+                          }
+                        },
+                        "Property": "Actives SPLY"
+                      },
+                      "Name": "Employee.Actives SPLY"
+                    },
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "e"
+                          }
+                        },
+                        "Property": "Seps YoY % Change"
+                      },
+                      "Name": "Employee.Seps YoY % Change"
+                    }
+                  ],
+                  "Where": [
+                    {
+                      "Condition": {
+                        "Comparison": {
+                          "ComparisonKind": 0,
+                          "Left": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Year"
+                            }
+                          },
+                          "Right": {
+                            "Literal": {
+                              "Value": "2014L"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Condition": {
+                        "Not": {
+                          "Expression": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Month"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "'Dec'"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "OrderBy": [
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Month"
+                        }
+                      }
+                    },
+                    {
+                      "Direction": 1,
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Month"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "Binding": {
+                  "Primary": {
+                    "Groupings": [
+                      {
+                        "Projections": [
+                          0,
+                          3,
+                          4,
+                          5
+                        ]
+                      }
+                    ]
+                  },
+                  "DataReduction": {
+                    "DataVolume": 4,
+                    "Primary": {
+                      "Window": {
+                        "Count": 1000
+                      }
+                    }
+                  },
+                  "Version": 1
+                },
+                "ExecutionMetricsKind": 1
+              }
+            }
+          ]
+        },
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0},{\"Name\":\"b\",\"Entity\":\"BU\",\"Type\":0},{\"Name\":\"e\",\"Entity\":\"Employee\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"},\"Name\":\"select\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Region\"},\"Name\":\"select1\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"VP\"},\"Name\":\"select2\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Actives\"},\"Name\":\"Employee.Actives\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Actives SPLY\"},\"Name\":\"Employee.Actives SPLY\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Seps YoY % Change\"},\"Name\":\"Employee.Seps YoY % Change\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}},\"Right\":{\"Literal\":{\"Value\":\"2014L\"}}}}},{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"}},\"Right\":{\"Literal\":{\"Value\":\"'Dec'\"}}}}}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"}}},{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Month\"}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0,3,4,5]}]},\"DataReduction\":{\"DataVolume\":4,\"Primary\":{\"Window\":{\"Count\":1000}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "6583d919-e183-4b84-9fae-3915108a7640",
+          "Sources": [
+            {
+              "ReportId": "49237d9d-8a9a-4c74-bd33-1337a0c9152f",
+              "VisualId": "VisualContainer1"
+            }
+          ]
+        }
+      }
+    ],
+    "cancelQueries": [
+    ],
+    "modelId": 573297,
+    "userPreferredLocale": "en-AU"
+  },
+  "Response": {
+    "jobIds": [
+      "6df04465-90db-4caa-8013-75c159264e25"
+    ],
+    "results": [
+      {
+        "jobId": "6df04465-90db-4caa-8013-75c159264e25",
+        "result": {
+          "data": {
+            "descriptor": {
+              "Select": [
+                {
+                  "Kind": 1,
+                  "Depth": 0,
+                  "Value": "G0",
+                  "GroupKeys": [
+                    {
+                      "Source": {
+                        "Entity": "Date",
+                        "Property": "Month"
+                      },
+                      "Calc": "G0",
+                      "IsSameAsSelect": true
+                    }
+                  ],
+                  "Name": "select"
+                },
+                null,
+                null,
+                {
+                  "Kind": 2,
+                  "Value": "M0",
+                  "Format": "#,0",
+                  "Name": "Employee.Actives"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M1",
+                  "Format": "#,0",
+                  "Name": "Employee.Actives SPLY"
+                },
+                {
+                  "Kind": 2,
+                  "Value": "M2",
+                  "Format": "#,0.0%;-#,0.0%;#,0.0%",
+                  "Name": "Employee.Seps YoY % Change"
+                }
+              ],
+              "Expressions": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Keys": [
+                        {
+                          "Source": {
+                            "Entity": "Date",
+                            "Property": "Month"
+                          },
+                          "Select": 0
+                        }
+                      ],
+                      "Member": "DM0"
+                    }
+                  ]
+                }
+              },
+              "Version": 2
+            },
+            "dsr": {
+              "Version": 2,
+              "MinorVersion": 1,
+              "DS": [
+                {
+                  "N": "DS0",
+                  "PH": [
+                    {
+                      "DM0": [
+                        {
+                          "S": [
+                            {
+                              "N": "G0",
+                              "T": 1,
+                              "DN": "D0"
+                            },
+                            {
+                              "N": "M0",
+                              "T": 4
+                            },
+                            {
+                              "N": "M1",
+                              "T": 4
+                            },
+                            {
+                              "N": "M2",
+                              "T": 3
+                            }
+                          ],
+                          "C": [
+                            0,
+                            29035,
+                            28147,
+                            "0.18617614269788182"
+                          ]
+                        },
+                        {
+                          "C": [
+                            1,
+                            29159,
+                            27928,
+                            "0.21975308641975308"
+                          ]
+                        },
+                        {
+                          "C": [
+                            2,
+                            29222,
+                            27976,
+                            "0.2417465388711395"
+                          ]
+                        },
+                        {
+                          "C": [
+                            3,
+                            29469,
+                            28073,
+                            "0.26859504132231404"
+                          ]
+                        },
+                        {
+                          "C": [
+                            4,
+                            29984,
+                            28205,
+                            "0.31541850220264317"
+                          ]
+                        },
+                        {
+                          "C": [
+                            5,
+                            30685,
+                            28306,
+                            "0.32184950135992746"
+                          ]
+                        },
+                        {
+                          "C": [
+                            6,
+                            31065,
+                            28520,
+                            "0.46438482886216464"
+                          ]
+                        },
+                        {
+                          "C": [
+                            7,
+                            31195,
+                            28615,
+                            "0.48158844765342962"
+                          ]
+                        },
+                        {
+                          "C": [
+                            8,
+                            31726,
+                            28704,
+                            "0.41882556131260795"
+                          ]
+                        },
+                        {
+                          "C": [
+                            9,
+                            32260,
+                            29452,
+                            "0.40267857142857144"
+                          ]
+                        },
+                        {
+                          "C": [
+                            10,
+                            32235,
+                            29826,
+                            "0.59716157205240172"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "IC": true,
+                  "HAD": true,
+                  "ValueDicts": {
+                    "D0": [
+                      "Jan",
+                      "Feb",
+                      "Mar",
+                      "Apr",
+                      "May",
+                      "Jun",
+                      "Jul",
+                      "Aug",
+                      "Sep",
+                      "Oct",
+                      "Nov"
+                    ]
+                  }
+                }
+              ]
+            },
+            "metrics": {
+              "Version": "1.0.0",
+              "Events": [
+                {
+                  "Id": "20b14c61-f6f5-441e-a5f2-6df7941dc328",
+                  "Name": "Execute Semantic Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:24.9735153Z",
+                  "End": "2021-11-15T03:04:24.9891376Z"
+                },
+                {
+                  "Id": "cd71dfbd-5f70-4a90-be42-1f4702869faf",
+                  "ParentId": "20b14c61-f6f5-441e-a5f2-6df7941dc328",
+                  "Name": "Execute DAX Query",
+                  "Component": "DSE",
+                  "Start": "2021-11-15T03:04:24.9735153Z",
+                  "End": "2021-11-15T03:04:24.9891376Z",
+                  "Metrics": {
+                    "RowCount": 11
+                  }
+                },
+                {
+                  "Id": "FAA16716-3EF0-4A02-AF3C-789730D9C509",
+                  "ParentId": "cd71dfbd-5f70-4a90-be42-1f4702869faf",
+                  "Name": "Execute Query",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:04:24.99Z",
+                  "End": "2021-11-15T03:04:25Z"
+                },
+                {
+                  "Id": "4FD0208E-0E6D-4FF6-8299-ABC67135F0D7",
+                  "ParentId": "FAA16716-3EF0-4A02-AF3C-789730D9C509",
+                  "Name": "Serialize Rowset",
+                  "Component": "AS",
+                  "Start": "2021-11-15T03:04:25Z",
+                  "End": "2021-11-15T03:04:25Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

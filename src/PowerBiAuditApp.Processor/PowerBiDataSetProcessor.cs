@@ -295,13 +295,15 @@ namespace PowerBiAuditApp.Processor
                 reportDetail.EffectiveIdentityRequired = dataSet?.IsEffectiveIdentityRequired ?? false;
                 reportDetail.EffectiveIdentityRolesRequired = dataSet?.IsEffectiveIdentityRolesRequired ?? false;
 
+                reportDetail.Deleted = false;
+
 
                 tasks.Add(reportDetailTable.UpsertEntityAsync(reportDetail));
             }
 
             // Delete missing tasks
             var reportIds = pbiReports.Select(x => x.Id).ToList();
-            foreach (var (_, reportDetail) in reportDetails.Where(x => reportIds.Contains(x.Key)))
+            foreach (var (_, reportDetail) in reportDetails.Where(x => !reportIds.Contains(x.Key)))
             {
                 reportDetail.Deleted = true;
                 tasks.Add(reportDetailTable.UpsertEntityAsync(reportDetail));

@@ -62,7 +62,7 @@ namespace PowerBiAuditApp.Processor.Tests
                 settings.UseDirectory("Results");
                 settings.UseFileName(resultFileName.Replace(".csv", ""));
                 settings.UseExtension("csv");
-                //settings.AutoVerify();
+                settings.AutoVerify();
                 await Verifier.Verify(file, settings);
             }
 
@@ -70,12 +70,12 @@ namespace PowerBiAuditApp.Processor.Tests
 
         [Theory]
         [MemberData(nameof(ExampleFiles))]
-        public async Task InputHasAdditionalProperty_WhenTheProcessIsRun_AndErrorEmailIsSent(string filePath)
+        public async Task InputResponseHasAdditionalProperty_WhenTheProcessIsRun_AndErrorEmailIsSent(string filePath)
         {
             //Arrange
             var jsonString = await File.ReadAllTextAsync(filePath);
             var jObject = JsonConvert.DeserializeObject<JObject>(jsonString);
-            jObject!["AProperty"] = "An empty string";
+            ((JObject)jObject![nameof(AuditLog.Response)])!["AProperty"] = "An empty string";
 
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(jObject.ToString()));
             var blob = new FakeCloudBlockBlob(stream);
@@ -98,7 +98,7 @@ namespace PowerBiAuditApp.Processor.Tests
             //Arrange
             var jsonString = await File.ReadAllTextAsync(filePath);
             var jObject = JsonConvert.DeserializeObject<JObject>(jsonString);
-            jObject!["Response"]!["results"]!.Parent!.Remove();
+            jObject![nameof(AuditLog.Response)]!["results"]!.Parent!.Remove();
 
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(jObject.ToString()));
             var blob = new FakeCloudBlockBlob(stream);
