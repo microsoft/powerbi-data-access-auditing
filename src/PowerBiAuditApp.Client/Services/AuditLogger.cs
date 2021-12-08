@@ -51,7 +51,7 @@ namespace PowerBiAuditApp.Client.Services
             // Do something
             var payload = new {
                 User = httpContext.User.Identity?.Name,
-                IpAddress = httpContext.Connection.RemoteIpAddress,
+                IpAddress = httpContext.Connection.RemoteIpAddress?.ToString(),
                 Date = DateTimeOffset.UtcNow,
                 Request = JObject.Parse(requestBody),
                 Response = JObject.Parse(stringContent)
