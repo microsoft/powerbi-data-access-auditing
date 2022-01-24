@@ -43,8 +43,7 @@ namespace PowerBiAuditApp.Processor
 
             try
             {
-                var resultIndex = 0;
-                var logDetails = new object[] { model.User, model.IpAddress, model.Date.ToString("O") };
+                var logDetails = new object[] { model.User, model.IpAddress, model.Date.ToString("O"), model.ReportId, model.ReportName };
                 foreach (var result in model.Response.Results)
                 {
                     if (result.Result.Data.Descriptor is null && result.Result.Data.Dsr.DataShapes is not null)
@@ -53,18 +52,22 @@ namespace PowerBiAuditApp.Processor
                         continue;
                     }
                     var headerLookup = GetHeaderLookup(result);
-                    var query = model.Request.Queries[resultIndex++];
+
+                    var query = model.Request.Queries[Array.IndexOf(model.Response.JobIds, result.JobId)];
+
+                    var visualId = query.ApplicationContext.Sources.Select(x => x.VisualId).Distinct().Single();
+                    var dataLogDetail = logDetails.Append(visualId).ToArray();
 
                     async Task WriteCsvs(PowerBiDataSet dataSet)
                     {
                         foreach (var (key, data) in dataSet.PrimaryRows.SelectMany(x => x))
                         {
-                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Primary{key}", result, dataSet, headerLookup, logDetails);
+                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Primary{key}", result, dataSet, headerLookup, dataLogDetail);
                         }
 
                         foreach (var (key, data) in dataSet.SecondaryRows.SelectMany(x => x))
                         {
-                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Secondary{key}", result, dataSet, headerLookup, logDetails);
+                            await WriteCsv(name, auditBlobClient, processedLogClient, messageCollector, log, data, query, $"Secondary{key}", result, dataSet, headerLookup, dataLogDetail);
                         }
 
                         foreach (var subDataSet in dataSet.DataOrRow ?? Array.Empty<PowerBiDataSet>())
@@ -128,7 +131,6 @@ namespace PowerBiAuditApp.Processor
             auditLog.Response = ((JObject)jObject[nameof(AuditLog.Response)])?.ToObject<Response>(JsonSerializer.Create(settings))
                                ?? throw new NullReferenceException($"{nameof(AuditLog)}.{nameof(AuditLog.Response)}");
             return auditLog;
-            //return serializer.Deserialize<AuditLog>(reader);
         }
 
         /// <summary>
@@ -294,7 +296,7 @@ namespace PowerBiAuditApp.Processor
 
             if (matrixData.Any())
             {
-                foreach (var (matrixDataRows, key, index, matrixDataIndex) in matrixData)
+                foreach (var (matrixDataRows, key, _, _) in matrixData)
                 {
                     var columns = GetHeaders(matrixDataRows);
 
@@ -329,6 +331,9 @@ namespace PowerBiAuditApp.Processor
             csvWriter.WriteField("User");
             csvWriter.WriteField("IP Address");
             csvWriter.WriteField("Date");
+            csvWriter.WriteField("Report Id");
+            csvWriter.WriteField("Report Name");
+            csvWriter.WriteField("Visual Container Id");
 
             // Write CSV headers
             foreach (var header in headers)
@@ -360,19 +365,34 @@ namespace PowerBiAuditApp.Processor
             switch (headerDescriptor.Kind)
             {
                 case DescriptorKind.Select:
-                    return string.Join("---", headerDescriptor.GroupKeys.Select(g => g.Source.Property)) + suffix;
+                    return string.Join("---", headerDescriptor.GroupKeys.Select(g => $"{g.Source.Entity}::{g.Source.Property}")) + suffix;
                 case DescriptorKind.Grouping:
                     {
-                        var selectProperty = query
+
+                        var expression = query
                             .QueryQuery.Commands.Select(c =>
                                 c.SemanticQueryDataShapeCommand.Query.Select.SingleOrDefault(s =>
                                     s.Name == headerDescriptor.Name))
-                            .SingleOrDefault(q => q is not null)?.Measure?.Property;
+                            .SingleOrDefault();
 
-                        if (selectProperty is not null)
-                            return selectProperty + suffix;
+                        var measure = expression?.Measure ?? expression?.Aggregation?.Expression?.Column;
+                        var function = expression?.Aggregation?.Function;
+                        if (function is not null && function.Value > AggregationFunction.Variance)
+                            throw new NotSupportedException($"AggregationFunction is out of range {function}");
 
-                        return Regex.Replace(headerDescriptor.Name, @"(^[^()]*)\([^()]*\.([^().]*)\)[^()]*", "$1 $2") + suffix;
+                        var property = measure?.Property;
+                        var entity = query
+                            .QueryQuery.Commands.Select(c =>
+                                c.SemanticQueryDataShapeCommand.Query.From.SingleOrDefault(s =>
+                                    s.Name == measure?.Expression?.SourceRef.Source))
+                            .SingleOrDefault()?.Entity;
+
+                        if (entity is not null && property is not null)
+                            return function is not null
+                                ? $"{function}({entity}::{property}{suffix})"
+                                : $"{entity}::{property}{suffix}";
+
+                        return Regex.Replace(headerDescriptor.Name, @"(^[^()]*\(?)([^()]*)\.([^().]*)(\))", "$1$2::$3$4") + suffix;
                     }
 
                 default:
@@ -396,6 +416,7 @@ namespace PowerBiAuditApp.Processor
                 {
                     csvWriter.WriteField(logDetail);
                 }
+
                 foreach (var rowData in previousCsvRow)
                 {
                     csvWriter.WriteField(rowData);

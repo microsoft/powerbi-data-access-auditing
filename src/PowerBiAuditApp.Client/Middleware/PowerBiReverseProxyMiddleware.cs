@@ -41,12 +41,14 @@ namespace PowerBiAuditApp.Client.Middleware
         public async Task Invoke(HttpContext httpContext, IAuditLogger auditLogger)
         {
             await _nextMiddleware(httpContext);
-            if (httpContext.Response.StatusCode != StatusCodes.Status404NotFound)
+            if (httpContext.Response.StatusCode != StatusCodes.Status404NotFound
+                && !(httpContext.Response.StatusCode == StatusCodes.Status302Found && httpContext.Request.Path.ToString().EndsWith(".js"))
+                )
                 return;
 
             var targetUri = BuildTargetUri(httpContext.Request);
 
-            var targetRequestMessage = await CreateTargetMessage(httpContext, targetUri);
+            var (targetRequestMessage, reportId, reportName) = await CreateTargetMessage(httpContext, targetUri);
 
             if (httpContext.Request.Path.ToString().Contains("querydata"))
             {
@@ -59,25 +61,27 @@ namespace PowerBiAuditApp.Client.Middleware
             httpContext.Response.StatusCode = (int)responseMessage.StatusCode;
             CopyFromTargetResponseHeaders(httpContext, responseMessage);
             _logger.LogInformation("Begin Process Response");
-            await ProcessResponseContent(httpContext, responseMessage, auditLogger);
+            await ProcessResponseContent(httpContext, responseMessage, auditLogger, reportId, reportName);
         }
 
-        private async Task<HttpRequestMessage> CreateTargetMessage(HttpContext httpContext, Uri targetUri)
+
+        private async Task<(HttpRequestMessage requestMessage, Guid? reportId, string reportName)> CreateTargetMessage(HttpContext httpContext, Uri targetUri)
         {
             var requestMessage = new HttpRequestMessage();
-            await CopyFromOriginalRequestContentAndHeaders(httpContext, requestMessage);
+            var (reportId, reportName) = await CopyFromOriginalRequestContentAndHeaders(httpContext, requestMessage);
 
             requestMessage.RequestUri = targetUri;
             requestMessage.Headers.Host = targetUri.Host;
             requestMessage.Method = GetMethod(httpContext.Request.Method);
 
 
-            return requestMessage;
+            return (requestMessage, reportId, reportName);
         }
 
-        private async Task CopyFromOriginalRequestContentAndHeaders(HttpContext httpContext, HttpRequestMessage requestMessage)
+        private async Task<(Guid? reportId, string reportName)> CopyFromOriginalRequestContentAndHeaders(HttpContext httpContext, HttpRequestMessage requestMessage)
         {
             Guid? reportId = null;
+            string reportName = null;
             foreach (var (key, headerValue) in httpContext.Request.Headers)
             {
                 IEnumerable<string> values = headerValue.ToArray();
@@ -85,8 +89,9 @@ namespace PowerBiAuditApp.Client.Middleware
                 {
                     values = values.Select(x =>
                      {
-                         var (value, id) = DecryptTokenAndReportId(x);
+                         var (value, id, name) = DecryptTokenAndReportId(x);
                          reportId ??= id;
+                         reportName ??= name;
 
                          return value;
                      });
@@ -94,7 +99,6 @@ namespace PowerBiAuditApp.Client.Middleware
 
                 requestMessage.Headers.TryAddWithoutValidation(key, values);
             }
-
 
             var requestMethod = httpContext.Request.Method;
 
@@ -108,6 +112,7 @@ namespace PowerBiAuditApp.Client.Middleware
                 requestMessage.Content!.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
             }
 
+            return (reportId, reportName);
         }
 
         private async Task<StringContent> GetRequestContent(HttpContext httpContext, Guid? reportId)
@@ -159,10 +164,10 @@ namespace PowerBiAuditApp.Client.Middleware
             limit["Count"] = rowLimit;
         }
 
-        private (string token, Guid? reportId) DecryptTokenAndReportId(string token)
+        private (string token, Guid? reportId, string reportName) DecryptTokenAndReportId(string token)
         {
             if (!token.StartsWith("EmbedToken "))
-                return (token, null);
+                return (token, null, null);
 
             var sanitisedToken = WebUtility.HtmlDecode(token.Replace("EmbedToken ", "", StringComparison.CurrentCultureIgnoreCase));
 
@@ -173,6 +178,7 @@ namespace PowerBiAuditApp.Client.Middleware
             tokenParts[0] = unencryptedToken;
 
             Guid? reportId = null;
+            string reportName = null;
             if (tokenParts.Length > 1)
             {
                 var additionalData = Encoding.UTF8.GetString(Convert.FromBase64String(tokenParts[1])).ReformUrls();
@@ -181,12 +187,14 @@ namespace PowerBiAuditApp.Client.Middleware
                 if (Guid.TryParse(json["reportId"]?.ToString(), out var reportIdTemp))
                     reportId = reportIdTemp;
 
+                reportName = json["reportName"]?.ToString();
+
 
                 var additionalBytes = Encoding.UTF8.GetBytes(additionalData);
                 tokenParts[1] = Convert.ToBase64String(additionalBytes);
             }
 
-            return ($"EmbedToken {WebUtility.HtmlEncode(string.Join(".", tokenParts))}", reportId);
+            return ($"EmbedToken {WebUtility.HtmlEncode(string.Join(".", tokenParts))}", reportId, reportName);
         }
 
         private static void CopyFromTargetResponseHeaders(HttpContext httpContext, HttpResponseMessage responseMessage)
@@ -239,26 +247,21 @@ namespace PowerBiAuditApp.Client.Middleware
         /// <summary>
         /// Primary logic for intercepting and modifying responses. Can be cleaned up a lot.
         /// </summary>
-        /// <param name="httpContext"></param>
-        /// <param name="responseMessage"></param>
-        /// <param name="auditLogger"></param>
         /// <returns></returns>
-        private static async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage, IAuditLogger auditLogger)
+        private static async Task ProcessResponseContent(HttpContext httpContext, HttpResponseMessage responseMessage, IAuditLogger auditLogger, Guid? reportId, string reportName)
         {
             // Can't modify body in this case.
             if (responseMessage.StatusCode == HttpStatusCode.NotModified)
                 return;
 
-            await auditLogger.CreateAuditLog(httpContext, responseMessage);
+            await auditLogger.CreateAuditLog(httpContext, responseMessage, reportId, reportName);
 
             //HTML || JAVASCRIPT
-            if (responseMessage.IsContentOfType("text/html") || responseMessage.IsContentOfType("text/javascript"))
+            if (responseMessage.IsContentTypeHtml() || responseMessage.IsContentTypeJavaScript())
             {
                 var stringContent = responseMessage.Content.ReadAsStringAsync().Result;
-                //stringContent = Encoding.UTF8.GetString(contentBytes);
 
                 var newContent = stringContent.ReplaceUrls();
-
 
                 SetContentLength(httpContext, newContent);
 

@@ -11,6 +11,7 @@ namespace PowerBiAuditApp.Client.Extensions
                 .RegexReplace(@"https\:\/\/([^/]*)\.powerbi\.com", "/power-bi/$1", RegexOptions.IgnoreCase)
                 .RegexReplace(@"https\:\/\/([^/]*)\.analysis\.windows\.net", "/analysis-windows/$1", RegexOptions.IgnoreCase)
                 .RegexReplace(@"https\:\/\/([^/]*)\.powerapps\.com", "/power-apps/$1", RegexOptions.IgnoreCase);
+
         // ReSharper restore StringLiteralTypo
 
         public static string ReformUrls(this string stringContent) =>
@@ -21,16 +22,8 @@ namespace PowerBiAuditApp.Client.Extensions
                 .RegexReplace(@"""\/power-apps\/([^/""]*)", @"""https://$1.powerapps.com", RegexOptions.IgnoreCase);
         // ReSharper restore StringLiteralTypo
 
-        public static bool IsContentOfType(this HttpResponseMessage responseMessage, string type)
-        {
-            var result = false;
-
-            if (responseMessage.Content.Headers.ContentType != null)
-            {
-                result = responseMessage.Content.Headers.ContentType.MediaType == type;
-            }
-
-            return result;
-        }
+        public static bool IsContentTypeHtml(this HttpResponseMessage responseMessage) => responseMessage.IsContentOfType("text/html");
+        public static bool IsContentTypeJavaScript(this HttpResponseMessage responseMessage) => responseMessage.IsContentOfType("text/javascript") || responseMessage.IsContentOfType("application/x-javascript") || responseMessage.IsContentOfType("application/javascript");
+        public static bool IsContentOfType(this HttpResponseMessage responseMessage, string type) => responseMessage.Content.Headers.ContentType?.MediaType == type;
     }
 }

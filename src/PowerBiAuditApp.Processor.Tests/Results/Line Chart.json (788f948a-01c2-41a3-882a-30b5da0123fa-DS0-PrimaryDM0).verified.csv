@@ -1,9 +1,9 @@
-﻿User,IP Address,Date,FiscalMonth,This Year Sales
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,Jan,41435.21000000003
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,Feb,175707.8900000007
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,Mar,350553.3899999973
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,Apr,315370.7299999963
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,May,353090.1399999944
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,Jun,425290.9299999953
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,Jul,327723.91999999696
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,Aug,440799.62999999773
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Time::FiscalMonth,Sales::This Year Sales
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer1,Jan,41435.21000000003
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer1,Feb,175707.8900000007
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer1,Mar,350553.3899999973
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer1,Apr,315370.7299999963
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer1,May,353090.1399999944
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer1,Jun,425290.9299999953
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer1,Jul,327723.91999999696
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T10:56:50.3706007+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer1,Aug,440799.62999999773

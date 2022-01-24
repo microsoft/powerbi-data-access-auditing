@@ -1,3 +1,3 @@
-﻿User,IP Address,Date,Store Type
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7621373+08:00,New Store
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7621373+08:00,Same Store
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Store::Store Type
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7621373+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,New Store
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7621373+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,Same Store

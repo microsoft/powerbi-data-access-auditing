@@ -2,6 +2,8 @@
   "User": "emlyn.rice@arkahna.io",
   "IpAddress": "127.0.0.1",
   "Date": "2021-11-16T02:48:19.9338109+00:00",
+  "ReportId": "1337e224-2829-4ea3-b768-be999d65e166",
+  "ReportName": "Sales & Returns Sample v201912",
   "Request": {
     "version": "1.0.0",
     "queries": [

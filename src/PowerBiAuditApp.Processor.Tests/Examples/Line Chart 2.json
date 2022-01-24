@@ -2,6 +2,8 @@
   "User": "emlyn.rice@arkahna.io",
   "IpAddress": "127.0.0.1",
   "Date": "2021-11-12T09:02:34.9047431+00:00",
+  "ReportId": "cc400a31-a746-48cf-86c9-047cfc011e96",
+  "ReportName": "COVID Bakeoff",
   "Request": {
     "version": "1.0.0",
     "queries": [

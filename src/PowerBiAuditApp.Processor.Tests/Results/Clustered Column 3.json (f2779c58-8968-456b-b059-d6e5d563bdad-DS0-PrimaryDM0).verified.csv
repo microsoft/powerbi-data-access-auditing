@@ -1,8 +1,8 @@
-﻿User,IP Address,Date,Open Month,Open Store Count[1],Open Store Count[2]
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Jan,1,1
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Feb,2,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Mar,1,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Apr,0,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,May,0,2
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Jun,1,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,Jul,0,0
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Store::Open Month,Store::Open Store Count[1],Store::Open Store Count[2]
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,Jan,1,1
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,Feb,2,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,Mar,1,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,Apr,0,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,May,0,2
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,Jun,1,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.5434477+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer2,Jul,0,0

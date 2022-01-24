@@ -31,11 +31,8 @@ namespace PowerBiAuditApp.Client.Services
         /// <summary>
         /// Audit both user and query data returned.
         /// </summary>
-        /// <param name="httpContext"></param>
-        /// <param name="responseMessage"></param>
-        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task CreateAuditLog(HttpContext httpContext, HttpResponseMessage responseMessage, CancellationToken cancellationToken = default)
+        public async Task CreateAuditLog(HttpContext httpContext, HttpResponseMessage responseMessage, Guid? reportId, string reportName, CancellationToken cancellationToken = default)
         {
             if (!responseMessage.IsContentOfType("application/json") || !httpContext.Request.Path.ToString().Contains("querydata"))
                 return;
@@ -52,6 +49,8 @@ namespace PowerBiAuditApp.Client.Services
             var payload = new {
                 User = httpContext.User.Identity?.Name,
                 IpAddress = httpContext.Connection.RemoteIpAddress?.ToString(),
+                ReportId = reportId,
+                ReportName = reportName,
                 Date = DateTimeOffset.UtcNow,
                 Request = JObject.Parse(requestBody),
                 Response = JObject.Parse(stringContent)

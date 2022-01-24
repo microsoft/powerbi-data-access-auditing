@@ -1,2 +1,2 @@
-﻿User,IP Address,Date,Lift Label
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:48:19.9338109+08:00,1.8x
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Design DAX::Lift Label
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:48:19.9338109+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,734282de33ae50d6d011,1.8x

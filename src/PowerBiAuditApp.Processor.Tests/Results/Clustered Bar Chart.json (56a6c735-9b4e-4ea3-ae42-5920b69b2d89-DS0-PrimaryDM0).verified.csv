@@ -1,7 +1,7 @@
-﻿User,IP Address,Date,Continent,GDP Per Capita (USD)
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,Europe,18759.77918353047
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,Oceania,8207.90857103044
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,Asia,7004.055688356944
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,North America,6912.7541315240305
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,South America,2936.0150142208913
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,Africa,1318.954940341236
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Country::Continent,Metrics::GDP Per Capita (USD)
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,6785a0aa-eeac-4d89-9023-324d0813f27d,Life expectancy v202009,6eedbc64bc4400d0309a,Europe,18759.77918353047
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,6785a0aa-eeac-4d89-9023-324d0813f27d,Life expectancy v202009,6eedbc64bc4400d0309a,Oceania,8207.90857103044
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,6785a0aa-eeac-4d89-9023-324d0813f27d,Life expectancy v202009,6eedbc64bc4400d0309a,Asia,7004.055688356944
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,6785a0aa-eeac-4d89-9023-324d0813f27d,Life expectancy v202009,6eedbc64bc4400d0309a,North America,6912.7541315240305
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,6785a0aa-eeac-4d89-9023-324d0813f27d,Life expectancy v202009,6eedbc64bc4400d0309a,South America,2936.0150142208913
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T17:57:04.6599178+08:00,6785a0aa-eeac-4d89-9023-324d0813f27d,Life expectancy v202009,6eedbc64bc4400d0309a,Africa,1318.954940341236

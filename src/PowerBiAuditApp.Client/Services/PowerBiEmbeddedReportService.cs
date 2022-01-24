@@ -202,6 +202,7 @@ namespace PowerBiAuditApp.Client.Services
 
             var json = JObject.Parse(additionalData);
             json["reportId"] = report.ReportId;
+            json["reportName"] = report.Name;
 
             var additionalBytes = Encoding.UTF8.GetBytes(json.ToString());
             tokenParts[1] = Convert.ToBase64String(additionalBytes);

@@ -1,3 +1,3 @@
-﻿User,IP Address,Date,Gender,Sum BadHires
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:32.5966190+08:00,Male,3013
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:32.5966190+08:00,Female,2643
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Gender::Gender,Sum(Employee::BadHires)
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:32.5966190+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer1,Male,3013
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:32.5966190+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer1,Female,2643
