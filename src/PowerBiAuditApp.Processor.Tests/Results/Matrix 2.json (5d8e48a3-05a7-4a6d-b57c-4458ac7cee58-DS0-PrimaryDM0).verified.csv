@@ -1,14 +1,14 @@
-﻿User,IP Address,Date,Store,Sum Amount,Store Top N
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Fama,40478,1
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Contoso,38922,2
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,VanArsdel,34480,3
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Aliqui,33977,4
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Abbas,31560,5
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Barba,30037,6
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Leo,29925,7
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Pomum,29718,8
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Salvus,26925,9
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Natura,25942,10
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Victoria,24843,11
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Quibus,21185,12
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,Pirum,19152,13
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Store::Store,Sum(Sales::Amount),Design DAX::Store Top N
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Fama,40478,1
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Contoso,38922,2
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,VanArsdel,34480,3
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Aliqui,33977,4
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Abbas,31560,5
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Barba,30037,6
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Leo,29925,7
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Pomum,29718,8
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Salvus,26925,9
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Natura,25942,10
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Victoria,24843,11
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Quibus,21185,12
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-16T10:46:11.8839132+08:00,1337e224-2829-4ea3-b768-be999d65e166,Sales & Returns Sample v201912,d55aa7aa40745de10d55,Pirum,19152,13

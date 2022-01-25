@@ -1,8 +1,8 @@
-﻿User,IP Address,Date,Ethnicity
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Group A
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Group B
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Group C
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Group D
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Group E
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Group F
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Group G
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Ethnicity::Ethnicity
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Group A
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Group B
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Group C
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Group D
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Group E
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Group F
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Group G

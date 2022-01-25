@@ -18,6 +18,12 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Date", Required = Required.Always)]
         public DateTimeOffset Date { get; set; }
 
+        [JsonProperty("ReportId")]
+        public Guid? ReportId { get; set; }
+
+        [JsonProperty("ReportName")]
+        public string ReportName { get; set; }
+
         [JsonProperty("Request", Required = Required.Always)]
         public PowerBiRequestRequest Request { get; set; }
 
@@ -747,8 +753,20 @@ namespace PowerBiAuditApp.Processor.Models
         [JsonProperty("Expression", Required = Required.Always)]
         public ColumnExpression Expression { get; set; }
 
-        [JsonProperty("Function", Required = Required.Always)]
-        public long Function { get; set; }
+        [JsonProperty("Function")]
+        public AggregationFunction? Function { get; set; }
+    }
+    public enum AggregationFunction
+    {
+        Sum = 0,
+        Avg = 1,
+        CountDistinct = 2,
+        Min = 3,
+        Max = 4,
+        CountNonNull = 5,
+        Median = 6,
+        StandardDeviation = 7,
+        Variance = 8
     }
 
     public class Response

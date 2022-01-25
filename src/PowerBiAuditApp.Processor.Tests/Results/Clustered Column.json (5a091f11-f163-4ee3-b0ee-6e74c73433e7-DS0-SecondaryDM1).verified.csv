@@ -1,10 +1,10 @@
-﻿User,IP Address,Date,DM
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Allan Guinot
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Andrew Ma
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Annelie Zubar
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Brad Sutton
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Carlos Grilo
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Chris Gray
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Chris McGurk
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Tina Lassila
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,Valery Ushakov
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,District::DM
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Allan Guinot
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Andrew Ma
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Annelie Zubar
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Brad Sutton
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Carlos Grilo
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Chris Gray
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Chris McGurk
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Tina Lassila
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-05T12:14:02.7483580+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer4,Valery Ushakov

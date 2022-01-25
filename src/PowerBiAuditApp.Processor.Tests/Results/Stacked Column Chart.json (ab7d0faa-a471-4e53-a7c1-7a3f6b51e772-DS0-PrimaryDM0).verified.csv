@@ -1,8 +1,8 @@
-﻿User,IP Address,Date,Region,select3[1],select3[2],select3[3],select3[4],select3[5],select3[6],select3[7]
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,North,632,140,50,9,7,46,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Midwest,564,134,33,9,11,21,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Northwest,716,240,20,18,4,56,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,East,270,150,21,3,4,16,1
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,Central,620,218,36,8,5,26,4
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,South,506,483,43,22,7,47,1
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,West,225,135,48,10,2,30,5
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,BU::Region,Sum(Employee::BadHires)[1],Sum(Employee::BadHires)[2],Sum(Employee::BadHires)[3],Sum(Employee::BadHires)[4],Sum(Employee::BadHires)[5],Sum(Employee::BadHires)[6],Sum(Employee::BadHires)[7]
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,North,632,140,50,9,7,46,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Midwest,564,134,33,9,11,21,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Northwest,716,240,20,18,4,56,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,East,270,150,21,3,4,16,1
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,Central,620,218,36,8,5,26,4
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,South,506,483,43,22,7,47,1
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-15T11:04:58.6712184+08:00,49237d9d-8a9a-4c74-bd33-1337a0c9152f,Human Resources Sample PBIX,VisualContainer3,West,225,135,48,10,2,30,5

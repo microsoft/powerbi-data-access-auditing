@@ -121,6 +121,8 @@ namespace PowerBiAuditApp.Client
 
             app.UseRouting();
 
+            app.UseMiddleware<PowerBiReverseProxyMiddleware>();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -129,7 +131,6 @@ namespace PowerBiAuditApp.Client
                 pattern: "{controller=Home}/{action=Index}/{id?}"
                 )
             );
-            app.UseMiddleware<PowerBiReverseProxyMiddleware>();
 
         }
     }

@@ -62,7 +62,7 @@ namespace PowerBiAuditApp.Processor.Tests
                 settings.UseDirectory("Results");
                 settings.UseFileName(resultFileName.Replace(".csv", ""));
                 settings.UseExtension("csv");
-                settings.AutoVerify();
+                settings.AutoVerify(); // use locally with know changes
                 await Verifier.Verify(file, settings);
             }
 

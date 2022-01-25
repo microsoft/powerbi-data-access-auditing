@@ -2,6 +2,8 @@
   "User": "emlyn.rice@arkahna.io",
   "IpAddress": "127.0.0.1",
   "Date": "2021-11-15T03:04:32.596619+00:00",
+  "ReportId": "49237d9d-8a9a-4c74-bd33-1337a0c9152f",
+  "ReportName": "Human Resources Sample PBIX",
   "Request": {
     "version": "1.0.0",
     "queries": [

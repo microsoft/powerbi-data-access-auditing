@@ -2,6 +2,8 @@
   "User": "emlyn.rice@arkahna.io",
   "IpAddress": "127.0.0.1",
   "Date": "2021-11-05T04:14:00.8655678+00:00",
+  "ReportId": "171c27ee-9946-4c17-adcc-27b2225d299c",
+  "ReportName": "Retail Analysis Sample PBIX",
   "Request": {
     "version": "1.0.0",
     "queries": [

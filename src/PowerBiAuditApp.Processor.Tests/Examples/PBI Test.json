@@ -2,6 +2,8 @@
   "User": "emlyn.rice@arkahna.io",
   "IpAddress": "127.0.0.1",
   "Date": "2021-10-29T04:37:07.6417169+00:00",
+  "ReportId": "93888e27-1ade-4831-ac90-9376de0f329b",
+  "ReportName": "pbitest",
   "Request": {
     "version": "1.0.0",
     "queries": [

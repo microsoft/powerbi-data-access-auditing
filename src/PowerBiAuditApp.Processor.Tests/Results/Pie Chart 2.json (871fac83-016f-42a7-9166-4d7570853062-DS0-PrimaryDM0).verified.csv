@@ -1,11 +1,11 @@
-﻿User,IP Address,Date,City,This Year Sales[1],This Year Sales[2]
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Winchester, VA",495164.6699999959,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Washington, PA",457286.05999999767,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Sharonville, OH",403197.3799999964,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Monroeville, PA",398258.04999999667,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"York, PA",315504.3699999955,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Cincinnati, OH",144705.27999999994,0
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Wilson, NC",0,87220.39999999985
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Ft. Oglethorpe, GA",0,61277.540000000095
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Knoxville, TN",0,49160.53000000009
-emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,"Pasadena, MD",0,18197.55999999999
+﻿User,IP Address,Date,Report Id,Report Name,Visual Container Id,Store::City,Sales::This Year Sales[1],Sales::This Year Sales[2]
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Winchester, VA",495164.6699999959,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Washington, PA",457286.05999999767,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Sharonville, OH",403197.3799999964,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Monroeville, PA",398258.04999999667,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"York, PA",315504.3699999955,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Cincinnati, OH",144705.27999999994,0
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Wilson, NC",0,87220.39999999985
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Ft. Oglethorpe, GA",0,61277.540000000095
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Knoxville, TN",0,49160.53000000009
+emlyn.rice@arkahna.io,127.0.0.1,2021-11-09T11:49:08.4881388+08:00,171c27ee-9946-4c17-adcc-27b2225d299c,Retail Analysis Sample PBIX,VisualContainer3,"Pasadena, MD",0,18197.55999999999

@@ -2,6 +2,8 @@
   "User": "emlyn.rice@arkahna.io",
   "IpAddress": "127.0.0.1",
   "Date": "2021-11-15T09:57:27.636641+00:00",
+  "ReportId": "6785a0aa-eeac-4d89-9023-324d0813f27d",
+  "ReportName": "Life expectancy v202009",
   "Request": {
     "version": "1.0.0",
     "queries": [
