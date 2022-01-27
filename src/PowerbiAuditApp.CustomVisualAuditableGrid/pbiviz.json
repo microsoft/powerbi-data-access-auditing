@@ -1,0 +1,20 @@
+{
+  "visual": {
+    "name": "paginatedGrid",
+    "displayName": "Paginated Grid",
+    "guid": "paginatedGrid93E3E1B441D54AE191DEA2FA7C8D5962",
+    "visualClassName": "Visual",
+    "version": "1.0.0",
+    "description": "Displays a formatted measure value inside a circle",
+    "supportUrl": "https://github.com/microsoft/powerbi-data-access-auditing",
+    "gitHubUrl": "https://github.com/microsoft/powerbi-data-access-auditing"
+  },
+  "apiVersion": "3.8.0",
+  "author": { "name": "Emlyn Rice", "email": "info@arkahna.io" },
+  "assets": { "icon": "assets/icon.png" },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": []
+}
