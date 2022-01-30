@@ -46,9 +46,11 @@ export class Visual implements IVisual {
   private div: Selection<HTMLDivElement>;
   private gridVisual?: void;
   private gridSettings: JsonGridSettings;
+  private data: powerbi.DataView[] = [];
+  private page: number = 0;
+  private initialDataLoad: boolean = true;
 
   constructor(options: VisualConstructorOptions) {
-    console.log(options);
     this.host = options.host;
     this.div = d3.select(options.element).append('div').classed('DataDiv', true).attr('id', this.VisualName);
     this.gridSettings = new JsonGridSettings();
@@ -65,10 +67,17 @@ export class Visual implements IVisual {
 
     Object.assign(this.gridSettings, this.visualSettings.gridConfiguration);
     this.gridSettings.fetchData.getNextPage = () => {
-      this.host.fetchMoreData(false);
+      this.page++;
+      this.initialDataLoad = false;
+
+      if (this.page == this.data.length) this.host.fetchMoreData(false);
+      else this.drawGrid();
     };
-    // this.gridSettings.fetchData.resetData = this.host.refreshHostData
-    this.gridSettings.fetchData.hasMoreData = !!dataView.metadata.segment;
+    this.gridSettings.fetchData.getPreviousPage = () => {
+      this.page--;
+
+      this.drawGrid();
+    };
 
     let hasData = false;
     for (let i = 0; i < dataView.table.columns.length; i++) {
@@ -95,11 +104,27 @@ export class Visual implements IVisual {
     }
 
     d3.select('.DataDiv').style('overflow', 'auto');
+    if (this.page == this.data.length || this.initialDataLoad) {
+      this.data[this.page] = dataView;
+    }
+
     try {
-      this.gridVisual = CreateGrid(this.VisualName, dataView, Object.assign({}, this.gridSettings, this.visualSettings.gridConfiguration));
+      this.drawGrid();
     } catch (e) {
       console.error(e);
       throw e;
     }
   }
+
+  private drawGrid = () => {
+    this.gridSettings.fetchData.isLastPage = !this.data[this.page].metadata.segment;
+    this.gridSettings.fetchData.willLoadData = this.page + 1 == this.data.length;
+    this.gridSettings.fetchData.currentPage = this.page;
+
+    this.gridVisual = CreateGrid(
+      this.VisualName,
+      this.data[this.page],
+      Object.assign({}, this.gridSettings, this.visualSettings.gridConfiguration)
+    );
+  };
 }

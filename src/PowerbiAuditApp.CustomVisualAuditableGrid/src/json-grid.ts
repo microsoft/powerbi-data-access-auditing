@@ -177,9 +177,11 @@ interface IGridOptions {
   callBackFunc: () => void;
   fetchData: {
     enabled: boolean;
+    currentPage: number;
     getNextPage: () => void;
-    resetData?: () => void;
-    hasMoreData: boolean;
+    getPreviousPage: () => void;
+    willLoadData: boolean;
+    isLastPage: boolean;
   };
 }
 
@@ -190,8 +192,11 @@ export class JsonGridSettings {
   sortOrder: string = 'asc';
   fetchData: IGridOptions['fetchData'] = {
     enabled: false,
+    currentPage: 0,
     getNextPage: () => {},
-    hasMoreData: false,
+    getPreviousPage: () => {},
+    isLastPage: false,
+    willLoadData: true,
   };
 }
 
@@ -211,8 +216,10 @@ export function CreateGrid(visualName: string, dataView: powerbi.DataView, gridF
 
     fetchData: {
       enabled: gridFormatters.fetchData.enabled,
-      hasMoreData: gridFormatters.fetchData.hasMoreData,
-      resetData: gridFormatters.fetchData.resetData,
+      currentPage: gridFormatters.fetchData.currentPage,
+      isLastPage: gridFormatters.fetchData.isLastPage,
+      willLoadData: gridFormatters.fetchData.willLoadData,
+      getPreviousPage: gridFormatters.fetchData.getPreviousPage,
       getNextPage: gridFormatters.fetchData.getNextPage,
     },
     rows: {
@@ -929,7 +936,6 @@ function CreatePaginationControl(gridOptions: IGridOptions) {
 }
 
 function CreateFetchControl(gridOptions: IGridOptions) {
-  const currentPage = (window as any).fetchCurrentPage || 1;
   const fetchSpaceRow = gridOptions.tblFoot.insertRow(0);
   const row = gridOptions.tblFoot.insertRow(1);
 
@@ -948,38 +954,33 @@ function CreateFetchControl(gridOptions: IGridOptions) {
 
   cell.appendChild(paginationContainer);
 
-  if (gridOptions.fetchData.resetData) {
-    const resetDataBtn = document.createElement('button');
-    resetDataBtn.className = 'fetch-button cur-pointer';
-    $(resetDataBtn).attr('active', '0');
-    resetDataBtn.onclick = () => {
-      (window as any).fetchCurrentPage = 1;
-      gridOptions.fetchData.resetData();
-    };
-    resetDataBtn.innerText = 'Return to first page';
-    paginationContainer.appendChild(resetDataBtn);
-    if (currentPage <= 1) {
-      resetDataBtn.style.visibility = 'hidden';
-    }
+  const prevPrevBtn = document.createElement('button');
+  prevPrevBtn.className = 'fetch-button cur-pointer';
+  $(prevPrevBtn).attr('active', '0');
+  prevPrevBtn.onclick = () => {
+    gridOptions.fetchData.getPreviousPage();
+  };
+  prevPrevBtn.innerText = 'Previous Page';
+  paginationContainer.appendChild(prevPrevBtn);
+  if (gridOptions.fetchData.currentPage <= 0) {
+    prevPrevBtn.style.visibility = 'hidden';
   }
+
   const pagesLabel = document.createElement('span');
-  pagesLabel.innerText = `Page: ${currentPage}`;
+  pagesLabel.innerText = `Page: ${gridOptions.fetchData.currentPage + 1}`;
   pagesLabel.className = 'jsonFooterLabel fetch-label';
   paginationContainer.appendChild(pagesLabel);
 
-  const fetchDataBtn = document.createElement('button');
-  fetchDataBtn.className = 'fetch-button cur-pointer';
-  $(fetchDataBtn).attr('active', '0');
+  const nextPageBtn = document.createElement('button');
+  nextPageBtn.className = 'fetch-button cur-pointer';
+  $(nextPageBtn).attr('active', '0');
 
-  fetchDataBtn.onclick = () => {
-    (window as any).fetchCurrentPage = currentPage + 1;
-    gridOptions.fetchData.getNextPage();
-  };
-  fetchDataBtn.innerText = 'Load Next Page';
-  paginationContainer.appendChild(fetchDataBtn);
+  nextPageBtn.onclick = gridOptions.fetchData.getNextPage;
+  nextPageBtn.innerText = gridOptions.fetchData.willLoadData ? 'Load Next Page' : 'Next Page';
+  paginationContainer.appendChild(nextPageBtn);
 
-  if (!gridOptions.fetchData.hasMoreData) {
-    fetchDataBtn.style.visibility = 'hidden';
+  if (gridOptions.fetchData.isLastPage) {
+    nextPageBtn.style.visibility = 'hidden';
   }
 }
 
@@ -1755,8 +1756,11 @@ function JsonGrid(gridOptions: IGridOptions) {
       callBackFunc: () => {},
       fetchData: {
         enabled: false,
+        currentPage: 0,
         getNextPage: () => {},
-        hasMoreData: false,
+        getPreviousPage: () => {},
+        isLastPage: false,
+        willLoadData: false,
       },
     };
 
