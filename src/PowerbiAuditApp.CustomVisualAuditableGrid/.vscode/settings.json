@@ -31,5 +31,5 @@
       "url": "./node_modules/powerbi-visuals-api/schema.dependencies.json"
     }
   ],
-  "cSpell.words": ["Colored", "powerbi"]
+  "cSpell.words": ["Colored", "formattingutils", "powerbi"]
 }

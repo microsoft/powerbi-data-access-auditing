@@ -283,3 +283,6 @@ __pycache__/
 
 # Audit Folder
 **/audit/*.*
+/src/PowerbiAuditApp.CustomVisualAuditableGrid/webpack.statistics.dev.html
+/src/PowerbiAuditApp.CustomVisualAuditableGrid/webpack.statistics.prod.html
+/src/PowerbiAuditApp.CustomVisualAuditableGrid/dist

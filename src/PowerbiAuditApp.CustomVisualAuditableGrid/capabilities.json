@@ -12,29 +12,6 @@
     }
   ],
   "objects": {
-    "circle": {
-      "displayName": "Circle",
-      "properties": {
-        "circleColor": {
-          "displayName": "Color",
-          "description": "The fill color of the circle.",
-          "type": {
-            "fill": {
-              "solid": {
-                "color": true
-              }
-            }
-          }
-        },
-        "circleThickness": {
-          "displayName": "Thickness",
-          "description": "The circle thickness.",
-          "type": {
-            "numeric": true
-          }
-        }
-      }
-    },
     "gridConfiguration": {
       "displayName": "Grid Configuration",
       "properties": {
@@ -45,51 +22,6 @@
             "formatting": {
               "fontSize": true
             }
-          }
-        },
-        "maxRows": {
-          "displayName": "Max rows",
-          "description": "Maximum rows in single page",
-          "type": {
-            "numeric": true
-          }
-        },
-        "sortKey": {
-          "displayName": "Sort key",
-          "description": "Default Sort Key for Grid",
-          "type": {
-            "numeric": true
-          }
-        },
-        "sortOrder": {
-          "displayName": "Sort order",
-          "description": "Default Sort Order for Grid",
-          "type": {
-            "enumeration": [
-              { "displayName": "asc", "value": "asc" },
-              { "displayName": "desc", "value": "desc" }
-            ]
-          }
-        },
-        "isCustomRedirect": {
-          "displayName": "Enable custom redirection",
-          "description": "Boolean flag to enable custom redirection",
-          "type": {
-            "bool": true
-          }
-        },
-        "apiUrl": {
-          "displayName": "API URL",
-          "description": "API URL for sending id to backend",
-          "type": {
-            "text": true
-          }
-        },
-        "columnNumber": {
-          "displayName": "Column number",
-          "description": "Column Number for binding event",
-          "type": {
-            "numeric": true
           }
         }
       }
@@ -113,7 +45,7 @@
           ],
           "dataReductionAlgorithm": {
             "window": {
-              "count": 2
+              "count": 3000
             }
           }
         },

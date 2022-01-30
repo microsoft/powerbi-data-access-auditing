@@ -97,10 +97,6 @@ Property -moz-background-size is an unknown vendor extension
   display: block;
 }
 
-.inlineblockdiv {
-  display: inline-block;
-}
-
 .jsonGridHeader,
 td.jsonGridHeader {
   background-color: #505050;
@@ -394,4 +390,24 @@ td.jsonGridRow .gridCellWrap {
 .hyperLink {
   color: #005999;
   cursor: pointer;
+}
+
+.fetch-bar {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+
+  .fetch-button {
+    color: white;
+    background-color: #2179a6;
+    border: 0;
+    cursor: pointer;
+    padding: 5px;
+    width: 9.5em;
+    text-align: center;
+  }
+  .fetch-label {
+    align-self: center;
+    margin: 0;
+  }
 }

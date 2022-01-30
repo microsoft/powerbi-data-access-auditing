@@ -36,15 +36,8 @@ export class CircleSettings {
 
 export class AuditableGridSettings {
   public fontSize: number = 12;
-  public maxRows: number = 10;
-  public sortKey: number = 1;
-  public sortOrder: string = 'asc';
-  public apiUrl: string = 'https://jsonplaceholder.typicode.com/posts/';
-  public isCustomRedirect: boolean = false;
-  public columnNumber: number = 1;
 }
 
 export class VisualSettings extends DataViewObjectsParser {
-  public circle: CircleSettings = new CircleSettings();
   public gridConfiguration: AuditableGridSettings = new AuditableGridSettings();
 }

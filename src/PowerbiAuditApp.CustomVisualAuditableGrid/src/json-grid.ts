@@ -1,7 +1,6 @@
 import powerbi from 'powerbi-visuals-api';
 import * as d3 from 'd3';
 import * as utility from './utility';
-import { AuditableGridSettings } from './settings';
 import { valueFormatter } from 'powerbi-visuals-utils-formattingutils';
 import { Style, SortType, PrimitiveType, GridConstants } from './utility';
 
@@ -21,17 +20,6 @@ const gridObjects: { [key: string]: IGridOptions } = (window as any).gridObjects
 
 (window as any).dataView = (window as any).dataView || {};
 const dataViews: { [key: string]: powerbi.DataView } = (window as any).dataView;
-
-// for (let i = 0; i < scripts.length; i++) {
-//   if (
-//     document.querySelectorAll('script[src]')[i] &&
-//     document.querySelectorAll('script[src]')[i].src &&
-//     'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' === document.querySelectorAll('script[src]')[i].src
-//   ) {
-//     var elem = document.querySelectorAll('script[src]')[i];
-//     elem.parentNode.removeChild(elem);
-//   }
-// }
 
 interface IGridOptions {
   container?: HTMLElement;
@@ -91,7 +79,7 @@ interface IGridOptions {
     enabled: boolean;
     totalPages: number;
     currentIndex: number;
-    sendRequestFunction: null;
+    sendRequestFunction: (parameters: {}) => boolean;
   };
   inPlaceGrid?: {
     enableInPlaceGrid: boolean;
@@ -187,21 +175,45 @@ interface IGridOptions {
   currentPage?: number;
   totalPages?: number;
   callBackFunc: () => void;
+  fetchData: {
+    enabled: boolean;
+    getNextPage: () => void;
+    resetData?: () => void;
+    hasMoreData: boolean;
+  };
 }
 
-export function CreateGrid(visualName: string, dataView: powerbi.DataView, gridFormatters: AuditableGridSettings) {
-  console.log('CreateGrid');
-  console.log(dataView.table.columns);
+export class JsonGridSettings {
+  fontSize: number = 12;
+  maxRows: number = 2000;
+  sortKey: number = 1;
+  sortOrder: string = 'asc';
+  fetchData: IGridOptions['fetchData'] = {
+    enabled: false,
+    getNextPage: () => {},
+    hasMoreData: false,
+  };
+}
+
+export function CreateGrid(visualName: string, dataView: powerbi.DataView, gridFormatters: JsonGridSettings) {
   const gridOptions: IGridOptions = {
     containerName: visualName,
     gridName: visualName + '_Grid',
     hiddenName: visualName + '_hidden',
     data: [],
     columnHeader: [],
+    viewRecords: false,
     pagination: {
       maxRows: gridFormatters.maxRows,
       retainPageOnSort: false,
       paginate: true,
+    },
+
+    fetchData: {
+      enabled: gridFormatters.fetchData.enabled,
+      hasMoreData: gridFormatters.fetchData.hasMoreData,
+      resetData: gridFormatters.fetchData.resetData,
+      getNextPage: gridFormatters.fetchData.getNextPage,
     },
     rows: {
       alternate: false,
@@ -292,7 +304,7 @@ export function CreateGrid(visualName: string, dataView: powerbi.DataView, gridF
           ? col.substring(col.indexOf('.') + 1, col.lastIndexOf(')')).replaceAll('"', "'")
           : col.substring(col.indexOf('.') + 1, col.length),
       columnText: dataView.table.columns[i].displayName.replaceAll('"', "'"),
-      sortable: true,
+      sortable: !gridOptions.fetchData.enabled,
       sortType: 'parseString',
       sortKey:
         col.lastIndexOf(')') === col.length - 1
@@ -385,127 +397,13 @@ export function CreateGrid(visualName: string, dataView: powerbi.DataView, gridF
   gridOptions.gridSort = gridSort;
   $('#' + gridOptions.containerName).text('');
 
-  //Remove invalid column numbers
-  const columnNumber = Math.max(
-    1,
-    gridFormatters.columnNumber > dataView.table.columns.length ? dataView.table.columns.length : gridFormatters.columnNumber
-  );
-  gridFormatters.columnNumber = columnNumber;
-
-  function initialiseEvents() {
-    const apiUrl = gridFormatters.apiUrl;
-    const isCustomRedirect = gridFormatters.isCustomRedirect;
-    if (isCustomRedirect && apiUrl && columnNumber) {
-      loadJquery(apiUrl, columnNumber);
-    }
-  }
-
-  gridOptions.callBackFunc = initialiseEvents;
   JsonGrid(gridOptions);
   d3.select('.DataDiv').style('font-size', gridFormatters.fontSize + 'px');
   d3.select('.first').style('width', gridFormatters.fontSize + 'px');
   d3.select('.next').style('width', gridFormatters.fontSize + 'px');
-
-  if (gridFormatters.isCustomRedirect && gridFormatters.apiUrl && columnNumber) {
-    loadJquery(gridFormatters.apiUrl, columnNumber);
-  }
-
-  function loadJquery(apiUrl: string, columnNumber: number) {
-    if (!columnNumber) {
-      columnNumber = 1;
-    }
-    $('.jsonGridRow:nth-child(' + columnNumber + ')').addClass('hyperLink');
-    $('.jsonGridRow:nth-child(' + columnNumber + ')').off('click');
-    $('.jsonGridRow:nth-child(' + columnNumber + ')').on('click', function () {
-      sendRequest($(this).text(), apiUrl);
-    });
-  }
-
-  function sendRequest(id: string, apiUrl: string) {
-    if (!apiUrl) {
-      apiUrl = 'http://jsonplaceholder.typicode.com/posts/';
-    }
-    const frame = document.createElement('iframe');
-    frame.setAttribute('style', 'display:none');
-    frame.className = 'hiddenFrame';
-    frame.setAttribute('src', apiUrl + id);
-    document.body.appendChild(frame);
-  }
 }
 
-// /// <disable>JS2028.UseCPlusPlusStyleComments,JS2032.PlaceLiteralsOnRightSideInComparisons,JS3057.AvoidImplicitTypeCoercion,JS3092.DeclarePropertiesBeforeUse</disable>
-// /// <dictionary>d-mmm-yy</dictionary>
-// //// Count without suppression: 79
-// // JSCOP count: 3, 8 September, 2014
-// // Current JSCOP count: 3, 8 September, 2014
-// ('use strict');
-// // thousandFormatter: Formats the number in comma separator format (xxxK/M/B).
-// function thousandFormatter(sInput, iDecimalPlaces) {
-//   if (0 === parseFloat(sInput)) {
-//     return '0';
-//   } else if (!sInput || isNaN(sInput)) {
-//     return 'N/A';
-//   }
-
-//   // Check for validity of decimal places parameter
-//   if (!iDecimalPlaces || isNaN(iDecimalPlaces)) {
-//     iDecimalPlaces = 0; // Default value is 0
-//   }
-
-//   var fTempValue = parseFloat(sInput);
-//   if (fTempValue < 0) {
-//     sInput = -1 * fTempValue;
-//   } else {
-//     sInput = fTempValue;
-//   }
-//   var sTempValue = sInput.toString();
-
-//   if (-1 !== sTempValue.indexOf('.')) {
-//     var decimalLength = sTempValue.substring(sTempValue.indexOf('.') + 1).length;
-//     if (iDecimalPlaces < decimalLength) {
-//       sTempValue = parseFloat(sInput.toFixed(iDecimalPlaces)).toString();
-//     }
-//   }
-//   var aDigits = sTempValue.split('.'),
-//     sIntegerDigits = aDigits[0],
-//     sFractionDigits = aDigits.length > 1 ? '.' + aDigits[1] : '';
-
-//   // Converting thousand to M
-//   var bConvert = false,
-//     kConvert = false,
-//     iTempValue = parseInt(sIntegerDigits),
-//     sCurrency = '';
-//   if (iTempValue >= 1000000000) {
-//     sIntegerDigits = iTempValue / 1000000000;
-//     sCurrency = 'B';
-//     sFractionDigits = '';
-//     sIntegerDigits = sIntegerDigits.toFixed(iDecimalPlaces).toString();
-//   } else if (iTempValue < 1000000000 && iTempValue >= 1000000) {
-//     sIntegerDigits = iTempValue / 1000000;
-//     sCurrency = 'M';
-//     sFractionDigits = '';
-//     sIntegerDigits = sIntegerDigits.toFixed(iDecimalPlaces).toString();
-//   } else if (iTempValue < 1000000 && iTempValue >= 1000) {
-//     sIntegerDigits = iTempValue / 1000;
-//     sCurrency = 'K';
-//     sFractionDigits = '';
-//     sIntegerDigits = sIntegerDigits.toFixed(iDecimalPlaces).toString();
-//   }
-
-//   var rPattern = /(\d+)(\d{3})/;
-//   while (rPattern.test(sIntegerDigits)) {
-//     sIntegerDigits = sIntegerDigits.replace(rPattern, '$1' + ',' + '$2');
-//   }
-//   if (parseInt(sIntegerDigits) || sFractionDigits) {
-//     return (fTempValue < 0 ? '-' : '') + sIntegerDigits + sFractionDigits + sCurrency;
-//   } else {
-//     return '0';
-//   }
-// }
-
-// insertCommasOnly: Formats the number in comma separator format (x,xxx,xxx.xx).
 function insertCommasOnly(input: number, decimalPlaces: number) {
-  console.log('insertCommasOnly');
   if (!input || isNaN(input)) {
     return 'N/A';
   }
@@ -540,7 +438,6 @@ function insertCommasOnly(input: number, decimalPlaces: number) {
 }
 
 function newRecords(element: HTMLElement, gridName: string) {
-  console.log('newRecords');
   if (element) {
     let pageId = $(element).attr('data-pageId');
     if (!pageId) {
@@ -563,22 +460,10 @@ function newRecords(element: HTMLElement, gridName: string) {
 }
 
 function getAdjustedRowChunk(inputData: DataColumn[string], width: string) {
-  console.log('getAdjustedRowChunk');
   return "<div class='jsonGridOverflow' title='" + inputData + "' style='width: " + width + "px;'>' + inputData + '</div>";
 }
 
-function getAdjustedRowChunkAndToolTip(inputData: string, width: string) {
-  console.log('getAdjustedRowChunkAndToolTip');
-  width = width || '100';
-  width = width.replace('%', '').replace('px', '');
-  return (
-    "<span class='jsonGridOverflow' title='' + inputData + '' style='width: ' + (width - 15 >= 15 ? width - 15 : 15) + 'px;'>" +
-    inputData +
-    '</span>'
-  );
-}
 function setViewRecords(gridOptions: IGridOptions) {
-  console.log('setViewRecords');
   const gridElement = document.getElementById(gridOptions.gridName);
   const currentPage = (gridOptions.currentPage || 0) + 1;
   const lastPage = (gridOptions.totalPages || 0) + 1;
@@ -609,7 +494,6 @@ function setViewRecords(gridOptions: IGridOptions) {
 
 // Generate page list to be displayed in pagination control
 function generatePageList(gridOptions: IGridOptions, currentPage: number, totalPages: number) {
-  console.log('generatePageList');
   var gridElement = gridOptions.container || document.getElementById(gridOptions.containerName);
 
   const pageList = gridElement.querySelector('.ViewRecordDiv > div');
@@ -636,18 +520,16 @@ function generatePageList(gridOptions: IGridOptions, currentPage: number, totalP
       pageList.appendChild(page);
     }
   }
-
-  console.log('End generatePageList');
 }
 function getPage(currentPageNum: number, lastPageNum: number, gridOptions: IGridOptions) {
-  console.log('getPage');
-  let iCurrentPage = currentPageNum,
-    iLastPage = lastPageNum,
-    first = document.getElementById(gridOptions.gridName + '_First'),
-    last = document.getElementById(gridOptions.gridName + '_Last');
-  if (iCurrentPage <= 1) {
+  const currentPage = currentPageNum;
+  const lastPage = lastPageNum;
+  const first = document.getElementById(gridOptions.gridName + '_First');
+  const last = document.getElementById(gridOptions.gridName + '_Last');
+
+  if (currentPage <= 1) {
     goFirst(first, gridOptions.gridName);
-  } else if (iCurrentPage >= iLastPage) {
+  } else if (currentPage >= lastPage) {
     goLast(last, gridOptions.gridName);
   } else {
     // Go to respective page
@@ -660,7 +542,6 @@ function getPage(currentPageNum: number, lastPageNum: number, gridOptions: IGrid
   }
 }
 function populateGrid(gridOptions: IGridOptions) {
-  console.log('populateGrid');
   const htmlGridObject = gridOptions.gridObject;
   if (htmlGridObject) {
     const numberOfRows = gridOptions.tblBody.rows.length;
@@ -694,7 +575,6 @@ function enableNext(gridName: string) {
   utility.removeClass(next, 'click-disabled');
 }
 function goLast(element: HTMLElement, gridName: string) {
-  console.log('goLast');
   if (!utility.hasClass(element, 'click-disabled')) {
     if (gridName.length) {
       if (gridObjects[gridName]) {
@@ -710,7 +590,6 @@ function goLast(element: HTMLElement, gridName: string) {
   }
 }
 function goFirst(element: HTMLElement, gridName: string) {
-  console.log('goFirst');
   if (!utility.hasClass(element, 'click-disabled')) {
     if (gridName.length) {
       if (gridObjects[gridName]) {
@@ -727,7 +606,6 @@ function goFirst(element: HTMLElement, gridName: string) {
   }
 }
 function goPrevious(element: HTMLElement, gridName: string) {
-  console.log('goPrevious');
   if (!utility.hasClass(element, 'click-disabled')) {
     if (gridName.length > 0) {
       if (gridObjects[gridName]) {
@@ -751,7 +629,6 @@ function goPrevious(element: HTMLElement, gridName: string) {
   }
 }
 function goNext(element: HTMLElement, gridName: string) {
-  console.log('goNext');
   var gridObjectPosition, gridOptions;
   if (!utility.hasClass(element, 'click-disabled')) {
     if (gridName.length > 0) {
@@ -779,7 +656,6 @@ function goNext(element: HTMLElement, gridName: string) {
 
 // Check if text input is a number and call method to navigate to requested page
 function isNumber(event: KeyboardEvent, element: HTMLInputElement, gridName: string) {
-  console.log('isNumber');
   let charCode;
   event = event ? event : (window.event as KeyboardEvent);
   charCode = event.which ? event.which : event.keyCode;
@@ -793,7 +669,6 @@ function isNumber(event: KeyboardEvent, element: HTMLInputElement, gridName: str
 
 // Navigate to page entered in text box
 function goToPage(charCode: number, element: HTMLInputElement, gridName: string) {
-  console.log('goToPage');
   if (element && element.value) {
     const currentPage = parseInt(element.value);
     if (charCode === 13 && currentPage) {
@@ -806,7 +681,6 @@ function goToPage(charCode: number, element: HTMLInputElement, gridName: string)
   }
 }
 function sortDataWithinGroup(gridConfiguration: IGridOptions, fieldName: string, sortFlag: boolean, sortType: SortType) {
-  console.log('sortDataWithinGroup');
   let iTotal = gridConfiguration.groupedRowHeader.groupHeaderName.length,
     iInnerCount = 0,
     iInnerTotal = gridConfiguration.data.length,
@@ -909,15 +783,14 @@ function sortJsonGrid(cellObject: HTMLTableCellElement, gridName: string, fieldN
     }
   }
 }
-function CreatePaginationControl(gridOptions: IGridOptions) {
-  console.log('CreatePaginationControl');
 
+function CreatePaginationControl(gridOptions: IGridOptions) {
   const paginationSpaceRow = gridOptions.tblFoot.insertRow(0);
   const row = gridOptions.tblFoot.insertRow(1);
   const listOptionContainerParent = document.createElement('div');
-  const iCurrentPage = gridOptions.currentPage + 1;
-  const iLastPage = gridOptions.totalPages + 1;
-  const listOptionContainer = iLastPage > GridConstants.iDropDownLimit ? document.createElement('input') : document.createElement('select');
+  const currentPage = gridOptions.currentPage + 1;
+  const lastPage = gridOptions.totalPages + 1;
+  const listOptionContainer = lastPage > GridConstants.iDropDownLimit ? document.createElement('input') : document.createElement('select');
 
   if (gridOptions.fixedHeaderEnd) {
     if (gridOptions.containerObject.clientWidth - gridOptions.tblBody.clientWidth >= gridOptions.tblBodyRight.clientWidth) {
@@ -946,6 +819,8 @@ function CreatePaginationControl(gridOptions: IGridOptions) {
   // Cell containing the pagination content
   const cell = row.insertCell(0);
   cell.colSpan = gridOptions.columnHeader.length;
+  utility.addClass(cell, 'jsonFooter');
+
   const label = document.createElement('div');
   label.innerText = GridConstants.sPaginationText;
   utility.addClass(label, 'jsonFooterLabel');
@@ -963,7 +838,7 @@ function CreatePaginationControl(gridOptions: IGridOptions) {
 
   const nextDiv = document.createElement('div');
   nextDiv.className = 'PaginationNextArrowDiv';
-  if (iLastPage - 1 !== gridOptions.currentPage) {
+  if (lastPage - 1 !== gridOptions.currentPage) {
     const nextSpan = document.createElement('span');
     utility.addClass(nextSpan, 'next');
     utility.addClass(nextSpan, 'cur-pointer');
@@ -977,6 +852,10 @@ function CreatePaginationControl(gridOptions: IGridOptions) {
   const dropDownContainer = document.createElement('div');
   dropDownContainer.id = gridOptions.gridName + '_DropDownRecords';
   utility.addClass(dropDownContainer, 'DropDownRecords');
+
+  const totalPagesLabel = document.createElement('div');
+  totalPagesLabel.innerText = ' of ' + insertCommasOnly(lastPage, 0);
+  utility.addClass(totalPagesLabel, 'jsonFooterLabel totalPagesLabel');
 
   const paginationContainer = document.createElement('div');
   paginationContainer.className = 'jsonGridFooter';
@@ -992,27 +871,22 @@ function CreatePaginationControl(gridOptions: IGridOptions) {
   if (!gridOptions.viewRecords) {
     viewRecords.style.visibility = 'hidden';
   }
+
   paginationContainer.appendChild(viewRecords);
 
   paginationContainer.appendChild(nextDiv);
   paginationContainer.appendChild(label);
   paginationContainer.appendChild(dropDownContainer);
-
-  const totalPagesLabel = document.createElement('div');
-  totalPagesLabel.innerText = ' of ' + insertCommasOnly(iLastPage, 0);
-
-  utility.addClass(totalPagesLabel, 'jsonFooterLabel totalPagesLabel');
   paginationContainer.appendChild(totalPagesLabel);
-  cell.appendChild(paginationContainer);
 
-  utility.addClass(cell, 'jsonFooter');
+  cell.appendChild(paginationContainer);
 
   // Create Page List
   if (viewRecords) {
     const pageList = document.createElement('div');
     viewRecords.appendChild(pageList);
-    const iTotalPages = iLastPage < iCurrentPage + 4 ? iLastPage : iCurrentPage + 4;
-    generatePageList(gridOptions, iCurrentPage, iTotalPages);
+    const totalPages = lastPage < currentPage + 4 ? lastPage : currentPage + 4;
+    generatePageList(gridOptions, currentPage, totalPages);
   }
 
   // Create drop down
@@ -1021,7 +895,7 @@ function CreatePaginationControl(gridOptions: IGridOptions) {
 
   listOptionContainerParent.appendChild(listOptionContainer);
   dropDownContainer.appendChild(listOptionContainerParent);
-  if (iLastPage > GridConstants.iDropDownLimit) {
+  if (lastPage > GridConstants.iDropDownLimit) {
     // Create text box
     (listOptionContainer as HTMLInputElement).type = 'text';
     listOptionContainer.value = (gridOptions.currentPage + 1).toString();
@@ -1029,18 +903,18 @@ function CreatePaginationControl(gridOptions: IGridOptions) {
       isNumber(e, this, gridOptions.containerName);
     });
   } else {
-    for (let i = 1; i <= iLastPage; i++) {
-      const oListOption = document.createElement('option');
-      oListOption.innerText = i.toString();
-      utility.addClass(oListOption, 'ListOption');
-      oListOption.setAttribute('data-pageId', i.toString());
-      oListOption.addEventListener('click', function (e) {
+    for (let i = 1; i <= lastPage; i++) {
+      const listOption = document.createElement('option');
+      listOption.innerText = i.toString();
+      utility.addClass(listOption, 'ListOption');
+      listOption.setAttribute('data-pageId', i.toString());
+      listOption.addEventListener('click', function (e) {
         newRecords(this, gridOptions.gridName);
       });
-      listOptionContainer.appendChild(oListOption);
+      listOptionContainer.appendChild(listOption);
     }
     const oSelectedElement = document.querySelector(
-      '#' + gridOptions.gridName + " .ListOption[data-pageId='" + iCurrentPage + "']"
+      '#' + gridOptions.gridName + " .ListOption[data-pageId='" + currentPage + "']"
     ) as HTMLOptionElement;
     utility.addClass(oSelectedElement, 'SelectedPage');
     oSelectedElement.selected = true;
@@ -1052,12 +926,64 @@ function CreatePaginationControl(gridOptions: IGridOptions) {
       disableNext(gridOptions.gridName);
     }
   }
+}
 
-  console.log('End CreatePaginationControl');
+function CreateFetchControl(gridOptions: IGridOptions) {
+  const currentPage = (window as any).fetchCurrentPage || 1;
+  const fetchSpaceRow = gridOptions.tblFoot.insertRow(0);
+  const row = gridOptions.tblFoot.insertRow(1);
+
+  // Update properties of pagination space
+  const spaceCell = fetchSpaceRow.insertCell(0);
+  spaceCell.colSpan = gridOptions.columnHeader.length;
+  spaceCell.className = 'jsonPaginationMargin';
+
+  // Cell containing the pagination content
+  const cell = row.insertCell(0);
+  cell.className = 'jsonFooter';
+  cell.colSpan = gridOptions.columnHeader.length;
+
+  const paginationContainer = document.createElement('div');
+  paginationContainer.className = 'jsonGridFooter fetch-bar';
+
+  cell.appendChild(paginationContainer);
+
+  if (gridOptions.fetchData.resetData) {
+    const resetDataBtn = document.createElement('button');
+    resetDataBtn.className = 'fetch-button cur-pointer';
+    $(resetDataBtn).attr('active', '0');
+    resetDataBtn.onclick = () => {
+      (window as any).fetchCurrentPage = 1;
+      gridOptions.fetchData.resetData();
+    };
+    resetDataBtn.innerText = 'Return to first page';
+    paginationContainer.appendChild(resetDataBtn);
+    if (currentPage <= 1) {
+      resetDataBtn.style.visibility = 'hidden';
+    }
+  }
+  const pagesLabel = document.createElement('span');
+  pagesLabel.innerText = `Page: ${currentPage}`;
+  pagesLabel.className = 'jsonFooterLabel fetch-label';
+  paginationContainer.appendChild(pagesLabel);
+
+  const fetchDataBtn = document.createElement('button');
+  fetchDataBtn.className = 'fetch-button cur-pointer';
+  $(fetchDataBtn).attr('active', '0');
+
+  fetchDataBtn.onclick = () => {
+    (window as any).fetchCurrentPage = currentPage + 1;
+    gridOptions.fetchData.getNextPage();
+  };
+  fetchDataBtn.innerText = 'Load Next Page';
+  paginationContainer.appendChild(fetchDataBtn);
+
+  if (!gridOptions.fetchData.hasMoreData) {
+    fetchDataBtn.style.visibility = 'hidden';
+  }
 }
 
 function CreateHTMLTableRow(gridOptions: IGridOptions) {
-  console.log('CreateHTMLTableRow');
   var originalGridData = JSON.parse(JSON.stringify(gridOptions.data));
 
   for (let j = 0; j < gridOptions.data.length; j++) {
@@ -1427,7 +1353,6 @@ function CreateHTMLTableRow(gridOptions: IGridOptions) {
         cell.style.textAlign = gridOptions.columnHeader[cellCounter].align;
 
         let returnValue: DataColumn[string];
-        console.log('sdfsdf');
         if (gridOptions.endRow.includeFormatters && gridOptions.endRow.includeFormatters[gridOptions.columnHeader[cellCounter].name]) {
           switch (gridOptions.columnHeader[cellCounter].formatter) {
             case 'parseDealValue':
@@ -1503,12 +1428,9 @@ function CreateHTMLTableRow(gridOptions: IGridOptions) {
   }
 
   gridOptions.data = originalGridData;
-
-  console.log('End CreateHTMLTableRow');
 }
 
 function CreateHTMLTableWithHeader(gridOptions: IGridOptions) {
-  console.log('CreateHTMLTableWithHeader');
   const tHead = gridOptions.tblHead,
     numberOfHeaderColumns = gridOptions.columnHeader.length,
     iParentHeaderCount = gridOptions.headerTemplate.length;
@@ -1582,7 +1504,6 @@ function CreateHTMLTableWithHeader(gridOptions: IGridOptions) {
       var regex = /[!\"#$%&'\(\)\*\+,\.\/:;<=>\?\@\[\\\]\^`\{\|\}~ ]/g;
       // Add sorting functionality
       if (gridOptions.columnHeader[i].sortable) {
-        console.log('cell', cell);
         cell.onclick = () => sortJsonGrid(cell, gridOptions.gridName, gridOptions.columnHeader[i].name);
         cell.style.cursor = 'pointer';
         if (gridOptions.columnHeader[i].name === gridOptions.gridSort.sortBy) {
@@ -1631,12 +1552,9 @@ function CreateHTMLTableWithHeader(gridOptions: IGridOptions) {
       }
     }
   }
-
-  console.log('End CreateHTMLTableWithHeader');
 }
 
 function CreateHTMLTable(gridOptions: IGridOptions): HTMLDivElement | HTMLTableElement {
-  console.log('CreateHTMLTable');
   let gridContainer: HTMLDivElement;
   if (gridOptions.fixedHeaderEnd) {
     gridContainer = document.createElement('div');
@@ -1673,12 +1591,10 @@ function CreateHTMLTable(gridOptions: IGridOptions): HTMLDivElement | HTMLTableE
     gridOptions.containerObject.appendChild(grid);
   }
 
-  console.log('End CreateHTMLTable');
   return gridOptions.fixedHeaderEnd ? gridContainer : grid;
 }
 
 function CreateLegends(oGridConfiguration: IGridOptions) {
-  console.log('CreateLegends');
   var oLegendContainer = document.createElement('div'),
     oLegendSectionCover = document.createElement('div'),
     oLegendTitleSection = document.createElement('div'),
@@ -1727,7 +1643,6 @@ function CreateLegends(oGridConfiguration: IGridOptions) {
 }
 
 function JsonGrid(gridOptions: IGridOptions) {
-  console.log('JsonGrid');
   let containerObject: HTMLElement;
   if (!gridOptions.container) {
     containerObject = document.getElementById(gridOptions.containerName);
@@ -1837,7 +1752,12 @@ function JsonGrid(gridOptions: IGridOptions) {
         },
         customSecondaryFormatter: '',
       },
-      callBackFunc: null,
+      callBackFunc: () => {},
+      fetchData: {
+        enabled: false,
+        getNextPage: () => {},
+        hasMoreData: false,
+      },
     };
 
     for (const attribute in gridOptions) {
@@ -1855,6 +1775,7 @@ function JsonGrid(gridOptions: IGridOptions) {
         (newGridOptions[attribute as keyof IGridOptions] as any) = utility.clone(prop);
       }
     }
+
     if (newGridOptions.fixedHeaderEnd) {
       newGridOptions.scrolling.enabled = false;
     }
@@ -2032,6 +1953,9 @@ function JsonGrid(gridOptions: IGridOptions) {
       if (newGridOptions.totalPages) {
         CreatePaginationControl(newGridOptions);
       }
+      if (newGridOptions.fetchData.enabled) {
+        CreateFetchControl(newGridOptions);
+      }
     } else if (newGridOptions.scrolling.enabled) {
       CreateHTMLTableRow(newGridOptions);
       CreateHTMLTableWithHeader(newGridOptions);
@@ -2048,8 +1972,6 @@ function JsonGrid(gridOptions: IGridOptions) {
       CreateHTMLTableRow(newGridOptions);
     }
     gridObjects[newGridOptions.gridName] = newGridOptions;
-
-    console.log('end JsonGrid', newGridOptions);
   }
 
   //Pagination issue fix
@@ -2070,7 +1992,6 @@ function JsonGrid(gridOptions: IGridOptions) {
 }
 
 function jumpTo(index: number) {
-  console.log('jumpTo');
   const listOptionsContainer = document.getElementsByClassName('ListOptionContainer');
   if (listOptionsContainer && listOptionsContainer[index] && (listOptionsContainer[index] as HTMLSelectElement).options) {
     const selectElement = listOptionsContainer[index] as HTMLSelectElement;
@@ -2093,7 +2014,6 @@ function jumpTo(index: number) {
 
 // Function to create and update hidden chunk (this will be called only in case of server side grid)
 function createHiddenChunk(gridOptions: IGridOptions) {
-  console.log('createHiddenChunk');
   const container = gridOptions.container;
   let hiddenContainer = document.getElementById(container + '_hidden');
   if (hiddenContainer) {
@@ -2119,7 +2039,6 @@ function createHiddenChunk(gridOptions: IGridOptions) {
 
 // Function to send service request in case of server side grid
 function callService(gridOptions: IGridOptions) {
-  console.log('callService');
   const oHiddenContainer = document.getElementById(gridOptions.hiddenName);
   const callBack = gridOptions.serverGrid.sendRequestFunction;
 
@@ -2132,18 +2051,11 @@ function callService(gridOptions: IGridOptions) {
     startIndex: parseInt(oHiddenContainer.getAttribute('data-currentPage')) + 1,
     gridContainer: gridOptions.container,
   };
-  if (callBack && typeof (window as any)[callBack] === GridConstants.sFunction) {
-    if (gridOptions.pagination.paginate) {
-      // Empty the container before fetching next set of data in case of server side pagination
-      $('#' + gridOptions.container).text('');
-    }
-    (window as any)[callBack](parameters);
-  }
+  callBack(parameters);
 }
 
 // Function to add scroll handler
 function handleGridScroll(currentElement: HTMLElement) {
-  console.log('handleGridScroll');
   const gridOptions = gridObjects[currentElement.id + '_Grid'];
   if (gridOptions) {
     const hiddenContainer = document.getElementById(gridOptions.hiddenName);
@@ -2162,7 +2074,6 @@ function handleGridScroll(currentElement: HTMLElement) {
 
 // Function to append data to existing grid on scroll
 function appendDataToGrid(gridOptions: IGridOptions) {
-  console.log('appendDataToGrid');
   var hiddenContainer = document.getElementById(gridOptions.hiddenName);
   if (gridObjects[gridOptions.gridName]) {
     const gridConfigurationOptions = gridObjects[gridOptions.gridName];
@@ -2174,7 +2085,6 @@ function appendDataToGrid(gridOptions: IGridOptions) {
 
 // Function to calculate max and min
 function calculateMinMax(gridOptions: IGridOptions, iStartIndex: number, iEndIndex: number) {
-  console.log('calculateMinMax');
   let max, currentValue, min;
   const columnIncludedLength = gridOptions.dataConfiguration.columnsIncluded.length;
   for (let i = 0; i < columnIncludedLength; i++) {
@@ -2224,7 +2134,6 @@ function calculateMinMax(gridOptions: IGridOptions, iStartIndex: number, iEndInd
 }
 
 function getChildPosition(childNode: Element, parentNode: HTMLTableSectionElement) {
-  console.log('getChildPosition');
   let index = -1,
     iCount,
     iTotal = parentNode.querySelectorAll(childNode.tagName).length,

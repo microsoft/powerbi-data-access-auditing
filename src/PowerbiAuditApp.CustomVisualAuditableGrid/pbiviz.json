@@ -1,8 +1,8 @@
 {
   "visual": {
-    "name": "paginatedGrid",
-    "displayName": "Paginated Grid",
-    "guid": "paginatedGrid93E3E1B441D54AE191DEA2FA7C8D5962",
+    "name": "auditableGrid",
+    "displayName": "Auditable Grid",
+    "guid": "auditableGrid93E3E1B441D54AE191DEA2FA7C8D5962",
     "visualClassName": "Visual",
     "version": "1.0.0",
     "description": "Displays a formatted measure value inside a circle",
