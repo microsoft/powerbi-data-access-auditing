@@ -1,0 +1,413 @@
+p {
+  font-size: 20px;
+  font-weight: bold;
+  em {
+    background: yellow;
+    padding: 5px;
+  }
+}
+
+/*CSS*/
+.visual,
+.DataDiv {
+  overflow: auto;
+}
+
+.DataDiv {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 'calc(100% - 35px)';
+  cursor: default;
+}
+
+.jsonGrid {
+  overflow: hidden;
+  display: inline;
+}
+
+.table td,
+.table th {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+.table th {
+  background-color: #e2e2e2;
+}
+
+.contentCont {
+  width: 85%;
+  width: calc(100% - 45px);
+  display: inline-block;
+}
+
+/*CSS Validator count: 3
+::-ms-expand is an unknown vendor extended pseudo-element
+Property -moz-background-size is an unknown vendor extension
+Property -moz-background-size is an unknown vendor extension
+    */
+.jsonGrid,
+.jsonGridFooter a {
+  color: #2a2a2a;
+}
+
+.jsonGrid td {
+  padding: 3px 15px 0;
+}
+
+.jsonGrid .cur-pointer {
+  cursor: pointer;
+}
+
+.jsonGrid .click-disabled {
+  color: #dbdbdb;
+  cursor: default;
+}
+
+.jsonGridFooter div,
+.jsonGrid .middle {
+  display: inline;
+  float: left;
+  vertical-align: middle;
+}
+
+.jsonGrid .next,
+.jsonGrid .first {
+  float: left;
+  width: 20px;
+  font-weight: 500;
+  transform: scale(1, 1.7);
+  line-height: 1;
+}
+
+.jsonGrid .prev,
+.jsonGrid .last {
+  float: right;
+  height: 20px;
+  width: 20px;
+  font-weight: 500;
+  transform: scale(1, 1.7);
+  line-height: 1;
+}
+
+.jsonGridOverflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}
+
+.jsonGridHeader,
+td.jsonGridHeader {
+  background-color: #505050;
+  color: #fff;
+  border: 0;
+  border-right: 1px solid #fff;
+  vertical-align: bottom;
+  padding: 9px 15px 4px;
+  min-height: 17px;
+}
+
+.jsonGrid .jsonFooter {
+  padding: 2px 0;
+}
+
+.jsonGrid .jsonFooter .jsonGridFooter > div {
+  margin-top: 12px;
+}
+
+.jsonGrid .jsonFooter .jsonGridFooter > div:last-child {
+  margin-top: 7px;
+}
+
+.jsonGridFooter {
+  border-top: 1px solid #d2d2d2;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background: white;
+}
+
+.jsonGrid .jsonPaginationMargin {
+  padding: 0;
+  height: 0;
+}
+
+.GridRow:last-child .jsonGridRow,
+.GridRow_alt:last-child .jsonGridRow {
+  border-bottom-width: 0;
+}
+
+.GridRow_alt td {
+  background-color: #eee;
+}
+
+td.jsonGridRow {
+  height: 30px;
+  vertical-align: middle;
+  border-right: 1px #fff solid;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.jsonGrid .jsonGridFooter .ViewRecordDiv {
+  text-align: center;
+  color: #1570a6;
+  margin: 0 10px 0 0;
+}
+
+.jsonGridFooter a {
+  outline: none;
+}
+
+.jsonGridFooter .jsonFooterLabel {
+  text-align: center;
+  vertical-align: middle;
+  color: #969696;
+  margin-right: 10px;
+  margin-left: 30px;
+  line-height: 1;
+}
+
+.PaginationPrevArrowDiv {
+  margin-left: 10px;
+}
+
+.jsonGridRow a:hover {
+  color: #0095c4;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.jsonGridRow a,
+.jsonGridRow a:visited {
+  color: #00749e;
+  text-decoration: none;
+}
+
+.SortIndicator {
+  display: table-cell;
+  padding-left: 10px;
+  padding-top: 0;
+  width: 1%;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.SortIndicator img {
+  height: 12px;
+  width: 12px;
+}
+.SortIndicator > .asc {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 0;
+  border-bottom: 5px solid white;
+  float: right;
+}
+.SortIndicator > .desc {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 0;
+  border-top: 5px solid white;
+  float: right;
+}
+
+.itemHide {
+  visibility: hidden;
+}
+
+.SortedColumn {
+  background-color: #0072c6;
+}
+
+.jsonGridRow {
+  border-bottom: 1px #f0f0f0 solid;
+}
+
+table {
+  border-spacing: 0;
+  width: 100%;
+}
+
+.ColumnText {
+  display: table-cell;
+  max-width: 80%;
+  padding-bottom: 3px;
+  word-wrap: break-word;
+}
+
+.jsonGridParentHeader {
+  height: 30px;
+  border-right: 1px solid #fff;
+  padding: 3px 15px;
+}
+
+.LegendSection {
+  display: table-row;
+}
+
+.LegendSection > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+div.PageListItem {
+  min-width: 8px;
+  margin-right: 4px;
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+div.PageListItem:hover {
+  box-shadow: inset 0 0 0 1px #1570a6;
+}
+
+div.PageListItem:last-child {
+  margin-right: 0;
+}
+
+.jsonGrid .Hidden {
+  display: none;
+}
+
+.ListOptionContainerParent {
+  width: 60px;
+}
+
+.ListOptionContainer {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  width: 60px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input.ListOptionContainer[type='text'] {
+  font-size: inherit;
+  text-align: center;
+  width: 50px;
+}
+
+input.ListOptionContainer[type='text']:hover {
+  cursor: auto;
+}
+
+select::-ms-expand {
+  background-color: transparent;
+  border: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.ListOption {
+  color: #2a2a2a;
+}
+
+.SelectedPage,
+select.ListOptionContainer option:focus,
+select.ListOptionContainer option:hover {
+  color: #fff;
+  background-color: #1570a6;
+}
+
+.jsonScrollHeader {
+  position: absolute;
+}
+
+.jsonScrollContainer {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.RightGrid {
+  width: 70%;
+  float: right;
+  overflow-x: auto;
+}
+
+.LeftGrid {
+  float: left;
+  width: 30%;
+}
+
+.HandIcon {
+  color: #1570a6;
+  cursor: pointer;
+}
+
+td.ExpandHeader {
+  padding-left: 12px;
+  padding-right: 8px;
+  height: 100%;
+  float: left;
+}
+
+td.GridEndRow {
+  height: 30px;
+}
+
+.jsonGridFooter .click-disabled,
+.HiddenSection {
+  display: none;
+}
+
+.paginationBorder.RightGrid {
+  border-bottom: 1px solid #d2d2d2;
+}
+
+.TileGrid_PaginationPart {
+  clear: both;
+}
+
+.jsonGrid .jsonFooter .jsonGridFooter > div.totalPagesLabel {
+  margin-left: 10px;
+  margin-top: 12px;
+  font-style: italic;
+}
+
+.DropDownRecords {
+  margin-top: 10px;
+}
+
+td.jsonGridRow .gridCellWrap {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.SubTableHeader {
+  color: #2a2a2a;
+  background-color: #d2d2d2;
+}
+
+.hyperLink {
+  color: #005999;
+  cursor: pointer;
+}
+
+.fetch-bar {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+
+  .fetch-button {
+    color: white;
+    background-color: #2179a6;
+    border: 0;
+    cursor: pointer;
+    padding: 5px;
+    width: 9.5em;
+    text-align: center;
+  }
+  .fetch-label {
+    align-self: center;
+    margin: 0;
+  }
+}

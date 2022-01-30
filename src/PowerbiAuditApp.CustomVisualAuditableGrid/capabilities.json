@@ -1,0 +1,60 @@
+{
+  "dataRoles": [
+    {
+      "displayName": "Values",
+      "name": "Values",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "Tooltip",
+      "kind": "GroupingOrMeasure",
+      "displayName": "Tooltip"
+    }
+  ],
+  "objects": {
+    "gridConfiguration": {
+      "displayName": "Grid Configuration",
+      "properties": {
+        "fontSize": {
+          "displayName": "Text size",
+          "description": "Font size for the Grid",
+          "type": {
+            "formatting": {
+              "fontSize": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "dataViewMappings": [
+    {
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "Values"
+              }
+            },
+            {
+              "for": {
+                "in": "Tooltip"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 3000
+            }
+          }
+        },
+        "rowCount": {
+          "preferred": {
+            "min": 1
+          }
+        }
+      }
+    }
+  ]
+}
