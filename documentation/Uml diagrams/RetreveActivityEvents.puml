@@ -1,0 +1,21 @@
+@startuml Retreve activity events
+!theme cerulean
+
+title "Retreve Activity Events"
+
+boundary "Retrieve Activity Events" as  RetrieveActivityEvents
+boundary "Power BI" as PowerBI
+database "Process run table" as PbiProcessRunTable
+database "Power BI activity events" as PowerBiActivityEvents
+
+
+[->RetrieveActivityEvents : Timer trigger ++ [10 minutes]
+activate RetrieveActivityEvents
+RetrieveActivityEvents -> PbiProcessRunTable ++ : Request last processing timestamp 
+PbiProcessRunTable -> RetrieveActivityEvents -- : Return last processing timestamp
+RetrieveActivityEvents -> PowerBI ++ : Request activity events from Power BI
+PowerBI -> RetrieveActivityEvents -- : Return activity events
+RetrieveActivityEvents -> PowerBiActivityEvents : Save activity events
+RetrieveActivityEvents -> PbiProcessRunTable : Update last processing timestamp
+deactivate RetrieveActivityEvents
+@enduml
