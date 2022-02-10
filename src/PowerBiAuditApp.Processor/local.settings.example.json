@@ -1,0 +1,19 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "StorageAccountBlobEndpoint": "UseDevelopmentStorage=true",
+    "StorageAccountQueueEndpoint": "UseDevelopmentStorage=true",
+    "StorageAccountTableEndpoint": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "AzureWebJobsSendGridApiKey": "***************************************************",
+    "ErrorFromEmailAddress": "test@arkahna.io",
+    "ErrorToEmailAddress": "test@arkahna.io",
+
+    "ServicePrincipal:AuthenticationMode": "ServicePrincipal",
+    "ServicePrincipal:ClientId": "*****-****-***-****",
+    "ServicePrincipal:TenantId": "*****-****-***-****",
+    "ServicePrincipal:Scope:0": "https://analysis.windows.net/powerbi/api/.default",
+    "ServicePrincipal:ClientSecret": "*****-****-***-****"
+  }
+}
