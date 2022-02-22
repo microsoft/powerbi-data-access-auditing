@@ -1,0 +1,26 @@
+@startuml Process Audit logs
+!theme cerulean
+
+title "Process Audit logs"
+
+queue "Audit Queue" as AuditQueue
+boundary "Audit Log Processor" as AuditLogProcessor
+database "Raw Audit Logs" as RawAuditLogs
+database "Processed Audit Logs" as ProcessedAuditLogs
+boundary "Send Grid" as SendGrid
+
+[->AuditQueue : Trigger from Audit Web Site
+
+AuditQueue -> AuditLogProcessor : Trigger processing
+activate AuditLogProcessor
+AuditLogProcessor -> RawAuditLogs ++ : Retreve raw audit logs
+RawAuditLogs -> AuditLogProcessor -- : Return raw audit logs
+AuditLogProcessor -> AuditLogProcessor : process audit logs
+
+alt Processing successful
+AuditLogProcessor -> ProcessedAuditLogs: Save processed csv
+else Processing failed
+AuditLogProcessor -[#FF0000]-> SendGrid !! : Send error email on failure
+end
+deactivate AuditLogProcessor
+@enduml

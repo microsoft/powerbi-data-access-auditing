@@ -83,7 +83,6 @@ namespace PowerBiAuditApp.Processor
             var now = DateTimeOffset.UtcNow;
             var groups = await _powerBiReportService.GetGroups();
 
-
             var tasks = new List<Task>();
             foreach (var group in groups)
             {
@@ -91,14 +90,14 @@ namespace PowerBiAuditApp.Processor
             }
             await Task.WhenAll(tasks);
 
-            var reportIds = groups.Select(x => x.Id).ToArray();
+            var groupIds = groups.Select(x => x.Id).ToArray();
             var rowsToDelete = await groupTable.GetEntitiesOlderThanAsync<PbiGroupTable>(now);
 
             tasks = new List<Task>();
-            foreach (var pbiReportTable in rowsToDelete)
+            foreach (var rowToDelete in rowsToDelete)
             {
-                if (reportIds.Contains(pbiReportTable.Id))
-                    tasks.Add(groupTable.DeleteEntityAsync(pbiReportTable));
+                if (!groupIds.Contains(rowToDelete.Id))
+                    tasks.Add(groupTable.DeleteEntityAsync(rowToDelete));
             }
             await Task.WhenAll(tasks);
             log.LogInformation("Finished Sync of Groups");
@@ -126,13 +125,13 @@ namespace PowerBiAuditApp.Processor
             await Task.WhenAll(tasks);
 
             var reportIds = reports.Select(x => x.Id).ToArray();
-            var query = await reportTable.GetEntitiesOlderThanAsync<PbiReportTable>(group.Id.ToString(), now);
+            var rowsToDelete = await reportTable.GetEntitiesOlderThanAsync<PbiReportTable>(group.Id.ToString(), now);
 
             tasks = new List<Task>();
-            foreach (var pbiGroupTable in query)
+            foreach (var rowToDelete in rowsToDelete)
             {
-                if (reportIds.Contains(pbiGroupTable.Id))
-                    tasks.Add(reportTable.DeleteEntityAsync(pbiGroupTable));
+                if (!reportIds.Contains(rowToDelete.Id))
+                    tasks.Add(reportTable.DeleteEntityAsync(rowToDelete));
             }
             await Task.WhenAll(tasks);
             log.LogInformation("Finished Sync of Reports for Groups {groupName}", group.Name);
@@ -158,14 +157,14 @@ namespace PowerBiAuditApp.Processor
             }
             await Task.WhenAll(tasks);
 
-            var reportIds = dataSets.Select(x => x.Id).ToArray();
-            var query = await dataSetTable.GetEntitiesOlderThanAsync<PbiDataSetTable>(group.Id.ToString(), now);
+            var dataSetIds = dataSets.Select(x => x.Id).ToArray();
+            var rowsToDelete = await dataSetTable.GetEntitiesOlderThanAsync<PbiDataSetTable>(group.Id.ToString(), now);
 
             tasks = new List<Task>();
-            foreach (var pbiDataSetTable in query)
+            foreach (var rowToDelete in rowsToDelete)
             {
-                if (reportIds.Contains(pbiDataSetTable.Id))
-                    tasks.Add(dataSetTable.DeleteEntityAsync(pbiDataSetTable));
+                if (!dataSetIds.Contains(rowToDelete.Id))
+                    tasks.Add(dataSetTable.DeleteEntityAsync(rowToDelete));
             }
 
             await Task.WhenAll(tasks);
@@ -191,14 +190,14 @@ namespace PowerBiAuditApp.Processor
             }
             await Task.WhenAll(tasks);
 
-            var reportIds = dashboards.Select(x => x.Id).ToArray();
-            var query = await dashboardTable.GetEntitiesOlderThanAsync<PbiDashboardTable>(group.Id.ToString(), now);
+            var dashboardIds = dashboards.Select(x => x.Id).ToArray();
+            var rowsToDelete = await dashboardTable.GetEntitiesOlderThanAsync<PbiDashboardTable>(group.Id.ToString(), now);
 
             tasks = new List<Task>();
-            foreach (var pbiDashboardTable in query)
+            foreach (var rowToDelete in rowsToDelete)
             {
-                if (reportIds.Contains(pbiDashboardTable.Id))
-                    tasks.Add(dashboardTable.DeleteEntityAsync(pbiDashboardTable));
+                if (!dashboardIds.Contains(rowToDelete.Id))
+                    tasks.Add(dashboardTable.DeleteEntityAsync(rowToDelete));
             }
             await Task.WhenAll(tasks);
 
@@ -217,8 +216,6 @@ namespace PowerBiAuditApp.Processor
             var now = DateTimeOffset.UtcNow;
             var dataFlows = await _powerBiReportService.GetDataFlows(group.Id);
 
-
-
             var tasks = new List<Task>();
             foreach (var dataFlow in dataFlows)
             {
@@ -226,15 +223,15 @@ namespace PowerBiAuditApp.Processor
             }
             await Task.WhenAll(tasks);
 
-            var reportIds = dataFlows.Select(x => x.ObjectId).ToArray();
-            var query = await dataFlowTable
+            var dataFlowIds = dataFlows.Select(x => x.ObjectId).ToArray();
+            var rowsToDelete = await dataFlowTable
                 .GetEntitiesOlderThanAsync<PbiDataFlowTable>(group.Id.ToString(), now);
 
             tasks = new List<Task>();
-            foreach (var pbiDataFlowTable in query)
+            foreach (var rowToDelete in rowsToDelete)
             {
-                if (reportIds.Contains(pbiDataFlowTable.ObjectId))
-                    tasks.Add(dataFlowTable.DeleteEntityAsync(pbiDataFlowTable));
+                if (!dataFlowIds.Contains(rowToDelete.ObjectId))
+                    tasks.Add(dataFlowTable.DeleteEntityAsync(rowToDelete));
             }
             await Task.WhenAll(tasks);
             log.LogInformation("Finished Sync of Data Flows for Groups {groupName}", group.Name);

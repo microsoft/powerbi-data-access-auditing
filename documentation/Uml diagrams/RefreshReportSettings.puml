@@ -1,0 +1,29 @@
+@startuml Refresh Report Settings
+!theme cerulean
+
+title "Refresh Report Settings"
+
+queue "Manual data Refresh Trigger" as DataRefreshQueue
+boundary "Referance Data Sync" as  ReferanceDataSync
+boundary "Power BI" as PowerBI
+database "Referance Data Tables" as ReferanceDataTables
+database "Report Settings Table" as ReportSettingsTable
+
+
+alt Manual trigger
+[->DataRefreshQueue : Trigger from Audit Web Site
+  DataRefreshQueue -> ReferanceDataSync ++ : Trigger processing
+else Daily timer trigger
+  [->ReferanceDataSync : Timer trigger
+end
+loop Groups, Dashboards, Data flows, Reports
+  ReferanceDataSync -> PowerBI ++ : Request details from Power BI
+  PowerBI -> ReferanceDataSync -- : Return details 
+  ReferanceDataSync -> ReferanceDataTables : Save returned details
+end
+ReferanceDataSync -> ReportSettingsTable ++ : Request current report settings
+ReportSettingsTable -> ReferanceDataSync -- : Return current report settings
+ReferanceDataSync -> ReferanceDataSync : Update settings based on returned data
+ReferanceDataSync -> ReportSettingsTable : Save updated settings
+
+@enduml

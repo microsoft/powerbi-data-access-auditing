@@ -1,0 +1,19 @@
+@startuml User Retreve Reports
+!theme cerulean
+
+title "User Retreve Reports"
+
+actor User
+boundary "Audit Web Site" as WebSite
+boundary "Power BI" as PowerBI
+database "Raw Audit Logs" as RawAuditLogs
+queue "Audit Queue" as AuditQueue
+
+User -> WebSite ++ : Request Report
+WebSite -> PowerBI ++ : Request Report Data
+PowerBI -> WebSite --: Return Report Data
+WebSite -> RawAuditLogs : Store raw audit log
+WebSite -> AuditQueue : Queue Report data for processing
+WebSite -> User -- : Return report
+
+@enduml
